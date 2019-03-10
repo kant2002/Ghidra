@@ -1,0 +1,9 @@
+.idea/
+.vs/
+
+wrapper.log*
+*.zip
+*.jar
+repositories/
+build/
+*.user
