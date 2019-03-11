@@ -22,6 +22,7 @@
     <module>Help</module>
     <module>FileSystem</module>
     <module>Project</module>
+    <module>SoftwareModeling</module>
   </modules>
 
 </project>
