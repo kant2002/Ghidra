@@ -76,7 +76,7 @@
     </pluginManagement>
   </build>
   <modules>
-    <!--module>Framework</module-->
+    <module>Framework</module>
     <module>Features</module>
   </modules>
 </project>

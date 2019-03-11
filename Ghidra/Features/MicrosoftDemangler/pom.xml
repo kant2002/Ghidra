@@ -9,9 +9,7 @@
         <version>9.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>ghidra</groupId>
     <artifactId>MicrosoftDemangler</artifactId>
-    <version>9.0-SNAPSHOT</version>
 
     <build>
         <finalName>MicrosoftDemangler</finalName>
@@ -35,9 +33,7 @@
         <dependency>
             <groupId>ghidra</groupId>
             <artifactId>Utility</artifactId>
-            <version>9.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../../Framework/Utility/lib/Utility.jar</systemPath>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>ghidra</groupId>
