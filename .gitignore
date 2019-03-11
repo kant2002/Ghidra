@@ -1,12 +1,7 @@
-.idea/
-.vs/
+# Ignore Gradle project-specific cache directory
+.gradle
 
-target/
+# Ignore Gradle build output directory
+build
 
 wrapper.log*
-*.zip
-*.jar
-repositories/
-build/
-*.user
-*.iml
