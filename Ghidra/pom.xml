@@ -13,6 +13,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>11</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -40,9 +43,10 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
-          <configuration>
+          <!-- this is does not work, since add-exports used -->
+          <!--configuration>
             <release>11</release>
-          </configuration>
+          </configuration-->
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
