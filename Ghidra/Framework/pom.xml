@@ -18,6 +18,7 @@
     <module>Generic</module>
     <module>DB</module>
     <module>Docking</module>
+    <module>Graph</module>
     <module>Help</module>
     <module>FileSystem</module>
   </modules>
