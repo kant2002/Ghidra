@@ -21,6 +21,7 @@
     <module>Graph</module>
     <module>Help</module>
     <module>FileSystem</module>
+    <module>Project</module>
   </modules>
 
 </project>
