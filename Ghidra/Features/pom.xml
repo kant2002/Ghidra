@@ -16,6 +16,7 @@
 
   <modules>
     <module>MicrosoftDemangler</module>
+    <module>MicrosoftDmang</module>
   </modules>
 
 </project>
