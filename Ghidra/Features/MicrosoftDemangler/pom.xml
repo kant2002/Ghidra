@@ -43,23 +43,17 @@
         <dependency>
             <groupId>ghidra</groupId>
             <artifactId>Demangler</artifactId>
-            <version>9.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../../Framework/Demangler/lib/Demangler.jar</systemPath>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>ghidra</groupId>
             <artifactId>Project</artifactId>
-            <version>9.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../../Framework/Project/lib/Project.jar</systemPath>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>ghidra</groupId>
             <artifactId>SoftwareModeling</artifactId>
-            <version>9.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../../Framework/SoftwareModeling/lib/SoftwareModeling.jar</systemPath>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
