@@ -38,9 +38,7 @@
         <dependency>
             <groupId>ghidra</groupId>
             <artifactId>Generic</artifactId>
-            <version>9.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../../Framework/Generic/lib/Generic.jar</systemPath>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>ghidra</groupId>
