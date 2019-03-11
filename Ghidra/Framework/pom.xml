@@ -15,6 +15,7 @@
   <modules>
     <module>Utility</module>
     <module>Demangler</module>
+    <module>DB</module>
     <module>Generic</module>
     <module>Docking</module>
     <module>Help</module>
