@@ -1,9 +1,12 @@
 .idea/
 .vs/
 
+target/
+
 wrapper.log*
 *.zip
 *.jar
 repositories/
 build/
 *.user
+*.iml

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>Features</artifactId>
+        <groupId>ghidra</groupId>
+        <version>9.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>ghidra</groupId>
+    <artifactId>MicrosoftDemangler</artifactId>
+    <version>9.0-SNAPSHOT</version>
+
+    <build>
+        <finalName>MicrosoftDemangler</finalName>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>ghidra</groupId>
+            <artifactId>MicrosoftDmang</artifactId>
+            <version>9.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../MicrosoftDmang/lib/MicrosoftDmang.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ghidra</groupId>
+            <artifactId>Base</artifactId>
+            <version>9.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../Base/lib/Base.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ghidra</groupId>
+            <artifactId>Utility</artifactId>
+            <version>9.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../../Framework/Utility/lib/Utility.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ghidra</groupId>
+            <artifactId>Generic</artifactId>
+            <version>9.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../../Framework/Generic/lib/Generic.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ghidra</groupId>
+            <artifactId>Demangler</artifactId>
+            <version>9.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../../Framework/Demangler/lib/Demangler.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ghidra</groupId>
+            <artifactId>Project</artifactId>
+            <version>9.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../../Framework/Project/lib/Project.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ghidra</groupId>
+            <artifactId>SoftwareModeling</artifactId>
+            <version>9.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../../Framework/SoftwareModeling/lib/SoftwareModeling.jar</systemPath>
+        </dependency>
+    </dependencies>
+</project>
