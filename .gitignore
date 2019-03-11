@@ -5,3 +5,13 @@
 build
 
 wrapper.log*
+
+# VS configuration
+.vs/
+*.user
+
+# Maven configuration
+lib/
+target/
+
+repositories/
