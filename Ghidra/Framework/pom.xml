@@ -15,10 +15,11 @@
   <modules>
     <module>Utility</module>
     <module>Demangler</module>
-    <module>DB</module>
     <module>Generic</module>
+    <module>DB</module>
     <module>Docking</module>
     <module>Help</module>
+    <module>FileSystem</module>
   </modules>
 
 </project>
