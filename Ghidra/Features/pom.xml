@@ -24,6 +24,7 @@
     <module>FunctionGraph</module>
     <module>FunctionGraphDecompilerExtension</module>
     <module>FunctionID</module>
+    <module>GnuDemangler</module>
     <module>MicrosoftDemangler</module>
     <module>MicrosoftDmang</module>
     <module>PDB</module>
