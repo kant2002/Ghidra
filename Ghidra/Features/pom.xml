@@ -30,6 +30,7 @@
     <module>MicrosoftDemangler</module>
     <module>MicrosoftDmang</module>
     <module>PDB</module>
+    <module>ProgramDiff</module>
   </modules>
 
 </project>
