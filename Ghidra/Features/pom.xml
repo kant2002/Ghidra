@@ -15,6 +15,7 @@
   <name>Features</name>
 
   <modules>
+    <module>Base</module>
     <module>MicrosoftDemangler</module>
     <module>MicrosoftDmang</module>
   </modules>
