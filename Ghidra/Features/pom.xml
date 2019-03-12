@@ -18,6 +18,7 @@
     <module>Base</module>
     <module>MicrosoftDemangler</module>
     <module>MicrosoftDmang</module>
+    <module>PDB</module>
   </modules>
 
 </project>
