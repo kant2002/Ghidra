@@ -31,6 +31,7 @@
     <module>MicrosoftDmang</module>
     <module>PDB</module>
     <module>ProgramDiff</module>
+    <module>Python</module>
   </modules>
 
 </project>
