@@ -17,6 +17,7 @@
   <modules>
     <module>Base</module>
     <module>BytePatterns</module>
+    <module>ByteViewer</module>
     <module>MicrosoftDemangler</module>
     <module>MicrosoftDmang</module>
     <module>PDB</module>
