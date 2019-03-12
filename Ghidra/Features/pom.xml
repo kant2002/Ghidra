@@ -32,6 +32,7 @@
     <module>PDB</module>
     <module>ProgramDiff</module>
     <module>Python</module>
+    <module>Recognizers</module>
   </modules>
 
 </project>
