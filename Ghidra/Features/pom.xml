@@ -23,6 +23,7 @@
     <module>DecompilerDependent</module>
     <module>FunctionGraph</module>
     <module>FunctionGraphDecompilerExtension</module>
+    <module>FunctionID</module>
     <module>MicrosoftDemangler</module>
     <module>MicrosoftDmang</module>
     <module>PDB</module>
