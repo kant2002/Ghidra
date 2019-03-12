@@ -34,6 +34,7 @@
     <module>Python</module>
     <module>Recognizers</module>
     <module>SourceCodeLookup</module>
+    <module>VersionTracking</module>
   </modules>
 
 </project>
