@@ -19,16 +19,12 @@
         <dependency>
             <groupId>ghidra</groupId>
             <artifactId>MicrosoftDmang</artifactId>
-            <version>9.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../MicrosoftDmang/lib/MicrosoftDmang.jar</systemPath>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>ghidra</groupId>
             <artifactId>Base</artifactId>
-            <version>9.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../Base/lib/Base.jar</systemPath>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>ghidra</groupId>
