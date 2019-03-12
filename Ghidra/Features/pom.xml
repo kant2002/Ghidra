@@ -24,6 +24,7 @@
     <module>FunctionGraph</module>
     <module>FunctionGraphDecompilerExtension</module>
     <module>FunctionID</module>
+    <module>GhidraServer</module>
     <module>GnuDemangler</module>
     <module>GraphFunctionCalls</module>
     <module>MicrosoftCodeAnalyzer</module>
