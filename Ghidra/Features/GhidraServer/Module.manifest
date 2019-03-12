@@ -1,0 +1,3 @@
+DATA SEARCH IGNORE DIR: yajsw-stable-12.12
+EXCLUDE FROM GHIDRA JAR: true
+MODULE FILE LICENSE: lib/tagishauth.jar Public Domain
