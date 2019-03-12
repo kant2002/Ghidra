@@ -21,6 +21,7 @@
     <module>DebugUtils</module>
     <module>Decompiler</module>
     <module>DecompilerDependent</module>
+    <module>FunctionGraph</module>
     <module>MicrosoftDemangler</module>
     <module>MicrosoftDmang</module>
     <module>PDB</module>
