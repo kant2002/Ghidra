@@ -7,9 +7,7 @@
     <version>9.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>ghidra</groupId>
   <artifactId>Features</artifactId>
-  <version>9.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Features</name>
@@ -21,6 +19,7 @@
     <module>DebugUtils</module>
     <module>Decompiler</module>
     <module>DecompilerDependent</module>
+    <module>FileFormats</module>
     <module>FunctionGraph</module>
     <module>FunctionGraphDecompilerExtension</module>
     <module>FunctionID</module>
