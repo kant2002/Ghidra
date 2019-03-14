@@ -1,6 +1,8 @@
 Ghidra
 ======
 
+[![Build Status](https://codevision.visualstudio.com/Ghidra/_apis/build/status/kant2002.Ghidra?branchName=master)](https://codevision.visualstudio.com/Ghidra/_build/latest?definitionId=92&branchName=master)
+
 Let's build me!
 
 # How to build
