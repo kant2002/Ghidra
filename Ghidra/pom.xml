@@ -82,5 +82,6 @@
   <modules>
     <module>Framework</module>
     <module>Features</module>
+    <module>Processors</module>
   </modules>
 </project>
