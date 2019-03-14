@@ -276,9 +276,17 @@ public class PdbParserNEW {
 
 		defineClasses(monitor, log);
 
-		applyDataTypes.buildDataTypes(monitor);
-		applyClasses.buildDataTypes(monitor);
-		applyTypeDefs.buildTypeDefs(monitor);
+		if (applyDataTypes != null) {
+			applyDataTypes.buildDataTypes(monitor);
+		}
+
+		if (applyClasses != null) {
+			applyClasses.buildDataTypes(monitor);
+		}
+
+		if (applyTypeDefs != null) {
+			applyTypeDefs.buildTypeDefs(monitor);
+		}
 
 		// Ensure that all data types are resolved
 		flushDataTypeCache();
