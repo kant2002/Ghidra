@@ -1,0 +1,153 @@
+<pdb file="D:\d\kant\my\sre\ConsoleApplication1\Debug\ConsoleApplication1.pdb" exe="ConsoleApplication1" guid="{2D0C13AA-D03A-44C2-B13A-3C9077EEC622}" age="1">
+    <tables>
+        <table name="SourceFiles">
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\streambuf" id="0x3" />
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xiosbase" id="0x4" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\system_error" id="0x5" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\sys\stat.h" id="0x6" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\cmath" id="0x7" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdlib.h" id="0x8" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winnt.h" id="0x9" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\vcruntime_new.h" id="0xa" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\basetsd.h" id="0xb" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\vcruntime_exception.h" id="0xc" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xlocale" id="0xd" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xcall_once.h" id="0xe" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\memory" id="0xf" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\istream" id="0x10" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\stdexcept" id="0x11" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\ostream" id="0x12" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\vcruntime_typeinfo.h" id="0x13" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\exception" id="0x14" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\ios" id="0x15" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xmemory0" id="0x16" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\type_traits" id="0x17" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xstddef" id="0x18" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xlocnum" id="0x19" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winioctl.h" id="0x1b" />
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\corecrt_wtime.h" id="0x1c" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\limits" id="0x1d" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\wchar.h" id="0x1e" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\corecrt_wconio.h" id="0x1f" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xfacet" id="0x20" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winuser.h" id="0x21" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\corecrt_wstring.h" id="0x22" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\cstdlib" id="0x23" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\corecrt_math.h" id="0x24" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\guiddef.h" id="0x25" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\corecrt_wio.h" id="0x26" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\malloc.h" id="0x27" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xstring" id="0x28" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\iosfwd" id="0x29" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xutility" id="0x2a" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\utility" id="0x2b" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\string.h" id="0x2c" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\stralign.h" id="0x2d" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xatomic0.h" id="0x2e" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\corecrt_memory.h" id="0x2f" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\corecrt_memcpy_s.h" id="0x30" /> 
+            <source_file name="C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\VC\Tools\MSVC\14.20.27404\include\xlocinfo" id="0x31" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\ctype.h" id="0x32" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h" id="0x33" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\corecrt_wstdio.h" id="0x34" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\corecrt_stdio_config.h" id="0x35" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\winbase.h" id="0x36" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\processthreadsapi.h" id="0x37" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h" id="0x38" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\memoryapi.h" id="0x39" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\propidl.h" id="0x3a" /> 
+            <source_file name="C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\oleauto.h" id="0x3b" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\corecrt_wstring.h" id="0x3c" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\Windows\10\sdk\inc\winnt.h" id="0x3d" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\ctype.h" id="0x3e" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\Windows\10\sdk\inc\basetsd.h" id="0x3f" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\Windows\10\sdk\inc\stralign.h" id="0x40" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\Windows\10\sdk\inc\processthreadsapi.h" id="0x41" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\string.h" id="0x42" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\corecrt_memcpy_s.h" id="0x43" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\Windows\10\sdk\inc\winbase.h" id="0x44" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\Windows\10\sdk\inc\winerror.h" id="0x45" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\malloc.h" id="0x46" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\Windows\10\sdk\inc\evntprov.h" id="0x47" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcruntime\inc\internal_shared.h" id="0x48" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcruntime\inc\vcruntime_internal.h" id="0x49" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\gs\gs_report.c" id="0x4a" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcruntime\inc\i386\xmmintrin.h" id="0x4b" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\gs\gs_support.c" id="0x4c" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\misc\debugger_jmc.c" id="0x4d" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\misc\guard_support.c" id="0x4e" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\math.h" id="0x4f" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\utility\dyn_tls_dtor.c" id="0x50" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\utility\dyn_tls_init.c" id="0x51" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\utility\matherr_detection.c" id="0x52" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\utility\ucrt_detection.c" id="0x53" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\misc\i386\cpu_disp.c" id="0x54" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\eh\i386\chandler4gs.c" id="0x55" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\eh\i386\secchk.c" id="0x56" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\argv_mode.cpp" id="0x57" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\commit_mode.cpp" id="0x58" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\stdlib.h" id="0x59" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\default_local_stdio_options.cpp" id="0x5a" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\inc\vcstartup_internal.h" id="0x5b" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\Windows\10\sdk\inc\guiddef.h" id="0x5c" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\corecrt_memory.h" id="0x5d" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcruntime\inc\vcruntime_new.h" id="0x5e" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\stdio.h" id="0x5f" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\corecrt_wstdio.h" id="0x60" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\UnifiedCRT\inc\corecrt_stdio_config.h" id="0x61" /> 
+            <source_file name="d:\agent\_work\2\s\src\ExternalAPIs\Windows\10\sdk\inc\winuser.h" id="0x62" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\denormal_control.cpp" id="0x63" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\env_mode.cpp" id="0x64" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\file_mode.cpp" id="0x65" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\invalid_parameter_handler.cpp" id="0x66" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\matherr.cpp" id="0x67" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\new_mode.cpp" id="0x68" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\thread_locale.cpp" id="0x69" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcruntime\inc\vcruntime_typeinfo.h" id="0x6a" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcruntime\inc\vcruntime_exception.h" id="0x6b" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\eh\tncleanup.cpp" id="0x6c" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\startup\exe_main.cpp" id="0x6d" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\startup\exe_common.inl" id="0x6e" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\utility\utility.cpp" id="0x6f" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\utility\ucrt_stubs.cpp" id="0x70" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\utility\utility_desktop.cpp" id="0x71" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\rtc\error.cpp" id="0x72" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\rtc\init.cpp" id="0x73" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\rtc\initsect.cpp" id="0x74" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\langapi\include\pdb.h" id="0x75" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\langapi\include\cvinfo.h" id="0x76" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\rtc\pdblkup.cpp" id="0x77" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\rtc\stack.cpp" id="0x78" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\rtc\userapi.cpp" id="0x79" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\default_precision.cpp" id="0x7a" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\defaults\i386\x86_exception_filter.cpp" id="0x7b" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\vcstartup\src\eh\i386\chandler4_noexcept.cpp" id="0x7c" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\crtw32\stdhpp\type_traits" id="0x7d" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\crtw32\stdhpp\cstddef" id="0x7e" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\crtw32\stdhpp\exception" id="0x7f" /> 
+            <source_file name="d:\agent\_work\2\s\src\vctools\crt\crtw32\stdhpp\cstdlib" id="0x80" /> 
+        </table>
+        <table name="LineNumbers">
+        </table>
+        <table name="Sections">
+        </table>
+        <table name="SegmentMap">
+            <segment number="1" address="0x1000" />  
+            <segment number="2" address="0x11000" />  
+            <segment number="3" address="0x17000" />  
+            <segment number="4" address="0x1a000" />  
+            <segment number="5" address="0x1b000" />  
+            <segment number="6" address="0x1c000" />  
+            <segment number="7" address="0x1d000" />  
+            <segment number="8" address="0x1e000" />  
+            <segment number="9" address="0x1f000" />  
+            <segment number="10" address="0x0" />  
+        </table>
+        <table name="InjectedSource">
+        </table>
+        <table name="FrameData">
+        </table>
+        <table name="InputAssemblyFiles">
+        </table>
+    </tables>
+</pdb>
