@@ -9,9 +9,9 @@
         <version>9.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>6505</artifactId>
+    <artifactId>6502</artifactId>
 
     <build>
-        <finalName>6505</finalName>
+        <finalName>6502</finalName>
     </build>
 </project>
