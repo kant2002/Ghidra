@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!-- Auto-generated on Thu Feb 28 12:48:37 EST 2019 -->
+
+<toc version="2.0">
+<tocitem text="a" target="Misc_Welcome_to_Ghidra_Help" mergetype="javax.help.SortMerge" display="Welcome to Ghidra Help" toc_id="Root">
+	<tocitem text="1a" target="Intro_Intro" mergetype="javax.help.SortMerge" display="Introduction" toc_id="Intro" />
+	<tocitem text="a" target="Intro_GettingStarted" mergetype="javax.help.SortMerge" display="Getting Started" toc_id="Getting Started">
+		<tocitem text="c" target="Intro_StartingGhidra" mergetype="javax.help.SortMerge" display="Starting Ghidra" toc_id="Starting Ghidra" />
+		<tocitem text="d" target="Intro_ErrorDialogs" mergetype="javax.help.SortMerge" display="Error Dialogs" toc_id="Error Dialogs" />
+		<tocitem text="e" target="Intro_OverView" mergetype="javax.help.SortMerge" display="Overview" toc_id="Overview" />
+		<tocitem text="f" target="DockingWindows_Docking_Windows" mergetype="javax.help.SortMerge" display="Docking Windows" toc_id="Docking Windows" />
+		<tocitem text="g" target="FrontEndPlugin_Project_Window" mergetype="javax.help.SortMerge" display="Ghidra Project Window" toc_id="Ghidra Project Window" />
+		<tocitem text="h" target="GhidraServer_GhidraServer" mergetype="javax.help.SortMerge" display="Ghidra Server" toc_id="Ghidra Server" />
+		<tocitem text="i" target="About_About_Ghidra" mergetype="javax.help.SortMerge" display="About Ghidra" toc_id="About Ghidra" />
+	</tocitem>
+	<tocitem text="b" target="Project_Ghidra_Projects" mergetype="javax.help.SortMerge" display="Ghidra Projects" toc_id="Ghidra Projects">
+		<tocitem text="a" target="FrontEndPlugin_Creating_a_Project" mergetype="javax.help.SortMerge" display="New Project" toc_id="New Project" />
+		<tocitem text="b" target="FrontEndPlugin_Opening_a_Ghidra_Project" mergetype="javax.help.SortMerge" display="Open Project" toc_id="Open Project" />
+		<tocitem text="c" target="FrontEndPlugin_Close_Project" mergetype="javax.help.SortMerge" display="Close Project" toc_id="Close Project" />
+		<tocitem text="d" target="FrontEndPlugin_Re_opening_a_Project" mergetype="javax.help.SortMerge" display="Reopen Project" toc_id="Reopen Project" />
+		<tocitem text="e" target="FrontEndPlugin_Saving_a_Ghidra_Project" mergetype="javax.help.SortMerge" display="Save Project" toc_id="Save Project" />
+		<tocitem text="f" target="FrontEndPlugin_Archive_Project" mergetype="javax.help.SortMerge" display="Archive Current Project" toc_id="Archive Current Project" />
+		<tocitem text="g" target="FrontEndPlugin_Restore_Project" mergetype="javax.help.SortMerge" display="Restore Project" toc_id="Restore Project" />
+		<tocitem text="h" target="VersionControl_project_repository" mergetype="javax.help.SortMerge" display="Project Repository" toc_id="Project Repository" />
+		<tocitem text="i" target="FrontEndPlugin_Edit_Project_Access_List" mergetype="javax.help.SortMerge" display="Project Access List" toc_id="Project Access List" />
+	</tocitem>
+	<tocitem text="c" target="Program_Ghidra_Programs" mergetype="javax.help.SortMerge" display="Programs" toc_id="Programs">
+		<tocitem text="a" target="ImporterPlugin_importer" mergetype="javax.help.SortMerge" display="Import Program" toc_id="Import Program" />
+		<tocitem text="aa" target="ImporterPlugin_Batch_Import" mergetype="javax.help.SortMerge" display="Batch Import" toc_id="BatchImport" />
+		<tocitem text="b" target="ExporterPlugin_exporter" mergetype="javax.help.SortMerge" display="Export Program" toc_id="Export Program" />
+		<tocitem text="c" target="ProgramManagerPlugin_Opening_Program_Files" mergetype="javax.help.SortMerge" display="Open Program" toc_id="Open Program" />
+		<tocitem text="d" target="ProgramManagerPlugin_Closing_Program_Files" mergetype="javax.help.SortMerge" display="Close Program" toc_id="Close Program" />
+		<tocitem text="e" target="ProgramManagerPlugin_Navigating_Program_Files" mergetype="javax.help.SortMerge" display="Navigate Programs" toc_id="Navigate Programs" />
+		<tocitem text="f" target="FrontEndPlugin_Rename" mergetype="javax.help.SortMerge" display="Rename Program" toc_id="Rename Program" />
+		<tocitem text="g" target="ProgramManagerPlugin_Saving_Program_Files" mergetype="javax.help.SortMerge" display="Save Program" toc_id="Save Program" />
+		<tocitem text="h" target="FrontEndPlugin_Delete" mergetype="javax.help.SortMerge" display="Delete Program" toc_id="Delete Program" />
+		<tocitem text="i" target="About_About_Program_File" mergetype="javax.help.SortMerge" display="About Program" toc_id="About Program" />
+		<tocitem text="j" target="Repository_Merge_Program_Files" mergetype="javax.help.SortMerge" display="Merge Programs" toc_id="Merge Programs" />
+	</tocitem>
+	<tocitem text="d" target="Tool_Ghidra_Tool_Administration" mergetype="javax.help.SortMerge" display="Tools" toc_id="Tools">
+		<tocitem text="a" target="Tool_Configure_Tool" mergetype="javax.help.SortMerge" display="Configure Tool" toc_id="Configure Tool" />
+		<tocitem text="b" target="Tool_DefaultTools" mergetype="javax.help.SortMerge" display="Default Tools" toc_id="Default Tools" />
+		<tocitem text="c" target="Tool_ToolOptions_Dialog" mergetype="javax.help.SortMerge" display="Tool Options Dialog" toc_id="Tool Options Dialog" />
+		<tocitem text="d" target="Tool_Create_Tool" mergetype="javax.help.SortMerge" display="Create Tool" toc_id="Create Tool" />
+		<tocitem text="e" target="Tool_Run_Tool" mergetype="javax.help.SortMerge" display="Run Tool" toc_id="Run Tool" />
+		<tocitem text="f" target="Tool_Close_Tool" mergetype="javax.help.SortMerge" display="Close Tool" toc_id="Close Tool" />
+		<tocitem text="g" target="Tool_Save_Tool" mergetype="javax.help.SortMerge" display="Save Tool" toc_id="Save Tool" />
+		<tocitem text="h" target="FrontEndPlugin_Connecting_Tools" mergetype="javax.help.SortMerge" display="Tool Connections" toc_id="Tool Connections" />
+		<tocitem text="i" target="FrontEndPlugin_Edit_Plugin_Path" mergetype="javax.help.SortMerge" display="Edit Plugin Path" toc_id="Edit Plugin Path" />
+		<tocitem text="j" target="Tool_Import_Tool" mergetype="javax.help.SortMerge" display="Import Tools" toc_id="Import Tools" />
+		<tocitem text="k" target="Tool_Import_Ghidra_Tools" mergetype="javax.help.SortMerge" display="Import Default Tools" toc_id="Import Default Tools" />
+		<tocitem text="l" target="Tool_Export_Tool" mergetype="javax.help.SortMerge" display="Export Tool" toc_id="Export Tool" />
+	</tocitem>
+	<tocitem text="e" target="Intro_GhidraFunctionality" mergetype="javax.help.SortMerge" display="Ghidra Functionality" toc_id="Ghidra Functionality">
+		<tocitem text="assembler" target="AssemblerPlugin_Assembler" mergetype="javax.help.SortMerge" display="Assembler" toc_id="Assembler" />
+		<tocitem text="code browser" target="CodeBrowserPlugin_CodeBrowser" mergetype="javax.help.SortMerge" display="Code Browser" toc_id="Code Browser">
+			<tocitem text="a" target="CodeBrowserPlugin_Browser_Field_Formatter" mergetype="javax.help.SortMerge" display="Browser Field Formatter" toc_id="Browser Field Formatter" />
+			<tocitem text="b" target="CodeBrowserPlugin_CBNavigationMarkers" mergetype="javax.help.SortMerge" display="Markers" toc_id="Markers" />
+			<tocitem text="c" target="CodeBrowserPlugin_cursorTextHighlight" mergetype="javax.help.SortMerge" display="Cursor Text Highlight" toc_id="Cursor Text Highlight" />
+			<tocitem text="d" target="CodeBrowserPlugin_CodeBrowserOptions" mergetype="javax.help.SortMerge" display="Configuration Options" toc_id="Code Browser Configuration Options" />
+		</tocitem>
+		<tocitem text="eclipse integration" target="EclipseIntegration_EclipseIntegration" mergetype="javax.help.SortMerge" display="Eclipse Integration" toc_id="Eclipse Integration" />
+		<tocitem text="entropy overview" target="OverviewPlugin_EntropyOverviewBar" mergetype="javax.help.SortMerge" display="Entropy Overview" toc_id="Entropy Overview">
+			<tocitem text="a" target="OverviewPlugin_Calculation" mergetype="javax.help.SortMerge" display="Entropy Calculation" toc_id="Calculation of Entropy" />
+			<tocitem text="b" target="OverviewPlugin_Encoding" mergetype="javax.help.SortMerge" display="Data Encoding" toc_id="Data Encoding" />
+			<tocitem text="e" target="OverviewPlugin_Color_Palette" mergetype="javax.help.SortMerge" display="Color Palette" toc_id="Color Palette" />
+			<tocitem text="f" target="OverviewPlugin_Configuration" mergetype="javax.help.SortMerge" display="Configuration Options" toc_id="Configuration" />
+		</tocitem>
+		<tocitem text="filesystem browser" target="FileSystemBrowserPlugin_FileSystemBrowserPlugin" mergetype="javax.help.SortMerge" display="FileSystem Browser" toc_id="FileSystem Browser" />
+		<tocitem text="graphing" mergetype="javax.help.SortMerge" display="Graphing" toc_id="Graphing" />
+		<tocitem text="h" target="MemoryMapPlugin_Memory_Map" mergetype="javax.help.SortMerge" display="Memory Map" toc_id="Memory Map">
+			<tocitem text="a" target="MemoryMapPlugin_MemoryBlockEdits" mergetype="javax.help.SortMerge" display="Editing a Memory Block" toc_id="Editing a Memory Block" />
+			<tocitem text="b" target="MemoryMapPlugin_MemoryBlockOperations" mergetype="javax.help.SortMerge" display="Operations on Memory Blocks" toc_id="Operations on Memory Blocks">
+				<tocitem text="a" target="MemoryMapPlugin_Add_Block" mergetype="javax.help.SortMerge" display="Add" toc_id="Add" />
+				<tocitem text="b" target="MemoryMapPlugin_Move_Block" mergetype="javax.help.SortMerge" display="Move" toc_id="Move" />
+				<tocitem text="c" target="MemoryMapPlugin_Split_Block" mergetype="javax.help.SortMerge" display="Split" toc_id="Split" />
+				<tocitem text="d" target="MemoryMapPlugin_Expand_Block_Up" mergetype="javax.help.SortMerge" display="Expand Up" toc_id="Expand Up" />
+				<tocitem text="e" target="MemoryMapPlugin_Expand_Block_Down" mergetype="javax.help.SortMerge" display="Expand Down" toc_id="Expand Down" />
+				<tocitem text="f" target="MemoryMapPlugin_Merge_Blocks" mergetype="javax.help.SortMerge" display="Merge" toc_id="Merge" />
+				<tocitem text="g" target="MemoryMapPlugin_Delete_Block" mergetype="javax.help.SortMerge" display="Delete" toc_id="Delete" />
+				<tocitem text="g" target="MemoryMapPlugin_Set_Image_Base" mergetype="javax.help.SortMerge" display="Set Image Base" toc_id="Set Image Base" />
+			</tocitem>
+		</tocitem>
+		<tocitem text="program annotation" target="ProgramManagerPlugin_Program_Annotation" mergetype="javax.help.SortMerge" display="Program Annotation" toc_id="Program Annotation">
+			<tocitem text="a" target="AutoAnalysisPlugin_AutoAnalysis" mergetype="javax.help.SortMerge" display="Auto Analysis" toc_id="Auto Analysis">
+				<tocitem text="a" target="AutoAnalysisPlugin_Auto_Analyze" mergetype="javax.help.SortMerge" display="Forcing Analysis" toc_id="Forcing Analysis" />
+				<tocitem text="b" target="AutoAnalysisPlugin_Auto_Analysis_Option" mergetype="javax.help.SortMerge" display="Auto Analysis Options Panel" toc_id="Auto Analysis Options Panel" />
+				<tocitem text="c" target="AutoAnalysisPlugin_Auto_Analyzers" mergetype="javax.help.SortMerge" display="Implemented Auto Analyzers" toc_id="Implemented Auto Analyzers">
+					<tocitem text="a" target="AutoAnalysisPlugin_Auto_Analysis_Option_Byte" mergetype="javax.help.SortMerge" display="Entry Point Analyzer" toc_id="Entry Point Analyzer" />
+					<tocitem text="b" target="AutoAnalysisPlugin_FunctionAnalyzer" mergetype="javax.help.SortMerge" display="Subroutine Analyzer" toc_id="Subroutine Analyzer" />
+					<tocitem text="c" target="AutoAnalysisPlugin_Scalar_Operand_Analyzer" mergetype="javax.help.SortMerge" display="Scalar Operand Analyzer" toc_id="Scalar Operand Analyzer" />
+					<tocitem text="d" target="AutoAnalysisPlugin_Auto_Analysis_Option_Instructions" mergetype="javax.help.SortMerge" display="Data Reference Analyzer" toc_id="Data Reference Analyzer" />
+					<tocitem text="f" target="AutoAnalysisPlugin_Mips_Address_Markup" mergetype="javax.help.SortMerge" display="MIPS address markup Analyzer" toc_id="MIPS address markup Analyzer" />
+					<tocitem text="g" target="AutoAnalysisPlugin_PowerPC_Address_Markup_Analyzer" mergetype="javax.help.SortMerge" display="PowerPC Address Markup Analyzer" toc_id="PowerPC Address Markup Analyzer" />
+					<tocitem text="h" target="AutoAnalysisPlugin_ARM_Analyzer" mergetype="javax.help.SortMerge" display="ARM Analyzer" toc_id="ARM Analyzer" />
+					<tocitem text="i" target="AutoAnalysisPlugin_DataArchive_Analyzer" mergetype="javax.help.SortMerge" display="Data Archive Analyzer" toc_id="Data Archive Analyzer" />
+					<tocitem text="j" target="AutoAnalysisPlugin_Demangler_Analyzer" mergetype="javax.help.SortMerge" display="Demangler Analyzer" toc_id="Demangler Analyzer" />
+					<tocitem text="k" target="AutoAnalysisPlugin_Decompiler_Parameter_ID_Analyzer" mergetype="javax.help.SortMerge" display="Decompiler Parameter ID Analyzer" toc_id="Decompiler Parameter ID Analyzer" />
+					<tocitem text="l" target="AutoAnalysisPlugin_Windows_X86_PE_Analyzer" mergetype="javax.help.SortMerge" display="Windows x86 Analyzer" toc_id="Windows x86 Analyzer" />
+					<tocitem text="m" target="AutoAnalysisPlugin_Auto_Analysis_Option_Address_Table" mergetype="javax.help.SortMerge" display="Address Table Analyzer" toc_id="Address Table Analyzer" />
+					<tocitem text="n" target="AutoAnalysisPlugin_Aggressive_Instruction_Finder" mergetype="javax.help.SortMerge" display="Aggressive Instruction Finder" toc_id="Aggressive Instruction Finder" />
+					<tocitem text="o" target="AutoAnalysisPlugin_Condense_Filler_Bytes_Analyzer" mergetype="javax.help.SortMerge" display="Condense Filler Bytes" toc_id="Condense Filler Bytes" />
+				</tocitem>
+			</tocitem>
+			<tocitem text="b" target="DisassemblerPlugin_Disassembly" mergetype="javax.help.SortMerge" display="Disassembly" toc_id="Disassembly">
+				<tocitem text="a" target="DisassemblerPlugin_Disassemble" mergetype="javax.help.SortMerge" display="Dynamic Disassembly" toc_id="Dynamic Disassembly" />
+				<tocitem text="b" target="DisassemblerPlugin_Disassemble_Static" mergetype="javax.help.SortMerge" display="Static Disassembly" toc_id="Static Disassembly" />
+				<tocitem text="c" target="DisassemblerPlugin_Disassemble_Restricted" mergetype="javax.help.SortMerge" display="Restricted Disassembly" toc_id="Restricted Disassembly" />
+				<tocitem text="d" target="DisassemblerPlugin_ProcessorOptions" mergetype="javax.help.SortMerge" display="Processor Options" toc_id="Processor Options" />
+			</tocitem>
+			<tocitem text="c" target="DataPlugin_Data" mergetype="javax.help.SortMerge" display="Data" toc_id="Data">
+				<tocitem text="a" target="DataPlugin_Data" mergetype="javax.help.SortMerge" display="Create Data" toc_id="Create Data" />
+				<tocitem text="b" target="DataPlugin_DataTypes" mergetype="javax.help.SortMerge" display="Data Types" toc_id="Data Types" />
+				<tocitem text="c" target="DataTypeManagerPlugin_data_type_manager_description" mergetype="javax.help.SortMerge" display="Data Type Manager" toc_id="Data Type Manager">
+					<tocitem text="a" target="DataTypeManagerPlugin_Basic_Concepts" mergetype="javax.help.SortMerge" display="Basic Concepts" toc_id="DTM Concepts" />
+					<tocitem text="b" target="DataTypeManagerPlugin_data_type_manager_window" mergetype="javax.help.SortMerge" display="Data Type Window" toc_id="DTM Window" />
+					<tocitem text="c" target="DataTypeManagerPlugin_Archives" mergetype="javax.help.SortMerge" display="Archives" toc_id="DTM Working With Archives" />
+					<tocitem text="d" target="DataTypeManagerPlugin_Category" mergetype="javax.help.SortMerge" display="Categories" toc_id="DTM Working With Categories" />
+					<tocitem text="e" target="DataTypeManagerPlugin_Data_Types" mergetype="javax.help.SortMerge" display="Data Types" toc_id="DTM Working With Data Types" />
+					<tocitem text="f" target="DataTypeManagerPlugin_data_type_manager_archives" mergetype="javax.help.SortMerge" display="Managing Archives" toc_id="DTM Managing Archives" />
+				</tocitem>
+				<tocitem text="d" target="DataTypeEditors_StructureEditor" mergetype="javax.help.SortMerge" display="Structure Editor" toc_id="Structure Editor" />
+				<tocitem text="e" target="DataTypeEditors_EnumEditor" mergetype="javax.help.SortMerge" display="Enum Editor" toc_id="Enum Editor" />
+				<tocitem text="e" target="TranslateStringsPlugin_TranslateStringsPlugin" mergetype="javax.help.SortMerge" display="Translate Strings" toc_id="Translate Strings" />
+			</tocitem>
+			<tocitem text="d" target="LabelMgrPlugin_Labels" mergetype="javax.help.SortMerge" display="Labels" toc_id="Labels">
+				<tocitem text="a" target="LabelMgrPlugin_LabelSource" mergetype="javax.help.SortMerge" display="Label Source" toc_id="Label Source" />
+				<tocitem text="b" target="LabelMgrPlugin_DefaultLabel" mergetype="javax.help.SortMerge" display="Default Label" toc_id="Default Label" />
+				<tocitem text="c" target="LabelMgrPlugin_LabelProperties" mergetype="javax.help.SortMerge" display="Label Properties" toc_id="Label Properties" />
+				<tocitem text="d" target="LabelMgrPlugin_AddEditDialog" mergetype="javax.help.SortMerge" display="Add/Edit Labels" toc_id="Add/Edit Labels" />
+				<tocitem text="e" target="LabelMgrPlugin_OperandLabelDialog" mergetype="javax.help.SortMerge" display="Set Label" toc_id="Set Label" />
+				<tocitem text="f" target="LabelMgrPlugin_LabelOperations" mergetype="javax.help.SortMerge" display="Label Operations" toc_id="Label Operations">
+					<tocitem text="a" target="LabelMgrPlugin_Add_Label" mergetype="javax.help.SortMerge" display="Adding a Label" toc_id="Adding a Label" />
+					<tocitem text="b" target="LabelMgrPlugin_Edit_Label" mergetype="javax.help.SortMerge" display="Renaming a Label" toc_id="Renaming a Label" />
+					<tocitem text="c" target="LabelMgrPlugin_Remove_Label" mergetype="javax.help.SortMerge" display="Removing a Label" toc_id="Removing a Label" />
+					<tocitem text="d" target="LabelMgrPlugin_Set_Namespace" mergetype="javax.help.SortMerge" display="Setting the Namespace" toc_id="Setting the Namespace" />
+					<tocitem text="e" target="LabelMgrPlugin_Set_External_Entry_Point" mergetype="javax.help.SortMerge" display="Setting an External Entry Point" toc_id="Setting an External Entry Point" />
+					<tocitem text="f" target="LabelMgrPlugin_Making_Label_Primary" mergetype="javax.help.SortMerge" display="Making a Label Primary" toc_id="Making a Label Primary" />
+					<tocitem text="g" target="LabelMgrPlugin_Set_Operand_Label" mergetype="javax.help.SortMerge" display="Setting a Label in an Operand" toc_id="Setting a Label in an Operand" />
+					<tocitem text="h" target="LabelMgrPlugin_Show_Label_History" mergetype="javax.help.SortMerge" display="Show Label History" toc_id="Show Label History" />
+				</tocitem>
+			</tocitem>
+			<tocitem text="e" target="CommentsPlugin_Comments" mergetype="javax.help.SortMerge" display="Comments" toc_id="Comments">
+				<tocitem text="a" target="CommentsPlugin_Edit_Comments" mergetype="javax.help.SortMerge" display="Add or Edit Comments" toc_id="Add or Edit Comments" />
+				<tocitem text="b" target="CommentsPlugin_Delete_Comments" mergetype="javax.help.SortMerge" display="Delete Comments" toc_id="Delete Comments" />
+				<tocitem text="c" target="CommentsPlugin_Navigating_through_Comments" mergetype="javax.help.SortMerge" display="Navigating in Codebrowser through Comments" toc_id="Navigating in Codebrowser through Comments" />
+				<tocitem text="d" target="CommentsPlugin_Show_Comment_History" mergetype="javax.help.SortMerge" display="Displaying Comment History" toc_id="Displaying Comment History" />
+			</tocitem>
+			<tocitem text="f" target="ReferencesPlugin_References" mergetype="javax.help.SortMerge" display="References" toc_id="References">
+				<tocitem text="a" target="ReferencesPlugin_References_from" mergetype="javax.help.SortMerge" display="Forward References" toc_id="Forward References">
+					<tocitem text="a" target="ReferencesPlugin_memRefs" mergetype="javax.help.SortMerge" display="Memory References" toc_id="Memory References">
+						<tocitem text="a" target="ReferencesPlugin_offsetRefs" mergetype="javax.help.SortMerge" display="Offset References" toc_id="Offset References" />
+						<tocitem text="b" target="ReferencesPlugin_offcutRefs" mergetype="javax.help.SortMerge" display="Offcut References" toc_id="Offcut References" />
+					</tocitem>
+					<tocitem text="b" target="ReferencesPlugin_stackRefs" mergetype="javax.help.SortMerge" display="Stack References" toc_id="Stack References" />
+					<tocitem text="c" target="ReferencesPlugin_regRefs" mergetype="javax.help.SortMerge" display="Register References" toc_id="Register References" />
+					<tocitem text="d" target="ReferencesPlugin_extRefs" mergetype="javax.help.SortMerge" display="External References" toc_id="External References" />
+				</tocitem>
+				<tocitem text="b" target="LocationReferencesPlugin_Location_References" mergetype="javax.help.SortMerge" display="Back References" toc_id="Back References" />
+			</tocitem>
+			<tocitem text="g" target="EquatePlugin_Equates" mergetype="javax.help.SortMerge" display="Equates" toc_id="Equates">
+				<tocitem text="a" target="EquatePlugin_Set_Equate" mergetype="javax.help.SortMerge" display="Set Equate" toc_id="Set Equate" />
+				<tocitem text="b" target="EquatePlugin_Remove_Equate" mergetype="javax.help.SortMerge" display="Remove Equate" toc_id="Remove Equate" />
+				<tocitem text="c" target="EquatePlugin_Apply_Enum" mergetype="javax.help.SortMerge" display="Apply Enum" toc_id="Apply Enum" />
+				<tocitem text="d" target="EquatePlugin_Display_Equates_Table" mergetype="javax.help.SortMerge" display="View Equates" toc_id="View Equates" />
+				<tocitem text="e" target="EquatePlugin_Convert" mergetype="javax.help.SortMerge" display="Convert" toc_id="Convert">
+					<tocitem text="a" target="EquatePlugin_Convert_To_Signed_Decimal" mergetype="javax.help.SortMerge" display="Signed Decimal" toc_id="Signed Decimal" />
+					<tocitem text="b" target="EquatePlugin_Convert_To_Unsigned_Decimal" mergetype="javax.help.SortMerge" display="Unsigned Decimal" toc_id="Unsigned Decimal" />
+					<tocitem text="c" target="EquatePlugin_Convert_To_Unsigned_Octal" mergetype="javax.help.SortMerge" display="Octal" toc_id="Octal" />
+					<tocitem text="d" target="EquatePlugin_Convert_To_Signed_Hex" mergetype="javax.help.SortMerge" display="Signed Hex" toc_id="Signed Hex" />
+					<tocitem text="e" target="EquatePlugin_Convert_To_Unsigned_Hex" mergetype="javax.help.SortMerge" display="Unsigned Hex" toc_id="Unsigned Hex" />
+					<tocitem text="f" target="EquatePlugin_Convert_To_Char" mergetype="javax.help.SortMerge" display="Char / Char Sequence" toc_id="Char / Char Sequence" />
+					<tocitem text="g" target="EquatePlugin_Convert_To_Unsigned_Binary" mergetype="javax.help.SortMerge" display="Binary" toc_id="Binary" />
+				</tocitem>
+			</tocitem>
+			<tocitem text="h" target="FunctionPlugin_Functions" mergetype="javax.help.SortMerge" display="Functions" toc_id="Functions">
+				<tocitem text="a" target="FunctionPlugin_Create_Function" mergetype="javax.help.SortMerge" display="Create Function" toc_id="Create Function" />
+				<tocitem text="b" target="FunctionPlugin_Re_create_Function" mergetype="javax.help.SortMerge" display="Re-create Function" toc_id="Re-create Function" />
+				<tocitem text="c" target="FunctionPlugin_ThunkFunctions" mergetype="javax.help.SortMerge" display="Thunk Functions" toc_id="Thunk Functions" />
+				<tocitem text="d" target="FunctionPlugin_ExternalFunctions" mergetype="javax.help.SortMerge" display="External Functions" toc_id="External Functions" />
+				<tocitem text="e" target="FunctionPlugin_Create_Multiple_Functions" mergetype="javax.help.SortMerge" display="Create Multiple Functions" toc_id="Create Multiple Functions" />
+				<tocitem text="f" target="FunctionPlugin_Rename_Function" mergetype="javax.help.SortMerge" display="Rename Function" toc_id="Rename Function" />
+				<tocitem text="g" target="FunctionPlugin_Delete_Function" mergetype="javax.help.SortMerge" display="Delete Function" toc_id="Delete Function" />
+				<tocitem text="h" target="FunctionPlugin_Function_Purge" mergetype="javax.help.SortMerge" display="Function Purge" toc_id="Function Purge" />
+				<tocitem text="i" target="FunctionPlugin_Edit_Function_Repeatable_Comment" mergetype="javax.help.SortMerge" display="Function Repeatable Comment" toc_id="Function Repeatable Comment" />
+				<tocitem text="j" target="FunctionPlugin_Set_Stack_Depth_Change" mergetype="javax.help.SortMerge" display="Stack Depth Change" toc_id="Stack Depth Change" />
+				<tocitem text="k" target="FunctionPlugin_Variables" mergetype="javax.help.SortMerge" display="Function Signature and Variables" toc_id="Function Signature and Variables" />
+				<tocitem text="l" target="FunctionTagPlugin_function_tag_window" mergetype="javax.help.SortMerge" display="Function Tags" toc_id="Function Tags" />
+			</tocitem>
+			<tocitem text="i" target="RegisterPlugin_Registers" mergetype="javax.help.SortMerge" display="Set Register Values" toc_id="Set Register Values" />
+			<tocitem text="j" target="BookmarkPlugin_Bookmarks" mergetype="javax.help.SortMerge" display="Bookmarks" toc_id="Bookmarks" />
+			<tocitem text="k" target="ClearPlugin_Clear" mergetype="javax.help.SortMerge" display="Clear" toc_id="Clear" />
+			<tocitem text="l" target="PropertyManagerPlugin_Property_Viewer" mergetype="javax.help.SortMerge" display="View Properties" toc_id="View Properties" />
+			<tocitem text="m" target="FallThroughPlugin_Override_Fallthrough" mergetype="javax.help.SortMerge" display="Set Fallthrough Address" toc_id="Set Fallthrough Address" />
+			<tocitem text="n" target="Navigation_Navigation" mergetype="javax.help.SortMerge" display="Navigation" toc_id="Navigation">
+				<tocitem text="a" target="Navigation_Navigation" mergetype="javax.help.SortMerge" display="Go to Address Label" toc_id="Go to Address Label" />
+				<tocitem text="b" target="Navigation_History_Buffer" mergetype="javax.help.SortMerge" display="Go to Next/Previous" toc_id="Go to Next/Previous" />
+				<tocitem text="c" target="CodeBrowserPlugin_CBNavigationMarkers" mergetype="javax.help.SortMerge" display="Margin and Navigation Markers" toc_id="Margin and Navigation Markers" />
+			</tocitem>
+			<tocitem text="o" target="Selection_Selecting" mergetype="javax.help.SortMerge" display="Selection" toc_id="Selection">
+				<tocitem text="a" target="FlowSelection_Selection_By_Flow" mergetype="javax.help.SortMerge" display="Selection by Flow" toc_id="Selection by Flow" />
+				<tocitem text="b" target="SetHighlightPlugin_Highlighting" mergetype="javax.help.SortMerge" display="Selection Highlighting" toc_id="Selection Highlighting" />
+			</tocitem>
+			<tocitem text="p" target="Search_Searching" mergetype="javax.help.SortMerge" display="Program Search" toc_id="Program Search">
+				<tocitem text="a" target="Search_Search_Memory" mergetype="javax.help.SortMerge" display="Memory" toc_id="Memory" />
+				<tocitem text="b" target="Search_Search_Program_Text" mergetype="javax.help.SortMerge" display="Text" toc_id="Text" />
+				<tocitem text="c" target="Search_Search_for_Strings" mergetype="javax.help.SortMerge" display="Strings" toc_id="Strings" />
+				<tocitem text="d" target="ScalarSearchPlugin_The_Scalar_Table" mergetype="javax.help.SortMerge" display="Scalars" toc_id="Scalars" />
+				<tocitem text="e" target="Search_Search_Instruction_Patterns" mergetype="javax.help.SortMerge" display="Instruction Patterns" toc_id="Instruction Patterns" />
+				<tocitem text="f" target="Search_Search_for_AddressTables" mergetype="javax.help.SortMerge" display="Address Tables" toc_id="Address Tables" />
+				<tocitem text="g" target="Search_Search_for_DirectReferences" mergetype="javax.help.SortMerge" display="Direct References" toc_id="Direct References" />
+				<tocitem text="h" target="Search_Query_Results_Dialog" mergetype="javax.help.SortMerge" display="Query Results Window" toc_id="Query Results Window" />
+			</tocitem>
+			<tocitem text="q" target="PDB_PDB" mergetype="javax.help.SortMerge" display="PDB" toc_id="PDB">
+				<tocitem text="a" target="docs/README_PDB.html" mergetype="javax.help.SortMerge" display="PDB Parser (README_PDB)" toc_id="README_PDB" />
+				<tocitem text="b" target="PDB_download_pdb_file" mergetype="javax.help.SortMerge" display="Download PDB File" toc_id="Download PDB" />
+			</tocitem>
+		</tocitem>
+		<tocitem text="program tree" target="ProgramTreePlugin_program_tree" mergetype="javax.help.SortMerge" display="Program Tree" toc_id="Program Tree">
+			<tocitem text="a" target="ProgramTreePlugin_FoldersAndFragments" mergetype="javax.help.SortMerge" display="Folders and Fragments" toc_id="Folders and Fragments" />
+			<tocitem text="b" target="ProgramTreePlugin_ViewControl" mergetype="javax.help.SortMerge" display="Control the View" toc_id="Control the View" />
+			<tocitem text="c" target="ProgramTreePlugin_CCPandDnD" mergetype="javax.help.SortMerge" display="Cut/Copy/Paste and Drag and Drop" toc_id="Cut/Copy/Paste and Drag and Drop" />
+			<tocitem text="d" target="ProgramTreePlugin_Program_Organizations" mergetype="javax.help.SortMerge" display="Program Organizations" toc_id="Program Organizations" />
+		</tocitem>
+		<tocitem text="program tree manager" target="ProgramTreePlugin_view_manager" mergetype="javax.help.SortMerge" display="Program Tree Manager" toc_id="Program Tree Manager">
+			<tocitem text="a" target="ProgramTreePlugin_Create_Default_Tree_View" mergetype="javax.help.SortMerge" display="Create view" toc_id="Create view" />
+			<tocitem text="b" target="ProgramTreePlugin_Delete_Tree_View" mergetype="javax.help.SortMerge" display="Delete view" toc_id="Delete view" />
+			<tocitem text="c" target="ProgramTreePlugin_Rename_Tree_View" mergetype="javax.help.SortMerge" display="Rename view" toc_id="Rename view" />
+			<tocitem text="d" target="ProgramTreePlugin_Close_Tree_View" mergetype="javax.help.SortMerge" display="Close view" toc_id="Close view" />
+		</tocitem>
+		<tocitem text="program validator" target="ValidateProgram_ValidateProgram" mergetype="javax.help.SortMerge" display="Program Validator" toc_id="Program Validator" />
+		<tocitem text="relocation table" target="RelocationTablePlugin_relocation_table" mergetype="javax.help.SortMerge" display="Relocation Table" toc_id="Relocation Table" />
+		<tocitem text="scripting" target="GhidraScriptMgrPlugin_GhidraScriptMgrPlugin" mergetype="javax.help.SortMerge" display="Scripting" toc_id="Scripting">
+			<tocitem text="a" target="GhidraScriptMgrPlugin_Script_Category_Tree" mergetype="javax.help.SortMerge" display="Listing Scripts by Category" toc_id="Listing Scripts by Category" />
+			<tocitem text="b" target="GhidraScriptMgrPlugin_Script_Table" mergetype="javax.help.SortMerge" display="Information in Script Table" toc_id="Information in Script Table" />
+			<tocitem text="c" target="GhidraScriptMgrPlugin_SearchFilter" mergetype="javax.help.SortMerge" display="Finding Scripts with Search Filter" toc_id="Finding Scripts with Search Filter" />
+			<tocitem text="d" target="GhidraScriptMgrPlugin_Script_Manager_Actions" mergetype="javax.help.SortMerge" display="Script Manager Actions" toc_id="Script Manager Actions">
+				<tocitem text="a" target="GhidraScriptMgrPlugin_Run" mergetype="javax.help.SortMerge" display="Run a Script" toc_id="Run a Script" />
+				<tocitem text="b" target="GhidraScriptMgrPlugin_Edit" mergetype="javax.help.SortMerge" display="Edit a Script" toc_id="Edit a Script" />
+				<tocitem text="b" target="GhidraScriptMgrPlugin_EditEclipse" mergetype="javax.help.SortMerge" display="Edit a Script with Eclipse" toc_id="Edit a Script with Eclipse" />
+				<tocitem text="c" target="GhidraScriptMgrPlugin_Save_Script" mergetype="javax.help.SortMerge" display="Save a Script" toc_id="Save a Script" />
+				<tocitem text="d" target="GhidraScriptMgrPlugin_Save_Script_As" mergetype="javax.help.SortMerge" display="Save a Script As..." toc_id="Save a Script As..." />
+				<tocitem text="e" target="GhidraScriptMgrPlugin_Undo" mergetype="javax.help.SortMerge" display="Undo the Actions of a Script" toc_id="Undo the Actions of a Script" />
+				<tocitem text="f" target="GhidraScriptMgrPlugin_Redo" mergetype="javax.help.SortMerge" display="Redo the Actions of a Script" toc_id="Redo the Actions of a Script" />
+				<tocitem text="g" target="GhidraScriptMgrPlugin_Select_Font" mergetype="javax.help.SortMerge" display="Select Font in Script Editor" toc_id="Select Font in Script Editor" />
+				<tocitem text="h" target="GhidraScriptMgrPlugin_Key_Binding" mergetype="javax.help.SortMerge" display="Assign Key Bindings for Scripts" toc_id="Assign Key Bindings for Scripts" />
+				<tocitem text="i" target="GhidraScriptMgrPlugin_Delete" mergetype="javax.help.SortMerge" display="Delete a Script" toc_id="Delete a Script" />
+				<tocitem text="j" target="GhidraScriptMgrPlugin_Rename" mergetype="javax.help.SortMerge" display="Rename a Script" toc_id="Rename a Script" />
+				<tocitem text="k" target="GhidraScriptMgrPlugin_New" mergetype="javax.help.SortMerge" display="Create a New Script" toc_id="Create a New Script" />
+				<tocitem text="l" target="GhidraScriptMgrPlugin_Refresh" mergetype="javax.help.SortMerge" display="Refresh Script List" toc_id="Refresh Script List" />
+				<tocitem text="m" target="GhidraScriptMgrPlugin_Script_Directories" mergetype="javax.help.SortMerge" display="Add and Remove Script Directories" toc_id="Add and Remove Script Directories" />
+				<tocitem text="n" target="GhidraScriptMgrPlugin_ScriptDevelopment" mergetype="javax.help.SortMerge" display="Ghidra Script Development" toc_id="Ghidra Script Development" />
+			</tocitem>
+			<tocitem text="e" target="ConsolePlugin_console" mergetype="javax.help.SortMerge" display="Console" toc_id="Console" />
+		</tocitem>
+		<tocitem text="symbol table" target="SymbolTablePlugin_symbol_table" mergetype="javax.help.SortMerge" display="Symbol Table" toc_id="Symbol Table">
+			<tocitem text="a" target="SymbolTablePlugin_symbol_references" mergetype="javax.help.SortMerge" display="Symbol References" toc_id="Symbol References" />
+			<tocitem text="b" target="SymbolTreePlugin_SymbolTree" mergetype="javax.help.SortMerge" display="Symbol Tree" toc_id="Symbol Tree" />
+		</tocitem>
+	</tocitem>
+	<tocitem text="g" target="Intro_GhidraSupport" mergetype="javax.help.SortMerge" display="Support" toc_id="Ghidra Support">
+		<tocitem text="headless analyzer" target="HeadlessAnalyzer_HeadlessAnalyzer" mergetype="javax.help.SortMerge" display="Headless Analyzer" toc_id="Headless Analyzer" />
+	</tocitem>
+	<tocitem text="h" target="Tool_Undo_Redo" mergetype="javax.help.SortMerge" display="Undo/Redo" toc_id="Undo/Redo" />
+	<tocitem text="i" target="Glossary_glossary" mergetype="javax.help.SortMerge" display="Glossary" toc_id="Glossary" />
+	<tocitem text="j" target="docs/WhatsNew.html" mergetype="javax.help.SortMerge" display="What's New" toc_id="What's New" />
+	<tocitem text="k" target="Misc_Tips" mergetype="javax.help.SortMerge" display="Tips of the Day" toc_id="Tips of the Day" />
+	<tocitem text="m" target="Misc_Appendix" mergetype="javax.help.SortMerge" display="Appendix" toc_id="Appendix">
+		<tocitem text="a" target="BlockModel_Block_Model" mergetype="javax.help.SortMerge" display="Block Models" toc_id="Block Models" />
+		<tocitem text="b" target="LanguageProviderPlugin_Languages" mergetype="javax.help.SortMerge" display="Languages" toc_id="Languages" />
+	</tocitem>
+</tocitem>
+</toc>
