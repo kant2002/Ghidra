@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!doctype MAP public "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN">
+<!-- Auto-generated on Thu Feb 28 12:49:48 EST 2019 : Do Not Edit -->
+<map version="1.0">
+  <mapID target="DecompilePlugin_Snapshot" url="topics/DecompilePlugin/Decompiler.htm#Snapshot"/>
+  <mapID target="DecompilePlugin_Decompiler" url="topics/DecompilePlugin/Decompiler.htm"/>
+  <mapID target="DecompilePlugin_DecompileOptions" url="topics/DecompilePlugin/Decompiler.htm#DecompileOptions"/>
+  <mapID target="DecompilePlugin_Highlight_Forward_Slice" url="topics/DecompilePlugin/Decompiler.htm#Highlight_Forward_Slice"/>
+  <mapID target="DecompilePlugin_Decompile_Function" url="topics/DecompilePlugin/Decompiler.htm#Decompile_Function"/>
+  <mapID target="DecompilePlugin_Decompiler_Window" url="topics/DecompilePlugin/Decompiler.htm#Decompiler_Window"/>
+  <mapID target="DecompilePlugin_Rename_Function" url="topics/DecompilePlugin/Decompiler.htm#Rename_Function"/>
+  <mapID target="DecompilePlugin_Commit_Params_Return" url="topics/DecompilePlugin/Decompiler.htm#Commit_Params_Return"/>
+  <mapID target="DecompilePlugin_Find" url="topics/DecompilePlugin/Decompiler.htm#Find"/>
+  <mapID target="DecompilePlugin_Recover_Structure_Variable" url="topics/DecompilePlugin/Decompiler.htm#Recover_Structure_Variable"/>
+  <mapID target="DecompilePlugin_Capabilities" url="topics/DecompilePlugin/Decompiler.htm#Capabilities"/>
+  <mapID target="DecompilePlugin_Comments" url="topics/DecompilePlugin/Decompiler.htm#Comments"/>
+  <mapID target="DecompilePlugin_EditDataType" url="topics/DecompilePlugin/Decompiler.htm#EditDataType"/>
+  <mapID target="DecompilePlugin_Variables" url="topics/DecompilePlugin/Decompiler.htm#Variables"/>
+  <mapID target="DecompilePlugin_Override_Signature" url="topics/DecompilePlugin/Decompiler.htm#Override_Signature"/>
+  <mapID target="DecompilePlugin_Commit_Locals" url="topics/DecompilePlugin/Decompiler.htm#Commit_Locals"/>
+  <mapID target="DecompilePlugin_Edit_Function_Signature" url="topics/DecompilePlugin/Decompiler.htm#Edit_Function_Signature"/>
+  <mapID target="DecompilePlugin_Retype_Variable" url="topics/DecompilePlugin/Decompiler.htm#Retype_Variable"/>
+  <mapID target="DecompilePlugin_DecompilerProperties" url="topics/DecompilePlugin/Decompiler.htm#DecompilerProperties"/>
+  <mapID target="DecompilePlugin_Export_to_C" url="topics/DecompilePlugin/Decompiler.htm#Export_to_C"/>
+  <mapID target="DecompilePlugin_Rename_Variable" url="topics/DecompilePlugin/Decompiler.htm#Rename_Variable"/>
+  <mapID target="DecompilePlugin_Highlight_Defined_Use" url="topics/DecompilePlugin/Decompiler.htm#Highlight_Defined_Use"/>
+  <mapID target="DecompilePlugin_Highlight_Forward_Inst_Slice" url="topics/DecompilePlugin/Decompiler.htm#Highlight_Forward_Inst_Slice"/>
+  <mapID target="DecompilePlugin_Data_Mutability" url="topics/DecompilePlugin/Decompiler.htm#Data_Mutability"/>
+  <mapID target="DecompilePlugin_Copy" url="topics/DecompilePlugin/Decompiler.htm#Copy"/>
+  <mapID target="DecompilePlugin_Internal_Decompiler_Functions" url="topics/DecompilePlugin/Decompiler.htm#Internal_Decompiler_Functions"/>
+  <mapID target="DecompilePlugin_Remove_Signature_Override" url="topics/DecompilePlugin/Decompiler.htm#Remove_Signature_Override"/>
+  <mapID target="DecompilePlugin_Highlight_Backward_Slice" url="topics/DecompilePlugin/Decompiler.htm#Highlight_Backward_Slice"/>
+  <mapID target="DecompilePlugin_Parameter_Variables" url="topics/DecompilePlugin/Decompiler.htm#Parameter_Variables"/>
+  <mapID target="DecompilePlugin_Debug_Function_Decompilation" url="topics/DecompilePlugin/Decompiler.htm#Debug_Function_Decompilation"/>
+  <mapID target="DecompilePlugin_Register_Settings" url="topics/DecompilePlugin/Decompiler.htm#Register_Settings"/>
+  <mapID target="DecompilePlugin_Highlight_Backward_Inst_Slice" url="topics/DecompilePlugin/Decompiler.htm#Highlight_Backward_Inst_Slice"/>
+</map>

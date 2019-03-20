@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!-- Auto-generated on Thu Feb 28 12:49:48 EST 2019 -->
+
+<toc version="2.0">
+<tocitem text="a" target="Misc_Welcome_to_Ghidra_Help" mergetype="javax.help.SortMerge" display="Welcome to Ghidra Help" toc_id="Root">
+	<tocitem text="e" target="Intro_GhidraFunctionality" mergetype="javax.help.SortMerge" display="Ghidra Functionality" toc_id="Ghidra Functionality">
+		<tocitem text="decompiler" target="DecompilePlugin_Decompiler" mergetype="javax.help.SortMerge" display="Decompiler" toc_id="Decompiler">
+			<tocitem text="a" target="DecompilePlugin_Capabilities" mergetype="javax.help.SortMerge" display="Decompiler Capabilities" toc_id="Decompiler Capabilities" />
+			<tocitem text="b" target="DecompilePlugin_Variables" mergetype="javax.help.SortMerge" display="Variables" toc_id="Variables" />
+			<tocitem text="c" target="DecompilePlugin_Parameter_Variables" mergetype="javax.help.SortMerge" display="Parameter Variables" toc_id="Parameter Variables" />
+			<tocitem text="d" target="DecompilePlugin_Internal_Decompiler_Functions" mergetype="javax.help.SortMerge" display="Internal Decompiler Functions" toc_id="Internal Decompiler Functions" />
+			<tocitem text="e" target="DecompilePlugin_Register_Settings" mergetype="javax.help.SortMerge" display="Register Settings" toc_id="Register Settings" />
+			<tocitem text="f" target="DecompilePlugin_DecompileOptions" mergetype="javax.help.SortMerge" display="Decompiler Options" toc_id="Decompiler Options" />
+			<tocitem text="g" target="DecompilePlugin_Data_Mutability" mergetype="javax.help.SortMerge" display="Data Mutability" toc_id="Data Mutability" />
+			<tocitem text="h" target="DecompilePlugin_Decompiler_Window" mergetype="javax.help.SortMerge" display="Decompiler Window Commands" toc_id="Decompiler Window Commands">
+				<tocitem text="a" target="DecompilePlugin_Copy" mergetype="javax.help.SortMerge" display="Copy/Copy Special" toc_id="Copy/Copy Special" />
+				<tocitem text="b" target="DecompilePlugin_Comments" mergetype="javax.help.SortMerge" display="Set Comments" toc_id="Set Comments" />
+				<tocitem text="c" target="DecompilePlugin_Commit_Params_Return" mergetype="javax.help.SortMerge" display="Saving decompiler parameters to database" toc_id="Saving decompiler parameters to database" />
+				<tocitem text="d" target="DecompilePlugin_Commit_Locals" mergetype="javax.help.SortMerge" display="Saving decompiler local variables to database" toc_id="Saving decompiler local variables to database" />
+				<tocitem text="e" target="DecompilePlugin_Highlight_Defined_Use" mergetype="javax.help.SortMerge" display="Highlighting all places a value is used" toc_id="Highlighting all places a value is used" />
+				<tocitem text="f" target="DecompilePlugin_Highlight_Forward_Inst_Slice" mergetype="javax.help.SortMerge" display="Highlighting Forward Instruction Slice" toc_id="Highlighting Forward Instruction Slice" />
+				<tocitem text="f" target="DecompilePlugin_Highlight_Forward_Slice" mergetype="javax.help.SortMerge" display="Highlighting Forward Slice" toc_id="Highlighting Forward Slice" />
+				<tocitem text="g" target="DecompilePlugin_Highlight_Backward_Inst_Slice" mergetype="javax.help.SortMerge" display="Highlighting Backward Instruction Slice" toc_id="Highlighting Backward Instruction Slice" />
+				<tocitem text="g" target="DecompilePlugin_Highlight_Backward_Slice" mergetype="javax.help.SortMerge" display="Highlighting Backward Slice" toc_id="Highlighting Backward Slice" />
+				<tocitem text="h" target="DecompilePlugin_Rename_Variable" mergetype="javax.help.SortMerge" display="Renaming Variables" toc_id="Renaming Variables" />
+				<tocitem text="i" target="DecompilePlugin_Retype_Variable" mergetype="javax.help.SortMerge" display="Retyping Variables" toc_id="Retyping Variables" />
+				<tocitem text="j" target="DecompilePlugin_Edit_Function_Signature" mergetype="javax.help.SortMerge" display="Editing Function Signatures" toc_id="Editing Function Signatures" />
+				<tocitem text="j" target="DecompilePlugin_Find" mergetype="javax.help.SortMerge" display="Searching for text in decompiled functions" toc_id="Searching for text in decompiled functions" />
+				<tocitem text="k" target="DecompilePlugin_Debug_Function_Decompilation" mergetype="javax.help.SortMerge" display="Debugging Function Decompilation" toc_id="Debugging Function Decompilation" />
+				<tocitem text="m" target="DecompilePlugin_Export_to_C" mergetype="javax.help.SortMerge" display="Exporting to C" toc_id="Exporting to C" />
+				<tocitem text="n" target="DecompilePlugin_DecompilerProperties" mergetype="javax.help.SortMerge" display="Changing appearance of Decompiler window" toc_id="Changing appearance of Decompiler window" />
+			</tocitem>
+		</tocitem>
+	</tocitem>
+</tocitem>
+</toc>

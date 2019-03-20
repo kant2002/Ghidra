@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!-- Auto-generated on Thu Feb 28 12:50:10 EST 2019 -->
+
+<toc version="2.0">
+<tocitem text="a" target="Misc_Welcome_to_Ghidra_Help" mergetype="javax.help.SortMerge" display="Welcome to Ghidra Help" toc_id="Root">
+	<tocitem text="e" target="Intro_GhidraFunctionality" mergetype="javax.help.SortMerge" display="Ghidra Functionality" toc_id="Ghidra Functionality">
+		<tocitem text="function id" target="FunctionID_FunctionID" mergetype="javax.help.SortMerge" display="Function ID" toc_id="Function ID">
+			<tocitem text="a" target="FunctionID_FunctionID" mergetype="javax.help.SortMerge" display="Function ID Analyzer" toc_id="Analyzer">
+				<tocitem text="a" target="FunctionID_overview" mergetype="javax.help.SortMerge" display="Overview" toc_id="Overview" />
+				<tocitem text="b" target="FunctionID_analysisoptions" mergetype="javax.help.SortMerge" display="Analysis Options" toc_id="Options" />
+				<tocitem text="c" target="FunctionID_scoring" mergetype="javax.help.SortMerge" display="Scoring and Disambiguation" toc_id="Scoring" />
+			</tocitem>
+			<tocitem text="b" target="FunctionID_FunctionIDPlugin" mergetype="javax.help.SortMerge" display="Function ID Plugin" toc_id="FunctionIDPlugin">
+				<tocitem text="a" target="FunctionID_enableplugin" mergetype="javax.help.SortMerge" display="Enabling the Plug-in" toc_id="Enabling" />
+				<tocitem text="b" target="FunctionID_pluginfunctionality" mergetype="javax.help.SortMerge" display="Plug-in Functionality" toc_id="Functionality" />
+				<tocitem text="c" target="FunctionID_preparelibraries" mergetype="javax.help.SortMerge" display="Preparing Libraries for a Function ID Database" toc_id="Preparing" />
+				<tocitem text="d" target="FunctionID_falsepositives" mergetype="javax.help.SortMerge" display="False Positives" toc_id="FalsePositives" />
+			</tocitem>
+			<tocitem text="c" target="FunctionID_FunctionIDDebug" mergetype="javax.help.SortMerge" display="Function ID Debug Plugin" toc_id="FunctionIDDebug">
+				<tocitem text="a" target="FunctionID_enabledebug" mergetype="javax.help.SortMerge" display="Enabling the Plug-in" toc_id="EnablingDebug" />
+				<tocitem text="b" target="FunctionID_debugfunctionality" mergetype="javax.help.SortMerge" display="Plug-in Functionality" toc_id="DebugFunctionality" />
+			</tocitem>
+		</tocitem>
+	</tocitem>
+</tocitem>
+</toc>

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!doctype MAP public "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN">
+<!-- Auto-generated on Thu Feb 28 12:50:17 EST 2019 : Do Not Edit -->
+<map version="1.0">
+  <mapID target="Diff_Set_Program1_Selection_On_Program2" url="topics/Diff/Diff.htm#Set_Program1_Selection_On_Program2"/>
+  <mapID target="Diff_DiffApplySettingsToolOptions" url="topics/Diff/Diff.htm#DiffApplySettingsToolOptions"/>
+  <mapID target="Diff_ExecuteDiffDialog_AddressRangesToDiff" url="topics/Diff/Diff.htm#ExecuteDiffDialog_AddressRangesToDiff"/>
+  <mapID target="Diff_ViewAllProgramDifferences" url="topics/Diff/Diff.htm#ViewAllProgramDifferences"/>
+  <mapID target="Diff_Ignore_Selection_and_Goto_Next_Difference" url="topics/Diff/Diff.htm#Ignore_Selection_and_Goto_Next_Difference"/>
+  <mapID target="Diff_Program_Differences" url="topics/Diff/Diff.htm#Program_Differences"/>
+  <mapID target="Diff_Previous_Difference" url="topics/Diff/Diff.htm#Previous_Difference"/>
+  <mapID target="Diff_Select_All_Differences" url="topics/Diff/Diff.htm#Select_All_Differences"/>
+  <mapID target="Diff_ExecuteDiffDialog" url="topics/Diff/Diff.htm#ExecuteDiffDialog"/>
+  <mapID target="Diff_ExecuteDiffDialog_DoDifferencesOn_Functions" url="topics/Diff/Diff.htm#ExecuteDiffDialog_DoDifferencesOn_Functions"/>
+  <mapID target="Diff_Diff_Apply_Settings" url="topics/Diff/Diff.htm#Diff_Apply_Settings"/>
+  <mapID target="Diff_Get_All_Differences" url="topics/Diff/Diff.htm#Get_All_Differences"/>
+  <mapID target="Diff_Diff_Location_Details" url="topics/Diff/Diff.htm#Diff_Location_Details"/>
+  <mapID target="Diff_Get_Differences" url="topics/Diff/Diff.htm#Get_Differences"/>
+  <mapID target="Diff_Refresh_Diff_Details" url="topics/Diff/Diff.htm#Refresh_Diff_Details"/>
+  <mapID target="Diff_ExecuteDiffDialog_LimitToSelection" url="topics/Diff/Diff.htm#ExecuteDiffDialog_LimitToSelection"/>
+  <mapID target="Diff_Open_Close_Program_View" url="topics/Diff/Diff.htm#Open_Close_Program_View"/>
+  <mapID target="Diff_View_Program_Differences" url="topics/Diff/Diff.htm#View_Program_Differences"/>
+  <mapID target="Diff_Save_Default_Diff_Apply_Settings" url="topics/Diff/Diff.htm#Save_Default_Diff_Apply_Settings"/>
+  <mapID target="Diff_Set_All_To_Replace" url="topics/Diff/Diff.htm#Set_All_To_Replace"/>
+  <mapID target="Diff_Set_All_To_Merge" url="topics/Diff/Diff.htm#Set_All_To_Merge"/>
+  <mapID target="Diff_Diff" url="topics/Diff/Diff.htm"/>
+  <mapID target="Diff_ExecuteDiffDialog_DoDifferencesOn" url="topics/Diff/Diff.htm#ExecuteDiffDialog_DoDifferencesOn"/>
+  <mapID target="Diff_Show_Diff_Apply_Settings" url="topics/Diff/Diff.htm#Show_Diff_Apply_Settings"/>
+  <mapID target="Diff_Apply_Differences_and_Goto_Next_Difference" url="topics/Diff/Diff.htm#Apply_Differences_and_Goto_Next_Difference"/>
+  <mapID target="Diff_Next_Difference" url="topics/Diff/Diff.htm#Next_Difference"/>
+  <mapID target="Diff_Apply_Differences" url="topics/Diff/Diff.htm#Apply_Differences"/>
+  <mapID target="Diff_Diff_Apply_Settings_Limit_To_Selection" url="topics/Diff/Diff.htm#Diff_Apply_Settings_Limit_To_Selection"/>
+  <mapID target="Diff_Selecting_Differences" url="topics/Diff/Diff.htm#Selecting_Differences"/>
+  <mapID target="Diff_Set_All_To_Ignore" url="topics/Diff/Diff.htm#Set_All_To_Ignore"/>
+</map>

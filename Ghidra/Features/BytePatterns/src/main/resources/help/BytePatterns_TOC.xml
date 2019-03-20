@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!-- Auto-generated on Thu Feb 28 12:49:18 EST 2019 -->
+
+<toc version="2.0">
+<tocitem text="a" target="Misc_Welcome_to_Ghidra_Help" mergetype="javax.help.SortMerge" display="Welcome to Ghidra Help" toc_id="Root">
+	<tocitem text="e" target="Intro_GhidraFunctionality" mergetype="javax.help.SortMerge" display="Ghidra Functionality" toc_id="Ghidra Functionality">
+		<tocitem text="function bit patterns explorer" target="FunctionBitPatternsExplorerPlugin_FunctionBitPatternsExplorerPlugin" mergetype="javax.help.SortMerge" display="Function Bit Patterns Explorer" toc_id="Function Bit Patterns Explorer">
+			<tocitem text="a" target="FunctionBitPatternsExplorerPlugin_Byte_Sequence_Tabs" mergetype="javax.help.SortMerge" display="Byte Sequences" toc_id="Byte Sequences" />
+			<tocitem text="b" target="FunctionBitPatternsExplorerPlugin_Instruction_Sequence_Tabs" mergetype="javax.help.SortMerge" display="Instruction Sequences" toc_id="Instruction Sequences" />
+			<tocitem text="c" target="FunctionBitPatternsExplorerPlugin_Function_Start_Alignment_Tab" mergetype="javax.help.SortMerge" display="Function Start Alignment" toc_id="Function Start Alignment" />
+			<tocitem text="d" target="FunctionBitPatternsExplorerPlugin_Context_Register_Information_Tab" mergetype="javax.help.SortMerge" display="Context Register Information" toc_id="Context Register Information" />
+			<tocitem text="e" target="FunctionBitPatternsExplorerPlugin_Pattern_Clipboard_Tab" mergetype="javax.help.SortMerge" display="Pattern Clipboard" toc_id="Pattern Clipboard" />
+		</tocitem>
+	</tocitem>
+</tocitem>
+</toc>
