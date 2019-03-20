@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!-- Auto-generated on Thu Feb 28 12:49:51 EST 2019 -->
+
+<toc version="2.0">
+<tocitem text="a" target="Misc_Welcome_to_Ghidra_Help" mergetype="javax.help.SortMerge" display="Welcome to Ghidra Help" toc_id="Root">
+	<tocitem text="e" target="Intro_GhidraFunctionality" mergetype="javax.help.SortMerge" display="Ghidra Functionality" toc_id="Ghidra Functionality">
+		<tocitem text="scripting" target="GhidraScriptMgrPlugin_GhidraScriptMgrPlugin" mergetype="javax.help.SortMerge" display="Scripting" toc_id="Scripting">
+			<tocitem text="f" target="Python_interpreter" mergetype="javax.help.SortMerge" display="Python Interpreter" toc_id="Python Interpreter" />
+		</tocitem>
+	</tocitem>
+</tocitem>
+</toc>
