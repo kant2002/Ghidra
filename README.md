@@ -24,6 +24,5 @@ perform detection of Development/Production environment based on the presence of
 
 # Issues
 
-- Icons are missing
 - Processor specification
 - Runtime support scripts for launching Ghidra is missing
