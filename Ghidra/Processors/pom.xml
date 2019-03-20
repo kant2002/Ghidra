@@ -18,6 +18,7 @@
     <module>8051</module>
     <module>8085</module>
     <module>CR16</module>
+    <module>PA-RISC</module>
   </modules>
 
 </project>
