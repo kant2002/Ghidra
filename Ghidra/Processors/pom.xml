@@ -16,7 +16,8 @@
     <module>6502</module>
     <module>6805</module>
     <module>8051</module>
-    <module>8055</module>
+    <module>8085</module>
+    <module>CR16</module>
   </modules>
 
 </project>
