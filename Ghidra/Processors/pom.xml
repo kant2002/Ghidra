@@ -19,6 +19,7 @@
     <module>8085</module>
     <module>CR16</module>
     <module>PA-RISC</module>
+    <module>TI_MSP430</module>
   </modules>
 
 </project>
