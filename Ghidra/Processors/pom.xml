@@ -17,6 +17,7 @@
     <module>6805</module>
     <module>8051</module>
     <module>8085</module>
+    <module>68000</module>
     <module>CR16</module>
     <module>PA-RISC</module>
     <module>TI_MSP430</module>
