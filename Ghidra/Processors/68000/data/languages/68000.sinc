@@ -1329,10 +1329,14 @@ m2rfl0: { m2rfl1}		is mvm15=0 & m2rfl1			{ }
 :movem.w r2mbw0,-(regan)	is opbig=0x48 & op67=2 & mode=4 & regan; r2mbw0		{ movemptr = regan; build r2mbw0; regan = movemptr; }
 :movem.w r2mfw0,(d16,regan)	is opbig=0x48 & op67=2 & mode=5 & regan; r2mfw0; d16	{ movemptr = regan+d16; build r2mfw0; }
 :movem.w r2mfw0,(extw)		is opbig=0x48 & op67=2 & mode=6 & regan; r2mfw0; extw	[ pcmode=0; regtfan=regan; ] { build extw; movemptr = extw; build r2mfw0; }
+:movem.w r2mfw0,(d16)".w"	is opbig=0x48 & op67=2 & mode=7 & regan=0; r2mfw0; d16	{ movemptr = d16; build r2mfw0; }
+:movem.w r2mfw0,(d32)".l" is opbig=0x48 & op67=2 & mode=7 & regan=1; r2mfw0; d32  { movemptr = d32; build r2mfw0; }
 :movem.l r2mfl0,(regan)		is opbig=0x48 & op67=3 & mode=2 & regan; r2mfl0		{ movemptr = regan; build r2mfl0; }
 :movem.l r2mbl0,-(regan)	is opbig=0x48 & op67=3 & mode=4 & regan; r2mbl0		{ movemptr = regan; build r2mbl0; regan = movemptr; }
 :movem.l r2mfl0,(d16,regan)	is opbig=0x48 & op67=3 & mode=5 & regan; r2mfl0; d16	{ movemptr = regan+d16; build r2mfl0; }
 :movem.l r2mfl0,(extw)		is opbig=0x48 & op67=3 & mode=6 & regan; r2mfl0; extw	[ pcmode=0; regtfan=regan; ] { build extw; movemptr = extw; build r2mfl0; }
+:movem.l r2mfl0,(d16)".w"	is opbig=0x48 & op67=3 & mode=7 & regan=0; r2mfl0; d16	{ movemptr = d16; build r2mfl0; }
+:movem.l r2mfl0,(d32)".l" is opbig=0x48 & op67=3 & mode=7 & regan=1; r2mfl0; d32  { movemptr = d32; build r2mfl0; }
 
 :movem.w (regan),m2rfw0		is opbig=0x4c & op67=2 & mode=2 & regan; m2rfw0		{ movemptr = regan; build m2rfw0; }
 :movem.w (regan)+,m2rfw0	is opbig=0x4c & op67=2 & mode=3 & regan; m2rfw0		{ movemptr = regan; build m2rfw0; regan = movemptr; }
