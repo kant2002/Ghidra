@@ -28,6 +28,7 @@
     <module>PA-RISC</module>
     <module>PIC</module>
     <module>PowerPC</module>
+    <module>Sparc</module>
     <module>TI_MSP430</module>
     <module>Z80</module>
   </modules>
