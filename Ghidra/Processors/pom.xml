@@ -26,6 +26,7 @@
     <module>JVM</module>
     <module>MIPS</module>
     <module>PA-RISC</module>
+    <module>PIC</module>
     <module>TI_MSP430</module>
     <module>Z80</module>
   </modules>
