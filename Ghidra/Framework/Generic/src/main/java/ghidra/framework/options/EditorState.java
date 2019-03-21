@@ -81,8 +81,10 @@ public class EditorState implements PropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		currentValue = editor.getValue();
-		for (PropertyChangeListener listener : listeners) {
-			listener.propertyChange(evt);
+		if (isValueChanged()) {
+			for (PropertyChangeListener listener : listeners) {
+				listener.propertyChange(evt);
+			}
 		}
 	}
 
