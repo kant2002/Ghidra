@@ -30,6 +30,7 @@
     <module>PowerPC</module>
     <module>Sparc</module>
     <module>TI_MSP430</module>
+    <module>Toy</module>
     <module>Z80</module>
   </modules>
 
