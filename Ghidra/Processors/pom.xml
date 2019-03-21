@@ -31,6 +31,7 @@
     <module>Sparc</module>
     <module>TI_MSP430</module>
     <module>Toy</module>
+    <module>x86</module>
     <module>Z80</module>
   </modules>
 

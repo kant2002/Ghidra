@@ -14,4 +14,12 @@
     <build>
         <finalName>JVM</finalName>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>ghidra</groupId>
+            <artifactId>Base</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
