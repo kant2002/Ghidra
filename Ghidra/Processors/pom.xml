@@ -21,6 +21,7 @@
     <module>AARCH64</module>
     <module>ARM</module>
     <module>Atmel</module>
+    <module>DATA</module>
     <module>CR16</module>
     <module>PA-RISC</module>
     <module>TI_MSP430</module>
