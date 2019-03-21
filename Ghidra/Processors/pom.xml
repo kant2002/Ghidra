@@ -21,9 +21,10 @@
     <module>AARCH64</module>
     <module>ARM</module>
     <module>Atmel</module>
+    <module>CR16</module>
     <module>DATA</module>
     <module>JVM</module>
-    <module>CR16</module>
+    <module>MIPS</module>
     <module>PA-RISC</module>
     <module>TI_MSP430</module>
     <module>Z80</module>
