@@ -24,7 +24,6 @@ perform detection of Development/Production environment based on the presence of
 
 # Issues
 
-- Processor specification
 - Runtime support scripts for launching Ghidra is missing
 
 # Update processor manuals
@@ -33,3 +32,7 @@ To update all processor manuals run
     bash ./tools/update-manuals.sh
 
 See https://github.com/NationalSecurityAgency/ghidra/issues/38 for more information.
+
+# Alternative processors
+
+- https://github.com/tom-seddon/Ghidra6502
