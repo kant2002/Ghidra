@@ -1,6 +1,7 @@
 param(
     [string]$GhidraLocation = "",
-    [switch]$Verbose = $False
+    [switch]$Verbose = $False,
+    [switch]$Crc32Check = $False
 )
 
 if ($GhidraLocation -eq "")
@@ -47,18 +48,35 @@ $OriginalFiles | ForEach-Object {
     Add-Type -AN System.IO.Compression.FileSystem
     $zip1 = [IO.Compression.ZipFile]::OpenRead("$OriginalFolderLocation\$_")
     $zip2 = [IO.Compression.ZipFile]::OpenRead("${PWD}\$_")
-    $names1 = $zip1.Entries.FullName | Where-Object { ($_ -ne "") -and ($_ -notlike "META-INF/*.kotlin_module") -and ($_ -notlike "*[Tt]est*") }
-    $names2 = $zip2.Entries.FullName | Where-Object { ($_ -ne "") -and ($_ -notlike "META-INF/*.kotlin_module") -and ($_ -notlike "META-INF/maven/*") }
-    #$counter = (diff $names1 $names2)
-    $difference=$(Compare-Object $names1 $names2)
+    $entries1 = $zip1.Entries | Where-Object { 
+        ($_.FullName -ne "") `
+        -and ($_.FullName -notlike "META-INF/*.kotlin_module")`
+        -and ($_.FullName -notlike "META-INF/MANIFEST.MF")`
+        -and ($_.FullName -notlike "*[Tt]est*")
+    }
+    $entries2 = $zip2.Entries | Where-Object {
+        ($_.FullName -ne "")`
+        -and ($_.FullName -notlike "META-INF/*.kotlin_module")`
+        -and ($_.FullName -notlike "META-INF/MANIFEST.MF")`
+        -and ($_.FullName -notlike "*[Tt]est*")`
+        -and ($_.FullName -notlike "META-INF/maven/*")
+    }
+
+    #$targetProperties="FullName","Length"
+    $targetProperties="FullName"
+    if ($Crc32Check)
+    {
+        $targetProperties="FullName","Length","Crc32"
+    }
+    
+    $data1=$($entries1 | Select-Object $targetProperties | ConvertTo-Csv)
+    $data2=$($entries2 | Select-Object $targetProperties | ConvertTo-Csv)
+    $difference=$(Compare-Object $data1 $data2)
     if ($difference.Length -gt 0)
     {
         $difference | Format-Table
-        #continue
     }
 
     $zip1.Dispose()
     $zip2.Dispose()
 }
-
-#$BaseLine=$(Get-ChildItem -Path C:\Users\kant\Downloads\ghidra_9.0_PUBLIC_20190228\ghidra_9.0 -Filter *.jar -Recurse -File -Name)
