@@ -36,3 +36,20 @@ See https://github.com/NationalSecurityAgency/ghidra/issues/38 for more informat
 # Alternative processors
 
 - https://github.com/tom-seddon/Ghidra6502
+- https://github.com/andr3colonel/ghidra_wasm WASM support
+- https://github.com/xyzz/ghidra-mep Toshiba MeP processor
+- https://github.com/beardypig/ghidra-emotionengine Play Station 2's Emotion Engine MIPS based CPU
+- https://github.com/Thog/ghidra_falcon Nvidia Falcon processors
+- https://github.com/aldelaro5/ghidra-gekko-broadway-lang Gekko and Broadway CPU variant used in the Nintendo GameCube and Nintendo Wii respectively
+- https://github.com/kotcrab/ghidra-allegrex Allegrex CPU
+- https://github.com/beardypig/ghidra-chip8 CHIP8 virtual machine
+- https://github.com/Nitori-/SleighGB LR35902
+
+# Additional loaders
+- https://github.com/JayFoxRox/ghidra-xbox-extensions Tools to analyze original Xbox files
+- https://github.com/jogolden/GhidraPS4Loader PlayStation4 binaries
+- https://github.com/Adubbz/Ghidra-Switch-Loader Loader of Nintendo Switch formats
+- https://github.com/idl3r/GhidraVmlinuxLoader Loader for vmlinux kernel images
+- https://github.com/lab313ru/ghidra_sega_ldr Sega Mega Drive / Genesis ROMs loader
+- https://github.com/Maschell/GhidraRPXLoader RPX/RPL loader
+- https://github.com/NeatMonster/mclf-ghidra-loader MobiCore Loadable Format (MCLF) used by trustlet and driver binaries
