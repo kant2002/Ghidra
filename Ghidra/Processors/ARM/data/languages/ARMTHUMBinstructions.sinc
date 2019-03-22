@@ -100,6 +100,7 @@ define token instrThumb (16)
   soffset8=(0,7) signed
   offset10=(0,9)
   offset10S=(10,10)
+  offset11=(0,10)
   soffset11=(0,10) signed
   offset12=(0,11)
 
@@ -1390,6 +1391,33 @@ with : ARMcondCk=1 {
   SetThumbMode(1);
   call ThAddr24;
 }
+
+@ifndef VERSION_6T2
+
+:bl^ItCond 	"#"^off 			is TMode=1 & ItCond & op11=0x1e & soffset11 [ off = inst_start + 4 + (soffset11 << 12); ]
+{
+  build ItCond;
+  lr = off:4;
+}
+
+:bl^ItCond 	"#"^off 			is TMode=1 & ItCond & op11=0x1f & offset11 [ off = offset11 << 1; ]
+{
+  build ItCond;
+  local dest = lr + off:4;
+  lr = inst_next|1;
+  SetThumbMode(1);
+  goto [dest];
+}
+
+:blx^ItCond 	"#"^off 			is TMode=1 & ItCond & op11=0x1d & offset11 & thc0000=0 [ off = offset11 << 1; ]
+{
+  build ItCond;
+  local dest = (lr & (~0x3)) + off:4;
+  lr = inst_next|1;
+  SetThumbMode(0);
+  call [dest];
+}
+@endif
 
 :bl^ItCond 	ThAddr24 			is TMode=1 & CALLoverride=1 & ItCond & (op11=0x1e; part2c1415=3 & part2c1212=1) & ThAddr24
 {
