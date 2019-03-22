@@ -33,6 +33,10 @@ To update all processor manuals run
 
 See https://github.com/NationalSecurityAgency/ghidra/issues/38 for more information.
 
+Compare built Ghidra with released version. In PowerShell only (could be Powershell Core on Linux)
+
+    ./tools/compare.ps1 -GhidraLocation "C:\ghidra"
+
 # Alternative processors
 
 - https://github.com/tom-seddon/Ghidra6502
