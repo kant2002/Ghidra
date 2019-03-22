@@ -80,6 +80,7 @@
     </pluginManagement>
   </build>
   <modules>
+    <module>Configurations</module>
     <module>Framework</module>
     <module>Features</module>
     <module>Processors</module>
