@@ -275,7 +275,8 @@ public class MemoryMapDB implements Memory, ManagerDB, LiveMemoryListener {
 	@Override
 	public synchronized MemoryBlock getBlock(String blockName) {
 		for (MemoryBlock block : blocks) {
-			if (block.getName().equals(blockName)) {
+			String currentBlockName = block.getName();
+			if (currentBlockName != null && currentBlockName.equals(blockName)) {
 				return block;
 			}
 		}
