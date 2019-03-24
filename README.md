@@ -3,7 +3,9 @@ Ghidra
 
 [![Build Status](https://codevision.visualstudio.com/Ghidra/_apis/build/status/kant2002.Ghidra?branchName=master)](https://codevision.visualstudio.com/Ghidra/_build/latest?definitionId=92&branchName=master)
 
-Let's build me!
+This is source code derived from Java code found in `XXX-src.zip` files shiped with Ghidra. I collect modification which community post in the issues to actual Ghidra, and just ship them here. Also I provide some simple fixes for silly issues when I able to make it.
+Azure DevOps project now have built JAR files, and they should be usable with Ghidra. You could modify your Ghidra installation,
+by replacing JAR files in the original Ghidra installation. Just click on Azure badge and download JAR from Artifacts button. Structure of the project is similar to what of Ghidra.
 
 # How to build
 
