@@ -39,6 +39,11 @@ final class JavaFileListHandler implements DataFlavorHandler {
 			Object transferData, int dropAction) {
 		DomainFolder folder = getDomainFolder(destinationNode);
 
+		if (tool == null) {
+			Msg.showError(this, dataTree, "Could Not Import", "Could not import file in this context.");
+			return;
+		}
+
 		FileImporterService im = tool.getService(FileImporterService.class);
 		if (im == null) {
 			Msg.showError(this, dataTree, "Could Not Import", "Could not find importer service");
