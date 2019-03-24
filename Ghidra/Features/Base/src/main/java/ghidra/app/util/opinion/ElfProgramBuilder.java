@@ -2884,6 +2884,11 @@ class ElfProgramBuilder extends MemorySectionResolver implements ElfLoadHelper {
 
 	private InputStream getInitializedBlockInputStream(MemoryLoadable loadable, Address start,
 			long fileOffset, long dataLength) throws IOException {
+		if (fileOffset < 0) {
+			Msg.warn(this, "Negative file offset " + fileOffset + " for the address " + start.toString() + " replaced with 0");
+			fileOffset = 0;
+		}
+
 		InputStream dataInput = elf.getReader().getByteProvider().getInputStream(fileOffset);
 		return elf.getLoadAdapter().getFilteredLoadInputStream(this, loadable, start, dataLength,
 			dataInput);
