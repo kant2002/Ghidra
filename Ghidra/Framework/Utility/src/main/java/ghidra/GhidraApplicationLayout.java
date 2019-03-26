@@ -22,8 +22,8 @@ import generic.jar.ResourceFile;
 import ghidra.framework.ApplicationProperties;
 import ghidra.framework.GModule;
 import ghidra.util.SystemUtilities;
-import utility.applicaiton.ApplicationLayout;
-import utility.applicaiton.ApplicationUtilities;
+import utility.application.ApplicationLayout;
+import utility.application.ApplicationUtilities;
 import utility.module.ModuleUtilities;
 
 /**

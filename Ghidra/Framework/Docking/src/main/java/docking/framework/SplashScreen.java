@@ -26,7 +26,7 @@ import docking.*;
 import generic.util.WindowUtilities;
 import ghidra.framework.Application;
 import ghidra.util.Msg;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 /**
  * Splash screen window to display version information about the current release of

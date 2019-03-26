@@ -22,7 +22,7 @@ import java.util.*;
 import generic.jar.ResourceFile;
 import ghidra.framework.ApplicationProperties;
 import ghidra.framework.GModule;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 import utility.module.ModuleUtilities;
 
 /**

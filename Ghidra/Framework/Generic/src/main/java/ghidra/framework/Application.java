@@ -25,7 +25,7 @@ import ghidra.util.datastruct.LRUMap;
 import ghidra.util.exception.AssertException;
 import ghidra.util.task.TaskMonitor;
 import utilities.util.reflection.ReflectionUtilities;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 import utility.module.ModuleUtilities;
 
 /**

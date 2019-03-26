@@ -43,7 +43,7 @@ import ghidra.util.classfinder.ClassSearcher;
 import ghidra.util.exception.AssertException;
 import ghidra.util.exception.RollbackException;
 import junit.framework.AssertionFailedError;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 public abstract class AbstractGhidraHeadlessIntegrationTest extends AbstractDockingTest {
 

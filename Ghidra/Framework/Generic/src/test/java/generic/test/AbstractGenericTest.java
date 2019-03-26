@@ -53,7 +53,7 @@ import junit.framework.AssertionFailedError;
 import sun.awt.AppContext;
 import utilities.util.FileUtilities;
 import utilities.util.reflection.ReflectionUtilities;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 public abstract class AbstractGenericTest extends AbstractGTest {
 

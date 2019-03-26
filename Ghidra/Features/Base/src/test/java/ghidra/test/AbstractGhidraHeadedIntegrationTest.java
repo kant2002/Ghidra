@@ -42,7 +42,7 @@ import ghidra.util.TaskUtilities;
 import ghidra.util.exception.AssertException;
 import junit.framework.AssertionFailedError;
 import util.CollectionUtils;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 public abstract class AbstractGhidraHeadedIntegrationTest extends AbstractGhidraHeadlessIntegrationTest {
 

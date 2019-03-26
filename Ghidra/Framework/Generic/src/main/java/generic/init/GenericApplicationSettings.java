@@ -16,7 +16,7 @@
 package generic.init;
 
 import ghidra.framework.Application;
-import utility.applicaiton.ApplicationSettings;
+import utility.application.ApplicationSettings;
 
 import java.io.File;
 

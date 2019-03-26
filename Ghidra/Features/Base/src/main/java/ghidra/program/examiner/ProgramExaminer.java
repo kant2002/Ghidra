@@ -35,7 +35,7 @@ import ghidra.program.model.mem.MemoryAccessException;
 import ghidra.program.util.DefaultLanguageService;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitorAdapter;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 /**
  * Wrapper for Ghidra code to find images (and maybe other artifacts later) in a program

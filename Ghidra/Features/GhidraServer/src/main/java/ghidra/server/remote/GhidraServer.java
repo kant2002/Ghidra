@@ -51,7 +51,7 @@ import ghidra.server.stream.RemoteBlockStreamHandle;
 import ghidra.util.SystemUtilities;
 import ghidra.util.exception.AssertException;
 import resources.ResourceManager;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 /**
  * <code>GhidraServer</code> provides the main Ghidra server application and

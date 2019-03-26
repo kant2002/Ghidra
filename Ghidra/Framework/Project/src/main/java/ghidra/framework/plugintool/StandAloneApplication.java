@@ -38,7 +38,7 @@ import ghidra.util.exception.AssertException;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.xml.GenericXMLOutputter;
 import resources.ResourceManager;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 public abstract class StandAloneApplication implements GenericStandAloneApplication {
 
