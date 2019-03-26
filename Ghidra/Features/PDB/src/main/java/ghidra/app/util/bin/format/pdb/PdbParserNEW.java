@@ -49,8 +49,6 @@ import ghidra.xml.*;
 public class PdbParserNEW {
 
 	private static final String PDB_EXE = "pdb.exe";
-	private static final String README_FILENAME =
-		Application.getInstallationDirectory() + "\\docs\\README_PDB.html";
 
 	public final static File SPECIAL_PDB_LOCATION = new File("C:/WINDOWS/Symbols");
 	public final static String PDB_STORAGE_PROPERTY = "PDB Storage Directory";
@@ -278,9 +276,17 @@ public class PdbParserNEW {
 
 		defineClasses(monitor, log);
 
-		applyDataTypes.buildDataTypes(monitor);
-		applyClasses.buildDataTypes(monitor);
-		applyTypeDefs.buildTypeDefs(monitor);
+		if (applyDataTypes != null) {
+			applyDataTypes.buildDataTypes(monitor);
+		}
+
+		if (applyClasses != null) {
+			applyClasses.buildDataTypes(monitor);
+		}
+
+		if (applyTypeDefs != null) {
+			applyTypeDefs.buildTypeDefs(monitor);
+		}
 
 		// Ensure that all data types are resolved
 		flushDataTypeCache();
@@ -521,7 +527,7 @@ public class PdbParserNEW {
 			catch (IOException e) {
 				if (e.getMessage().endsWith("14001")) {//missing runtime dlls, probably
 					throw new PdbException("Missing runtime libraries. " + "Please refer to " +
-						README_FILENAME + " and follow instructions.");
+							getReadmeFilename() + " and follow instructions.");
 				}
 				throw e;
 			}
@@ -547,6 +553,10 @@ public class PdbParserNEW {
 		}
 
 		verifyPdbSignature(in);
+	}
+
+	private String getReadmeFilename() {
+		return Application.getInstallationDirectory() + "\\docs\\README_PDB.html";
 	}
 
 	/**
@@ -953,7 +963,7 @@ public class PdbParserNEW {
 	/**
 	 * Find a data-type by name in a case-sensitive manner.
 	 * @param monitor task monitor
-	 * @param dataTypeName data-type name (may be qualified by its namespace)
+	 * @param datatype data-type name (may be qualified by its namespace)
 	 * @return wrapped data-type or null if not found.
 	 * @throws CancelledException if operation is cancelled
 	 */

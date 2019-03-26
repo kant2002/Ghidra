@@ -73,7 +73,8 @@ public class ElfDefaultGotPltMarkup {
 			monitor.checkCanceled();
 
 			MemoryBlock gotBlock = blocks[i];
-			if (!gotBlock.getName().startsWith(ElfSectionHeaderConstants.dot_got)) {
+			String gotBlockName = gotBlock.getName();
+			if (gotBlockName == null || !gotBlockName.startsWith(ElfSectionHeaderConstants.dot_got)) {
 				continue;
 			}
 
