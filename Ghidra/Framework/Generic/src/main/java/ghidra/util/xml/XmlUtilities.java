@@ -66,8 +66,9 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Converts any special or reserved characters in the
-	 * specified XML string into the equivalent Unicode encoding.
+	 * Converts any special or reserved characters in the specified XML string
+	 * into the equivalent Unicode encoding.
+	 * 
 	 * @param xml the XML string
 	 * @return the encoded XML string
 	 */
@@ -112,8 +113,9 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Converts any escaped character entities into their unescaped character equivalents.  This
-	 * method is designed to be compatible with the output of {@link #escapeElementEntities(String)}.
+	 * Converts any escaped character entities into their unescaped character
+	 * equivalents. This method is designed to be compatible with the output of
+	 * {@link #escapeElementEntities(String)}.
 	 *
 	 * @param escapedXMLString The string with escaped data
 	 * @return the unescaped string
@@ -141,6 +143,7 @@ public class XmlUtilities {
 
 	/**
 	 * Converts the specified XML element into a byte array.
+	 * 
 	 * @param root the root element
 	 * @return the byte array translation of the given element
 	 */
@@ -161,6 +164,7 @@ public class XmlUtilities {
 
 	/**
 	 * Converts the specified XML element into a String.
+	 * 
 	 * @param root the root element
 	 * @return String translation of the given element
 	 */
@@ -172,6 +176,7 @@ public class XmlUtilities {
 	/**
 	 * Convert a String into a JDOM {@link Element}.
 	 * <p>
+	 * 
 	 * @param s
 	 * @return
 	 * @throws JDOMException
@@ -189,6 +194,7 @@ public class XmlUtilities {
 	/**
 	 * Writes a JDOM XML {@link Document} to a {@link File}.
 	 * <p>
+	 * 
 	 * @param doc JDOM XML {@link Document} to write.
 	 * @param dest {@link File} to write to.
 	 * @throws IOException if error when writing file.
@@ -203,6 +209,7 @@ public class XmlUtilities {
 	/**
 	 * Read a File and convert to jdom xml doc.
 	 * <p>
+	 * 
 	 * @param f {@link File} to read
 	 * @return JDOM {@link Document}
 	 * @throws JDOMException if text in file isn't valid XML
@@ -220,6 +227,7 @@ public class XmlUtilities {
 	/**
 	 * Read a File and convert to jdom xml doc.
 	 * <p>
+	 * 
 	 * @param f {@link ResourceFile} to read
 	 * @return JDOM {@link Document}
 	 * @throws JDOMException if text in file isn't valid XML
@@ -237,6 +245,7 @@ public class XmlUtilities {
 
 	/**
 	 * Converts the specified byte array into an XML element.
+	 * 
 	 * @param bytes the XML bytes
 	 * @return an XML element
 	 */
@@ -254,9 +263,9 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parses the overlay name from the specified address string.
-	 * Returns null if the address string does appear to represent
-	 * an overlay.
+	 * Parses the overlay name from the specified address string. Returns null
+	 * if the address string does appear to represent an overlay.
+	 * 
 	 * @param addrStr the address string
 	 * @return the overlay name or null
 	 */
@@ -269,38 +278,46 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parse the given string as either a hex number (if it starts with 0x) or a decimal number.
+	 * Parse the given string as either a hex number (if it starts with 0x) or a
+	 * decimal number.
+	 * 
 	 * @param intStr the string to parse into an integer
 	 * @return the parsed integer.
-	 * @throws NumberFormatException if the given string does not represent a valid integer.
+	 * @throws NumberFormatException if the given string does not represent a
+	 *             valid integer.
 	 */
 	public static int parseInt(String intStr) {
 		return (int) parseLong(intStr);
 	}
 
 	/**
-	 * Parses the optional specified string as a decimal number, returning its integer value.
+	 * Parses the optional specified string as a decimal number, returning its
+	 * integer value.
 	 * <p>
+	 * 
 	 * @param intStr string with integer digits, or empty or null
 	 * @param defaultValue value to return if intStr is missing
 	 * @return integer value of the intStr
-	 * @throws NumberFormatException if intStr could not be parsed or the string specifies
-	 * a value outside the range of a signed 32 bit integer.
+	 * @throws NumberFormatException if intStr could not be parsed or the string
+	 *             specifies a value outside the range of a signed 32 bit
+	 *             integer.
 	 */
 	public static int parseInt(String intStr, int defaultValue) throws NumberFormatException {
 		return parseOptionalBoundedInt(intStr, defaultValue, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
 	/**
-	 * Parses the optional specified string as a decimal number, returning its integer value,
-	 * or defaultValue if the string is null.
+	 * Parses the optional specified string as a decimal number, returning its
+	 * integer value, or defaultValue if the string is null.
 	 * <p>
+	 * 
 	 * @param intStr string with integer digits, or null.
 	 * @param defaultValue value to return if intStr is null.
 	 * @param minValue minimum value allowed (inclusive).
 	 * @param maxValue maximum value allowed (inclusive).
 	 * @return integer value of the intStr.
-	 * @throws NumberFormatException if intStr could not be parsed or is out of range.
+	 * @throws NumberFormatException if intStr could not be parsed or is out of
+	 *             range.
 	 */
 	public static int parseOptionalBoundedInt(String intStr, int defaultValue, int minValue,
 			int maxValue) throws NumberFormatException {
@@ -316,13 +333,16 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parses the specified string as a decimal number, returning its integer value.
+	 * Parses the specified string as a decimal number, returning its integer
+	 * value.
 	 * <p>
+	 * 
 	 * @param intStr String with integer digits
 	 * @param minValue minimum value allowed (inclusive)
 	 * @param maxValue maximum value allowed (inclusive)
 	 * @return integer value of the intStr
-	 * @throws NumberFormatException if intStr is null or empty or could not be parsed or is out of range.
+	 * @throws NumberFormatException if intStr is null or empty or could not be
+	 *             parsed or is out of range.
 	 */
 	public static int parseBoundedInt(String intStr, int minValue, int maxValue)
 			throws NumberFormatException {
@@ -338,14 +358,17 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parses the required attribute as a decimal number, returning its integer value.
+	 * Parses the required attribute as a decimal number, returning its integer
+	 * value.
 	 * <p>
+	 * 
 	 * @param ele JDom element that contains the attribute
 	 * @param attrName the name of the xml attribute to parse
 	 * @param minValue minimum value allowed (inclusive)
 	 * @param maxValue maximum value allowed (inclusive)
 	 * @return integer value of the attribute
-	 * @throws NumberFormatException if intStr could not be parsed or is out of range.
+	 * @throws NumberFormatException if intStr could not be parsed or is out of
+	 *             range.
 	 */
 	public static int parseBoundedIntAttr(Element ele, String attrName, int minValue, int maxValue)
 			throws NumberFormatException {
@@ -359,16 +382,18 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parses an optional attribute as a decimal number, returning its integer value, or
-	 * the defaultValue if the attribute is null.
+	 * Parses an optional attribute as a decimal number, returning its integer
+	 * value, or the defaultValue if the attribute is null.
 	 * <p>
+	 * 
 	 * @param ele JDOM element that contains the attribute.
 	 * @param attrName the name of the xml attribute to parse.
 	 * @param defaultValue the default value to return if attribute is missing.
 	 * @param minValue minimum value allowed (inclusive).
 	 * @param maxValue maximum value allowed (inclusive).
 	 * @return integer value of the attribute.
-	 * @throws NumberFormatException if the attribute value could not be parsed or is out of range.
+	 * @throws NumberFormatException if the attribute value could not be parsed
+	 *             or is out of range.
 	 */
 	public static int parseOptionalBoundedIntAttr(Element ele, String attrName, int defaultValue,
 			int minValue, int maxValue) throws NumberFormatException {
@@ -386,10 +411,13 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parse the given string as either a hex number (if it starts with 0x) or a decimal number.
+	 * Parse the given string as either a hex number (if it starts with 0x) or a
+	 * decimal number.
+	 * 
 	 * @param longStr the string to parse into an long
 	 * @return the parsed long.
-	 * @throws NumberFormatException if the given string does not represent a valid long.
+	 * @throws NumberFormatException if the given string does not represent a
+	 *             valid long.
 	 */
 	public static long parseLong(String longStr) {
 		boolean isNegative = longStr.startsWith("-");
@@ -410,17 +438,20 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parses the specified string as a decimal number, returning its long integer value.
+	 * Parses the specified string as a decimal number, returning its long
+	 * integer value.
 	 * <p>
-	 * Note, using {@link Long#MIN_VALUE} and/or {@link Long#MAX_VALUE} as lower and upper bounds
-	 * is problematic and should be avoided as the range check will become a NO-OP and always
-	 * succeed.
+	 * Note, using {@link Long#MIN_VALUE} and/or {@link Long#MAX_VALUE} as lower
+	 * and upper bounds is problematic and should be avoided as the range check
+	 * will become a NO-OP and always succeed.
 	 * <p>
+	 * 
 	 * @param longStr String with integer digits
 	 * @param minValue minimum value allowed (inclusive)
 	 * @param maxValue maximum value allowed (inclusive)
 	 * @return long integer value of the longStr
-	 * @throws NumberFormatException if intStr is null or empty or could not be parsed or is out of range.
+	 * @throws NumberFormatException if intStr is null or empty or could not be
+	 *             parsed or is out of range.
 	 */
 	public static long parseBoundedLong(String longStr, long minValue, long maxValue)
 			throws NumberFormatException {
@@ -436,18 +467,21 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parses the required attribute as a decimal number, returning its long integer value.
+	 * Parses the required attribute as a decimal number, returning its long
+	 * integer value.
 	 * <p>
-	 * Note, using {@link Long#MIN_VALUE} and/or {@link Long#MAX_VALUE} as lower and upper bounds
-	 * is problematic and should be avoided as the range check will become a NO-OP and always
-	 * succeed.
+	 * Note, using {@link Long#MIN_VALUE} and/or {@link Long#MAX_VALUE} as lower
+	 * and upper bounds is problematic and should be avoided as the range check
+	 * will become a NO-OP and always succeed.
 	 * <p>
+	 * 
 	 * @param ele JDom element that contains the attribute
 	 * @param attrName the name of the xml attribute to parse
 	 * @param minValue minimum value allowed (inclusive)
 	 * @param maxValue maximum value allowed (inclusive)
 	 * @return long integer value of the attribute
-	 * @throws NumberFormatException if intStr could not be parsed or is out of range.
+	 * @throws NumberFormatException if intStr could not be parsed or is out of
+	 *             range.
 	 */
 	public static long parseBoundedLongAttr(Element ele, String attrName, long minValue,
 			long maxValue) throws NumberFormatException {
@@ -461,19 +495,22 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parses the required attribute as a decimal number, returning its long integer value.
+	 * Parses the required attribute as a decimal number, returning its long
+	 * integer value.
 	 * <p>
-	 * Note, using {@link Long#MIN_VALUE} and/or {@link Long#MAX_VALUE} as lower and upper bounds
-	 * is problematic and should be avoided as the range check will become a NO-OP and always
-	 * succeed.
+	 * Note, using {@link Long#MIN_VALUE} and/or {@link Long#MAX_VALUE} as lower
+	 * and upper bounds is problematic and should be avoided as the range check
+	 * will become a NO-OP and always succeed.
 	 * <p>
+	 * 
 	 * @param ele JDom element that contains the attribute.
 	 * @param attrName the name of the xml attribute to parse.
 	 * @param defaultValue the default value to return if attribute is missing.
 	 * @param minValue minimum value allowed (inclusive).
 	 * @param maxValue maximum value allowed (inclusive).
 	 * @return long integer value of the attribute.
-	 * @throws NumberFormatException if intStr could not be parsed or is out of range.
+	 * @throws NumberFormatException if intStr could not be parsed or is out of
+	 *             range.
 	 */
 	public static long parseOptionalBoundedLongAttr(Element ele, String attrName, long defaultValue,
 			long minValue, long maxValue) throws NumberFormatException {
@@ -492,11 +529,14 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parses the given string into a boolean value. Acceptable inputs are y,n,true,fase.  A null
-	 * input string will return false (useful if optional boolean attribute is false by default)
+	 * Parses the given string into a boolean value. Acceptable inputs are
+	 * y,n,true,fase. A null input string will return false (useful if optional
+	 * boolean attribute is false by default)
+	 * 
 	 * @param boolStr the string to parse into a boolean value
 	 * @return the boolean result.
-	 * @throws XmlAttributeException if the string in not one of y,n,true,false or null.
+	 * @throws XmlAttributeException if the string in not one of y,n,true,false
+	 *             or null.
 	 */
 	public static boolean parseBoolean(String boolStr) {
 		if (boolStr == null) {
@@ -510,13 +550,15 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Parses the optional attribute as a boolean value, returning its value or the
-	 * specified defaultValue if missing.
+	 * Parses the optional attribute as a boolean value, returning its value or
+	 * the specified defaultValue if missing.
 	 *
 	 * @param ele JDom element that contains the attribute
 	 * @param attrName the name of the xml attribute to parse
-	 * @param defaultValue boolean value to return if the attribute is not defined
-	 * @return boolean equiv of the attribute string value ("y", "true"/"n", "false")
+	 * @param defaultValue boolean value to return if the attribute is not
+	 *            defined
+	 * @return boolean equiv of the attribute string value ("y", "true"/"n",
+	 *         "false")
 	 * @throws IOException if attribute value is not valid boolean string
 	 */
 	public static boolean parseOptionalBooleanAttr(Element ele, String attrName,
@@ -532,9 +574,10 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Throws an {@link IOException} with a verbose explanation if the requested attribute
-	 * is not present or is empty.
+	 * Throws an {@link IOException} with a verbose explanation if the requested
+	 * attribute is not present or is empty.
 	 * <p>
+	 * 
 	 * @param ele JDOM {@link Element} that contains the attribute
 	 * @param attrName the attribute name
 	 * @return String value of the attribute (never null or empty)
@@ -550,11 +593,12 @@ public class XmlUtilities {
 	}
 
 	/**
-	 * Tests a string for characters that would cause a problem if added to an xml attribute
-	 * or element.
+	 * Tests a string for characters that would cause a problem if added to an
+	 * xml attribute or element.
+	 * 
 	 * @param s a string
-	 * @return boolean true if the string will cause a problem if added to an xml attribute or
-	 * element.
+	 * @return boolean true if the string will cause a problem if added to an
+	 *         xml attribute or element.
 	 */
 	public static boolean hasInvalidXMLCharacters(String s) {
 		return !s.codePoints().allMatch(Verifier::isXMLCharacter);

@@ -276,8 +276,8 @@ public enum OptionType {
 	}
 
 	static class FontStringAdapter extends StringAdapter {
-		private static final String[] STYLES = new String[] { "PLAIN", "BOLD", "ITALIC",
-			"BOLDITALIC" };
+		private static final String[] STYLES =
+			new String[] { "PLAIN", "BOLD", "ITALIC", "BOLDITALIC" };
 
 		@Override
 		Object stringToObject(String string) {

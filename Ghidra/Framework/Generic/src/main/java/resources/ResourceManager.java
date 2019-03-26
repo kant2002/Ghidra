@@ -349,14 +349,16 @@ public class ResourceManager {
 	 * @param width the new width
 	 * @param height the new height
 	 * @return the new icon
+	 * @deprecated use {@link #getScaledIcon(Icon, int, int, int)} instead
 	 */
+	@Deprecated
 	public static ImageIcon createScaledIcon(Icon icon, int width, int height) {
 		return createScaledIcon(icon, width, height, Image.SCALE_AREA_AVERAGING);
 	}
 
 	/**
 	 * Creates a scaled image based upon the given image.
-	 * 
+	 * NOTE: Avoid invocation by a static initializer.
 	 * @param image the image to scale
 	 * @param width the new width
 	 * @param height the new height
@@ -434,7 +436,9 @@ public class ResourceManager {
 	 *        brightest possible value
 	 * @return the new icon
 	 * @see #getDisabledIcon(Icon)
+	 * @deprecated use {@link #getDisabledIcon(Icon)} instead
 	 */
+	@Deprecated
 	public static ImageIcon createDisabledIcon(Icon icon, final int brightnessPercent) {
 		Objects.requireNonNull(icon);
 

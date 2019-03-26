@@ -27,7 +27,11 @@ import ghidra.util.Msg;
 import resources.ResourceManager;
 
 /**
- * Wrap the ImageIcon so that the icon is not loaded upon construction; create the icon as needed.
+ * <code>ImageIconWrapper</code> provides the ability to instantiate 
+ * an ImageIcon with delayed loading.  In addition to delayed loading
+ * it has the added benefit of allowing the use of static initialization
+ * of ImageIcons without starting the Swing thread which can cause
+ * problems when running headless.
  */
 public class ImageIconWrapper extends ImageIcon implements FileBasedIcon {
 
@@ -36,9 +40,14 @@ public class ImageIconWrapper extends ImageIcon implements FileBasedIcon {
 	private boolean loaded;
 
 	private URL imageURL;
-	private byte[] imageBytes;
-	private final String imageName;
+	private String imageName; // lazy load
 
+	/**
+	 * Construct wrapped ImageIcon based upon specified image byte array
+	 * (see {@link Toolkit#createImage(byte[])})
+	 * @param imageBytes image bytes
+	 * @param imageName image reference name
+	 */
 	public ImageIconWrapper(byte[] imageBytes, String imageName) {
 		if (imageBytes == null) {
 			throw new NullPointerException("Cannot create an ImageIconWrapper from a null URL");
@@ -63,6 +72,10 @@ public class ImageIconWrapper extends ImageIcon implements FileBasedIcon {
 		return imageName;
 	}
 
+	/**
+	 * Get icon reference name
+	 * @return icon name
+	 */
 	public String getImageName() {
 		return imageName;
 	}
@@ -201,7 +214,6 @@ public class ImageIconWrapper extends ImageIcon implements FileBasedIcon {
 				// icon's bytes fails (probably due to disk or network issues)
 				throw new IllegalStateException("Unexpected failure loading the default icon!");
 			}
-
 			return defaultIcon; // some sort of initialization has failed
 		}
 

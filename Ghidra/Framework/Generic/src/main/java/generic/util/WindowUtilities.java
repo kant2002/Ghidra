@@ -151,7 +151,8 @@ public class WindowUtilities {
 			SwingUtilities.convertPointToScreen(point, parent);
 		}
 		else {
-			point = SwingUtilities.convertPoint(parent, point, child.getParent()); // this handles negative values
+			// this handles negative values
+			point = SwingUtilities.convertPoint(parent, point, child.getParent());
 		}
 		return point;
 	}
@@ -395,7 +396,9 @@ public class WindowUtilities {
 
 	/**
 	 * Attempts to locate the topmost modal dialog and then bring that dialog to the front of
-	 * the window hierarchy.
+	 * the window hierarchy
+	 * 
+	 * @param activeWindow the system's active window 
 	 */
 	public static void bringModalestDialogToFront(final Window activeWindow) {
 		// NOTE: we do an invokeLater here, as some of our clients are calling us in a

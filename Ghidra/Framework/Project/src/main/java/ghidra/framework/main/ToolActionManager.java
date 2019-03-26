@@ -298,8 +298,7 @@ class ToolActionManager implements ToolChestChangeListener {
 	 * Remove the action named toolName.
 	 * 
 	 * @param map map to search for the action
-	 * @param toolName name of the action (happens to be the name
-	 * of the tool)
+	 * @param toolName name of the action (happens to be the name of the tool)
 	 */
 	private void removeDefaultAction(Map<String, DockingAction> map, String toolName) {
 		DockingAction action = map.get(toolName);

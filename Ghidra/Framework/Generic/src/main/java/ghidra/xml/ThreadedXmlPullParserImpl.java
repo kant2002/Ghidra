@@ -58,16 +58,11 @@ class ThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 	/**
 	 * Constructs a new parser using the specified XML file.
 	 * 
-	 * @param file
-	 *            the input XML file
-	 * @param errHandler
-	 *            the XML error handler
-	 * @param validate
-	 *            true if the parse should validate against the DTD
-	 * @throws SAXException
-	 *             if an XML parse error occurs
-	 * @throws IOException
-	 *             if an i/o error occurs
+	 * @param file the input XML file
+	 * @param errHandler the XML error handler
+	 * @param validate true if the parse should validate against the DTD
+	 * @throws SAXException if an XML parse error occurs
+	 * @throws IOException if an i/o error occurs
 	 */
 	ThreadedXmlPullParserImpl(File file, ErrorHandler errHandler, boolean validate, int capacity)
 			throws SAXException, IOException {
@@ -77,16 +72,11 @@ class ThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 	/**
 	 * Constructs a new parser using the specified XML file.
 	 * 
-	 * @param file
-	 *            the input XML file
-	 * @param errHandler
-	 *            the XML error handler
-	 * @param validate
-	 *            true if the parse should validate against the DTD
-	 * @throws SAXException
-	 *             if an XML parse error occurs
-	 * @throws IOException
-	 *             if an i/o error occurs
+	 * @param file the input XML file
+	 * @param errHandler the XML error handler
+	 * @param validate true if the parse should validate against the DTD
+	 * @throws SAXException if an XML parse error occurs
+	 * @throws IOException if an i/o error occurs
 	 */
 	ThreadedXmlPullParserImpl(ResourceFile file, ErrorHandler errHandler, boolean validate,
 			int capacity) throws SAXException, IOException {
@@ -108,18 +98,12 @@ class ThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 	 * {@link #XmlParser(File, ErrorHandler, boolean)}.
 	 * <p>
 	 * 
-	 * @param input
-	 *            the XML input stream
-	 * @param inputName
-	 *            the name of the input stream
-	 * @param errHandler
-	 *            the XML error handler
-	 * @param validate
-	 *            true if the parse should validate against the DTD
-	 * @throws SAXException
-	 *             if an XML parse error occurs
-	 * @throws IOException
-	 *             if an i/o error occurs
+	 * @param input the XML input stream
+	 * @param inputName the name of the input stream
+	 * @param errHandler the XML error handler
+	 * @param validate true if the parse should validate against the DTD
+	 * @throws SAXException if an XML parse error occurs
+	 * @throws IOException if an i/o error occurs
 	 */
 	ThreadedXmlPullParserImpl(InputStream input, String inputName, ErrorHandler errHandler,
 			boolean validate, int capacity) throws SAXException {
@@ -142,8 +126,9 @@ class ThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 	}
 
 	/**
-	 * Returns the value of the attribute of the processing instruction.
-	 * For example, <code>&lt;?program_dtd version="1"?&gt;</code>
+	 * Returns the value of the attribute of the processing instruction. For
+	 * example, <code>&lt;?program_dtd version="1"?&gt;</code>
+	 * 
 	 * @param piName the name of the processing instruction
 	 * @param attribute the name of the attribute
 	 * @return the value of the attribute of the processing instruction
