@@ -54,7 +54,9 @@ public class ToolUtils {
 	}
 
 	/**
-	 * Returns all tools found in the classpath that live under a root 'defaultTools' directory
+	 * Returns all tools found in the classpath that live under a root
+	 * 'defaultTools' directory
+	 * 
 	 * @return the default tools
 	 */
 	// synchronized to protect loading of static set
@@ -78,7 +80,9 @@ public class ToolUtils {
 	}
 
 	/**
-	 * Returns all tools found in the classpath that live under a root 'extraTools' directory
+	 * Returns all tools found in the classpath that live under a root
+	 * 'extraTools' directory
+	 * 
 	 * @return the extra tools
 	 */
 	// synchronized to protect loading of static set
@@ -102,8 +106,9 @@ public class ToolUtils {
 	}
 
 	/**
-	 * Returns all tools found in the classpath that live under a root 'defaultTools' directory
-	 * or a root 'extraTools' directory
+	 * Returns all tools found in the classpath that live under a root
+	 * 'defaultTools' directory or a root 'extraTools' directory
+	 * 
 	 * @return the tools
 	 */
 	// synchronized to protect loading of static set

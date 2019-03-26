@@ -73,8 +73,8 @@ public class DefaultProject implements Project {
 	 * 
 	 * @param projectManager the manager of this project
 	 * @param projectLocator location and name of project
-	 * @param repository shared repository associated with the new project.  Can be
-	 * 		  null for non-shared projects
+	 * @param repository shared repository associated with the new project. Can
+	 *            be null for non-shared projects
 	 * @throws IOException if I/O error occurs.
 	 * @throws LockException if unable to establish project lock
 	 */
@@ -188,12 +188,12 @@ public class DefaultProject implements Project {
 	}
 
 	/**
-	 * Creates a ProjectLock and attempts to lock it.  This handles the case where the project
-	 * was previously locked.
+	 * Creates a ProjectLock and attempts to lock it. This handles the case
+	 * where the project was previously locked.
 	 * 
 	 * @param locator the project locator
-	 * @param allowInteractiveForce if true, when a lock cannot be obtained, the user will
-	 * 		  be prompted
+	 * @param allowInteractiveForce if true, when a lock cannot be obtained, the
+	 *            user will be prompted
 	 * @return A locked ProjectLock
 	 * @throws ProjectLockException if lock failed
 	 */
@@ -321,6 +321,7 @@ public class DefaultProject implements Project {
 
 	/**
 	 * Get the local tool chest for the user logged in.
+	 * 
 	 * @returns the tool chest
 	 */
 	@Override

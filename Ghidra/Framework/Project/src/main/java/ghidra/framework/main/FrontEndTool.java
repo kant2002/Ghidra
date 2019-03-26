@@ -74,13 +74,12 @@ import ghidra.util.task.*;
 import ghidra.util.xml.GenericXMLOutputter;
 
 /**
- * Tool that serves as the the Ghidra Project Window.
- * Only those plugins that implement the FrontEndable interface may be
- * <i>directly</i> added to this tool by the user.
- * Other plugins that are not marked as
- * FrontEndable may get pulled in because the FrontEndable plugins depend
- * on them. These plugins are aware of what tool they live in so that they
- * can behave in the appropriate manner.
+ * Tool that serves as the the Ghidra Project Window. Only those plugins that
+ * implement the FrontEndable interface may be <i>directly</i> added to this
+ * tool by the user. Other plugins that are not marked as FrontEndable may get
+ * pulled in because the FrontEndable plugins depend on them. These plugins are
+ * aware of what tool they live in so that they can behave in the appropriate
+ * manner.
  */
 public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 	public static final String AUTOMATICALLY_SAVE_TOOLS = "Automatically Save Tools";
@@ -92,8 +91,8 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	private static final int MIN_HEIGHT = 600;
 	/**
-	 * Preference name for whether to show the "What's New" help page when
-	 * the Ghidra Project Window is displayed.
+	 * Preference name for whether to show the "What's New" help page when the
+	 * Ghidra Project Window is displayed.
 	 */
 	private final static String GHIDRA_SHOW_WHATS_NEW = "GhidraShowWhatsNew";
 
@@ -119,6 +118,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	/**
 	 * Construct a new Ghidra Project Window.
+	 * 
 	 * @param pm project manager
 	 */
 	public FrontEndTool(ProjectManager pm) {
@@ -289,6 +289,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	/**
 	 * Set the active project.
+	 * 
 	 * @param project may be null if there is no active project
 	 */
 	public void setActiveProject(Project project) {
@@ -307,6 +308,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	/**
 	 * Add the given project listener.
+	 * 
 	 * @param l listener to add
 	 */
 	public void addProjectListener(ProjectListener l) {
@@ -315,6 +317,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	/**
 	 * Remove the given project listener.
+	 * 
 	 * @param l listener to remove
 	 */
 	public void removeProjectListener(ProjectListener l) {
@@ -323,6 +326,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	/**
 	 * NOTE: do not call this from a non-Swing thread.
+	 * 
 	 * @return true if the repository is null or is connected.
 	 */
 	boolean checkRepositoryConnected(PluginTool tool) {
@@ -355,6 +359,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	/**
 	 * Check in the given domain file.
+	 * 
 	 * @param tool tool that has the domain file opened
 	 * @param domainFile domain file to check in
 	 * @param taskListener listener that is notified when task completes
@@ -367,6 +372,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	/**
 	 * Check in the list of domain files.
+	 * 
 	 * @param tool tool that has the domain files opened
 	 * @param fileList list of DomainFile objects
 	 * @param taskListener listener that is notified when task completes
@@ -418,12 +424,13 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	/**
 	 * Merge the latest version in the repository with the given checked out
-	 * domain file.  Upon completion of the merge, the domain file appears
-	 * as though the latest version was checked out.
+	 * domain file. Upon completion of the merge, the domain file appears as
+	 * though the latest version was checked out.
+	 * 
 	 * @param tool tool that has the domain file opened
 	 * @param domainFile domain file where latest version will be merged into
-	 * @param taskListener listener that is notified when the merge
-	 * task completes
+	 * @param taskListener listener that is notified when the merge task
+	 *            completes
 	 */
 	public void merge(PluginTool tool, DomainFile domainFile, TaskListener taskListener) {
 		ArrayList<DomainFile> list = new ArrayList<>();
@@ -432,9 +439,10 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 	}
 
 	/**
-	 * Merge the latest version (in the repository) of each checked out
-	 * file in fileList. Upon completion of the merge, the domain file appears
-	 * as though the latest version was checked out.
+	 * Merge the latest version (in the repository) of each checked out file in
+	 * fileList. Upon completion of the merge, the domain file appears as though
+	 * the latest version was checked out.
+	 * 
 	 * @param tool tool that has the domain files opened
 	 * @param fileList list of files that are checked out and are to be merged
 	 * @param taskListener listener that is notified when the merge task
@@ -569,6 +577,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	/**
 	 * Get project listeners.
+	 * 
 	 * @return ProjectListener[]
 	 */
 	Iterable<ProjectListener> getListeners() {
@@ -593,8 +602,8 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 	////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Add those plugins that implement the FrontEndable interface and have
-	 * a RELEASED status and not (example || testing) category.
+	 * Add those plugins that implement the FrontEndable interface and have a
+	 * RELEASED status and not (example || testing) category.
 	 */
 	private void addFrontEndablePlugins() {
 		List<String> classNames = new ArrayList<>();
@@ -622,8 +631,9 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 	/**
 	 * Refresh the plugins in the Ghidra Project Window based on what is
 	 * contained in the given XML Element.
-	 * @param tc object that contains an
-	 * entry for each plugin and its configuration state
+	 * 
+	 * @param tc object that contains an entry for each plugin and its
+	 *            configuration state
 	 */
 	private void refresh(ToolTemplate tc) {
 		listeners = WeakDataStructureFactory.createCopyOnWriteWeakSet();
@@ -683,9 +693,10 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 	/**
 	 * Get the int value for the given string.
+	 * 
 	 * @param value
-	 * @param defaultValue return this value if a NumberFormatException
-	 * is thrown during the parseInt() method
+	 * @param defaultValue return this value if a NumberFormatException is
+	 *            thrown during the parseInt() method
 	 */
 	private int parse(String value, int defaultValue) {
 		if (value != null) {
@@ -700,9 +711,9 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 	}
 
 	/**
-	 * Check the "What's New" preference; if it has not been set, then
-	 * show the "What's New" help page. This should only happen if the
-	 * preference was never set.
+	 * Check the "What's New" preference; if it has not been set, then show the
+	 * "What's New" help page. This should only happen if the preference was
+	 * never set.
 	 */
 	private void checkWhatsNewPreference() {
 
@@ -788,7 +799,8 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 		}
 
 		/**
-		 * Need to override this method so we can stop the file watcher when the dialog is closed.
+		 * Need to override this method so we can stop the file watcher when the
+		 * dialog is closed.
 		 */
 		@Override
 		protected void dialogClosed() {
@@ -798,7 +810,8 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 		}
 
 		/**
-		 * Need to override this method so we can stop the file watcher when the dialog is closed.
+		 * Need to override this method so we can stop the file watcher when the
+		 * dialog is closed.
 		 */
 		@Override
 		protected void dialogShown() {
@@ -844,8 +857,8 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 	}
 
 	/**
-	 * Task to merge latest version of a domain file into the checked
-	 * out version.
+	 * Task to merge latest version of a domain file into the checked out
+	 * version.
 	 */
 	private class MergeTask extends Task {
 		private List<DomainFile> list;
@@ -855,9 +868,11 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 
 		/**
 		 * Construct a new MergeTask.
+		 * 
 		 * @param tool tool that has the domain files open
 		 * @param list list of DomainFiles to be merged
-		 * @param taskListener listener that is notified when this task completes
+		 * @param taskListener listener that is notified when this task
+		 *            completes
 		 */
 		MergeTask(PluginTool tool, List<DomainFile> list, TaskListener taskListener) {
 			super("Merge", true, true, true);

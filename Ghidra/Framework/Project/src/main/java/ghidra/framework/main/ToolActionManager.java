@@ -225,6 +225,7 @@ class ToolActionManager implements ToolChestChangeListener {
 
 	/**
 	 * Add default tool to the project tool chest.
+	 * 
 	 * @param filename tool template filename
 	 * @param toolName tool name
 	 */
@@ -240,6 +241,7 @@ class ToolActionManager implements ToolChestChangeListener {
 
 	/**
 	 * Enable/disable actions in the given map.
+	 * 
 	 * @param map
 	 * @param enabled
 	 */
@@ -254,6 +256,7 @@ class ToolActionManager implements ToolChestChangeListener {
 
 	/**
 	 * Rebuild the tool menus.
+	 * 
 	 * @param activeProject
 	 */
 	private void populateToolMenus(Project activeProject) {
@@ -293,6 +296,7 @@ class ToolActionManager implements ToolChestChangeListener {
 
 	/**
 	 * Remove the action named toolName.
+	 * 
 	 * @param map map to search for the action
 	 * @param toolName name of the action (happens to be the name
 	 * of the tool)
@@ -436,7 +440,8 @@ class ToolActionManager implements ToolChestChangeListener {
 	}
 
 	/**
-	 * Pop up a file chooser dialog for the user to find the file to import as a tool.
+	 * Pop up a file chooser dialog for the user to find the file to import as a
+	 * tool.
 	 */
 	private void importTool() {
 		if (fileChooser == null) {
@@ -561,8 +566,8 @@ class ToolActionManager implements ToolChestChangeListener {
 
 	/////////////////////////////////////////////////////////////////////
 	/**
-	 * Subclass to set the help ID for the tool actions whose names are
-	 * the same as the tool name for run, delete, and export.
+	 * Subclass to set the help ID for the tool actions whose names are the same
+	 * as the tool name for run, delete, and export.
 	 *
 	 */
 	private abstract class ToolAction extends DockingAction {

@@ -95,5 +95,4 @@ public class StandAlonePluginTool extends PluginTool {
 		configureToolAction.setEnabled(true);
 		addAction(configureToolAction);
 	}
-
 }

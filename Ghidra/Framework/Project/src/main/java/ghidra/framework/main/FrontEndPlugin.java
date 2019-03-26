@@ -467,9 +467,7 @@ public class FrontEndPlugin extends Plugin
 	/**
 	 * Exit the Ghidra application; the parameter indicates whether
 	 * the user should be prompted to save the project that is about
-	 * to be closed.
-	 * @param confirmCloseProject true means to prompt the user if the
-	 * current project has changed
+	 * to be closed
 	 */
 	void exitGhidra() {
 		boolean okToExit = closeActiveProject();

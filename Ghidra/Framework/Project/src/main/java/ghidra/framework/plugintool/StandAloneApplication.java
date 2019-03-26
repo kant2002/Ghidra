@@ -50,12 +50,14 @@ public abstract class StandAloneApplication implements GenericStandAloneApplicat
 	protected PluginTool tool;
 
 	/**
-	 * Creates a new application using the given properties filename.  The filename is 
-	 * expected reside in the current working directory. 
+	 * Creates a new application using the given properties filename. The
+	 * filename is expected reside in the current working directory.
 	 * 
-	 * <p><b>The given properties file is expected to have the 
+	 * <p>
+	 * <b>The given properties file is expected to have the
 	 * {@link ApplicationProperties#APPLICATION_NAME_PROPERTY} and
-	 * {@link ApplicationProperties#APPLICATION_VERSION_PROPERTY} properties set.
+	 * {@link ApplicationProperties#APPLICATION_VERSION_PROPERTY} properties
+	 * set.
 	 * 
 	 * @param propertiesFilename the name of the properties file.
 	 */
@@ -209,6 +211,7 @@ public abstract class StandAloneApplication implements GenericStandAloneApplicat
 		if (!savedToolFile.exists()) {
 			return null;
 		}
+
 		FileInputStream fileInputStream = null;
 		try {
 			fileInputStream = new FileInputStream(savedToolFile.getAbsolutePath());
