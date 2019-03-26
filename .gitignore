@@ -5,3 +5,34 @@
 build
 
 wrapper.log*
+
+# VS configuration
+.vs/
+*.user
+
+# Maven configuration
+lib/
+target/
+
+repositories/
+
+# Idea projects
+*.iml
+.idea/
+
+# Gradle files until I would be able built project using gradle
+*.gradle
+gradle/
+gradlew*
+
+# Exclude OS dependent generated files
+os/
+
+# Stack dump files from VS code vim editor used for Git.
+*.stackdump
+
+out/
+.dbDirLock
+
+# Files without source code
+support/LaunchSupport.jar
