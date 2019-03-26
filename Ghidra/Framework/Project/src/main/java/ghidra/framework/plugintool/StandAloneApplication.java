@@ -200,8 +200,8 @@ public abstract class StandAloneApplication implements GenericStandAloneApplicat
 			return root;
 		}
 		catch (Exception e) {
-			Msg.showError(getClass(), tool.getToolFrame(), "Error Reading Tool",
-				"Could not read tool: " + e);
+			Msg.showError(getClass(), null, "Error Reading Tool",
+				"Could not read tool: " + DEFAULT_TOOL_NAME, e);
 		}
 		return null;
 	}
@@ -220,8 +220,8 @@ public abstract class StandAloneApplication implements GenericStandAloneApplicat
 			return root;
 		}
 		catch (Exception e) {
-			Msg.showError(getClass(), tool.getToolFrame(), "Error Reading Saved Tool",
-				"Could not read tool: " + e);
+			Msg.showError(getClass(), null, "Error Reading Tool",
+				"Could not read tool: " + savedToolFile, e);
 		}
 		finally {
 			if (fileInputStream != null) {
