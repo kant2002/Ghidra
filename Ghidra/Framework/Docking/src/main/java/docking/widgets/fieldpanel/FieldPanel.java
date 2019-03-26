@@ -1419,8 +1419,12 @@ public class FieldPanel extends JPanel
 	public class BigFieldPanelMouseWheelListener implements MouseWheelListener {
 		@Override
 		public void mouseWheelMoved(MouseWheelEvent e) {
-			int wheelRotation = e.getWheelRotation();
-			int scrollAmount = (wheelRotation < 0) ? -40 : 40;
+			double wheelRotation = e.getPreciseWheelRotation();
+			int scrollAmount = (int) (wheelRotation * 40);
+			if (scrollAmount == 0) {
+				return;
+			}
+
 			if (hoverHandler.isHoverShowing()) {
 				hoverHandler.scroll(scrollAmount);
 			}
