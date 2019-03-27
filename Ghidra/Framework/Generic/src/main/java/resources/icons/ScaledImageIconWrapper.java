@@ -46,6 +46,15 @@ public class ScaledImageIconWrapper extends ImageIcon implements FileBasedIcon {
         this( baseIcon, width, height, Image.SCALE_AREA_AVERAGING );
     }
     
+	/**
+	 * Construct wrapped scaled ImageIcon based upon specified
+	 * baseIcon and desired size
+	 * baseIcon and desired size
+	 * @param baseIcon base icon
+	 * @param width new icon width
+	 * @param height new icon height
+	 * @param hints {@link RenderingHints} used by {@link Graphics2D} 
+	 */
     public ScaledImageIconWrapper( Icon baseIcon, int width, int height, int hints ) {
         this.baseIcon = baseIcon;
         this.width = width;

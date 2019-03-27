@@ -32,8 +32,7 @@ import ghidra.util.bean.GGlassPanePainter;
 public class PopupWindow {
 	private static final int X_PADDING = 20;
 	private static final int Y_PADDING = 20;
-	private static final List<WeakReference<PopupWindow>> VISIBLE_POPUPS =
-		new ArrayList<>();
+	private static final List<WeakReference<PopupWindow>> VISIBLE_POPUPS = new ArrayList<>();
 
 	public static void hideAllWindows() {
 		for (WeakReference<PopupWindow> weakReference : VISIBLE_POPUPS) {
@@ -202,7 +201,9 @@ public class PopupWindow {
 
 	/**
 	 * Sets the amount of time that will pass before the popup window is closed <b>after</b> the
-	 * user moves away from the popup window and out of the neutral zone.
+	 * user moves away from the popup window and out of the neutral zone
+	 * 
+	 * @param delayInMillis the timer delay
 	 */
 	public void setCloseWindowDelay(int delayInMillis) {
 		closeTimer = new Timer(delayInMillis, event -> hide());

@@ -42,8 +42,8 @@ public class ToggleNavigationAid extends AbstractAction {
 
 		putValue(Action.SMALL_ICON, new SelfPaintingIcon());
 		putValue(Action.SHORT_DESCRIPTION,
-			"Paints an on-screen marker to show the current location "
-				+ "when navigating within the help system");
+			"Paints an on-screen marker to show the current location " +
+				"when navigating within the help system");
 
 		TranslateIcon translatedIcon =
 			new CenterTranslateIcon(CANCEL_ICON, ENABLED_ICON.getIconWidth());
