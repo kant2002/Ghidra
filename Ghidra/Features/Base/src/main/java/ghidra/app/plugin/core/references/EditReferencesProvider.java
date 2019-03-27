@@ -125,7 +125,6 @@ public class EditReferencesProvider extends ComponentProviderAdapter
 		 * specified the event.
 		 * 
 		 * @param e event that has current state of drag and drop operation
-		 * @param data data that is being dragged
 		 */
 		@Override
 		public boolean isDropOk(DropTargetDragEvent e) {

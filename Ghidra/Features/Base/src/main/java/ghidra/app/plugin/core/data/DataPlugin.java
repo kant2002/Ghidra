@@ -704,7 +704,8 @@ public class DataPlugin extends Plugin implements DataService {
 			if (parentDT instanceof Composite) {
 				int[] path = context.getLocation().getComponentPath();
 
-				dialog = new DataSettingsDialog(program, ((Composite) parentDT).getComponent(path[path.length - 1]));
+				dialog = new DataSettingsDialog(program,
+					((Composite) parentDT).getComponent(path[path.length - 1]));
 			}
 			else {
 				dialog = new DataSettingsDialog(program, data.getDataType());

@@ -26,10 +26,10 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.ParserAdapter;
 
 /**
- * Converts the Ghidra "source" TOC file to a JavaHelp TOC file.
- * The Ghidra source TOC file contains the table of context index name and
- * its corresponding url. However, JavaHelp expects the target value to be
- * map ID in the map file.
+ * Converts the Ghidra "source" TOC file to a JavaHelp TOC file. The Ghidra
+ * source TOC file contains the table of context index name and its
+ * corresponding url. However, JavaHelp expects the target value to be map ID in
+ * the map file.
  * 
  */
 public class TOCConverter {
@@ -45,8 +45,8 @@ public class TOCConverter {
 	private Map<String, String> urlMap; // map TOC target tag to its corresponding URL
 	private List<String> tocList; // list of TOC entry names values
 	
-	TOCConverter(String sourceTOCfilename, String outFilename) throws IOException, SAXException, 
-			ParserConfigurationException {
+	TOCConverter(String sourceTOCfilename, String outFilename)
+			throws IOException, SAXException, ParserConfigurationException {
 		
 		sourceFilename = sourceTOCfilename;
 		this.outFilename = outFilename;
@@ -59,6 +59,7 @@ public class TOCConverter {
 	
 	/**
 	 * Write the section of the map file for the table of contents.
+	 * 
 	 * @param out output for the map file that maps a help ID to a url.
 	 * @throws IOException
 	 */
@@ -68,15 +69,15 @@ public class TOCConverter {
 			String target = tocList.get(i);
 			String url = urlMap.get(target);
 			
-			String line =
-				"  <mapID target=\"" + target + "\" url=\"" + url + "\" />";
+			String line = "  <mapID target=\"" + target + "\" url=\"" + url + "\" />";
 			out.println(line);
 		}
 		out.println("  <!-- End of Table of Contents help IDs -->");
 	}
+
 	/**
-	 * Read the source table of contents file and build up hash maps to
-	 * maintain TOC entry names to urls and map IDs.
+	 * Read the source table of contents file and build up hash maps to maintain
+	 * TOC entry names to urls and map IDs.
 	 */
 	private void readSourceTOC() throws IOException, SAXException, ParserConfigurationException {
 
@@ -95,6 +96,7 @@ public class TOCConverter {
 	
 	/**
 	 * Write the JavaHelp table of contents file.
+	 * 
 	 * @throws IOException
 	 */
 	private void writeJavaHelpTOC() throws IOException {
@@ -113,8 +115,7 @@ public class TOCConverter {
 				if (line.endsWith("/>")) {
 					endline = " />";
 				}
-				line = getPadString(line) + TOCITEM + " " + TEXT + "=\"" + 
-						item.getText() + "\"";
+				line = getPadString(line) + TOCITEM + " " + TEXT + "=\"" + item.getText() + "\"";
 					
 				if (item.getTarget().length() > 0) {
 					line = line + TARGET + "=\"" + item.getTarget() + "\"";
@@ -123,8 +124,7 @@ public class TOCConverter {
 			}
 			else if (line.indexOf(TOC_VERSION) == 0) {
 				out.println("<!-- This is the JavaHelp Table of Contents file -->");
-				out.println("<!-- Auto generated on " + new Date() + 
-								": Do not edit! -->");
+				out.println("<!-- Auto generated on " + new Date() + ": Do not edit! -->");
 			}
 			if (!line.startsWith("<!-- Source")) {
 				out.println(line);
@@ -134,6 +134,7 @@ public class TOCConverter {
 		out.close();
 		reader.close();
 	}
+
 	private String getPadString(String line) {
 		StringBuffer sb = new StringBuffer();
 		for (int i=0; i<line.length(); i++) {
@@ -164,9 +165,10 @@ public class TOCConverter {
 	}
 	
 	/**
-	 * Creates a temporary TOC file that does not have the <!DOCTYPE line in
-	 * it which causes the SAX parser to blow up; it does not like the
-	 * bad url in it.
+	 * Creates a temporary TOC file that does not have the <!DOCTYPE line in it
+	 * which causes the SAX parser to blow up; it does not like the bad url in
+	 * it.
+	 * 
 	 * @return
 	 * @throws IOException
 	 */
@@ -207,9 +209,11 @@ public class TOCConverter {
 			target = target.replace('#', '_');
 			target = target.replace('-', '_');
 		}
+
 		String getText() {
 			return text;
 		}
+
 		String getTarget() {
 			return target;
 		}
@@ -218,12 +222,12 @@ public class TOCConverter {
 	private class TOCHandler extends DefaultHandler {
 		
 		/**
-		 * @see org.xml.sax.ContentHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+		 * @see org.xml.sax.ContentHandler#startElement(java.lang.String,
+		 *      java.lang.String, java.lang.String, org.xml.sax.Attributes)
 		 */
 		@Override
-        public void startElement(String namespaceURI, String localName,
-								String qName, Attributes atts) 
-			throws SAXException {
+		public void startElement(String namespaceURI, String localName, String qName,
+				Attributes atts) throws SAXException {
 			
 			if (atts != null) {
 				if (!atts.getQName(0).equals(TEXT)) {
@@ -245,6 +249,7 @@ public class TOCConverter {
 			}
 		}
 	}
+
 	public final static void main(String[] args) {
 		if (args.length < 2) {
 			System.out.println("Usage: TOCConverter [source TOC filename] [out filename]");
@@ -257,14 +262,14 @@ public class TOCConverter {
 			String name = file.getName();
 			name = "map_" + name;
 			
-			PrintWriter out = new PrintWriter(new FileOutputStream(
-										new File(file.getParentFile(), name)));
+			PrintWriter out =
+				new PrintWriter(new FileOutputStream(new File(file.getParentFile(), name)));
 			conv.writeTOCMapFile(out);
 			out.close();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
- 	
 }

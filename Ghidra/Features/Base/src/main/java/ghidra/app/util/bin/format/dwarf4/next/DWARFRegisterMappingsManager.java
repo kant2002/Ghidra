@@ -39,8 +39,8 @@ public class DWARFRegisterMappingsManager {
 	private static Map<LanguageID, DWARFRegisterMappings> cache = new HashMap<>();
 
 	/**
-	 * Returns true if the specified {@link LanguageDescription} has DWARF register
-	 * mappings.
+	 * Returns true if the specified {@link LanguageDescription} has DWARF
+	 * register mappings.
 	 *
 	 * @param langDesc The {@link LanguageDescription} to test
 	 * @return true if the language has a DWARF register mapping specified
@@ -65,9 +65,12 @@ public class DWARFRegisterMappingsManager {
 	}
 
 	/**
-	 * Returns a possibly cached {@link DWARFRegisterMappings} object for the specified language,
+	 * Returns a possibly cached {@link DWARFRegisterMappings} object for the
+	 * specified language,
 	 * <p>
-	 * @param lang {@link Language} to get the matching DWARF register mappings for
+	 * 
+	 * @param lang {@link Language} to get the matching DWARF register mappings
+	 *            for
 	 * @return {@link DWARFRegisterMappings} instance, never null
 	 * @throws IOException if mapping not found or invalid
 	 */
@@ -99,12 +102,14 @@ public class DWARFRegisterMappingsManager {
 	}
 
 	/**
-	 * Returns {@link ResourceFile} that should contain the specified language's DWARF register
-	 * mapping, never null.
+	 * Returns {@link ResourceFile} that should contain the specified language's
+	 * DWARF register mapping, never null.
 	 *
 	 * @param lang {@link Language} to find the mapping file for.
-	 * @return {@link ResourceFile} of where the mapping file should be, never null.
-	 * @throws IOException if not a Sleigh language or no mapping specified or multiple mappings specified.
+	 * @return {@link ResourceFile} of where the mapping file should be, never
+	 *         null.
+	 * @throws IOException if not a Sleigh language or no mapping specified or
+	 *             multiple mappings specified.
 	 */
 	public static ResourceFile getDWARFRegisterMappingFileFor(Language lang) throws IOException {
 		LanguageDescription langDesc = lang.getLanguageDescription();
@@ -125,18 +130,23 @@ public class DWARFRegisterMappingsManager {
 	}
 
 	/**
-	 * Finds the DWARF register mapping information file specified in the specified
-	 * language's LDEF file and returns a new {@link DWARFRegisterMappings} object
-	 * containing the data read from that file.
+	 * Finds the DWARF register mapping information file specified in the
+	 * specified language's LDEF file and returns a new
+	 * {@link DWARFRegisterMappings} object containing the data read from that
+	 * file.
 	 * <p>
-	 * Throws {@link IOException} if the lang does not have a mapping or it is invalid.
+	 * Throws {@link IOException} if the lang does not have a mapping or it is
+	 * invalid.
 	 * <p>
-	 * @param lang {@link Language} to read the matching DWARF register mappings for
-	 * @return a new {@link DWARFRegisterMappings} instance, created from information read
-	 * from the {@link #DWARF_REGISTER_MAPPING_NAME} xml file referenced in the language's
-	 * LDEF, never null.
-	 * @throws IOException if there is no DWARF register mapping file associated with
-	 * the specified {@link Language} or if there was an error in the register mapping data.
+	 * 
+	 * @param lang {@link Language} to read the matching DWARF register mappings
+	 *            for
+	 * @return a new {@link DWARFRegisterMappings} instance, created from
+	 *         information read from the {@link #DWARF_REGISTER_MAPPING_NAME}
+	 *         xml file referenced in the language's LDEF, never null.
+	 * @throws IOException if there is no DWARF register mapping file associated
+	 *             with the specified {@link Language} or if there was an error
+	 *             in the register mapping data.
 	 */
 	public static DWARFRegisterMappings readMappingForLang(Language lang) throws IOException {
 		ResourceFile dwarfFile = getDWARFRegisterMappingFileFor(lang);
@@ -159,11 +169,14 @@ public class DWARFRegisterMappingsManager {
 	}
 
 	/**
-	 * Creates a new {@link DWARFRegisterMappings} from the data present in the xml element.
+	 * Creates a new {@link DWARFRegisterMappings} from the data present in the
+	 * xml element.
 	 * <p>
-	 * @param rootElem JDom XML element containing the &lt;dwarf&gt; root element of the
-	 * mapping file.
-	 * @param lang The Ghidra {@link Language} that the DWARF register mapping applies to
+	 * 
+	 * @param rootElem JDom XML element containing the &lt;dwarf&gt; root
+	 *            element of the mapping file.
+	 * @param lang The Ghidra {@link Language} that the DWARF register mapping
+	 *            applies to
 	 * @return a new {@link DWARFRegisterMappings} instance, never null.
 	 * @throws IOException if missing or invalid data found in xml
 	 */
@@ -182,8 +195,10 @@ public class DWARFRegisterMappingsManager {
 		try {
 			spi = readMappingsElem(regMappingsElem, lang, regmap);
 			Element callFrameElem = rootElem.getChild("call_frame_cfa");
-			cfa = (callFrameElem != null) ? XmlUtilities.parseOptionalBoundedLongAttr(callFrameElem,
-				"value", 0, 0, Long.MAX_VALUE) : 0;
+			cfa = (callFrameElem != null)
+					? XmlUtilities.parseOptionalBoundedLongAttr(callFrameElem, "value", 0, 0,
+						Long.MAX_VALUE)
+					: 0;
 
 			Element useFormalParameterStorageElem =
 				rootElem.getChild("use_formal_parameter_storage");

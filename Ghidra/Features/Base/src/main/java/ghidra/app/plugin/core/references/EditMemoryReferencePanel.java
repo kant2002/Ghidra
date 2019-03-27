@@ -52,6 +52,7 @@ class EditMemoryReferencePanel extends EditReferencePanel {
 	private WeakHashMap<Program, List<Address>> addrHistoryMap =
 		new WeakHashMap<Program, List<Address>>();
 
+	
 	private ReferencesPlugin plugin;
 
 	// Fields required for ADD
@@ -419,7 +420,7 @@ class EditMemoryReferencePanel extends EditReferencePanel {
 		Address toAddr = toAddressField.getAddress();
 		if (toAddr == null) {
 			AddressSpace space = toAddressField.getAddressSpace();
-			showInputErr("Invalid address specified, " + space.getName() +
+			showInputErr("Invalid memory address offset specified; " + space.getName() +
 				" offset must be in range: " + space.getMinAddress().toString(false) + " to " +
 				space.getMaxAddress().toString(false));
 			return false;

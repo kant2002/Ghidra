@@ -60,7 +60,7 @@ class ViewStringsTableModel extends AddressBasedTableModel<ProgramLocation> {
 		IS_ASCII_COL,
 		CHARSET_COL,
 		HAS_ENCODING_ERROR
-	};
+	}
 
 	ViewStringsTableModel(PluginTool tool) {
 		super("Defined String Table", tool, null, null);

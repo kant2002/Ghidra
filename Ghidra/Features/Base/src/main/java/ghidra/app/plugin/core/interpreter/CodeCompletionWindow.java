@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -141,6 +140,7 @@ public class CodeCompletionWindow extends JDialog {
 		jlist.setModel(new CodeCompletionListModel(list));
 		jlist.setSelectionModel(new CodeCompletionListSelectionModel(list));
 		jlist.clearSelection();
+
 		/* size the window */
 		pack();
 		/* move the window close to the cursor, if possible */
