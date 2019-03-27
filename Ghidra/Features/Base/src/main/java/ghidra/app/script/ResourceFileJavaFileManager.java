@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package generic.jar;
+package ghidra.app.script;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -22,6 +22,7 @@ import java.util.*;
 import javax.tools.*;
 import javax.tools.JavaFileObject.Kind;
 
+import generic.jar.ResourceFile;
 import ghidra.util.exception.AssertException;
 
 /**

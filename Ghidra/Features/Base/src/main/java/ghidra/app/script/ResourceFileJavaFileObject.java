@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package generic.jar;
+package ghidra.app.script;
 
 import java.io.*;
 import java.net.URI;
@@ -21,6 +21,8 @@ import java.net.URI;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.tools.JavaFileObject;
+
+import generic.jar.ResourceFile;
 
 /**
  * A {@link JavaFileObject} that works with Ghidra's {@link ResourceFileJavaFileManager}.
