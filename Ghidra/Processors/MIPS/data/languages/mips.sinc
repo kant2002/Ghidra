@@ -794,7 +794,7 @@ fmt6: "D"	is format=0x15    { }
 # To add a new pcodeop op that is implemented in Java code:
 #
 #   In this directory:
-#     ./ghidra.git/Ghidra/Processors/MIPS/src/main/java/ghidra/program/emulation
+#     ./ghidra/Ghidra/Processors/MIPS/src/main/java/ghidra/program/emulation
 #   Edit this file to register a new Java method that implements the pcodeop:
 #     MIPSEmulateInstructionStateModifier.java
 #   (Be sure to also import the new class)
@@ -803,7 +803,7 @@ fmt6: "D"	is format=0x15    { }
 #     <property key="emulateInstructionStateModifierClass" value="ghidra.program.emulation.MIPSEmulateInstructionStateModifier"/>
 #
 #   Add the Java class file for the new pcodeop here:
-#     ./ghidra.git/Ghidra/Framework/SoftwareModeling/src/main/java/ghidra/pcode/emulate/callother
+#     ./ghidra/Ghidra/Framework/SoftwareModeling/src/main/java/ghidra/pcode/emulate/callother
 #
 define pcodeop break;
 define pcodeop trap;
