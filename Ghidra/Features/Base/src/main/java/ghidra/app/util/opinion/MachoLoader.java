@@ -15,18 +15,22 @@
  */
 package ghidra.app.util.opinion;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
 import generic.continues.RethrowContinuesFactory;
 import ghidra.app.util.Option;
-import ghidra.app.util.bin.ByteProvider;
+import ghidra.app.util.bin.*;
 import ghidra.app.util.bin.format.macho.*;
 import ghidra.app.util.bin.format.macho.prelink.PrelinkMap;
+import ghidra.app.util.bin.format.ubi.*;
 import ghidra.app.util.importer.MemoryConflictHandler;
 import ghidra.app.util.importer.MessageLog;
+import ghidra.framework.model.DomainFolder;
 import ghidra.program.model.listing.Program;
 import ghidra.util.LittleEndianDataConverter;
+import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
 
 /**
@@ -96,5 +100,70 @@ public class MachoLoader extends AbstractLibrarySupportLoader {
 	@Override
 	public String getName() {
 		return MACH_O_NAME;
+	}
+
+	/**
+	 * Overrides the default implementation to account for Universal Binary (UBI) files. 
+	 * These must be specially parsed to find the internal file matching the current architecture.
+	 * <p>
+	 * {@link FatHeader} is used to parse the file to determine if it is a
+	 * UBI. If so, each file within the archive is run through the import process until one is
+	 * found that is successful (meaning it matches the correct architecture). Only one file
+	 * in the UBI will ever be imported. If the provided file is NOT a UBI, default 
+	 * import method will be invoked. 
+	 */
+	@Override
+	protected boolean importLibrary(String libName, DomainFolder libFolder, File libFile,
+			LoadSpec loadSpec, List<Option> options, MessageLog log, Object consumer,
+			Set<String> unprocessedLibs, List<Program> programList, TaskMonitor monitor)
+			throws CancelledException, IOException {
+
+		if (!libFile.isFile()) {
+			return false;
+		}
+
+		try (ByteProvider provider = new RandomAccessByteProvider(libFile)) {
+
+			FatHeader header =
+				FatHeader.createFatHeader(RethrowContinuesFactory.INSTANCE, provider);
+			List<FatArch> architectures = header.getArchitectures();
+
+			if (architectures.isEmpty()) {
+				log.appendMsg("WARNING! No archives found in the UBI: " + libFile);
+				return false;
+			}
+			
+			for (FatArch architecture : architectures) {
+
+				// Note: The creation of the byte provider that we pass to the importer deserves a
+				// bit of explanation:
+				//
+				// At this point in the process we have a FatArch, which provides access to the 
+				// underlying bytes for the Macho in the form of an input stream. From that we could
+				// create a byte provider. That doesn't work however. Here's why:
+				//
+				// The underlying input stream in the FatArch has already been parsed and the first
+				// 4 (magic) bytes read. If we create a provider from that stream and pass it to 
+				// the parent import method, we'll have a problem because that parent method will 
+				// try to read those first 4 magic bytes again, which violates the contract of the 
+				// input stream provider (you can't read the same bytes over again) and will throw 
+				// an exception. To avoid that, just create the provider from the original file 
+				// provider, and not from the FatArch input stream. 
+				try (ByteProvider bp = new ByteProviderWrapper(provider, architecture.getOffset(),
+					architecture.getSize())) {
+					if (super.importLibrary(libName, libFolder, libFile, bp, loadSpec, options, log,
+						consumer, unprocessedLibs, programList, monitor)) {
+						return true;
+					}
+				}
+			}
+		}
+		catch (UbiException | MachException ex) {
+			// Not a Universal Binary file; just continue and process as a normal file. This is 
+			// not an error condition so no need to log.
+		}
+
+		return super.importLibrary(libName, libFolder, libFile, loadSpec, options, log, consumer,
+			unprocessedLibs, programList, monitor);
 	}
 }
