@@ -108,6 +108,6 @@ define pcodeop mbarOp;
 # binutils: a2.d: 188:  7d 4b 61 fe     dcbtstep r10,r11,r12
 # binutils: e500mc.d:  a0:      7c 64 29 fe     dcbtstep r3,r4,r5
 define pcodeop DataCacheBlockTouchForStoreByExternalPID;
-:dcbtstep TH,A,B is $(NOTVLE) & OP=31 & TH & A & B & XOP_1_10=255 & BIT_0=0 {
+:dcbtstep TH,A,B is OP=31 & TH & A & B & XOP_1_10=255 & BIT_0=0 {
 	DataCacheBlockTouchForStoreByExternalPID(TH,A,B);
 }

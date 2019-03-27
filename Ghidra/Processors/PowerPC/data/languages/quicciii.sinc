@@ -6,6 +6,7 @@ define pcodeop prefetchDataCacheBlockLockSet;
 define pcodeop prefetchDataCacheBlockLockSetX;
 define pcodeop debuggerNotifyHalt;
 define pcodeop instructionCacheBlockClearLock;
+define pcodeop queryInstructionCacheBlockLock;
 define pcodeop prefetchInstructionCacheBlockLockSetX;
 define pcodeop memoryBarrier;
 define pcodeop moveFromAPIDIndirect;
@@ -46,7 +47,13 @@ define pcodeop invalidateTLB;
 :icblc CT,RA_OR_ZERO,B	is OP=31 & CT & B & XOP_1_10=230 & BIT_0=0 & RA_OR_ZERO
 {
         ea:$(REGISTER_SIZE) = RA_OR_ZERO + B;
-	instructionCacheBlockClearLock(ea);
+	instructionCacheBlockClearLock(CT:1,ea);
+}
+
+:icblq CT,RA_OR_ZERO,B	is OP=31 & CT & B & XOP_1_10=198 & BIT_0=1 & RA_OR_ZERO
+{
+    ea:$(REGISTER_SIZE) = RA_OR_ZERO + B;
+	cr0 = queryInstructionCacheBlockLock(CT:1,ea);
 }
 
 #icbtls 0,0,r0		#FIXME

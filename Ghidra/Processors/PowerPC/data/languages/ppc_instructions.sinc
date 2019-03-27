@@ -735,7 +735,7 @@
 
 #cmpw r0,r1		0x7c 00 08 00
 #cmpd r0,r1		0x7c 20 08 00  (64 bit mode)
-:cmp^DSIZE 	A,B			is $(NOTVLE) & OP=31 & CRFD=0 & BIT_22=0 & DSIZE & A & B & REG_A & REG_B & XOP_1_10=0 & BIT_0=0 
+:cmp^DSIZE 	A,B			is OP=31 & CRFD=0 & BIT_22=0 & DSIZE & A & B & REG_A & REG_B & XOP_1_10=0 & BIT_0=0 
 {
 	tmpA:$(REGISTER_SIZE) = REG_A;
 	tmpB:$(REGISTER_SIZE) = REG_B;
@@ -745,7 +745,7 @@
 
 #cmpw cr2,r0,r1     0x7d 00 08 00
 #cmpd cr2,r0,r1     0x7d 20 08 00 (64 bit mode)
-:cmp^DSIZE 	CRFD,A,B	is $(NOTVLE) & OP=31 & CRFD & BIT_22=0 & DSIZE & A & B & REG_A & REG_B & XOP_1_10=0 & BIT_0=0 
+:cmp^DSIZE 	CRFD,A,B	is OP=31 & CRFD & BIT_22=0 & DSIZE & A & B & REG_A & REG_B & XOP_1_10=0 & BIT_0=0 
 {
 	tmpA:$(REGISTER_SIZE) = REG_A;
 	tmpB:$(REGISTER_SIZE) = REG_B;
@@ -775,7 +775,7 @@
 ############################
 #cmplw r0,r1		0x7c 00 08 40
 #cmpld r0,r1		0x7c 20 08 40  (64 bit mode)
-:cmpl^DSIZE 	A,B			is $(NOTVLE) & OP=31 & CRFD=0 & BIT_22=0 & DSIZE & A & B & UREG_A & UREG_B & XOP_1_10=32 & BIT_0=0 
+:cmpl^DSIZE 	A,B			is OP=31 & CRFD=0 & BIT_22=0 & DSIZE & A & B & UREG_A & UREG_B & XOP_1_10=32 & BIT_0=0 
 {
 	tmpA:$(REGISTER_SIZE) = UREG_A;
 	tmpB:$(REGISTER_SIZE) = UREG_B;
@@ -785,7 +785,7 @@
 
 #cmplw cr2,r0,r1     0x7d 00 08 40
 #cmplw cr2,r0,r1     0x7d 20 08 40 (64 bit mode)
-:cmpl^DSIZE 	CRFD,A,B	is $(NOTVLE) & OP=31 & CRFD & BIT_22=0 & DSIZE & A & B & UREG_A & UREG_B & XOP_1_10=32 & BIT_0=0 
+:cmpl^DSIZE 	CRFD,A,B	is OP=31 & CRFD & BIT_22=0 & DSIZE & A & B & UREG_A & UREG_B & XOP_1_10=32 & BIT_0=0 
 {
 	tmpA:$(REGISTER_SIZE) = UREG_A;
 	tmpB:$(REGISTER_SIZE) = UREG_B;
@@ -2242,20 +2242,20 @@ define pcodeop lswxOp;
 }
 
 #macchw r0,r0,r0	0x10 00 01 58
-:macchw D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=172 & Rc=0
+:macchw D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=172 & Rc=0
 {
         D = macchw(D, A, B);
 }
 
 #macchw. r0,r0,r0	0x10 00 01 59
-:macchw. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=172 & Rc=1
+:macchw. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=172 & Rc=1
 {
         D = macchw(D, A, B);
 	cr0flags(D);	
 }
 
 #macchwo r0,r0,r0	0x10 00 05 58
-:macchwo D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=172 & Rc=0
+:macchwo D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=172 & Rc=0
 {
         D = macchw(D, A, B);
         xer_mac_update(D, A, B);
@@ -2263,7 +2263,7 @@ define pcodeop lswxOp;
 
 @ifndef NoLegacyIntegerMultiplyAccumulate
 #macchwo. r0,r0,r0	0x10 00 05 59
-:macchwo. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=172 & Rc=1
+:macchwo. D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=172 & Rc=1
 {
         D = macchw(D, A, B);
         xer_mac_update(D, A, B);
@@ -2272,13 +2272,13 @@ define pcodeop lswxOp;
 @endif
 
 #macchws r0,r0,r0	0x10 00 01 d8
-:macchws D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=236 & Rc=0
+:macchws D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=236 & Rc=0
 {
         D = macchws(D, A, B);
 }
 
 #macchws. r0,r0,r0	0x10 00 01 d9
-:macchws. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=236 & Rc=1
+:macchws. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=236 & Rc=1
 {
         D = macchws(D, A, B);
 	cr0flags(D);	
@@ -2286,7 +2286,7 @@ define pcodeop lswxOp;
 
 @ifndef NoLegacyIntegerMultiplyAccumulate
 #macchwso r0,r0,r0	0x10 00 05 d8
-:macchwso D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=236 & Rc=0
+:macchwso D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=236 & Rc=0
 {
         D = macchws(D, A, B);
         xer_mac_update(D, A, B);
@@ -2295,7 +2295,7 @@ define pcodeop lswxOp;
 
 @ifndef NoLegacyIntegerMultiplyAccumulate
 #macchwso. r0,r0,r0	0x10 00 05 d9
-:macchwso. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=236 & Rc=1
+:macchwso. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=236 & Rc=1
 {
         D = macchws(D, A, B);
         xer_mac_update(D, A, B);
@@ -2304,27 +2304,27 @@ define pcodeop lswxOp;
 @endif
 
 #macchwsu r0,r0,r0	0x10 00 01 98
-:macchwsu D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=204 & Rc=0
+:macchwsu D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=204 & Rc=0
 {
         D = macchwsu(D, A, B);
 }
 
 #macchwsu. r0,r0,r0	0x10 00 01 99
-:macchwsu. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=204 & Rc=1
+:macchwsu. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=204 & Rc=1
 {
         D = macchwsu(D, A, B);
 	cr0flags(D);	
 }
 
 #macchwsuo r0,r0,r0	0x10 00 05 98
-:macchwsuo D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=204 & Rc=0
+:macchwsuo D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=204 & Rc=0
 {
         D = macchwsu(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #macchwsuo. r0,r0,r0	0x10 00 05 99
-:macchwsuo. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=204 & Rc=1
+:macchwsuo. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=204 & Rc=1
 {
         D = macchwsu(D, A, B);
         xer_mac_update(D, A, B);
@@ -2332,27 +2332,27 @@ define pcodeop lswxOp;
 }
 
 #macchwu r0,r0,r0	0x10 00 01 18
-:macchwu D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=140 & Rc=0
+:macchwu D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=140 & Rc=0
 {
         D = macchwu(D, A, B);
 }
 
 #macchwu. r0,r0,r0	0x10 00 01 19
-:macchwu. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=140 & Rc=1
+:macchwu. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=140 & Rc=1
 {
         D = macchwu(D, A, B);
 	cr0flags(D);	
 }
 
 #macchwuo r0,r0,r0	0x10 00 05 18
-:macchwuo D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=140 & Rc=0
+:macchwuo D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=140 & Rc=0
 {
         D = macchwu(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #macchwuo. r0,r0,r0	0x10 00 05 19
-:macchwuo. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=140 & Rc=1
+:macchwuo. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=140 & Rc=1
 {
         D = macchwu(D, A, B);
         xer_mac_update(D, A, B);
@@ -2361,13 +2361,13 @@ define pcodeop lswxOp;
 
 
 #machhw r0,r0,r0	0x10 00 00 58
-:machhw D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=44 & Rc=0
+:machhw D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=44 & Rc=0
 {
         D = machhw(D, A, B);
 }
 
 #machhw. r0,r0,r0	0x10 00 00 59
-:machhw. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=44 & Rc=1
+:machhw. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=44 & Rc=1
 {
         D = machhw(D, A, B);
 	cr0flags(D);	
@@ -2375,7 +2375,7 @@ define pcodeop lswxOp;
 
 @ifndef NoLegacyIntegerMultiplyAccumulate
 #machhwo r0,r0,r0	0x10 00 04 58
-:machhwo D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=44 & Rc=0
+:machhwo D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=44 & Rc=0
 {
         D = machhw(D, A, B);
         xer_mac_update(D, A, B);
@@ -2384,7 +2384,7 @@ define pcodeop lswxOp;
 
 @ifndef NoLegacyIntegerMultiplyAccumulate
 #machhwo. r0,r0,r0	0x10 00 04 59
-:machhwo. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=44 & Rc=1
+:machhwo. D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=44 & Rc=1
 {
         D = machhw(D, A, B);
         xer_mac_update(D, A, B);
@@ -2393,27 +2393,27 @@ define pcodeop lswxOp;
 @endif
 
 #machhws r0,r0,r0	0x10 00 00 d8
-:machhws D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=108 & Rc=0
+:machhws D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=108 & Rc=0
 {
         D = machhws(D, A, B);
 }
 
 #machhws. r0,r0,r0	0x10 00 00 d9
-:machhws. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=108 & Rc=1
+:machhws. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=108 & Rc=1
 {
         D = machhws(D, A, B);
 	cr0flags(D);	
 }
 
 #machhwso r0,r0,r0	0x10 00 04 d8
-:machhwso D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=108 & Rc=0
+:machhwso D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=108 & Rc=0
 {
         D = machhws(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #machhwso. r0,r0,r0	0x10 00 04 d9
-:machhwso. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=108 & Rc=1
+:machhwso. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=108 & Rc=1
 {
         D = machhws(D, A, B);
         xer_mac_update(D, A, B);
@@ -2421,27 +2421,27 @@ define pcodeop lswxOp;
 }
 
 #machhwsu r0,r0,r0	0x10 00 00 98
-:machhwsu D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=76 & Rc=0
+:machhwsu D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=76 & Rc=0
 {
         D = machhwsu(D, A, B);
 }
 
 #machhwsu. r0,r0,r0	0x10 00 00 99
-:machhwsu. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=76 & Rc=1
+:machhwsu. D,A,B	is OP=4 & D & A & B & OE=0 & XOP_1_9=76 & Rc=1
 {
         D = machhwsu(D, A, B);
 	cr0flags(D);	
 }
 
 #machhwsuo r0,r0,r0	0x10 00 04 98
-:machhwsuo D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=76 & Rc=0
+:machhwsuo D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=76 & Rc=0
 {
         D = machhwsu(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #machhwsuo. r0,r0,r0	0x10 00 04 99
-:machhwsuo. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=76 & Rc=1
+:machhwsuo. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=76 & Rc=1
 {
         D = machhwsu(D, A, B);
         xer_mac_update(D, A, B);
@@ -2449,27 +2449,27 @@ define pcodeop lswxOp;
 }
 
 #machhwu r0,r0,r0	0x10 00 00 18
-:machhwu D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=12 & Rc=0
+:machhwu D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=12 & Rc=0
 {
         D = machhwu(D, A, B);
 }
 
 #machhwu. r0,r0,r0	0x10 00 00 19
-:machhwu. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=12 & Rc=1
+:machhwu. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=12 & Rc=1
 {
         D = machhwu(D, A, B);
 	cr0flags(D);	
 }
 
 #machhwuo r0,r0,r0	0x10 00 04 18
-:machhwuo D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=12 & Rc=0
+:machhwuo D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=12 & Rc=0
 {
         D = machhwu(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #machhwuo. r0,r0,r0	0x10 00 04 19
-:machhwuo. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=12 & Rc=1
+:machhwuo. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=12 & Rc=1
 {
         D = machhwu(D, A, B);
         xer_mac_update(D, A, B);
@@ -2478,27 +2478,27 @@ define pcodeop lswxOp;
 
 
 #maclhw r0,r0,r0	0x10 00 03 58
-:maclhw D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=428 & Rc=0
+:maclhw D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=428 & Rc=0
 {
         D = maclhw(D, A, B);
 }
 
 #maclhw. r0,r0,r0	0x10 00 03 59
-:maclhw. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=428 & Rc=1
+:maclhw. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=428 & Rc=1
 {
         D = maclhw(D, A, B);
 	cr0flags(D);	
 }
 
 #maclhwo r0,r0,r0	0x10 00 07 58
-:maclhwo D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=428 & Rc=0
+:maclhwo D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=428 & Rc=0
 {
         D = maclhw(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #maclhwo. r0,r0,r0	0x10 00 07 59
-:maclhwo. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=428 & Rc=1
+:maclhwo. D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=428 & Rc=1
 {
         D = maclhw(D, A, B);
         xer_mac_update(D, A, B);
@@ -2506,27 +2506,27 @@ define pcodeop lswxOp;
 }
 
 #maclhws r0,r0,r0	0x10 00 03 d8
-:maclhws D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=492 & Rc=0
+:maclhws D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=492 & Rc=0
 {
         D = maclhws(D, A, B);
 }
 
 #maclhws. r0,r0,r0	0x10 00 03 d9
-:maclhws. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=492 & Rc=1
+:maclhws. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=492 & Rc=1
 {
         D = maclhws(D, A, B);
 	cr0flags(D);	
 }
 
 #maclhwso r0,r0,r0	0x10 00 07 d8
-:maclhwso D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=492 & Rc=0
+:maclhwso D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=492 & Rc=0
 {
         D = maclhws(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #maclhwso. r0,r0,r0	0x10 00 07 d9
-:maclhwso. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=492 & Rc=1
+:maclhwso. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=492 & Rc=1
 {
         D = maclhws(D, A, B);
         xer_mac_update(D, A, B);
@@ -2534,27 +2534,27 @@ define pcodeop lswxOp;
 }
 
 #maclhwsu r0,r0,r0	0x10 00 03 98
-:maclhwsu D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=460 & Rc=0
+:maclhwsu D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=460 & Rc=0
 {
         D = maclhwsu(D, A, B);
 }
 
 #maclhwsu. r0,r0,r0	0x10 00 03 99
-:maclhwsu. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=460 & Rc=1
+:maclhwsu. D,A,B	is OP=4 & D & A & B & OE=0 & XOP_1_9=460 & Rc=1
 {
         D = maclhwsu(D, A, B);
 	cr0flags(D);	
 }
 
 #maclhwsuo r0,r0,r0	0x10 00 07 98
-:maclhwsuo D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=460 & Rc=0
+:maclhwsuo D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=460 & Rc=0
 {
         D = maclhwsu(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #maclhwsuo. r0,r0,r0	0x10 00 07 99
-:maclhwsuo. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=460 & Rc=1
+:maclhwsuo. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=460 & Rc=1
 {
         D = maclhwsu(D, A, B);
         xer_mac_update(D, A, B);
@@ -2563,7 +2563,7 @@ define pcodeop lswxOp;
 
 @ifndef NoLegacyIntegerMultiplyAccumulate
 #maclhwu r0,r0,r0	0x10 00 03 18
-:maclhwu D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=396 & Rc=0
+:maclhwu D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=396 & Rc=0
 {
         D = maclhwu(D, A, B);
 }
@@ -2571,7 +2571,7 @@ define pcodeop lswxOp;
 
 @ifndef NoLegacyIntegerMultiplyAccumulate
 #maclhwu. r0,r0,r0	0x10 00 03 19
-:maclhwu. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=396 & Rc=1
+:maclhwu. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=396 & Rc=1
 {
         D = maclhwu(D, A, B);
 	cr0flags(D);	
@@ -2579,14 +2579,14 @@ define pcodeop lswxOp;
 @endif
 
 #maclhwuo r0,r0,r0	0x10 00 07 18
-:maclhwuo D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=396 & Rc=0
+:maclhwuo D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=396 & Rc=0
 {
         D = maclhwu(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #maclhwuo. r0,r0,r0	0x10 00 07 19
-:maclhwuo. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=396 & Rc=1
+:maclhwuo. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=396 & Rc=1
 {
         D = maclhwu(D, A, B);
         xer_mac_update(D, A, B);
@@ -2594,65 +2594,65 @@ define pcodeop lswxOp;
 }
 
 #mulchw r0,r0,r0	0x10 00 01 50
-:mulchw D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=168 & Rc=0
+:mulchw D,A,B		is OP=4 & D & A & B & XOP_1_10=168 & Rc=0
 {
         D = mulchw(D, A, B);
 }
 
 #mulchw. r0,r0,r0	0x10 00 01 51
-:mulchw. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=168 & Rc=1
+:mulchw. D,A,B		is OP=4 & D & A & B & XOP_1_10=168 & Rc=1
 {
         D = mulchw(D, A, B);
 	cr0flags(D);	
 }
 
 #mulchwu r0,r0,r0	0x10 00 01 10
-:mulchwu D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=136 & Rc=0
+:mulchwu D,A,B		is OP=4 & D & A & B & XOP_1_10=136 & Rc=0
 {
         D = mulchwu(D, A, B);
 }
 
 #mulchwu. r0,r0,r0	0x10 00 01 11
-:mulchwu. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=136 & Rc=1
+:mulchwu. D,A,B		is OP=4 & D & A & B & XOP_1_10=136 & Rc=1
 {
         D = mulchwu(D, A, B);
 	cr0flags(D);	
 }
 
 #mulhhw r0,r0,r0	0x10 00 00 50
-:mulhhw D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=40 & Rc=0
+:mulhhw D,A,B		is OP=4 & D & A & B & XOP_1_10=40 & Rc=0
 {
         D = mulhhw(D, A, B);
 }
 
 #mulhhw. r0,r0,r0	0x10 00 00 51
-:mulhhw. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=40 & Rc=1
+:mulhhw. D,A,B		is OP=4 & D & A & B & XOP_1_10=40 & Rc=1
 {
         D = mulhhw(D, A, B);
 	cr0flags(D);	
 }
 
 #mulhhwu r0,r0,r0	0x10 00 00 10
-:mulhhwu D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=8 & Rc=0
+:mulhhwu D,A,B		is OP=4 & D & A & B & XOP_1_10=8 & Rc=0
 {
         D = mulhhwu(D, A, B);
 }
 
 #mulhhwu. r0,r0,r0	0x10 00 00 11
-:mulhhwu. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=8 & Rc=1
+:mulhhwu. D,A,B		is OP=4 & D & A & B & XOP_1_10=8 & Rc=1
 {
         D = mulhhwu(D, A, B);
 	cr0flags(D);	
 }
 
 #mullhw r0,r0,r0	0x10 00 03 50
-:mullhw D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=424 & Rc=0
+:mullhw D,A,B		is OP=4 & D & A & B & XOP_1_10=424 & Rc=0
 {
         D = mullhw(D, A, B);
 }
 
 #mullhw. r0,r0,r0	0x10 00 03 51
-:mullhw. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=424 & Rc=1
+:mullhw. D,A,B		is OP=4 & D & A & B & XOP_1_10=424 & Rc=1
 {
         D = mullhw(D, A, B);
 	cr0flags(D);	
@@ -2660,7 +2660,7 @@ define pcodeop lswxOp;
 
 @ifndef NoLegacyIntegerMultiplyAccumulate
 # mulhwu r0,r0,r0	0x10 00 03 10
-:mullhwu D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=392 & Rc=0
+:mullhwu D,A,B		is OP=4 & D & A & B & XOP_1_10=392 & Rc=0
 {
         D = mullhwu(D, A, B);
 }
@@ -2668,7 +2668,7 @@ define pcodeop lswxOp;
 
 @ifndef NoLegacyIntegerMultiplyAccumulate
 #mullhwu. r0,r0,r0	0x10 00 03 11
-:mullhwu. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & XOP_1_10=392 & Rc=1
+:mullhwu. D,A,B		is OP=4 & D & A & B & XOP_1_10=392 & Rc=1
 {
         D = mullhwu(D, A, B);
 	cr0flags(D);	
@@ -2676,27 +2676,27 @@ define pcodeop lswxOp;
 @endif
 
 #nmacchw r0,r0,r0	0x10 00 01 5c
-:nmacchw D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=174 & Rc=0
+:nmacchw D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=174 & Rc=0
 {
         D = nmacchw(D, A, B);
 }
 
 #nmacchw. r0,r0,r0	0x10 00 01 5d
-:nmacchw. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=174 & Rc=1
+:nmacchw. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=174 & Rc=1
 {
         D = nmacchw(D, A, B);
 	cr0flags(D);	
 }
 
 #nmacchwo r0,r0,r0	0x10 00 05 5c
-:nmacchwo D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=174 & Rc=0
+:nmacchwo D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=174 & Rc=0
 {
         D = nmacchw(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #nmacchwo. r0,r0,r0	0x10 00 05 5d
-:nmacchwo. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=174 & Rc=1
+:nmacchwo. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=174 & Rc=1
 {
         D = nmacchw(D, A, B);
         xer_mac_update(D, A, B);
@@ -2704,27 +2704,27 @@ define pcodeop lswxOp;
 }
 
 #nmacchws r0,r0,r0	0x10 00 01 dc
-:nmacchws D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=238 & Rc=0
+:nmacchws D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=238 & Rc=0
 {
         D = nmacchws(D, A, B);
 }
 
 #nmacchws. r0,r0,r0	0x10 00 01 dd
-:nmacchws. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=238 & Rc=1
+:nmacchws. D,A,B	is OP=4 & D & A & B & OE=0 & XOP_1_9=238 & Rc=1
 {
         D = nmacchws(D, A, B);
 	cr0flags(D);	
 }
 
 #nmacchwso r0,r0,r0	0x10 00 05 dc
-:nmacchwso D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=238 & Rc=0
+:nmacchwso D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=238 & Rc=0
 {
         D = nmacchws(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #nmacchwso. r0,r0,r0	0x10 00 05 dd
-:nmacchwso. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=238 & Rc=1
+:nmacchwso. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=238 & Rc=1
 {
         D = nmacchws(D, A, B);
         xer_mac_update(D, A, B);
@@ -2732,27 +2732,27 @@ define pcodeop lswxOp;
 }
 
 #nmachhw r0,r0,r0	0x10 00 00 5c
-:nmachhw D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=46 & Rc=0
+:nmachhw D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=46 & Rc=0
 {
         D = nmachhw(D, A, B);
 }
 
 #nmachhw. r0,r0,r0	0x10 00 00 5d
-:nmachhw. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=46 & Rc=1
+:nmachhw. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=46 & Rc=1
 {
         D = nmachhw(D, A, B);
 	cr0flags(D);	
 }
 
 #nmachhwo r0,r0,r0	0x10 00 04 5c
-:nmachhwo D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=46 & Rc=0
+:nmachhwo D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=46 & Rc=0
 {
         D = nmachhw(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #nmachhwo. r0,r0,r0	0x10 00 04 5d
-:nmachhwo. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=46 & Rc=1
+:nmachhwo. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=46 & Rc=1
 {
         D = nmachhw(D, A, B);
         xer_mac_update(D, A, B);
@@ -2760,27 +2760,27 @@ define pcodeop lswxOp;
 }
 
 #nmachhws r0,r0,r0	0x10 00 00 dc
-:nmachhws D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=110 & Rc=0
+:nmachhws D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=110 & Rc=0
 {
         D = nmachhws(D, A, B);
 }
 
 #nmachhws. r0,r0,r0	0x10 00 00 dd
-:nmachhws. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=110 & Rc=1
+:nmachhws. D,A,B	is OP=4 & D & A & B & OE=0 & XOP_1_9=110 & Rc=1
 {
         D = nmachhws(D, A, B);
 	cr0flags(D);	
 }
 
 #nmachhwso r0,r0,r0	0x10 00 04 dc
-:nmachhwso D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=110 & Rc=0
+:nmachhwso D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=110 & Rc=0
 {
         D = nmachhws(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #nmachhwso. r0,r0,r0	0x10 00 04 dd
-:nmachhwso. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=110 & Rc=1
+:nmachhwso. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=110 & Rc=1
 {
         D = nmachhws(D, A, B);
         xer_mac_update(D, A, B);
@@ -2788,27 +2788,27 @@ define pcodeop lswxOp;
 }
 
 #nmaclhw r0,r0,r0	0x10 00 03 5c
-:nmaclhw D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=430 & Rc=0
+:nmaclhw D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=430 & Rc=0
 {
         D = nmaclhw(D, A, B);
 }
 
 #nmaclhw. r0,r0,r0	0x10 00 03 5d
-:nmaclhw. D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=430 & Rc=1
+:nmaclhw. D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=430 & Rc=1
 {
         D = nmaclhw(D, A, B);
 	cr0flags(D);	
 }
 
 #nmaclhwo r0,r0,r0	0x10 00 07 5c
-:nmaclhwo D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=430 & Rc=0
+:nmaclhwo D,A,B		is OP=4 & D & A & B & OE=1 & XOP_1_9=430 & Rc=0
 {
         D = nmaclhw(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #nmaclhwo. r0,r0,r0	0x10 00 07 5d
-:nmaclhwo. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=430 & Rc=1
+:nmaclhwo. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=430 & Rc=1
 {
         D = nmaclhw(D, A, B);
         xer_mac_update(D, A, B);
@@ -2816,27 +2816,27 @@ define pcodeop lswxOp;
 }
 
 #nmaclhws r0,r0,r0	0x10 00 03 dc
-:nmaclhws D,A,B		is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=494 & Rc=0
+:nmaclhws D,A,B		is OP=4 & D & A & B & OE=0 & XOP_1_9=494 & Rc=0
 {
         D = nmaclhws(D, A, B);
 }
 
 #nmaclhws. r0,r0,r0	0x10 00 03 dd
-:nmaclhws. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=0 & XOP_1_9=494 & Rc=1
+:nmaclhws. D,A,B	is OP=4 & D & A & B & OE=0 & XOP_1_9=494 & Rc=1
 {
         D = nmaclhws(D, A, B);
 	cr0flags(D);	
 }
 
 #nmaclhwso r0,r0,r0	0x10 00 07 dc
-:nmaclhwso D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=494 & Rc=0
+:nmaclhwso D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=494 & Rc=0
 {
         D = nmaclhws(D, A, B);
         xer_mac_update(D, A, B);
 }
 
 #nmaclhwso. r0,r0,r0	0x10 00 07 dd
-:nmaclhwso. D,A,B	is $(NOTVLE) & OP=4 & D & A & B & OE=1 & XOP_1_9=494 & Rc=1
+:nmaclhwso. D,A,B	is OP=4 & D & A & B & OE=1 & XOP_1_9=494 & Rc=1
 {
         D = nmaclhws(D, A, B);
         xer_mac_update(D, A, B);
@@ -2880,7 +2880,7 @@ define pcodeop lswxOp;
 }
 
 #mfocrf D,cr1  0x7c 31 00 26
-:mfocrf D,CRM_CR	is OP=31 & D & BIT_20=1 & CRM_CR & BIT_11=0 & XOP_1_10=19 & BIT_0=0
+:mfocrf D,CRM_CR	is OP=31 & D & BIT_20=1 & CRM_CR & BIT_11 & XOP_1_10=19 & BIT_0=0
 {
 @ifdef BIT_64
 	D = zext(CRM_CR);
@@ -3631,13 +3631,13 @@ define pcodeop lswxOp;
 
 @ifdef BIT_64
 #sld r0,r0,r0 		0x7C 00 00 36
-:sld A,S,B		is $(NOTVLE) & OP=31 & S & A & B & XOP_1_10=27 & Rc=0
+:sld A,S,B		is OP=31 & S & A & B & XOP_1_10=27 & Rc=0
 {
 	A = S << (B & 0x7f);
 }
 
 #sld. 		0x7C 00 00 37
-:sld. A,S,B		is $(NOTVLE) & OP=31 & S & A & B & XOP_1_10=27 & Rc=1
+:sld. A,S,B		is OP=31 & S & A & B & XOP_1_10=27 & Rc=1
 {
 	A = S << (B & 0x7f);
 	cr0flags(A);
@@ -4292,7 +4292,7 @@ define pcodeop TLBInvalidateAll; # Outputs/affect TBD
 # CMT: TLB Synchronize
 # FORM: X-form
 define pcodeop TLBSynchronize; # Outputs/affect TBD
-:tlbsync	is $(NOTVLE) & OP=31 & BITS_21_25=0 & BITS_16_20=0 & BITS_11_15=0 & XOP_1_10=566 & BIT_0=0 { TLBSynchronize(); }
+:tlbsync	is OP=31 & BITS_21_25=0 & BITS_16_20=0 & BITS_11_15=0 & XOP_1_10=566 & BIT_0=0 { TLBSynchronize(); }
 
 #tw	7,r0,r0			0x7c e0 00 08
 :tw^TOm A,B		is OP=31 & TO & TOm & A & B & BITS_1_10=4 & BIT_0=0
@@ -4363,7 +4363,7 @@ define pcodeop TLBSynchronize; # Outputs/affect TBD
 ##}
 
 #xor r0,r0,r0	0x7c 00 02 78
-:xor A,S,B		is $(NOTVLE) & OP=31 & S & A & B & XOP_1_10=316 & Rc=0
+:xor A,S,B		is OP=31 & S & A & B & XOP_1_10=316 & Rc=0
 {
 	A = S ^ B;
 }

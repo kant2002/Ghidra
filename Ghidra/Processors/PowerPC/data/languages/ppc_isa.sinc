@@ -1246,7 +1246,7 @@ define pcodeop ReturnFromGuestInterrupt;
 # FORM: X-form
 # binutils: a2.d: 410:  7d 4b 60 a8     ldarx   r10,r11,r12
 # binutils: a2.d: 414:  7d 4b 60 a9     ldarx   r10,r11,r12,1
-:ldarx TH,RA_OR_ZERO,B,BIT_0 is $(NOTVLE) & OP=31 & TH & RA_OR_ZERO & B & XOP_1_10=84 & BIT_0 
+:ldarx TH,RA_OR_ZERO,B,BIT_0 is OP=31 & TH & RA_OR_ZERO & B & XOP_1_10=84 & BIT_0 
 {
 	ea:$(REGISTER_SIZE) = RA_OR_ZERO+B;
 	RESERVE = 1;
@@ -1780,10 +1780,10 @@ define pcodeop lqOp;
 :lq RT,A,DQ is $(NOTVLE) & OP=56 & RT & A & DQ & BITS_0_3=0  { RT = lqOp(RT,A); } 
 
 define pcodeop lvepxOp;
-:lvepx RT,A,B is $(NOTVLE) & OP=31 & RT & A & B & XOP_1_10=295 & BIT_0=0  { RT = lvepxOp(RT,A,B); } 
+:lvepx RT,A,B is OP=31 & RT & A & B & XOP_1_10=295 & BIT_0=0  { RT = lvepxOp(RT,A,B); } 
 
 define pcodeop lvepxlOp;
-:lvepxl RT,A,B is $(NOTVLE) & OP=31 & RT & A & B & XOP_1_10=263 & BIT_0=0  { RT = lvepxlOp(RT,A,B); } 
+:lvepxl RT,A,B is OP=31 & RT & A & B & XOP_1_10=263 & BIT_0=0  { RT = lvepxlOp(RT,A,B); } 
 
 # binutils-descr: "lfdp",	OP(57),		OP_MASK,     POWER6,	POWER7,		{FRT, D, RA0}
 define pcodeop lfdpOp;
@@ -2091,13 +2091,13 @@ define pcodeop stqOp;
 } 
 
 define pcodeop stvepxOp;
-:stvepx S,RA_OR_ZERO,B is $(NOTVLE) & OP=31 & S & RA_OR_ZERO & B & XOP_1_10=807 & BIT_0=0  {
+:stvepx S,RA_OR_ZERO,B is OP=31 & S & RA_OR_ZERO & B & XOP_1_10=807 & BIT_0=0  {
 	EA:$(REGISTER_SIZE) = RA_OR_ZERO + B;
 	*[ram]:16 EA = stvepxOp(S, RA_OR_ZERO, B);
 } 
 
 define pcodeop stvepxlOp;
-:stvepxl S,RA_OR_ZERO,B is $(NOTVLE) & OP=31 & S & RA_OR_ZERO & B & XOP_1_10=775 & BIT_0=0  {
+:stvepxl S,RA_OR_ZERO,B is OP=31 & S & RA_OR_ZERO & B & XOP_1_10=775 & BIT_0=0  {
 	EA:$(REGISTER_SIZE) = RA_OR_ZERO + B;
 	*[ram]:16 EA = stvepxlOp(S, RA_OR_ZERO, B);
 } 

@@ -17,8 +17,8 @@ CC32: "gt"		is BI_CC_VLE=1 & BO_VLE=1 & BI_CR_VLE & BI_CC_VLE { tmp:1 = 0; getCr
 CC32: "ne"		is BI_CC_VLE=2 & BO_VLE=0 & BI_CR_VLE & BI_CC_VLE { tmp:1 = 0; getCrBit(BI_CR_VLE, BI_CC_VLE, tmp); tmp = !tmp; export tmp; }
 CC32: "so"		is BI_CC_VLE=3 & BO_VLE=1 & BI_CR_VLE & BI_CC_VLE { tmp:1 = 0; getCrBit(BI_CR_VLE, BI_CC_VLE, tmp); export tmp; }
 CC32: "ns"		is BI_CC_VLE=3 & BO_VLE=0 & BI_CR_VLE & BI_CC_VLE { tmp:1 = 0; getCrBit(BI_CR_VLE, BI_CC_VLE, tmp); tmp = !tmp; export tmp; }
-#CC32: "nz"		is BO_VLE=2 {CTR = CTR-1; tmp:1 = (CTR != 0); export tmp; }
-#CC32: "z"		is BO_VLE=3 {CTR = CTR-1; tmp:1 = (CTR == 0); export tmp; }
+CC32: "dnz"		is BO_VLE=2 {CTR = CTR-1; tmp:1 = (CTR != 0); export tmp; }
+CC32: "dz"		is BO_VLE=3 {CTR = CTR-1; tmp:1 = (CTR == 0); export tmp; }
 
 addrBD8: reloc	is BD8_VLE 		[ reloc = inst_start + (BD8_VLE << 1);] 	{ export *[ram]:4 reloc; }
 addrBD15: reloc	is BD15_VLE 	[ reloc = inst_start + (BD15_VLE << 1);] 	{ export *[ram]:4 reloc; }
