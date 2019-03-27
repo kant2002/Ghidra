@@ -36,6 +36,7 @@ import ghidra.framework.project.tool.GhidraToolTemplate;
 import ghidra.util.HelpLocation;
 import ghidra.util.Msg;
 import ghidra.util.filechooser.ExtensionFileFilter;
+import ghidra.util.xml.XmlUtilities;
 import resources.ResourceManager;
 
 /**
@@ -483,7 +484,7 @@ class ToolActionManager implements ToolChestChangeListener {
 	 */
 	private void addToolTemplate(InputStream instream, String path) {
 		try {
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Element root = sax.build(instream).getRootElement();
 
 			ToolTemplate template = new GhidraToolTemplate(root, path);

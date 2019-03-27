@@ -72,6 +72,7 @@ import ghidra.util.exception.CancelledException;
 import ghidra.util.exception.VersionException;
 import ghidra.util.task.*;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 
 /**
  * Tool that serves as the the Ghidra Project Window. Only those plugins that
@@ -176,7 +177,7 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 		}
 		try {
 			InputStream is = new FileInputStream(saveFile);
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 
 			Element root = sax.build(is).getRootElement();
 			GhidraToolTemplate template = new GhidraToolTemplate(

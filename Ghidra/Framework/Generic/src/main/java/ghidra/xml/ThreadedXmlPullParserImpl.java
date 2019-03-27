@@ -27,6 +27,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import generic.concurrent.GThreadPool;
 import generic.jar.ResourceFile;
 import ghidra.util.Msg;
+import ghidra.util.xml.XmlUtilities;
 
 /**
  * Constructs a new XML parser. This is class is designed for reading XML files.
@@ -222,7 +223,7 @@ class ThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 			this.contentHandler = new DefaultContentHandlerWrapper(errHandler);
 
 			try {
-				SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+				SAXParserFactory saxParserFactory = XmlUtilities.createSecureSAXParserFactory(true);
 				saxParserFactory.setFeature("http://xml.org/sax/features/namespaces", false);
 				saxParserFactory.setFeature("http://xml.org/sax/features/validation", validate);
 				saxParser = saxParserFactory.newSAXParser();

@@ -155,7 +155,7 @@ public class DWARFRegisterMappingsManager {
 				" for language " + lang.getLanguageID().getIdAsString());
 		}
 
-		SAXBuilder sax = new SAXBuilder(false);
+		SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 		try (InputStream fis = dwarfFile.getInputStream()) {
 			Document doc = sax.build(fis);
 			Element rootElem = doc.getRootElement();

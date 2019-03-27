@@ -31,6 +31,7 @@ import ghidra.framework.project.tool.GhidraToolTemplate;
 import ghidra.util.*;
 import ghidra.util.exception.AssertException;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 import resources.ResourceManager;
 
 public class ToolUtils {
@@ -229,7 +230,7 @@ public class ToolUtils {
 		GhidraToolTemplate toolTemplate = null;
 		try (FileInputStream is = new FileInputStream(toolFile)) {
 
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 
 			Document doc = sax.build(is);
 			Element root = doc.getRootElement();
@@ -297,7 +298,7 @@ public class ToolUtils {
 			if (is == null) {
 				return null;
 			}
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Document doc = sax.build(is);
 			Element root = doc.getRootElement();
 

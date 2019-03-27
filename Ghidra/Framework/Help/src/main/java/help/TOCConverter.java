@@ -25,6 +25,8 @@ import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.ParserAdapter;
 
+import ghidra.util.xml.XmlUtilities;
+
 /**
  * Converts the Ghidra "source" TOC file to a JavaHelp TOC file. The Ghidra
  * source TOC file contains the table of context index name and its
@@ -80,8 +82,7 @@ public class TOCConverter {
 	 * TOC entry names to urls and map IDs.
 	 */
 	private void readSourceTOC() throws IOException, SAXException, ParserConfigurationException {
-
-    	SAXParserFactory factory = SAXParserFactory.newInstance();
+		SAXParserFactory factory = XmlUtilities.createSecureSAXParserFactory(false);
 		XMLReader parser = new ParserAdapter(factory.newSAXParser().getParser());
     	File file = createTempTOCFile();
 		String fileURL = file.toURI().toURL().toString();

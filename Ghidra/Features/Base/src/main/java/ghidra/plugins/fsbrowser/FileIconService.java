@@ -30,6 +30,7 @@ import generic.jar.ResourceFile;
 import ghidra.formats.gfilesystem.FSUtilities;
 import ghidra.framework.Application;
 import ghidra.util.Msg;
+import ghidra.util.xml.XmlUtilities;
 import resources.ResourceManager;
 import resources.icons.ScaledImageIconWrapper;
 import resources.icons.TranslateIcon;
@@ -225,7 +226,7 @@ public class FileIconService {
 		maxExtLevel = 1;
 
 		try (InputStream xmlInputStream = xmlFile.getInputStream()) {
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Document doc = sax.build(xmlInputStream);
 			Element root = doc.getRootElement();
 			for (Element child : CollectionUtils.asList(root.getChildren("file_extension"),

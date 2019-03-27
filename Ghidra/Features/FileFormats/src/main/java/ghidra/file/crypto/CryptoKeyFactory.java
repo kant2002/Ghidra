@@ -27,6 +27,7 @@ import ghidra.framework.Application;
 import ghidra.util.Msg;
 import ghidra.util.NumericUtilities;
 import ghidra.util.exception.CryptoException;
+import ghidra.util.xml.XmlUtilities;
 import util.CollectionUtils;
 
 public final class CryptoKeyFactory {
@@ -63,7 +64,7 @@ public final class CryptoKeyFactory {
 			try {
 				InputStream is = file.getInputStream();
 				try {
-					SAXBuilder sax = new SAXBuilder(false);
+					SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 					Document doc = sax.build(is);
 					Element root = doc.getRootElement();
 					String firmwareName = root.getAttributeValue("NAME");

@@ -25,6 +25,7 @@ import org.jdom.output.XMLOutputter;
 import ghidra.framework.store.*;
 import ghidra.util.datastruct.LongObjectHashtable;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 
 /**
  * <code>CheckoutManager</code> manages checkout data for a versioned
@@ -252,7 +253,7 @@ class CheckoutManager {
 		FileInputStream istream = new FileInputStream(checkoutsFile);
 		BufferedInputStream bis = new BufferedInputStream(istream);
 		try {
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Document doc = sax.build(bis);
 			Element root = doc.getRootElement();
 

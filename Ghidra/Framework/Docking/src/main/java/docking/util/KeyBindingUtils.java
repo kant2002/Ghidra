@@ -36,6 +36,7 @@ import ghidra.util.Msg;
 import ghidra.util.filechooser.GhidraFileChooserModel;
 import ghidra.util.filechooser.GhidraFileFilter;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 
 /**
  * A class to provide utilities for system key bindings, such as importing and
@@ -90,7 +91,7 @@ public class KeyBindingUtils {
 
 		ToolOptions newKeyBindingOptions = null;
 
-		SAXBuilder builder = new SAXBuilder(false);
+		SAXBuilder builder = XmlUtilities.createSecureSAXBuilder(false, false);
 		Element rootElement = null;
 		try {
 			rootElement = builder.build(inputStream).getRootElement();

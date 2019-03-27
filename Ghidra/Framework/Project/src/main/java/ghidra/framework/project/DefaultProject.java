@@ -39,6 +39,7 @@ import ghidra.framework.store.LockException;
 import ghidra.util.*;
 import ghidra.util.exception.DuplicateNameException;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 
 /**
  * Implementation for a Project.
@@ -415,7 +416,7 @@ public class DefaultProject implements Project {
 				return;
 			}
 			InputStream is = new FileInputStream(saveFile);
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 
 			Element root = sax.build(is).getRootElement();
 

@@ -35,6 +35,7 @@ import ghidra.program.model.symbol.*;
 import ghidra.util.Msg;
 import ghidra.util.task.TaskMonitor;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 import ghidra.xml.*;
 import util.CollectionUtils;
 
@@ -426,7 +427,7 @@ class LibrarySymbolTable {
 		exportList = new ArrayList<>();
 
 		InputStream is = file.getInputStream();
-		SAXBuilder sax = new SAXBuilder(false);
+		SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 
 		try {
 			Document doc = sax.build(is);

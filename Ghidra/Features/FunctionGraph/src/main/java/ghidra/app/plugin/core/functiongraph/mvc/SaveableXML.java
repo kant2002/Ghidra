@@ -23,6 +23,7 @@ import org.jdom.output.XMLOutputter;
 
 import ghidra.util.*;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 
 public class SaveableXML extends PrivateSaveable {
 
@@ -67,7 +68,7 @@ public class SaveableXML extends PrivateSaveable {
 
 		String xmlString = objStorage.getString();
 		StringReader reader = new StringReader(xmlString);
-		SAXBuilder builder = new SAXBuilder(false);
+		SAXBuilder builder = XmlUtilities.createSecureSAXBuilder(false, false);
 
 		try {
 			element = builder.build(reader).getRootElement();

@@ -37,6 +37,7 @@ import ghidra.util.classfinder.ClassSearcher;
 import ghidra.util.exception.AssertException;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 import resources.ResourceManager;
 import utility.application.ApplicationLayout;
 
@@ -195,7 +196,8 @@ public abstract class StandAloneApplication implements GenericStandAloneApplicat
 			if (instream == null) {
 				return null;
 			}
-			SAXBuilder sax = new SAXBuilder(false);
+
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Element root = sax.build(instream).getRootElement();
 			return root;
 		}
@@ -215,7 +217,7 @@ public abstract class StandAloneApplication implements GenericStandAloneApplicat
 		FileInputStream fileInputStream = null;
 		try {
 			fileInputStream = new FileInputStream(savedToolFile.getAbsolutePath());
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Element root = sax.build(fileInputStream).getRootElement();
 			return root;
 		}

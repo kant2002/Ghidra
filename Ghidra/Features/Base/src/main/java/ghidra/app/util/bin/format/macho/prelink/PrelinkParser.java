@@ -28,6 +28,7 @@ import ghidra.app.util.bin.format.macho.commands.SegmentCommand;
 import ghidra.util.NumericUtilities;
 import ghidra.util.SystemUtilities;
 import ghidra.util.task.TaskMonitor;
+import ghidra.util.xml.XmlUtilities;
 
 public class PrelinkParser {
 
@@ -57,7 +58,7 @@ public class PrelinkParser {
 
 		monitor.setMessage("Parsing prelink plist...");
 
-		SAXBuilder sax = new SAXBuilder( false );
+		SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 		Document doc = sax.build( inputStream );
 		Element root = doc.getRootElement();
 

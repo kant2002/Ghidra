@@ -20,6 +20,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.XMLConstants;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
@@ -43,9 +47,16 @@ public class XmlUtilities {
 
 	private static final Pattern HEX_DIGIT_PATTERN = Pattern.compile("[&][#][x]([\\da-fA-F]+)[;]");
 
+	public static final String FEATURE_DISALLOW_DTD =
+		"http://apache.org/xml/features/disallow-doctype-decl";
+	public static final String FEATURE_EXTERNAL_GENERAL_ENTITIES =
+		"http://xml.org/sax/features/external-general-entities";
+	public static final String FEATURE_EXTERNAL_PARAMETER_ENTITIES =
+		"http://xml.org/sax/features/external-parameter-entities";
+
 	/**
-	 * Simple {@link ErrorHandler SAX error handler} that re-throws any {@link SAXParseException}s
-	 * as a {@link SAXException}.
+	 * Simple {@link ErrorHandler SAX error handler} that re-throws any
+	 * {@link SAXParseException}s as a {@link SAXException}.
 	 *
 	 */
 	public static class ThrowingErrorHandler implements ErrorHandler {
@@ -183,7 +194,7 @@ public class XmlUtilities {
 	 * @throws IOException
 	 */
 	public static Element fromString(String s) throws JDOMException, IOException {
-		SAXBuilder sax = new SAXBuilder(false);
+		SAXBuilder sax = createSecureSAXBuilder(false, false);
 
 		try (Reader r = new StringReader(s)) {
 			Document doc = sax.build(r);
@@ -216,7 +227,7 @@ public class XmlUtilities {
 	 * @throws IOException if IO error when reading file.
 	 */
 	public static Document readDocFromFile(File f) throws JDOMException, IOException {
-		SAXBuilder sax = new SAXBuilder(false);
+		SAXBuilder sax = createSecureSAXBuilder(false, false);
 
 		try (Reader r = new FileReader(f)) {
 			Document doc = sax.build(r);
@@ -234,7 +245,7 @@ public class XmlUtilities {
 	 * @throws IOException if IO error when reading file.
 	 */
 	public static Document readDocFromFile(ResourceFile f) throws JDOMException, IOException {
-		SAXBuilder sax = new SAXBuilder(false);
+		SAXBuilder sax = createSecureSAXBuilder(false, false);
 
 		try (InputStream is = f.getInputStream()) {
 			Reader r = new InputStreamReader(is, StandardCharsets.UTF_8);
@@ -251,7 +262,7 @@ public class XmlUtilities {
 	 */
 	public static Element byteArrayToXml(byte[] bytes) {
 		ByteArrayInputStream is = new ByteArrayInputStream(bytes);
-		SAXBuilder sax = new SAXBuilder(false);
+		SAXBuilder sax = createSecureSAXBuilder(false, false);
 
 		try {
 			return sax.build(is).getRootElement();
@@ -602,5 +613,53 @@ public class XmlUtilities {
 	 */
 	public static boolean hasInvalidXMLCharacters(String s) {
 		return !s.codePoints().allMatch(Verifier::isXMLCharacter);
+	}
+
+	/**
+	 * Create a {@link SAXBuilder} that is not susceptible to XXE.
+	 * 
+	 * This configures the builder to ignore external entities.
+	 * 
+	 * @param validate indicates whether validation should occur
+	 * @param needsDTD false to disable doctype declarations altogether
+	 * @return the configured builder
+	 */
+	public static SAXBuilder createSecureSAXBuilder(boolean validate, boolean needsDTD) {
+		final String IMPLNAME = "com.sun.org.apache.xerces.internal.parsers.SAXParser";
+		SAXBuilder sax = new SAXBuilder(IMPLNAME, validate);
+		sax.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+		// XML Program Import uses DTD
+		if (!needsDTD) {
+			sax.setFeature(FEATURE_DISALLOW_DTD, true);
+		}
+		sax.setFeature(FEATURE_EXTERNAL_GENERAL_ENTITIES, false);
+		sax.setFeature(FEATURE_EXTERNAL_PARAMETER_ENTITIES, false);
+		return sax;
+	}
+
+	/**
+	 * Create a {@link SAXParserFactory} that is not susceptible to XXE.
+	 * 
+	 * This configures the factory to ignore external entities.
+	 * 
+	 * @param needsDTD false to disable doctype declarations altogether
+	 * @return the configured factory
+	 */
+	public static SAXParserFactory createSecureSAXParserFactory(boolean needsDTD) {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		try {
+			factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+			// XML Program Import uses DTD
+			if (!needsDTD) {
+				factory.setFeature(FEATURE_DISALLOW_DTD, true);
+			}
+			factory.setFeature(FEATURE_EXTERNAL_GENERAL_ENTITIES, false);
+			factory.setFeature(FEATURE_EXTERNAL_PARAMETER_ENTITIES, false);
+		}
+		catch (SAXNotRecognizedException | SAXNotSupportedException
+				| ParserConfigurationException e) {
+			throw new RuntimeException("Cannot set XML parsing feature for secure processing: ", e);
+		}
+		return factory;
 	}
 }

@@ -42,6 +42,7 @@ import ghidra.util.UndefinedFunction;
 import ghidra.util.exception.UsrException;
 import ghidra.util.task.TaskMonitorAdapter;
 import ghidra.util.xml.SpecXmlUtils;
+import ghidra.util.xml.XmlUtilities;
 
 /**
  * 
@@ -87,7 +88,7 @@ public class DecompileCallback {
 
 	private static SAXParser getSAXParser() throws PcodeXMLException {
 		try {
-			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+			SAXParserFactory saxParserFactory = XmlUtilities.createSecureSAXParserFactory(false);
 			saxParserFactory.setFeature("http://xml.org/sax/features/namespaces", false);
 			saxParserFactory.setFeature("http://xml.org/sax/features/validation", false);
 			return saxParserFactory.newSAXParser();

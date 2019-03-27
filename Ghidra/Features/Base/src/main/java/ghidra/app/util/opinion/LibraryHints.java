@@ -25,6 +25,7 @@ import org.xml.sax.SAXNotRecognizedException;
 
 import generic.jar.ResourceFile;
 import ghidra.util.Msg;
+import ghidra.util.xml.XmlUtilities;
 
 /**
  * <code>LibraryHints</code> provides a means of specifying certain LIBRARY
@@ -141,7 +142,7 @@ class LibraryHints {
 		InputStream is = null;
 		try {
 			is = new BufferedInputStream(hintsFile.getInputStream());
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Document document = sax.build(is);
 			Element root = document.getRootElement();
 
