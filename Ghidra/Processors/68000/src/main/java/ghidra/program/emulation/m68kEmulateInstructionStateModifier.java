@@ -42,13 +42,14 @@ public class m68kEmulateInstructionStateModifier extends EmulateInstructionState
 */
 
 	// These classes are defined here:
-	// ghidra.git/Ghidra/Framework/SoftwareModeling/src/main/java/ghidra/pcode/emulate/callother
+		// ghidra/Ghidra/Framework/SoftwareModeling/src/main/java/ghidra/pcode/emulate/callother
 
         registerPcodeOpBehavior("countLeadingZeros", new CountLeadingZerosOpBehavior());
 	}
 
         /**
-         * Initialize ISM register based upon context-register state before first instruction is executed.
+	 * Initialize ISM register based upon context-register state before first
+	 * instruction is executed.
          */
 /*
         @Override
@@ -65,11 +66,11 @@ public class m68kEmulateInstructionStateModifier extends EmulateInstructionState
 */
 
         /**
-         * Use ISM register value to establish ISA_MODE when branching/calling.
-         * If ISM = 0, check for odd destination address which may occur when
-         * jumping/returning indirectly to Thumb mode.  It is assumed that
-         * language will properly handle context changes during the flow of
-         * execution, we need only fix the current program counter.
+	 * Use ISM register value to establish ISA_MODE when branching/calling. If
+	 * ISM = 0, check for odd destination address which may occur when
+	 * jumping/returning indirectly to Thumb mode. It is assumed that language
+	 * will properly handle context changes during the flow of execution, we
+	 * need only fix the current program counter.
          */
 /*
         @Override

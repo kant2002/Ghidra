@@ -1062,9 +1062,9 @@ addrd32: d32			is d32								{ export *[ram]:4 d32; }
 :lsr eaw			is (opbig=0xe2 & op67=3 & $(MEM_ALTER_ADDR_MODES))... & eaw				{ getbit(CF,eaw,0); eaw=eaw >>1; resflags(eaw); }
 
 
-:move.b eab,e2b			is (op=1 & $(DAT_ALTER_ADDR_MODES2))... & eab ; e2b	{ build eab; build e2b; e2b = eab; resflags(eab); }
-:move.w eaw,e2w			is (op=3 & $(DAT_ALTER_ADDR_MODES2))... & eaw ; e2w	{ build eaw; build e2w; e2w = eaw; resflags(eaw); }
-:move.l eal,e2l			is (op=2 & $(DAT_ALTER_ADDR_MODES2))... & eal ; e2l	{ build eal; build e2l; e2l = eal; resflags(eal); }
+:move.b eab,e2b			is (op=1 & $(DAT_ALTER_ADDR_MODES2))... & eab ; e2b	{ build eab; build e2b; e2b = eab; resflags(eab); logflags(); }
+:move.w eaw,e2w			is (op=3 & $(DAT_ALTER_ADDR_MODES2))... & eaw ; e2w	{ build eaw; build e2w; e2w = eaw; resflags(eaw); logflags(); }
+:move.l eal,e2l			is (op=2 & $(DAT_ALTER_ADDR_MODES2))... & eal ; e2l	{ build eal; build e2l; e2l = eal; resflags(eal); logflags(); }
 
 :move "CCR",eaw			is (opbig=0x42 & op67=3 & $(DAT_ALTER_ADDR_MODES))... & eaw				{ packflags(SR); eaw = SR; }
 :move eaw,"CCR"			is (opbig=0x44 & op67=3 & $(DAT_ALTER_ADDR_MODES))... & eaw				{ unpackflags(eaw); }
@@ -1325,14 +1325,20 @@ m2rfl1: m2rfl2			is mvm14=0 & m2rfl2			{ }
 m2rfl0: { m2rfl1" "SP}	is SP & mvm15=1 & m2rfl1	{ SP = *movemptr; movemptr = movemptr + 4; }
 m2rfl0: { m2rfl1}		is mvm15=0 & m2rfl1			{ }
 
+
+
 :movem.w r2mfw0,(regan)		is opbig=0x48 & op67=2 & mode=2 & regan; r2mfw0		{ movemptr = regan; build r2mfw0; }
 :movem.w r2mbw0,-(regan)	is opbig=0x48 & op67=2 & mode=4 & regan; r2mbw0		{ movemptr = regan; build r2mbw0; regan = movemptr; }
 :movem.w r2mfw0,(d16,regan)	is opbig=0x48 & op67=2 & mode=5 & regan; r2mfw0; d16	{ movemptr = regan+d16; build r2mfw0; }
 :movem.w r2mfw0,(extw)		is opbig=0x48 & op67=2 & mode=6 & regan; r2mfw0; extw	[ pcmode=0; regtfan=regan; ] { build extw; movemptr = extw; build r2mfw0; }
+:movem.w r2mfw0,(d16)".w"	is opbig=0x48 & op67=2 & mode=7 & regan=0; r2mfw0; d16	{ movemptr = d16; build r2mfw0; }
+:movem.w r2mfw0,(d32)".l"   is opbig=0x48 & op67=2 & mode=7 & regan=1; r2mfw0; d32  { movemptr = d32; build r2mfw0; }
 :movem.l r2mfl0,(regan)		is opbig=0x48 & op67=3 & mode=2 & regan; r2mfl0		{ movemptr = regan; build r2mfl0; }
 :movem.l r2mbl0,-(regan)	is opbig=0x48 & op67=3 & mode=4 & regan; r2mbl0		{ movemptr = regan; build r2mbl0; regan = movemptr; }
 :movem.l r2mfl0,(d16,regan)	is opbig=0x48 & op67=3 & mode=5 & regan; r2mfl0; d16	{ movemptr = regan+d16; build r2mfl0; }
 :movem.l r2mfl0,(extw)		is opbig=0x48 & op67=3 & mode=6 & regan; r2mfl0; extw	[ pcmode=0; regtfan=regan; ] { build extw; movemptr = extw; build r2mfl0; }
+:movem.l r2mfl0,(d16)".w"	is opbig=0x48 & op67=3 & mode=7 & regan=0; r2mfl0; d16	{ movemptr = d16; build r2mfl0; }
+:movem.l r2mfl0,(d32)".l"   is opbig=0x48 & op67=3 & mode=7 & regan=1; r2mfl0; d32  { movemptr = d32; build r2mfl0; }
 
 :movem.w (regan),m2rfw0		is opbig=0x4c & op67=2 & mode=2 & regan; m2rfw0		{ movemptr = regan; build m2rfw0; }
 :movem.w (regan)+,m2rfw0	is opbig=0x4c & op67=2 & mode=3 & regan; m2rfw0		{ movemptr = regan; build m2rfw0; regan = movemptr; }
@@ -1357,7 +1363,7 @@ m2rfl0: { m2rfl1}		is mvm15=0 & m2rfl1			{ }
 :movep.l reg9dn,(d16,regan)	    is op=0 & reg9dn & op68=7 & op35=1 & regan; d16		{ src:4 = (regan + d16); local tmp = (reg9dn >> 24); *:1 src = tmp:1; src = src+2; tmp = (reg9dn >> 16); *:1 src = tmp:1; src = src+2; tmp = (reg9dn >> 8); *:1 src = tmp:1; src = src+2; *:1 src = reg9dn:1; }
 
 
-:moveq "#"^d8base,reg9dn		is op=7 & reg9dn & op8=0 & d8base			{ reg9dn = d8base; resflags(reg9dn); VF=0; CF=0; }
+:moveq "#"^d8base,reg9dn		is op=7 & reg9dn & op8=0 & d8base			{ reg9dn = d8base; resflags(reg9dn); logflags(); }
 
 :moves.b rreg,e2b		is opbig=0x0e & op67=0 & mode & regan; rreg & wl=1; e2b	        [ regtsan=regan; savmod2=mode; ] { e2b = rreg:1; }
 :moves.w rreg,e2w		is opbig=0x0e & op67=1 & mode & regan; rreg & wl=1; e2w         [ regtsan=regan; savmod2=mode; ] { e2w = rreg:2; }
