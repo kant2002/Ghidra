@@ -307,7 +307,7 @@ public class FGComponent extends GraphComponent<FGVertex, FGEdge, FunctionGraph>
 		gPickedState.pickToSync(v);
 		v.setProgramLocation(location);
 
-		if (wasFocused) {
+		if (!wasFocused) {
 			// was not focused; signal to the external API that there is a new vertex in town
 			gPickedState.pickToActivate(v);
 		}
