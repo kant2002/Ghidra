@@ -103,7 +103,7 @@ public class InstructionTable extends AbstractInstructionTable {
 	 */
 	@Override
 	public List<DockingActionIf> getDockingActions(ActionContext context) {
-		return new ArrayList<DockingActionIf>();
+		return new ArrayList<>();
 	}
 
 	public InsertBytesWidget getInsertBytesWidget() {

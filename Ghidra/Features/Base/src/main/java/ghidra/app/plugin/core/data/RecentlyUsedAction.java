@@ -15,17 +15,17 @@
  */
 package ghidra.app.plugin.core.data;
 
-import ghidra.app.services.DataTypeManagerService;
-import ghidra.program.model.data.ByteDataType;
-import ghidra.program.model.data.DataType;
-import ghidra.util.HelpLocation;
-
 import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
 import docking.ActionContext;
-import docking.action.*;
+import docking.action.KeyBindingData;
+import docking.action.MenuData;
+import ghidra.app.services.DataTypeManagerService;
+import ghidra.program.model.data.ByteDataType;
+import ghidra.program.model.data.DataType;
+import ghidra.util.HelpLocation;
 
 public class RecentlyUsedAction extends DataAction {
 	private final static KeyStroke DEFAULT_KEY_STROKE = KeyStroke.getKeyStroke(KeyEvent.VK_Y, 0);
