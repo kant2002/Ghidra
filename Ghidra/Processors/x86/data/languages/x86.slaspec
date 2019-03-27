@@ -11,3 +11,5 @@
 @include "bmi1.sinc"
 @include "bmi2.sinc"
 @include "sha.sinc"
+@include "smx.sinc"
+@include "cet.sinc"

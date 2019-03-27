@@ -21,13 +21,13 @@
 
 	<target name="build-sleigh-classpath-dev" if="devmode">
 		
-		<property name="framework.path" value="${repo.dir}/../ghidra.git/Ghidra/Framework"/>
-		<property name="libs.path" value="${repo.dir}/../ghidra.bin.git/ExternalLibraries/libsForRuntime"/>
+		<property name="framework.path" value="${repo.dir}/../ghidra/Ghidra/Framework"/>
+		<property name="libs.path" value="${repo.dir}/../ghidra.bin/ExternalLibraries/libsForRuntime"/>
 		
 		<path id="sleigh.class.path">
-			<pathelement location="${framework.path}/SoftwareModeling/bin"/>
-			<pathelement location="${framework.path}/Generic/bin"/>
-			<pathelement location="${framework.path}/Utility/bin"/>
+			<pathelement location="${framework.path}/SoftwareModeling/bin/main"/>
+			<pathelement location="${framework.path}/Generic/bin/main"/>
+			<pathelement location="${framework.path}/Utility/bin/main"/>
 			<fileset dir="${libs.path}">
 				<include name="*.jar"/>
 			</fileset>
