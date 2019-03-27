@@ -100,6 +100,7 @@ define token instrThumb (16)
   soffset8=(0,7) signed
   offset10=(0,9)
   offset10S=(10,10)
+  offset11=(0,10)
   soffset11=(0,10) signed
   offset12=(0,11)
 
@@ -203,8 +204,6 @@ attach names [ thcpn ] [ p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15  
 attach variables [ hrn0002 hrm0305 hrd0002 ]
                  [ r8 r9 r10 r11 r12 sp lr pc ];
                  
-attach names [ thsrsMode ] [ _ _ _ _ _ _ _ _ usr fiq irq svc _ _ mon abt _ _ _ und _ _ _ sys _ _ _ _ _ _ _ _ ];
-
 macro th_addflags(op1,op2) {
   tmpCY = carry(op1,op2);
   tmpOV = scarry(op1,op2);
@@ -924,6 +923,19 @@ taddrmode5: [Rn0003],{immed8}	is thP8=0 & thU7=1 & thW5=0 & Rn0003; immed8				  
 @endif # VERSION_6T2 || VERSION_7
 
 #
+# Modes for SRS instructions
+#
+thSRSMode: "usr" is thsrsMode=8 & thc0004  { export *[const]:1 thc0004; }
+thSRSMode: "fiq" is thsrsMode=9 & thc0004  { export *[const]:1 thc0004; }
+thSRSMode: "irq" is thsrsMode=10 & thc0004 { export *[const]:1 thc0004; }
+thSRSMode: "svc" is thsrsMode=11 & thc0004 { export *[const]:1 thc0004; }
+thSRSMode: "mon" is thsrsMode=14 & thc0004 { export *[const]:1 thc0004; }
+thSRSMode: "abt" is thsrsMode=15 & thc0004 { export *[const]:1 thc0004; }
+thSRSMode: "und" is thsrsMode=19 & thc0004 { export *[const]:1 thc0004; }
+thSRSMode: "sys" is thsrsMode=23 & thc0004 { export *[const]:1 thc0004; }
+thSRSMode: "#"^thsrsMode is thsrsMode      { export *[const]:1 thsrsMode; }
+
+#
 # Detect if the PC is loaded and do a GOTO
 #
 # TODO: this is how all detections of writes into the PC should be done.
@@ -1390,6 +1402,33 @@ with : ARMcondCk=1 {
   SetThumbMode(1);
   call ThAddr24;
 }
+
+@ifndef VERSION_6T2
+
+:bl^ItCond 	"#"^off 			is TMode=1 & ItCond & op11=0x1e & soffset11 [ off = inst_start + 4 + (soffset11 << 12); ]
+{
+  build ItCond;
+  lr = off:4;
+}
+
+:bl^ItCond 	"#"^off 			is TMode=1 & ItCond & op11=0x1f & offset11 [ off = offset11 << 1; ]
+{
+  build ItCond;
+  local dest = lr + off:4;
+  lr = inst_next|1;
+  SetThumbMode(1);
+  goto [dest];
+}
+
+:blx^ItCond 	"#"^off 			is TMode=1 & ItCond & op11=0x1d & offset11 & thc0000=0 [ off = offset11 << 1; ]
+{
+  build ItCond;
+  local dest = (lr & (~0x3)) + off:4;
+  lr = inst_next|1;
+  SetThumbMode(0);
+  call [dest];
+}
+@endif
 
 :bl^ItCond 	ThAddr24 			is TMode=1 & CALLoverride=1 & ItCond & (op11=0x1e; part2c1415=3 & part2c1212=1) & ThAddr24
 {
@@ -3962,7 +4001,7 @@ thdXtop: "X" is thc0404=1 & Rm0003       { local tmpRm0003 = Rm0003; tmp:2 = tmp
 	Rd0811 = tmp:4;
 }
 
-:srsdb^ItCond sp^"!",thsrsMode 		is TMode=1 & ItCond & op6=0x3a0 & sp & thc0505=1 & thc0004=0xd; op8=0xc0 & sop0507=0 & thsrsMode
+:srsdb^ItCond sp^"!",thSRSMode 		is TMode=1 & ItCond & op6=0x3a0 & sp & thc0505=1 & thc0004=0xd; op8=0xc0 & sop0507=0 & thSRSMode
 {
   build ItCond;
   # register list is always: r14, spsr
@@ -3973,7 +4012,7 @@ thdXtop: "X" is thc0404=1 & Rm0003       { local tmpRm0003 = Rm0003; tmp:2 = tmp
   sp = ptr;
 }
 
-:srsdb^ItCond sp,thsrsMode 		is TMode=1 & ItCond & op6=0x3a0 & sp & thc0505=0 & thc0004=0xd; op8=0xc0 & sop0507=0 & thsrsMode
+:srsdb^ItCond sp,thSRSMode 		is TMode=1 & ItCond & op6=0x3a0 & sp & thc0505=0 & thc0004=0xd; op8=0xc0 & sop0507=0 & thSRSMode
 {
   build ItCond;
   # register list is always: r14, spsr
@@ -3983,7 +4022,7 @@ thdXtop: "X" is thc0404=1 & Rm0003       { local tmpRm0003 = Rm0003; tmp:2 = tmp
   *ptr = spsr;
 }
 
-:srsib^ItCond sp^"!",thsrsMode 		is TMode=1 & ItCond & op6=0x3a6 & sp & thc0505=1 & thc0004=0xd; op8=0xc0 & sop0507=0 & thsrsMode
+:srsib^ItCond sp^"!",thSRSMode 		is TMode=1 & ItCond & op6=0x3a6 & sp & thc0505=1 & thc0004=0xd; op8=0xc0 & sop0507=0 & thSRSMode
 {
   build ItCond;
   # register list is always: r14, spsr
@@ -3994,7 +4033,7 @@ thdXtop: "X" is thc0404=1 & Rm0003       { local tmpRm0003 = Rm0003; tmp:2 = tmp
   sp = ptr;
 }
 
-:srsia^ItCond sp,thsrsMode 		is TMode=1 & ItCond & op6=0x3a6 & sp & thc0505=0 & thc0004=0xd; op8=0xc0 & sop0507=0 & thsrsMode
+:srsia^ItCond sp,thSRSMode 		is TMode=1 & ItCond & op6=0x3a6 & sp & thc0505=0 & thc0004=0xd; op8=0xc0 & sop0507=0 & thSRSMode
 {
   build ItCond;
   # register list is always: r14, spsr
@@ -4915,7 +4954,7 @@ Pcrel: [cloc,Rm0003]  is Rm0003 & thc0404=1 [ cloc = inst_next; ]
   tmp1:4 = UnsignedSaturate(diff1, 16:2);
   tmp2:4 = UnsignedSaturate(diff2, 16:2);
   Rd0811[ 0,16] = tmp1[0,16];
-  Rd0811[16,16] = tmp1[0,16];
+  Rd0811[16,16] = tmp2[0,16];
 }
 
 :uqsub8^ItCond     Rd0811,Rn0003,Rm0003    is TMode=1 & ItCond & op4=0xfac & Rn0003; op12=0xf & Rd0811 & thc0407=0x5 & Rm0003
