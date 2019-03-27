@@ -293,8 +293,7 @@ public class InterpreterPanel extends JPanel implements OptionsChangeListener {
 						break;
 					default:
 
-						// Check for the completion window trigger on input that
-						// contains text.
+						// Check for the completion window trigger on input that contains text
 						if (completionWindowTrigger.isTrigger(e) &&
 							!inputTextPane.getText().trim().isEmpty()) {
 							completionWindowTriggered(completionWindow);

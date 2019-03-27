@@ -27,8 +27,9 @@ import generic.jar.ResourceFile;
 import ghidra.util.Msg;
 
 /**
- * <code>LibraryHints</code> provides a means of specifying certain LIBRARY EXPORT 
- * attributes which should be included when the associated .exports file is created.
+ * <code>LibraryHints</code> provides a means of specifying certain LIBRARY
+ * EXPORT attributes which should be included when the associated .exports file
+ * is created.
  */
 class LibraryHints {
 
@@ -80,8 +81,9 @@ class LibraryHints {
 	}
 
 	/**
-	 * Get all attribute hints based on ordinal and/or label name.
-	 * Use of the ordinal takes precedence for any given attribute hint.
+	 * Get all attribute hints based on ordinal and/or label name. Use of the
+	 * ordinal takes precedence for any given attribute hint.
+	 * 
 	 * @param ordinal
 	 * @param name
 	 * @return collection of attribute hints
@@ -96,6 +98,7 @@ class LibraryHints {
 	/**
 	 * Get the named attribute hint based on either an ordinal or label name.
 	 * Use of the ordinal takes precedence.
+	 * 
 	 * @param ordinal
 	 * @param name
 	 * @param attrName

@@ -383,8 +383,10 @@ class LibrarySymbolTable {
 
 	/**
 	 * Returns the symbol for the specified ordinal.
+	 * 
 	 * @param ordinal the ordinal value of the desired symbol
-	 * @return the symbol for the specified ordinal, or null if one does not exist.
+	 * @return the symbol for the specified ordinal, or null if one does not
+	 *         exist.
 	 */
 	LibraryExportedSymbol getSymbol(int ordinal) {
 		return ordMap.get(new Integer(ordinal));
@@ -392,6 +394,7 @@ class LibrarySymbolTable {
 
 	/**
 	 * Returns the symbol for the specified name
+	 * 
 	 * @param symbol the name of the desired symbol
 	 * @return
 	 */
@@ -400,8 +403,9 @@ class LibrarySymbolTable {
 	}
 
 	/**
-	 * Returns a string describing the version of this library.
-	 * For example, "5.100.2566".
+	 * Returns a string describing the version of this library. For example,
+	 * "5.100.2566".
+	 * 
 	 * @return a string describing the version of this library
 	 */
 	String getVersion() {
@@ -572,7 +576,9 @@ class LibrarySymbolTable {
 	}
 
 	/**
-	 * Check an existing exports file to verify that it corresponds to the specified libraryFile.
+	 * Check an existing exports file to verify that it corresponds to the
+	 * specified libraryFile.
+	 * 
 	 * @param exportsFile existing exports file
 	 * @param libraryFile library file
 	 * @return true if exports file corresponds to library file
