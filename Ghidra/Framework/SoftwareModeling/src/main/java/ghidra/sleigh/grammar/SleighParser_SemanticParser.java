@@ -1,5 +1,5 @@
 package ghidra.sleigh.grammar;
-// $ANTLR 3.5.2 SemanticParser.g 2019-02-28 12:48:47
+// $ANTLR 3.5.2 SemanticParser.g 2019-03-25 18:04:50
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -4019,7 +4019,7 @@ public class SleighParser_SemanticParser extends AbstractSleighParser {
 
 					stream_constant.add(constant33.getTree());
 					// AST REWRITE
-					// elements: identifier, constant
+					// elements: constant, identifier
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -5826,7 +5826,7 @@ public class SleighParser_SemanticParser extends AbstractSleighParser {
 
 					stream_constant.add(constant44.getTree());
 					// AST REWRITE
-					// elements: identifier, constant
+					// elements: constant, identifier
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -6176,7 +6176,7 @@ public class SleighParser_SemanticParser extends AbstractSleighParser {
 
 			stream_identifier.add(identifier54.getTree());
 			// AST REWRITE
-			// elements: identifier, varnode
+			// elements: varnode, identifier
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -6605,7 +6605,7 @@ public class SleighParser_SemanticParser extends AbstractSleighParser {
 					stream_RBRACKET.add(RBRACKET64);
 
 					// AST REWRITE
-					// elements: identifier, constant
+					// elements: constant, identifier
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -11132,7 +11132,7 @@ public class SleighParser_SemanticParser extends AbstractSleighParser {
 
 			stream_expr_operands.add(expr_operands113.getTree());
 			// AST REWRITE
-			// elements: expr_operands, identifier
+			// elements: identifier, expr_operands
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -13200,7 +13200,7 @@ public class SleighParser_SemanticParser extends AbstractSleighParser {
 
 					stream_constant.add(constant126.getTree());
 					// AST REWRITE
-					// elements: constant, integer
+					// elements: integer, constant
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -13293,7 +13293,7 @@ public class SleighParser_SemanticParser extends AbstractSleighParser {
 
 					stream_varnode.add(varnode130.getTree());
 					// AST REWRITE
-					// elements: constant, varnode
+					// elements: varnode, constant
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
