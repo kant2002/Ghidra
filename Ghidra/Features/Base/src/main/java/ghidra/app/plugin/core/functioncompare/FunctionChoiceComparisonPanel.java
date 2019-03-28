@@ -26,7 +26,7 @@ import docking.ComponentProvider;
 import docking.action.*;
 import docking.help.Help;
 import docking.help.HelpService;
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.widgets.fieldpanel.internal.FieldPanelCoordinator;
 import ghidra.app.util.viewer.util.CodeComparisonPanel;
 import ghidra.app.util.viewer.util.CodeComparisonPanelActionContext;

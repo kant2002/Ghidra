@@ -20,7 +20,7 @@ import java.awt.Component;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.widgets.table.GTableCellRenderingData;
 import ghidra.util.table.GhidraTableCellRenderer;
 import resources.ResourceManager;

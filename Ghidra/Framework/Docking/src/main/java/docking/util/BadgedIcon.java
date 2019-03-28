@@ -22,6 +22,7 @@ import java.util.*;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.EmptyIcon;
 import resources.icons.ScaledImageIconWrapper;
@@ -74,7 +75,7 @@ public class BadgedIcon implements Icon {
 
 	}
 
-	private Map<BadgePosition, MultiIcon> badgeMap = new EnumMap<>(BadgePosition.class);
+	private Map<BadgePosition, resources.MultiIcon> badgeMap = new EnumMap<>(BadgePosition.class);
 	private Map<BadgePosition, Boolean> badgeEnablement = new EnumMap<>(BadgePosition.class);
 	private Map<BadgePosition, Boolean> badgeVisibility = new EnumMap<>(BadgePosition.class);
 
@@ -112,8 +113,8 @@ public class BadgedIcon implements Icon {
 		cachedThis = null;
 	}
 
-	private static MultiIcon getEmptyIcon(int width, int height, boolean enabled) {
-		return new MultiIcon(new EmptyIcon(width, height), !enabled);
+	private static resources.MultiIcon getEmptyIcon(int width, int height, boolean enabled) {
+		return new resources.MultiIcon(new EmptyIcon(width, height), !enabled);
 	}
 
 	private void initDefaultBadges() {
@@ -165,11 +166,11 @@ public class BadgedIcon implements Icon {
 	 * @return a reference to this object
 	 */
 	public BadgedIcon setBadge(Icon badge, BadgePosition position) {
-		MultiIcon multi = null;
+		resources.MultiIcon multi = null;
 		if (badge == null) {
 			badge = getEmptyIcon(width, height, enabled);
 		}
-		multi = new MultiIcon(badge, enabled, width, height);
+		multi = new resources.MultiIcon(badge, enabled, width, height);
 		badgeMap.put(position, multi);
 
 		cachedThis = null;
@@ -274,7 +275,7 @@ public class BadgedIcon implements Icon {
 	 * Return array of Icons that were added to this BadgedIcon.
 	 */
 	public Icon[] getBadges(BadgePosition pos) {
-		MultiIcon badge = badgeMap.get(pos);
+		resources.MultiIcon badge = badgeMap.get(pos);
 		return badge.getIcons();
 	}
 
@@ -314,7 +315,7 @@ public class BadgedIcon implements Icon {
 				continue;
 			}
 
-			MultiIcon icon = badgeMap.get(pos);
+			resources.MultiIcon icon = badgeMap.get(pos);
 
 			Icon scaled = new ScaledImageIconWrapper(icon, badgeSize.width, badgeSize.height);
 

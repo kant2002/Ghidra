@@ -19,7 +19,7 @@ import javax.swing.Icon;
 
 import docking.ActionContext;
 import docking.action.*;
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import ghidra.program.util.ListingDiff;
 import ghidra.util.HTMLUtilities;
 import ghidra.util.HelpLocation;

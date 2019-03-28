@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.Icon;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.widgets.tree.GTreeNode;
 import ghidra.app.plugin.core.navigation.locationreferences.ReferenceUtils;
 import ghidra.program.model.address.Address;

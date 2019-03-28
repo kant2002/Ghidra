@@ -24,7 +24,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import resources.Icons;
 import resources.ResourceManager;
 import resources.icons.EmptyIcon;

@@ -24,7 +24,7 @@ import javax.swing.SwingUtilities;
 import docking.ActionContext;
 import docking.DockingUtils;
 import docking.action.*;
-import docking.util.MultiIconBuilder;
+import resources.MultiIconBuilder;
 import docking.widgets.table.GTable;
 import ghidra.app.CorePluginPackage;
 import ghidra.app.events.ProgramSelectionPluginEvent;

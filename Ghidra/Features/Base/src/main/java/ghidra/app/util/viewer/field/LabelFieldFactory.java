@@ -22,7 +22,7 @@ import java.util.*;
 import javax.swing.Icon;
 import javax.swing.event.ChangeListener;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.widgets.fieldpanel.field.*;
 import docking.widgets.fieldpanel.support.FieldLocation;
 import ghidra.app.util.*;

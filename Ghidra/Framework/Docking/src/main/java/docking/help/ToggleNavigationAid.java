@@ -27,7 +27,7 @@ import javax.swing.*;
 import resources.ResourceManager;
 import resources.icons.CenterTranslateIcon;
 import resources.icons.TranslateIcon;
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 
 public class ToggleNavigationAid extends AbstractAction {
 

@@ -17,7 +17,7 @@ package ghidra.app.plugin.core.datamgr.tree;
 
 import javax.swing.Icon;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import ghidra.app.plugin.core.datamgr.archive.BuiltInArchive;
 
 public class BuiltInArchiveNode extends ArchiveNode {

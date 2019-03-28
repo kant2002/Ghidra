@@ -33,7 +33,7 @@ import resources.icons.TranslateIcon;
 import docking.ActionContext;
 import docking.action.DockingAction;
 import docking.action.MenuData;
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.widgets.OptionDialog;
 
 /**

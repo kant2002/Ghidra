@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.Icon;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.widgets.tree.GTreeNode;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.listing.Function;

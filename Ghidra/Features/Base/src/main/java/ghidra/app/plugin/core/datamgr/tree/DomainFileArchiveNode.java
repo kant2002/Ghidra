@@ -18,7 +18,7 @@ package ghidra.app.plugin.core.datamgr.tree;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import ghidra.app.plugin.core.datamgr.archive.DomainFileArchive;
 import ghidra.framework.model.DomainFile;
 import ghidra.framework.model.DomainObject;

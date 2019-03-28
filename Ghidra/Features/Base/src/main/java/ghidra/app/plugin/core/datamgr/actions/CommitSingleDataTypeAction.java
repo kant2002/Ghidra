@@ -21,7 +21,7 @@ import javax.swing.tree.TreePath;
 import docking.ActionContext;
 import docking.action.DockingAction;
 import docking.action.MenuData;
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.widgets.OptionDialog;
 import docking.widgets.tree.GTree;
 import docking.widgets.tree.GTreeNode;

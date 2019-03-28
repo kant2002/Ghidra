@@ -25,7 +25,7 @@ import javax.swing.ImageIcon;
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import generic.jar.ResourceFile;
 import ghidra.formats.gfilesystem.FSUtilities;
 import ghidra.framework.Application;

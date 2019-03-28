@@ -22,7 +22,7 @@ import javax.swing.*;
 
 import docking.help.Help;
 import docking.help.HelpService;
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.wizard.WizardManager;
 import ghidra.GhidraOptions;
 import ghidra.app.plugin.core.codebrowser.CodeBrowserPlugin;

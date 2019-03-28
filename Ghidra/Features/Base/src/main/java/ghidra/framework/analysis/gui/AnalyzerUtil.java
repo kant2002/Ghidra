@@ -17,7 +17,7 @@ package ghidra.framework.analysis.gui;
 
 import javax.swing.Icon;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import ghidra.app.services.AnalyzerType;
 import ghidra.util.exception.AssertException;
 import resources.ResourceManager;

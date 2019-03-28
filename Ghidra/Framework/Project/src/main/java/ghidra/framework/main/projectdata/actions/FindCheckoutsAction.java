@@ -21,7 +21,7 @@ import javax.swing.Icon;
 
 import docking.action.MenuData;
 import docking.action.ToolBarData;
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import ghidra.framework.main.datatable.ProjectDataTreeContextAction;
 import ghidra.framework.main.datatree.FindCheckoutsDialog;
 import ghidra.framework.main.datatree.ProjectDataTreeActionContext;

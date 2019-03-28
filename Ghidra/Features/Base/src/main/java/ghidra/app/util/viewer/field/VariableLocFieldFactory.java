@@ -21,7 +21,7 @@ import java.math.BigInteger;
 
 import javax.swing.Icon;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.widgets.fieldpanel.field.*;
 import docking.widgets.fieldpanel.support.FieldLocation;
 import ghidra.app.util.HighlightProvider;

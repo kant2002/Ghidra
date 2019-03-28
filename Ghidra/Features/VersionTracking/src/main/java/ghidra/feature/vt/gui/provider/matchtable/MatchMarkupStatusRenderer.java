@@ -19,7 +19,7 @@ import java.awt.Component;
 
 import javax.swing.*;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.widgets.table.GTableCellRenderingData;
 import ghidra.docking.settings.Settings;
 import ghidra.feature.vt.api.main.*;

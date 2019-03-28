@@ -24,7 +24,7 @@ import javax.swing.Icon;
 
 import db.DBHandle;
 import db.buffers.*;
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import ghidra.framework.client.ClientUtil;
 import ghidra.framework.client.NotConnectedException;
 import ghidra.framework.model.*;

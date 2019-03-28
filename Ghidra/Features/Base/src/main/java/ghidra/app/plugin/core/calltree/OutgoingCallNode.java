@@ -33,7 +33,7 @@ import javax.swing.tree.TreePath;
 import resources.ResourceManager;
 import resources.icons.RotateIcon;
 import resources.icons.TranslateIcon;
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import docking.widgets.tree.GTreeNode;
 
 public abstract class OutgoingCallNode extends CallNode {
