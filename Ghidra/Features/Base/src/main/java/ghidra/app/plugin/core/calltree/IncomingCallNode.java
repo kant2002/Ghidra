@@ -34,8 +34,7 @@ import resources.icons.TranslateIcon;
 
 public class IncomingCallNode extends CallNode {
 
-	private Icon INCOMING_ICON =
-		new RotateIcon(ResourceManager.loadImage("images/viewmagfit.png"), 275);
+	private Icon INCOMING_ICON = Icons.ARROW_UP_LEFT_ICON;
 	private Icon INCOMING_FUNCTION_ICON;
 
 	private Icon icon = null;

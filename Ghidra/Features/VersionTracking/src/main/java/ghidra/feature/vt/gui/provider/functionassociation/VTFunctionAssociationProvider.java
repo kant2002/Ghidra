@@ -60,6 +60,7 @@ import ghidra.program.util.*;
 import ghidra.util.HelpLocation;
 import ghidra.util.SystemUtilities;
 import ghidra.util.table.*;
+import resources.Icons;
 import resources.ResourceManager;
 
 /**
@@ -158,18 +159,18 @@ public class VTFunctionAssociationProvider extends ComponentProviderAdapter
 		Icon allFunctionsIcon = ResourceManager.loadImage("images/function.png");
 		ActionState<FilterSettings> allFunctionsActionState =
 			new ActionState<>("Show All Functions", allFunctionsIcon, SHOW_ALL);
-		allFunctionsActionState
-			.setHelpLocation(new HelpLocation("VersionTrackingPlugin", "Show_All_Functions"));
+		allFunctionsActionState.setHelpLocation(
+			new HelpLocation("VersionTrackingPlugin", "Show_All_Functions"));
 
 		Icon unmatchedIcon = ResourceManager.loadImage("images/filter_matched.png");
 		ActionState<FilterSettings> unmatchedOnlyActionState =
 			new ActionState<>("Show Only Unmatched Functions", unmatchedIcon, SHOW_UNMATCHED);
-		unmatchedOnlyActionState
-			.setHelpLocation(new HelpLocation("VersionTrackingPlugin", "Show_Unmatched_Functions"));
+		unmatchedOnlyActionState.setHelpLocation(
+			new HelpLocation("VersionTrackingPlugin", "Show_Unmatched_Functions"));
 
-		Icon unacceptedIcon = ResourceManager.loadImage("images/filter_accepted.png");
-		ActionState<FilterSettings> unacceptedOnlyActionState = new ActionState<>(
-			"Show Only Unaccepted Match Functions", unacceptedIcon, SHOW_UNACCEPTED);
+		ActionState<FilterSettings> unacceptedOnlyActionState =
+			new ActionState<>("Show Only Unaccepted Match Functions",
+				Icons.FILTER_NOT_ACCEPTED_ICON, SHOW_UNACCEPTED);
 		unacceptedOnlyActionState.setHelpLocation(
 			new HelpLocation("VersionTrackingPlugin", "Show_Unaccepted_Functions"));
 
@@ -450,8 +451,8 @@ public class VTFunctionAssociationProvider extends ComponentProviderAdapter
 		sourceThreadedTablePanel = new GhidraThreadedTablePanel<>(sourceFunctionsModel, 1000);
 		sourceFunctionsTable = sourceThreadedTablePanel.getTable();
 		sourceFunctionsTable.setName("SourceFunctionTable");
-		sourceFunctionsTable
-			.setPreferenceKey("VTFunctionAssociationTableModel - Source Function Table");
+		sourceFunctionsTable.setPreferenceKey(
+			"VTFunctionAssociationTableModel - Source Function Table");
 		if (goToService != null) {
 			sourceFunctionsTable.installNavigation(goToService,
 				goToService.getDefaultNavigatable());
@@ -474,9 +475,9 @@ public class VTFunctionAssociationProvider extends ComponentProviderAdapter
 
 		sourceFunctionsModel.addTableModelListener(new TitleUpdateListener());
 
-		sourceFunctionsTable.getColumnModel()
-			.getColumn(VTFunctionAssociationTableModel.ADDRESS_COL)
-			.setPreferredWidth(VTFunctionAssociationTableModel.ADDRESS_COL_WIDTH);
+		sourceFunctionsTable.getColumnModel().getColumn(
+			VTFunctionAssociationTableModel.ADDRESS_COL).setPreferredWidth(
+				VTFunctionAssociationTableModel.ADDRESS_COL_WIDTH);
 
 		sourceTableFilterPanel =
 			new GhidraTableFilterPanel<>(sourceFunctionsTable, sourceFunctionsModel);
@@ -504,8 +505,8 @@ public class VTFunctionAssociationProvider extends ComponentProviderAdapter
 			new GhidraThreadedTablePanel<>(destinationFunctionsModel, 1000);
 		destinationFunctionsTable = destinationThreadedTablePanel.getTable();
 		destinationFunctionsTable.setName("DestinationFunctionTable");
-		destinationFunctionsTable
-			.setPreferenceKey("VTFunctionAssociationTableModel - " + "Destination Function Table");
+		destinationFunctionsTable.setPreferenceKey(
+			"VTFunctionAssociationTableModel - " + "Destination Function Table");
 		if (goToService != null) {
 			destinationFunctionsTable.installNavigation(goToService,
 				goToService.getDefaultNavigatable());
@@ -531,9 +532,9 @@ public class VTFunctionAssociationProvider extends ComponentProviderAdapter
 		JTableHeader functionHeader = destinationFunctionsTable.getTableHeader();
 		functionHeader.setUpdateTableInRealTime(true);
 
-		destinationFunctionsTable.getColumnModel()
-			.getColumn(VTFunctionAssociationTableModel.ADDRESS_COL)
-			.setPreferredWidth(VTFunctionAssociationTableModel.ADDRESS_COL_WIDTH);
+		destinationFunctionsTable.getColumnModel().getColumn(
+			VTFunctionAssociationTableModel.ADDRESS_COL).setPreferredWidth(
+				VTFunctionAssociationTableModel.ADDRESS_COL_WIDTH);
 
 		destinationTableFilterPanel =
 			new GhidraTableFilterPanel<>(destinationFunctionsTable, destinationFunctionsModel);

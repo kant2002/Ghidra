@@ -35,8 +35,8 @@ import ghidra.program.model.symbol.Reference;
 import ghidra.program.model.symbol.ReferenceManager;
 import ghidra.program.util.ProgramLocation;
 import ghidra.util.HelpLocation;
+import resources.Icons;
 import resources.ResourceManager;
-import resources.icons.RotateIcon;
 
 /**
  * Assuming a function <b>foo</b>, this plugin will show all callers of <b>foo</b> and all 
@@ -56,7 +56,7 @@ import resources.icons.RotateIcon;
 //@formatter:on
 public class CallTreePlugin extends ProgramPlugin {
 
-	static final Icon ICON = new RotateIcon(ResourceManager.loadImage("images/viewmagfit.png"), 90);
+	static final Icon PROVIDER_ICON = Icons.ARROW_DOWN_RIGHT_ICON;
 	static final Icon FUNCTION_ICON = ResourceManager.loadImage("images/FunctionScope.gif");
 	static final Icon RECURSIVE_ICON =
 		ResourceManager.loadImage("images/arrow_rotate_clockwise.png");
@@ -129,8 +129,8 @@ public class CallTreePlugin extends ProgramPlugin {
 			}
 		};
 		showProviderAction.setPopupMenuData(new MenuData(
-			new String[] { "References", "Show Call Trees" }, ICON, "ShowReferencesTo"));
-		showProviderAction.setToolBarData(new ToolBarData(ICON, "View"));
+			new String[] { "References", "Show Call Trees" }, PROVIDER_ICON, "ShowReferencesTo"));
+		showProviderAction.setToolBarData(new ToolBarData(PROVIDER_ICON, "View"));
 		showProviderAction.setHelpLocation(new HelpLocation("CallTreePlugin", "Call_Tree_Plugin"));
 		tool.addAction(showProviderAction);
 	}
@@ -159,6 +159,10 @@ public class CallTreePlugin extends ProgramPlugin {
 	}
 
 	void showOrCreateNewCallTree(ProgramLocation location) {
+		if (currentProgram == null) {
+			return; // no program; cannot show tool
+		}
+
 		CallTreeProvider provider = findProviderForLocation(location);
 		if (provider != null) {
 			tool.showComponentProvider(provider, true);

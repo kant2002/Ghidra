@@ -15,13 +15,17 @@
  */
 package resources;
 
+import java.awt.*;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import ghidra.util.Msg;
+import resources.icons.RotateIcon;
+import resources.icons.TranslateIcon;
 
 /**
  * A class to get generic icons for standard actions.  All methods in this class return an 
@@ -71,6 +75,23 @@ public class Icons {
 	/** An version of the RIGHT_ICON with a different color */
 	public static final ImageIcon RIGHT_ALTERNATE_ICON =
 		ResourceManager.loadImage("images/right.alternate.png");
+
+	public static final ImageIcon SAVE_AS = ResourceManager.getImageIcon(
+		new DotDotDotIcon(ResourceManager.loadImage("images/Disk.png")));
+
+	// Not necessarily re-usable, but this is needed for the help system; these should 
+	// probably be moved to the client that uses them, while updating the
+	// help system to use them there.
+	public static final ImageIcon ARROW_DOWN_RIGHT_ICON = ResourceManager.getImageIcon(
+		new RotateIcon(ResourceManager.loadImage("images/viewmagfit.png"), 90));
+	public static final ImageIcon ARROW_UP_LEFT_ICON = ResourceManager.getImageIcon(
+		new RotateIcon(ResourceManager.loadImage("images/viewmagfit.png"), 275));
+	public static final ImageIcon FILTER_NOT_ACCEPTED_ICON = ResourceManager.getImageIcon(
+		new MultiIcon(ResourceManager.loadImage("images/flag.png"), new TranslateIcon(
+			ResourceManager.loadImage("images/dialog-cancel.png", 10, 10), 6, 6)));
+	public static final ImageIcon APPLY_BLOCKED_MATCH_ICON = ResourceManager.getImageIcon(
+		new MultiIcon(ResourceManager.loadImage("images/kgpg.png"), new TranslateIcon(
+			ResourceManager.loadImage("images/checkmark_green.png", 12, 12), 4, 0)));
 
 	/**
 	 * Returns true if the given string is a Java code snippet that references this class
@@ -166,6 +187,36 @@ public class Icons {
 		catch (MalformedURLException e) {
 			Msg.debug(Icons.class, "Unable to get URL for icon: " + description, e);
 			return null;
+		}
+
+	}
+
+	// Creates a 16x16 icon with a scaled base icon and puts 3 dots below it.
+	private static class DotDotDotIcon implements Icon {
+		private Icon base;
+
+		public DotDotDotIcon(Icon base) {
+			this.base = ResourceManager.getScaledIcon(base, 12, 12);
+		}
+
+		@Override
+		public void paintIcon(Component c, Graphics g, int x, int y) {
+			base.paintIcon(c, g, x, y);
+			g.setColor(new Color(50, 50, 50));
+			g.fillRect(x + 6, y + 14, 2, 2);
+			g.fillRect(x + 9, y + 14, 2, 2);
+			g.fillRect(x + 12, y + 14, 2, 2);
+
+		}
+
+		@Override
+		public int getIconWidth() {
+			return 16;
+		}
+
+		@Override
+		public int getIconHeight() {
+			return 16;
 		}
 
 	}

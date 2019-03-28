@@ -15,6 +15,13 @@
  */
 package ghidra.app.plugin.core.calltree;
 
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.swing.Icon;
+import javax.swing.tree.TreePath;
+
+import docking.widgets.tree.GTreeNode;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressSetView;
 import ghidra.program.model.listing.*;
@@ -23,23 +30,13 @@ import ghidra.program.util.FunctionSignatureFieldLocation;
 import ghidra.program.util.ProgramLocation;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
-
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.swing.Icon;
-import javax.swing.tree.TreePath;
-
-import resources.ResourceManager;
-import resources.icons.RotateIcon;
-import resources.icons.TranslateIcon;
+import resources.Icons;
 import resources.MultiIcon;
-import docking.widgets.tree.GTreeNode;
+import resources.icons.TranslateIcon;
 
 public abstract class OutgoingCallNode extends CallNode {
 
-	private static final Icon OUTGOING_ICON = new RotateIcon(
-		ResourceManager.loadImage("images/viewmagfit.png"), 90);
+	private static final Icon OUTGOING_ICON = Icons.ARROW_DOWN_RIGHT_ICON;
 	private final Icon OUTGOING_FUNCTION_ICON;
 
 	private Icon icon = null;
@@ -105,9 +102,7 @@ public abstract class OutgoingCallNode extends CallNode {
 				addNode(nodes, node);
 			}
 			else {
-				addNode(
-					nodes,
-					new OutgoingFunctionCallNode(program, calledFunction,
+				addNode(nodes, new OutgoingFunctionCallNode(program, calledFunction,
 						reference.getFromAddress(), filterDuplicates, filterDepth));
 			}
 		}
