@@ -83,6 +83,29 @@ public class Icons {
 	}
 
 	/**
+	 * Returns an {@link IconProvider} for the given string value, which is usually the 'src' 
+	 * attribute of an IMG tag 
+	 * 
+	 * @param snippet the snippet
+	 * @return the icon provider
+	 */
+	public static IconProvider getIconForIconsReference(String snippet) {
+
+		String fieldName = getIconName(snippet);
+		if (fieldName == null) {
+			return null;
+		}
+
+		ImageIcon icon = getIconByFieldName(fieldName);
+		if (icon == null) {
+			return null;
+		}
+
+		URL url = getUrlFromIcon(icon);
+		return new IconProvider(icon, url);
+	}
+
+	/**
 	 * Returns a URL for the given code snippet if it is a field reference on this class 
 	 * 
 	 * @param snippet the snippet of Java code that references a field of this class

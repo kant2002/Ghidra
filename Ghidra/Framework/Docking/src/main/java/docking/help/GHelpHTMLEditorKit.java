@@ -15,6 +15,7 @@
  */
 package docking.help;
 
+import java.awt.Image;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.*;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -35,8 +37,7 @@ import generic.jar.ResourceFile;
 import ghidra.framework.Application;
 import ghidra.framework.preferences.Preferences;
 import ghidra.util.Msg;
-import resources.Icons;
-import resources.ResourceManager;
+import resources.*;
 import utilities.util.FileUtilities;
 
 /**
@@ -373,14 +374,29 @@ public class GHelpHTMLEditorKit extends HTMLEditorKit {
 
 	}
 
+	/**
+	 * Overridden to allow us to find images that are defined as constants in places like 
+	 * {@link Icons}
+	 */
 	private class GHelpImageView extends ImageView {
+
+		private Image myImage;
 
 		public GHelpImageView(Element elem) {
 			super(elem);
 		}
 
 		@Override
+		public Image getImage() {
+			if (myImage != null) {
+				return myImage;
+			}
+			return super.getImage();
+		}
+
+		@Override
 		public URL getImageURL() {
+
 			AttributeSet attributes = getElement().getAttributes();
 			Object src = attributes.getAttribute(HTML.Attribute.SRC);
 			if (src == null) {
@@ -389,8 +405,28 @@ public class GHelpHTMLEditorKit extends HTMLEditorKit {
 
 			String srcString = src.toString();
 			if (isJavaCode(srcString)) {
-				return getUrlFromJavaCode(srcString);
+				return installImageFromJavaCode(srcString);
 			}
+
+			URL url = doGetImageURL(srcString);
+			return url;
+		}
+
+		private URL installImageFromJavaCode(String srcString) {
+
+			IconProvider iconProvider = getIconFromJavaCode(srcString);
+			if (iconProvider == null || iconProvider.isInvalid()) {
+				return null;
+			}
+
+			ImageIcon icon = iconProvider.getIcon();
+			myImage = icon.getImage();
+
+			URL url = iconProvider.getUrl();
+			return url;
+		}
+
+		private URL doGetImageURL(String srcString) {
 
 			HTMLDocument htmlDocument = (HTMLDocument) getDocument();
 			URL context = htmlDocument.getBase();
@@ -416,8 +452,8 @@ public class GHelpHTMLEditorKit extends HTMLEditorKit {
 			return Icons.isIconsReference(src);
 		}
 
-		private URL getUrlFromJavaCode(String src) {
-			return Icons.getUrlForIconsReference(src);
+		private IconProvider getIconFromJavaCode(String src) {
+			return Icons.getIconForIconsReference(src);
 		}
 
 	}
