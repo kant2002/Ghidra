@@ -21,7 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.Icon;
 
-import resources.MultiIcon;
 import docking.widgets.tree.GTreeNode;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.listing.Function;
@@ -29,6 +28,7 @@ import ghidra.program.util.FunctionSignatureFieldLocation;
 import ghidra.program.util.ProgramLocation;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.TranslateIcon;
 

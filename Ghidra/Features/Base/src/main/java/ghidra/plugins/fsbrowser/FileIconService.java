@@ -25,12 +25,12 @@ import javax.swing.ImageIcon;
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 
-import resources.MultiIcon;
 import generic.jar.ResourceFile;
 import ghidra.formats.gfilesystem.FSUtilities;
 import ghidra.framework.Application;
 import ghidra.util.Msg;
 import ghidra.util.xml.XmlUtilities;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.ScaledImageIconWrapper;
 import resources.icons.TranslateIcon;

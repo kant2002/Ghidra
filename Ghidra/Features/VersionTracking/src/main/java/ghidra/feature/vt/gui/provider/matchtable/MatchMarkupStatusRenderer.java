@@ -19,12 +19,12 @@ import java.awt.Component;
 
 import javax.swing.*;
 
-import resources.MultiIcon;
 import docking.widgets.table.GTableCellRenderingData;
 import ghidra.docking.settings.Settings;
 import ghidra.feature.vt.api.main.*;
 import ghidra.util.HTMLUtilities;
 import ghidra.util.table.column.AbstractGhidraColumnRenderer;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.EmptyIcon;
 import resources.icons.TranslateIcon;

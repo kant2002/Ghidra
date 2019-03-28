@@ -22,13 +22,13 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import resources.MultiIcon;
 import ghidra.app.services.DataTypeManagerService;
 import ghidra.program.model.data.*;
 import ghidra.program.model.data.Enum;
 import ghidra.util.Msg;
 import ghidra.util.datastruct.Algorithms;
 import ghidra.util.exception.AssertException;
+import resources.MultiIcon;
 import resources.ResourceManager;
 
 public class DataTypeUtils {

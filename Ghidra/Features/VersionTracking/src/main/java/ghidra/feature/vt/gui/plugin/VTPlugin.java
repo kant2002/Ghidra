@@ -22,7 +22,6 @@ import javax.swing.*;
 
 import docking.help.Help;
 import docking.help.HelpService;
-import resources.MultiIcon;
 import docking.wizard.WizardManager;
 import ghidra.GhidraOptions;
 import ghidra.app.plugin.core.codebrowser.CodeBrowserPlugin;
@@ -46,6 +45,7 @@ import ghidra.program.model.address.AddressSetView;
 import ghidra.program.model.listing.Program;
 import ghidra.program.util.ProgramLocation;
 import ghidra.util.*;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.*;
 

@@ -24,9 +24,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
-import resources.MultiIcon;
-import resources.Icons;
-import resources.ResourceManager;
+import resources.*;
 import resources.icons.EmptyIcon;
 import resources.icons.TranslateIcon;
 

@@ -24,7 +24,6 @@ import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
 import javax.swing.tree.TreePath;
 
-import resources.MultiIcon;
 import docking.widgets.tree.*;
 import docking.widgets.tree.internal.DefaultGTreeDataTransformer;
 import docking.widgets.tree.support.GTreeRenderer;
@@ -37,6 +36,7 @@ import ghidra.program.model.data.Composite;
 import ghidra.program.model.data.Enum;
 import ghidra.util.UniversalID;
 import ghidra.util.task.TaskMonitor;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.TranslateIcon;
 

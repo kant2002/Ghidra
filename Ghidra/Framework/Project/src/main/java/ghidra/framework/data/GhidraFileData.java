@@ -24,7 +24,6 @@ import javax.swing.Icon;
 
 import db.DBHandle;
 import db.buffers.*;
-import resources.MultiIcon;
 import ghidra.framework.client.ClientUtil;
 import ghidra.framework.client.NotConnectedException;
 import ghidra.framework.model.*;
@@ -36,6 +35,7 @@ import ghidra.util.*;
 import ghidra.util.exception.*;
 import ghidra.util.task.TaskMonitor;
 import ghidra.util.task.TaskMonitorAdapter;
+import resources.MultiIcon;
 import resources.ResourceManager;
 
 public class GhidraFileData {

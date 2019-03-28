@@ -20,7 +20,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.Icon;
 
-import resources.MultiIcon;
 import docking.widgets.tree.GTreeNode;
 import ghidra.app.plugin.core.navigation.locationreferences.ReferenceUtils;
 import ghidra.program.model.address.Address;
@@ -29,8 +28,8 @@ import ghidra.program.util.FunctionSignatureFieldLocation;
 import ghidra.program.util.ProgramLocation;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
-import resources.ResourceManager;
-import resources.icons.RotateIcon;
+import resources.Icons;
+import resources.MultiIcon;
 import resources.icons.TranslateIcon;
 
 public class IncomingCallNode extends CallNode {

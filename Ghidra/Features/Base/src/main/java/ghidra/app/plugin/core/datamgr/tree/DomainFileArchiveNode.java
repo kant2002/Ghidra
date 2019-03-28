@@ -18,11 +18,11 @@ package ghidra.app.plugin.core.datamgr.tree;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import resources.MultiIcon;
 import ghidra.app.plugin.core.datamgr.archive.DomainFileArchive;
 import ghidra.framework.model.DomainFile;
 import ghidra.framework.model.DomainObject;
 import ghidra.program.model.listing.Program;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.TranslateIcon;
 
