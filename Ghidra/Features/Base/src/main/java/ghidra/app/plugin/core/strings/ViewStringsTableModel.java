@@ -197,6 +197,8 @@ class ViewStringsTableModel extends AddressBasedTableModel<ProgramLocation> {
 	private static class DataValueColumn
 			extends AbstractProgramLocationTableColumn<ProgramLocation, StringDataInstance> {
 
+		private DataValueCellRenderer renderer = new DataValueCellRenderer();
+
 		@Override
 		public String getColumnName() {
 			return "String Value";
@@ -213,6 +215,27 @@ class ViewStringsTableModel extends AddressBasedTableModel<ProgramLocation> {
 		public ProgramLocation getProgramLocation(ProgramLocation rowObject, Settings settings,
 				Program program, ServiceProvider serviceProvider) {
 			return rowObject;
+		}
+
+		@Override
+		public GColumnRenderer<StringDataInstance> getColumnRenderer() {
+			return renderer;
+		}
+
+		private class DataValueCellRenderer extends AbstractGColumnRenderer<StringDataInstance> {
+
+			@Override
+			protected String getText(Object value) {
+				if (value instanceof StringDataInstance) {
+					return ((StringDataInstance) value).toString();
+				}
+				return "";
+			}
+
+			@Override
+			public String getFilterString(StringDataInstance t, Settings settings) {
+				return getText(t);
+			}
 		}
 
 	}
