@@ -19,9 +19,13 @@ import java.util.Set;
 
 public interface PickListener<V> {
 
-	public enum EventTrigger {
-		GUI_ACTION, INTERNAL_API_CALL, EXTERNAL_API_CALL
+	public enum EventSource {
+		/** Originated from outside of the graph API (e.g., an external location change) */
+		EXTERNAL,
+
+		/** Originated from the graph API (e.g., a user click, a graph grouping) */
+		INTERNAL
 	}
 
-	public void verticesPicked(Set<V> vertices, EventTrigger trigger);
+	public void verticesPicked(Set<V> vertices, EventSource source);
 }
