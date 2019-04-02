@@ -484,6 +484,17 @@ public class ListingGraphComponentPanel extends AbstractGraphComponentPanel {
 	private void initializeToolTipComponentForEdge(FGEdge edge) {
 		boolean isDestinationVertex = edge.getEnd() == vertex;
 		Address address = getPreviewAddress(isDestinationVertex);
+		if (address == null) {
+			// This is an unusual case.   For now, do something reasonable.
+			String side = isDestinationVertex ? "end" : "start";
+			toolTipComponent = new JLabel("Unable to find address for edge " + side + ": " + edge);
+			toolTipComponent.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+			if (previewListingPanel != null) {
+				previewListingPanel = null;
+			}
+			return;
+		}
+
 		initializeToolTipComponent(address);
 
 		if (isDestinationVertex) {
