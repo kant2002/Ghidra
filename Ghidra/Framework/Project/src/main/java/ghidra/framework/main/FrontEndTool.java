@@ -279,10 +279,6 @@ public class FrontEndTool extends PluginTool implements OptionsChangeListener {
 		plugin.exitGhidra();
 	}
 
-	protected void doExit() {
-		plugin.exitGhidra();
-	}
-
 	@Override
 	public void close() {
 		exit();
