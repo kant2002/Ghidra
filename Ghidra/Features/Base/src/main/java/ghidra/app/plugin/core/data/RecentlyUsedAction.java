@@ -35,9 +35,6 @@ public class RecentlyUsedAction extends DataAction {
 		super("Recently Used", "Z_RECENT", new ByteDataType(), plugin);
 
 		setHelpLocation(new HelpLocation(plugin.getName(), "Recently_Used"));
-
-		DockingAction dummyAction = getDummyKeyBindingAction();
-		dummyAction.setKeyBindingData(new KeyBindingData(DEFAULT_KEY_STROKE));
 	}
 
 	@Override

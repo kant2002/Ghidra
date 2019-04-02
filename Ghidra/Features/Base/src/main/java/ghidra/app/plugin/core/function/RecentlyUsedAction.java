@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,9 +37,6 @@ public class RecentlyUsedAction extends DataAction {
 		super("Recently Used", "Recent", new ByteDataType(), plugin);
 
 		setHelpLocation(new HelpLocation(plugin.getName(), "Recently_Used"));
-
-		DockingAction dummyAction = getDummyKeyBindingAction();
-		dummyAction.setKeyBindingData(new KeyBindingData(DEFAULT_KEY_STROKE));
 	}
 
 	@Override
