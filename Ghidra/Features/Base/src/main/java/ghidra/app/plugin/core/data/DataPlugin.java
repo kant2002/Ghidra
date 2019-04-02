@@ -139,7 +139,6 @@ public class DataPlugin extends Plugin implements DataService {
 		tool.addAction(renameDataFieldAction);
 
 		pointerAction = new DataAction(POINTER_DATA_TYPE, this);
-		pointerAction.setDefaultKeyBinding(POINTER_KEY_BINDING);
 		tool.addAction(pointerAction);
 
 		settingsAction = new DockingAction("Data Settings", getName()) {

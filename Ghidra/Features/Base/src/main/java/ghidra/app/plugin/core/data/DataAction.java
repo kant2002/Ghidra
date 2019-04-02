@@ -85,17 +85,6 @@ class DataAction extends ListingContextAction implements OptionsChangeListener {
 		return dummyKeybindingsAction;
 	}
 
-	/**
-	 * Sets the default keybinding for this action.  This method exists due to synchronize
-	 *  this classes usage of the DummyKeyBindingsOptionsAction
-	 * @param keyStroke The keystroke to use for the new keybinding
-	 */
-	void setDefaultKeyBinding(KeyStroke keyStroke) {
-		KeyBindingData keyBindingData = new KeyBindingData(keyStroke);
-		dummyKeybindingsAction.setKeyBindingData(keyBindingData);
-		setKeyBindingData(keyBindingData);
-	}
-
 	DataType getDataType() {
 		return dataType;
 	}
