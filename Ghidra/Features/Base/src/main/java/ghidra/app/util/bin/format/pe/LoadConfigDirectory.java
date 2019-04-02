@@ -206,6 +206,15 @@ public class LoadConfigDirectory implements StructConverter {
 	}
 
 	/**
+	 * Gets the ControlFlowGuard {@link GuardFlags}.
+	 * 
+	 * @return The ControlFlowGuard {@link GuardFlags}.
+	 */
+	public GuardFlags getCfgGuardFlags() {
+		return guardFlags;
+	}
+
+	/**
 	 * Gets the ControlFlowGuard check function pointer address.
 	 * 
 	 * @return The ControlFlowGuard check function pointer address.  
@@ -365,7 +374,7 @@ public class LoadConfigDirectory implements StructConverter {
 	/**
 	 * Control Flow Guard flags.
 	 */
-	private static class GuardFlags implements StructConverter {
+	static class GuardFlags implements StructConverter {
 
 		public final static String NAME = "IMAGE_GUARD_FLAGS";
 
@@ -394,7 +403,10 @@ public class LoadConfigDirectory implements StructConverter {
 			enumDt.add("IMAGE_GUARD_RF_INSTRUMENTED", 0x00020000L);
 			enumDt.add("IMAGE_GUARD_RF_ENABLE", 0x00040000L);
 			enumDt.add("IMAGE_GUARD_RF_STRICT", 0x00080000L);
-			enumDt.add("IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK", 0xf0000000L);
+			enumDt.add("IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK_1", 0x10000000L);
+			enumDt.add("IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK_2", 0x20000000L);
+			enumDt.add("IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK_4", 0x40000000L);
+			enumDt.add("IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK_8", 0x80000000L);
 
 			enumDt.setCategoryPath(new CategoryPath("/PE"));
 			return enumDt;
@@ -404,7 +416,7 @@ public class LoadConfigDirectory implements StructConverter {
 	/**
 	 * Not sure yet what this is used for.
 	 */
-	private static class CodeIntegrity implements StructConverter {
+	static class CodeIntegrity implements StructConverter {
 
 		public final static String NAME = "IMAGE_LOAD_CONFIG_CODE_INTEGRITY";
 

@@ -15,6 +15,7 @@
  */
 package ghidra.app.util.bin.format.pe;
 
+import ghidra.app.util.bin.format.pe.LoadConfigDirectory.GuardFlags;
 import ghidra.app.util.importer.MessageLog;
 import ghidra.program.model.address.*;
 import ghidra.program.model.data.DataType;
@@ -131,6 +132,9 @@ public class ControlFlowGuard {
 	private static void markupCfgFunctionTable(LoadConfigDirectory lcd, Program program,
 			MessageLog log) {
 
+		final int IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK = 0xf0000000;
+		final int IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_SHIFT = 28;
+
 		long tablePointer = lcd.getCfgFunctionTablePointer();
 		long functionCount = lcd.getCfgFunctionCount();
 
@@ -146,11 +150,14 @@ public class ControlFlowGuard {
 			program.getSymbolTable().createLabel(tableAddr, "GuardCFFunctionTable",
 				SourceType.IMPORTED);
 
-			// Each table entry is an RVA (32-bit image base offset)
+			// Each table entry is an RVA (32-bit image base offset), followed by 'n' extra bytes
+			GuardFlags guardFlags = lcd.getCfgGuardFlags();
+			int n = (guardFlags.getFlags() &
+				IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK) >> IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_SHIFT;
 			DataType ibo32 = new ImageBaseOffset32DataType();
 			for (long i = 0; i < functionCount; i++) {
-				Data d =
-					PeUtils.createData(program, tableAddr.add(i * ibo32.getLength()), ibo32, log);
+				Data d = PeUtils.createData(program, tableAddr.add(i * (ibo32.getLength() + n)),
+					ibo32, log);
 				if (d == null) {
 					// If we failed to create data on a table entry, just assume the rest will fail
 					break;
