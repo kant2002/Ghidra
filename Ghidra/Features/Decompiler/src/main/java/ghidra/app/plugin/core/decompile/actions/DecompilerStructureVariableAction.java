@@ -15,6 +15,7 @@
  */
 package ghidra.app.plugin.core.decompile.actions;
 
+import docking.ActionContext;
 import ghidra.app.decompiler.ClangToken;
 import ghidra.app.decompiler.component.DecompilerController;
 import ghidra.app.decompiler.component.DecompilerPanel;
@@ -22,9 +23,9 @@ import ghidra.app.plugin.core.decompile.DecompilerActionContext;
 import ghidra.framework.plugintool.PluginTool;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.listing.Function;
+import ghidra.program.model.pcode.HighConstant;
 import ghidra.program.model.pcode.HighVariable;
 import ghidra.util.UndefinedFunction;
-import docking.ActionContext;
 
 public class DecompilerStructureVariableAction extends CreateStructureVariableAction {
 
@@ -63,7 +64,7 @@ public class DecompilerStructureVariableAction extends CreateStructureVariableAc
 			return false;
 		}
 		HighVariable var = tokenAtCursor.getHighVariable();
-		if (var != null) {
+		if (var != null && !(var instanceof HighConstant)) {
 			dt = var.getDataType();
 			isThisParam = testForAutoParameterThis(var, function);
 		}
