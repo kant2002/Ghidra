@@ -43,7 +43,7 @@ public class MultiTabPanel extends JPanel {
 	private final static Icon CLOSE_ICON = ResourceManager.loadImage("images/x.gif");
 	private final static Icon HIGHLIGHT_CLOSE_ICON = ResourceManager.loadImage("images/pinkX.gif");
 	private final static Icon LIST_ICON = ResourceManager.loadImage("images/VCRFastForward.gif");
-	private final static Icon TRANSIENT_ICON = ResourceManager.loadImage("images/link8x16.png");
+	private final static Icon TRANSIENT_ICON = ResourceManager.loadImage("images/link.png", 8, 16);
 
 	private final static Color TEXT_SELECTION_COLOR = Color.WHITE;
 	private final static Color TEXT_NON_SELECTION_COLOR = UIManager.getColor("Tree.textForeground");

@@ -94,8 +94,7 @@ public class FileIconService {
 	private Map<String, String> fileSubstrToIconName = new HashMap<>();
 	private Map<String, String> overlayNameToIconName = new HashMap<>();
 	private Map<String, OVERLAYQUAD> overlayNameToQuad = new HashMap<>();
-	private String defaultIconPath =
-		"images/open_icon_library-full-0.11/icons/png/16x16/mimetypes/oxygen-styles/text-plain.png";
+	private String defaultIconPath = "images/famfamfam_silk_icons_v013/page_white.png";
 	private int maxExtLevel = 1;
 	private boolean debug = false;
 

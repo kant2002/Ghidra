@@ -37,6 +37,7 @@ import ghidra.util.task.TaskMonitor;
 import ghidra.util.task.TaskMonitorAdapter;
 import resources.MultiIcon;
 import resources.ResourceManager;
+import resources.icons.TranslateIcon;
 
 public class GhidraFileData {
 
@@ -50,7 +51,8 @@ public class GhidraFileData {
 		ResourceManager.loadImage("images/checkex.png");
 	public static final Icon HIJACKED_ICON = ResourceManager.loadImage("images/small_hijack.gif");
 	public static final Icon VERSION_ICON = new VersionIcon();
-	public static final Icon READ_ONLY_ICON = ResourceManager.loadImage("images/lockoverlay.png");
+	public static final Icon READ_ONLY_ICON =
+		ResourceManager.loadImage("images/user-busy.png", 10, 10);
 	public static final Icon NOT_LATEST_CHECKED_OUT_ICON =
 		ResourceManager.loadImage("images/checkNotLatest.gif");
 
@@ -508,7 +510,7 @@ public class GhidraFileData {
 			else if (folderItem != null) {
 				MultiIcon multiIcon = new MultiIcon(getBaseIcon(item), disabled);
 				if (isReadOnly() && !fileSystem.isReadOnly()) {
-					multiIcon.addIcon(READ_ONLY_ICON);
+					multiIcon.addIcon(new TranslateIcon(READ_ONLY_ICON, 6, 6));
 				}
 				if (isCheckedOut()) {
 					if (isCheckedOutExclusive()) {
