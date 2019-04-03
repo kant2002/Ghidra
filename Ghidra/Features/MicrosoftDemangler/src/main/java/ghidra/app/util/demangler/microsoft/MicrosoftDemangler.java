@@ -15,17 +15,15 @@
  */
 package ghidra.app.util.demangler.microsoft;
 
-import ghidra.app.util.demangler.DemangledException;
-import ghidra.app.util.demangler.DemangledObject;
-import ghidra.app.util.demangler.Demangler;
+import java.util.regex.Pattern;
+
+import ghidra.app.util.demangler.*;
 import ghidra.app.util.opinion.MSCoffLoader;
 import ghidra.app.util.opinion.PeLoader;
 import ghidra.program.model.listing.Program;
 import mdemangler.MDException;
 import mdemangler.MDMangGhidra;
 import util.demangler.GenericDemangledException;
-
-import java.util.regex.Pattern;
 
 /**
  * A class for demangling debug symbols created using Microsoft Visual Studio.

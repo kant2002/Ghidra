@@ -406,7 +406,16 @@ public class FGProvider extends VisualGraphComponentProvider<FGVertex, FGEdge, F
 	 */
 	public void graphLocationChanged(ProgramLocation newLocation) {
 		storeLocation(newLocation);
+
+		if (isFocusedProvider()) {
+
+			// Note: this is the easy way to avoid odd event bouncing--only send events out if 
+			//       we are focused, as this implies the user is driving the events.  A better
+			//       metaphor for handling external and internal program locations is needed to
+			//       simplify the logic of when to broadcast location changes.
 		notifyLocationChanged(newLocation);
+		}
+
 		notifyContextChanged();
 	}
 
@@ -563,7 +572,8 @@ public class FGProvider extends VisualGraphComponentProvider<FGVertex, FGEdge, F
 		// Note: since we are not looping and we are using 'else if's, order is important!
 		// 
 
-		if (ev.containsEvent(DomainObject.DO_OBJECT_RESTORED)) {
+		if (ev.containsEvent(DomainObject.DO_OBJECT_RESTORED) ||
+			ev.containsEvent(ChangeManager.DOCR_FUNCTION_BODY_CHANGED)) {
 			if (graphDataMissing()) {
 				controller.clear();
 				return; // something really destructive has happened--give up!

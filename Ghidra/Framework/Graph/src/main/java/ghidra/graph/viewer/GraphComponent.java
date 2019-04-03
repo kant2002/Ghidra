@@ -1089,13 +1089,13 @@ public class GraphComponent<V extends VisualVertex, E extends VisualEdge<V>, G e
 		}
 
 		@Override
-		public void verticesPicked(Set<V> vertices, EventTrigger trigger) {
+		public void verticesPicked(Set<V> vertices, EventSource source) {
 
 			if (vertices.size() == 0) {
 				innerClassGraph.clearSelectedVertices();
 			}
 			else if (vertices.size() == 1) {
-				focusVertex(CollectionUtils.any(vertices), trigger);
+				focusVertex(CollectionUtils.any(vertices), source);
 			}
 			else {
 				innerClassGraph.setSelectedVertices(vertices);
@@ -1104,9 +1104,9 @@ public class GraphComponent<V extends VisualVertex, E extends VisualEdge<V>, G e
 			getPathHighlighter().setFocusedVertex(graph.getFocusedVertex());
 		}
 
-		private void focusVertex(V vertex, EventTrigger trigger) {
+		private void focusVertex(V vertex, EventSource source) {
 			innerClassGraph.setVertexFocused(vertex, true);
-			if (trigger == EventTrigger.INTERNAL_API_CALL) {
+			if (source == EventSource.INTERNAL) {
 				// send the event out, as this vertex was focused by the API and not the user
 				vertexFocusListener.ifPresent(l -> l.vertexFocused(vertex));
 			}

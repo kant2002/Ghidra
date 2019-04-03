@@ -23,7 +23,7 @@ import javax.swing.Icon;
 
 import org.jdom.Element;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.TranslateIcon;
 

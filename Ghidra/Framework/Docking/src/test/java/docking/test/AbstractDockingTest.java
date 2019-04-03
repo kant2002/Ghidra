@@ -62,7 +62,7 @@ import ghidra.util.worker.Worker;
 import junit.framework.AssertionFailedError;
 import sun.awt.AppContext;
 import util.CollectionUtils;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 public abstract class AbstractDockingTest extends AbstractGenericTest {
 

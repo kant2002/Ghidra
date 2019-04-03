@@ -32,8 +32,7 @@ import ghidra.util.bean.GGlassPanePainter;
 public class PopupWindow {
 	private static final int X_PADDING = 20;
 	private static final int Y_PADDING = 20;
-	private static final List<WeakReference<PopupWindow>> VISIBLE_POPUPS =
-		new ArrayList<>();
+	private static final List<WeakReference<PopupWindow>> VISIBLE_POPUPS = new ArrayList<>();
 
 	public static void hideAllWindows() {
 		for (WeakReference<PopupWindow> weakReference : VISIBLE_POPUPS) {
@@ -202,7 +201,9 @@ public class PopupWindow {
 
 	/**
 	 * Sets the amount of time that will pass before the popup window is closed <b>after</b> the
-	 * user moves away from the popup window and out of the neutral zone.
+	 * user moves away from the popup window and out of the neutral zone
+	 * 
+	 * @param delayInMillis the timer delay
 	 */
 	public void setCloseWindowDelay(int delayInMillis) {
 		closeTimer = new Timer(delayInMillis, event -> hide());
@@ -236,8 +237,7 @@ public class PopupWindow {
 		int y = point.y + keepVisibleArea.height + Y_PADDING;
 		popupBounds.setLocation(x, y);
 
-		Point adjustedPoint = WindowUtilities.adjustBoundsToFitScreen(popupBounds);
-		popupBounds.setLocation(adjustedPoint);
+		WindowUtilities.ensureOnScreen(sourceComponent, popupBounds);
 
 		Rectangle hoverArea = new Rectangle(point, keepVisibleArea);
 		adjustBoundsForCursorLocation(popupBounds, hoverArea);
@@ -246,7 +246,7 @@ public class PopupWindow {
 
 		installDebugPainter(e);
 
-		popup.setLocation(popupBounds.x, popupBounds.y);
+		popup.setBounds(popupBounds);
 		popup.setVisible(true);
 
 		removeOldPopupReferences();

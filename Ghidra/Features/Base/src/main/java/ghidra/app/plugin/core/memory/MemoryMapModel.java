@@ -270,7 +270,12 @@ class MemoryMapModel extends AbstractSortedTableModel<MemoryBlock> {
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		provider.setCursor(MemoryMapPlugin.WAIT_CURSOR);
 		try {
+
 			MemoryBlock block = getBlockAt(rowIndex);
+			if (block == null) {
+				// this can happen when the tool is closing while an edit is open
+				return;
+			}
 
 			switch (columnIndex) {
 				case NAME:

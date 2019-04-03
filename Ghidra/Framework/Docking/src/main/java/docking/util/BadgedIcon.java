@@ -22,6 +22,7 @@ import java.util.*;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.EmptyIcon;
 import resources.icons.ScaledImageIconWrapper;

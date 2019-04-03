@@ -58,7 +58,8 @@ public class CharsetInfo {
 
 	/**
 	 * @param charsetName name of charset
-	 * @return true if the supported multi-byte charset does not specify LE or BE
+	 * @return true if the supported multi-byte charset does not specify LE or
+	 *         BE
 	 */
 	public static boolean isBOMCharset(String charsetName) {
 		return UTF32.equals(charsetName) || UTF16.equals(charsetName);
@@ -92,8 +93,8 @@ public class CharsetInfo {
 	}
 
 	/**
-	 * Register minimal set of Java Charsets to facilitate most test
-	 * without Application initialization overhead.
+	 * Register minimal set of Java Charsets to facilitate most test without
+	 * Application initialization overhead.
 	 */
 	private void registerStandardCharsets() {
 		addCharset(USASCII, 1);
@@ -115,6 +116,7 @@ public class CharsetInfo {
 
 	/**
 	 * Returns an array list of the currently configured charsets.
+	 * 
 	 * @return String[] of current configured charsets.
 	 */
 	public String[] getCharsetNames() {
@@ -122,11 +124,12 @@ public class CharsetInfo {
 	}
 
 	/**
-	 * Returns the number of bytes that the specified charset needs to specify a character.
+	 * Returns the number of bytes that the specified charset needs to specify a
+	 * character.
 	 *
 	 * @param charsetName charset name
-	 * @return number of bytes in a character, ie. 1, 2, 4, etc, defaults to 1 if charset
-	 * is unknown or not specified in config file.
+	 * @return number of bytes in a character, ie. 1, 2, 4, etc, defaults to 1
+	 *         if charset is unknown or not specified in config file.
 	 */
 	public int getCharsetCharSize(String charsetName) {
 		CharsetInfoRec rec = charsetInfoRecsByName.get(charsetName);
@@ -147,7 +150,7 @@ public class CharsetInfo {
 	private void readConfigFile() {
 		ResourceFile xmlFile = Application.findDataFileInAnyModule("charset_info.xml");
 		try (InputStream xmlInputStream = xmlFile.getInputStream()) {
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Document doc = sax.build(xmlInputStream);
 			Element root = doc.getRootElement();
 			for (Element child : (List<Element>) root.getChildren("charset")) {

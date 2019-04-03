@@ -36,10 +36,11 @@ import ghidra.util.Msg;
 import ghidra.util.filechooser.GhidraFileChooserModel;
 import ghidra.util.filechooser.GhidraFileFilter;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 
 /**
- * A class to provide utilities for system key bindings, such as importing 
- * and exporting key binding configurations.
+ * A class to provide utilities for system key bindings, such as importing and
+ * exporting key binding configurations.
  * 
  * 
  * @since  Tracker Id 329
@@ -80,8 +81,8 @@ public class KeyBindingUtils {
 	 * If there is a problem reading the data then the user will be shown an
 	 * error dialog.
 	 * 
-	 * @return An options object that is composed of key binding names and
-	 *         their associated keystrokes.
+	 * @return An options object that is composed of key binding names and their
+	 *         associated keystrokes.
 	 */
 	public static ToolOptions createOptionsforKeybindings(InputStream inputStream) {
 		if (inputStream == null) {
@@ -90,7 +91,7 @@ public class KeyBindingUtils {
 
 		ToolOptions newKeyBindingOptions = null;
 
-		SAXBuilder builder = new SAXBuilder(false);
+		SAXBuilder builder = XmlUtilities.createSecureSAXBuilder(false, false);
 		Element rootElement = null;
 		try {
 			rootElement = builder.build(inputStream).getRootElement();
@@ -152,12 +153,14 @@ public class KeyBindingUtils {
 	}
 
 	/**
-	 * A convenience method to register the given action with the given component.  This is
-	 * not usually done, as the action system is usually managed by the application's tool.
-	 * However, for actions that are not registered with a tool, they can instead be 
-	 * bound to a component, hence this method.
+	 * A convenience method to register the given action with the given
+	 * component. This is not usually done, as the action system is usually
+	 * managed by the application's tool. However, for actions that are not
+	 * registered with a tool, they can instead be bound to a component, hence
+	 * this method.
 	 * <p>
-	 * The given action must have a keystroke assigned, or this method will do nothing. 
+	 * The given action must have a keystroke assigned, or this method will do
+	 * nothing.
 	 * 
 	 * @param component the component to which the given action will be bound
 	 * @param action the action to bind
@@ -168,16 +171,19 @@ public class KeyBindingUtils {
 	}
 
 	/**
-	 * A convenience method to register the given action with the given component.  This is
-	 * not usually done, as the action system is usually managed by the application's tool.
-	 * However, for actions that are not registered with a tool, they can instead be 
-	 * bound to a component, hence this method.
+	 * A convenience method to register the given action with the given
+	 * component. This is not usually done, as the action system is usually
+	 * managed by the application's tool. However, for actions that are not
+	 * registered with a tool, they can instead be bound to a component, hence
+	 * this method.
 	 * <p>
-	 * The given action must have a keystroke assigned, or this method will do nothing. 
+	 * The given action must have a keystroke assigned, or this method will do
+	 * nothing.
 	 * 
-	 * <p>A typical use-case is to register an existing docking action with a text component, 
-	 * which is needed because the docking key event processing will not execute docking- 
-	 * registered actions if a text component has focus.
+	 * <p>
+	 * A typical use-case is to register an existing docking action with a text
+	 * component, which is needed because the docking key event processing will
+	 * not execute docking- registered actions if a text component has focus.
 	 * 
 	 * @param component the component to which the given action will be bound
 	 * @param action the action to bind
@@ -191,22 +197,25 @@ public class KeyBindingUtils {
 	}
 
 	/**
-	 * A convenience method to register the given action with the given component.  This is
-	 * not usually done, as the action system is usually managed by the application's tool.
-	 * However, for actions that are not registered with a tool, they can instead be 
-	 * bound to a component, hence this method.
+	 * A convenience method to register the given action with the given
+	 * component. This is not usually done, as the action system is usually
+	 * managed by the application's tool. However, for actions that are not
+	 * registered with a tool, they can instead be bound to a component, hence
+	 * this method.
 	 * <p>
-	 * The given action must have a keystroke assigned, or this method will do nothing. 
+	 * The given action must have a keystroke assigned, or this method will do
+	 * nothing.
 	 * 
-	 * <p>A typical use-case is to register an existing docking action with a text component, 
-	 * which is needed because the docking key event processing will not execute docking- 
-	 * registered actions if a text component has focus.
+	 * <p>
+	 * A typical use-case is to register an existing docking action with a text
+	 * component, which is needed because the docking key event processing will
+	 * not execute docking- registered actions if a text component has focus.
 	 * 
 	 * @param component the component to which the given action will be bound
 	 * @param action the action to bind
 	 * @param contextProvider the provider of the context
-	 * @param focusCondition see {@link JComponent} for more info; the default is 
-	 *        usually {@link JComponent#WHEN_FOCUSED}
+	 * @param focusCondition see {@link JComponent} for more info; the default
+	 *            is usually {@link JComponent#WHEN_FOCUSED}
 	 */
 	public static void registerAction(JComponent component, DockingAction action,
 			ActionContextProvider contextProvider, int focusCondition) {
@@ -216,15 +225,16 @@ public class KeyBindingUtils {
 	}
 
 	/**
-	 * Registers the given action with the given key binding on the given component.
+	 * Registers the given action with the given key binding on the given
+	 * component.
 	 * 
 	 * @param component the component to which the action will be registered
 	 * @param keyStroke the keystroke for to which the action will be bound
 	 * @param action the action to execute when the given keystroke is triggered
 	 * @param focusCondition the focus condition under which to bind the action
 	 * 			({@link JComponent#getInputMap(int)})
-	 * @param focusCondition see {@link JComponent} for more info; the default is 
-	 *        usually {@link JComponent#WHEN_FOCUSED}
+	 * @param focusCondition see {@link JComponent} for more info; the default
+	 *            is usually {@link JComponent#WHEN_FOCUSED}
 	 */
 	public static void registerAction(JComponent component, KeyStroke keyStroke, Action action,
 			int focusCondition) {
@@ -255,12 +265,12 @@ public class KeyBindingUtils {
 	}
 
 	/**
-	 * Allows clients to clear Java key bindings.  This is useful when your application
-	 * is using tool-level key bindings that share the same keystroke as a built-in Java
-	 * action, such as Ctrl-C for the copy action.
+	 * Allows clients to clear Java key bindings. This is useful when your
+	 * application is using tool-level key bindings that share the same
+	 * keystroke as a built-in Java action, such as Ctrl-C for the copy action.
 	 * <p>
-	 * Note: this method clears focus for the default ({@link JComponent#WHEN_FOCUSED})
-	 * 	     focus condition.
+	 * Note: this method clears focus for the default
+	 * ({@link JComponent#WHEN_FOCUSED}) focus condition.
 	 *  
 	 * @param component the component for which to clear the key binding
 	 * @param keyStroke the keystroke of the binding to be cleared
@@ -271,14 +281,15 @@ public class KeyBindingUtils {
 	}
 
 	/**
-	 * Allows clients to clear Java key bindings.  This is useful when your application
-	 * is using tool-level key bindings that share the same keystroke as a built-in Java
-	 * action, such as Ctrl-C for the copy action.
+	 * Allows clients to clear Java key bindings. This is useful when your
+	 * application is using tool-level key bindings that share the same
+	 * keystroke as a built-in Java action, such as Ctrl-C for the copy action.
 	 * 
 	 * @param component the component for which to clear the key binding
 	 * @param keyStroke the keystroke of the binding to be cleared
-	 * @param focusCondition the particular focus condition under which the given 
-	 *        keystroke is used (see {@link JComponent#getInputMap(int)}).
+	 * @param focusCondition the particular focus condition under which the
+	 *            given keystroke is used (see
+	 *            {@link JComponent#getInputMap(int)}).
 	 */
 	public static void clearKeyBinding(JComponent component, KeyStroke keyStroke,
 			int focusCondition) {
@@ -292,15 +303,15 @@ public class KeyBindingUtils {
 	}
 
 	/**
-	 * Returns the registered action for the given keystroke, or null of no action is bound
-	 * to that keystroke.
+	 * Returns the registered action for the given keystroke, or null of no
+	 * action is bound to that keystroke.
 	 * 
 	 * @param component the component for which to check the binding 
 	 * @param keyStroke the keystroke for which to find a bound action
-	 * @param focusCondition the focus condition under which to check for the binding
-	 * 			({@link JComponent#getInputMap(int)})
-	 * @return the action registered to the given keystroke, or null of no action is
-	 *         registered
+	 * @param focusCondition the focus condition under which to check for the
+	 *            binding ({@link JComponent#getInputMap(int)})
+	 * @return the action registered to the given keystroke, or null of no
+	 *         action is registered
 	 */
 	public static Action getAction(JComponent component, KeyStroke keyStroke, int focusCondition) {
 		InputMap inputMap = component.getInputMap(focusCondition);
@@ -314,12 +325,14 @@ public class KeyBindingUtils {
 	}
 
 	/**
-	 * Takes the existing docking action and allows it to be registered with Swing components
+	 * Takes the existing docking action and allows it to be registered with
+	 * Swing components
 	 * 
-	 * <p>The new action will not be correctly wired into the Docking Action Context system.  
-	 * This means that the given docking action should not rely on 
-	 * {@link DockingAction#isEnabledForContext(docking.ActionContext)} to work when called 
-	 * from the Swing widget.
+	 * <p>
+	 * The new action will not be correctly wired into the Docking Action
+	 * Context system. This means that the given docking action should not rely
+	 * on {@link DockingAction#isEnabledForContext(docking.ActionContext)} to
+	 * work when called from the Swing widget.
 	 * 
 	 * @param action the docking action to adapt to a Swing {@link Action}
 	 * @return the new action

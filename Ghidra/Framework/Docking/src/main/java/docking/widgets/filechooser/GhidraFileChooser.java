@@ -31,7 +31,6 @@ import javax.swing.filechooser.FileSystemView;
 
 import docking.*;
 import docking.framework.DockingApplicationConfiguration;
-import docking.util.MultiIcon;
 import docking.widgets.*;
 import ghidra.GhidraApplicationLayout;
 import ghidra.framework.*;
@@ -44,8 +43,7 @@ import ghidra.util.layout.PairLayout;
 import ghidra.util.task.TaskMonitor;
 import ghidra.util.worker.Job;
 import ghidra.util.worker.Worker;
-import resources.Icons;
-import resources.ResourceManager;
+import resources.*;
 import resources.icons.TranslateIcon;
 import util.CollectionUtils;
 import util.HistoryList;

@@ -27,6 +27,7 @@ import ghidra.framework.Application;
 import ghidra.util.Msg;
 import ghidra.util.NumericUtilities;
 import ghidra.util.exception.CryptoException;
+import ghidra.util.xml.XmlUtilities;
 import util.CollectionUtils;
 
 public final class CryptoKeyFactory {
@@ -43,8 +44,8 @@ public final class CryptoKeyFactory {
 	}
 
 	/**
-	 * Loads the crypto key XML file if it is not currently loaded OR if
-	 * it has changed since it was last loaded.
+	 * Loads the crypto key XML file if it is not currently loaded OR if it has
+	 * changed since it was last loaded.
 	 */
 	private static void loadIfNeeded() {
 		ResourceFile cryptoDirectory = getCryptoDirectory();
@@ -63,7 +64,7 @@ public final class CryptoKeyFactory {
 			try {
 				InputStream is = file.getInputStream();
 				try {
-					SAXBuilder sax = new SAXBuilder(false);
+					SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 					Document doc = sax.build(is);
 					Element root = doc.getRootElement();
 					String firmwareName = root.getAttributeValue("NAME");
@@ -145,8 +146,8 @@ public final class CryptoKeyFactory {
 			return cryptoKey;
 		}
 		if ( cryptoKey.isEmpty() ) {
-			throw new CryptoException( "No key specified in [" + firmwareName + ".xml] file for [" +
-				firmwarePath + "]" );
+			throw new CryptoException(
+				"No key specified in [" + firmwareName + ".xml] file for [" + firmwarePath + "]");
 		}
 		return cryptoKey;
 	}

@@ -105,7 +105,7 @@ public class CallTreeProvider extends ComponentProviderAdapter implements Domain
 		setWindowMenuGroup(TITLE);
 		setDefaultWindowPosition(WindowPosition.BOTTOM);
 
-		setIcon(CallTreePlugin.ICON);
+		setIcon(CallTreePlugin.PROVIDER_ICON);
 		setHelpLocation(new HelpLocation(plugin.getName(), "Call_Tree_Plugin"));
 
 		addToTool();
@@ -658,7 +658,7 @@ public class CallTreeProvider extends ComponentProviderAdapter implements Domain
 		newCallTree.setHelpLocation(new HelpLocation(plugin.getName(),
 			"Call_Tree_Context_Action_Show_Call_Tree_For_Function"));
 		newCallTree.setPopupMenuData(new MenuData(new String[] { "Show Call Tree For Function" },
-			CallTreePlugin.ICON, newTreeMenu));
+			CallTreePlugin.PROVIDER_ICON, newTreeMenu));
 		tool.addLocalAction(this, newCallTree);
 	}
 

@@ -31,6 +31,7 @@ import ghidra.framework.project.tool.GhidraToolTemplate;
 import ghidra.util.*;
 import ghidra.util.exception.AssertException;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 import resources.ResourceManager;
 
 public class ToolUtils {
@@ -54,7 +55,9 @@ public class ToolUtils {
 	}
 
 	/**
-	 * Returns all tools found in the classpath that live under a root 'defaultTools' directory
+	 * Returns all tools found in the classpath that live under a root
+	 * 'defaultTools' directory
+	 * 
 	 * @return the default tools
 	 */
 	// synchronized to protect loading of static set
@@ -78,7 +81,9 @@ public class ToolUtils {
 	}
 
 	/**
-	 * Returns all tools found in the classpath that live under a root 'extraTools' directory
+	 * Returns all tools found in the classpath that live under a root
+	 * 'extraTools' directory
+	 * 
 	 * @return the extra tools
 	 */
 	// synchronized to protect loading of static set
@@ -102,8 +107,9 @@ public class ToolUtils {
 	}
 
 	/**
-	 * Returns all tools found in the classpath that live under a root 'defaultTools' directory
-	 * or a root 'extraTools' directory
+	 * Returns all tools found in the classpath that live under a root
+	 * 'defaultTools' directory or a root 'extraTools' directory
+	 * 
 	 * @return the tools
 	 */
 	// synchronized to protect loading of static set
@@ -224,7 +230,7 @@ public class ToolUtils {
 		GhidraToolTemplate toolTemplate = null;
 		try (FileInputStream is = new FileInputStream(toolFile)) {
 
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 
 			Document doc = sax.build(is);
 			Element root = doc.getRootElement();
@@ -292,7 +298,7 @@ public class ToolUtils {
 			if (is == null) {
 				return null;
 			}
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Document doc = sax.build(is);
 			Element root = doc.getRootElement();
 

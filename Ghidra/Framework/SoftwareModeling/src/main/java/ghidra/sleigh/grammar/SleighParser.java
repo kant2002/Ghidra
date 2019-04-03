@@ -1,5 +1,5 @@
 package ghidra.sleigh.grammar;
-// $ANTLR 3.5.2 ghidra/sleigh/grammar/SleighParser.g 2019-02-28 12:48:46
+// $ANTLR 3.5.2 ghidra/sleigh/grammar/SleighParser.g 2019-03-25 18:04:49
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -1444,7 +1444,7 @@ public class SleighParser extends AbstractSleighParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_fielddefs.add(fielddefs27.getTree());
 			// AST REWRITE
-			// elements: integer, identifier, fielddefs
+			// elements: identifier, integer, fielddefs
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1672,7 +1672,7 @@ public class SleighParser extends AbstractSleighParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_fieldmods.add(fieldmods32.getTree());
 			// AST REWRITE
-			// elements: s, fieldmods, strict_id, e
+			// elements: fieldmods, strict_id, e, s
 			// token labels: 
 			// rule labels: s, e, retval
 			// token list labels: 
@@ -2217,7 +2217,7 @@ public class SleighParser extends AbstractSleighParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_contextfieldmods.add(contextfieldmods38.getTree());
 			// AST REWRITE
-			// elements: e, identifier, contextfieldmods, s
+			// elements: e, s, contextfieldmods, identifier
 			// token labels: 
 			// rule labels: s, e, retval
 			// token list labels: 
@@ -2925,7 +2925,7 @@ public class SleighParser extends AbstractSleighParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_spacemods.add(spacemods44.getTree());
 			// AST REWRITE
-			// elements: spacemods, identifier
+			// elements: identifier, spacemods
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -3627,16 +3627,16 @@ public class SleighParser extends AbstractSleighParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_identifierlist.add(identifierlist60.getTree());
 			// AST REWRITE
-			// elements: identifier, offset, size, identifierlist
+			// elements: identifier, identifierlist, size, offset
 			// token labels: 
-			// rule labels: offset, size, retval
+			// rule labels: size, offset, retval
 			// token list labels: 
 			// rule list labels: 
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
-			RewriteRuleSubtreeStream stream_offset=new RewriteRuleSubtreeStream(adaptor,"rule offset",offset!=null?offset.getTree():null);
 			RewriteRuleSubtreeStream stream_size=new RewriteRuleSubtreeStream(adaptor,"rule size",size!=null?size.getTree():null);
+			RewriteRuleSubtreeStream stream_offset=new RewriteRuleSubtreeStream(adaptor,"rule offset",offset!=null?offset.getTree():null);
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (CommonTree)adaptor.nil();
@@ -3922,7 +3922,7 @@ public class SleighParser extends AbstractSleighParser {
 			if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET66);
 
 			// AST REWRITE
-			// elements: j, b, i, a
+			// elements: j, i, a, b
 			// token labels: 
 			// rule labels: a, b, i, j, retval
 			// token list labels: 
@@ -4116,7 +4116,7 @@ public class SleighParser extends AbstractSleighParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_intblist.add(intblist69.getTree());
 			// AST REWRITE
-			// elements: identifierlist, intblist
+			// elements: intblist, identifierlist
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -4313,7 +4313,7 @@ public class SleighParser extends AbstractSleighParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_identifierlist.add(b.getTree());
 			// AST REWRITE
-			// elements: a, b
+			// elements: b, a
 			// token labels: 
 			// rule labels: a, b, retval
 			// token list labels: 
@@ -5786,7 +5786,7 @@ public class SleighParser extends AbstractSleighParser {
 			if ( state.backtracking==0 ) stream_RBRACE.add(RBRACE104);
 
 			// AST REWRITE
-			// elements: bitpat_or_nil, contextblock, id_or_nil, constructorlikelist
+			// elements: bitpat_or_nil, constructorlikelist, contextblock, id_or_nil
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -6369,7 +6369,7 @@ public class SleighParser extends AbstractSleighParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_ctorsemantic.add(ctorsemantic113.getTree());
 			// AST REWRITE
-			// elements: contextblock, ctorstart, ctorsemantic, bitpattern
+			// elements: ctorsemantic, bitpattern, contextblock, ctorstart
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -6691,7 +6691,7 @@ public class SleighParser extends AbstractSleighParser {
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) stream_display.add(display117.getTree());
 					// AST REWRITE
-					// elements: identifier, display
+					// elements: display, identifier
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -12332,7 +12332,7 @@ public class SleighParser extends AbstractSleighParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_pexpression_operands.add(pexpression_operands175.getTree());
 			// AST REWRITE
-			// elements: identifier, pexpression_operands
+			// elements: pexpression_operands, identifier
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -17379,121 +17379,121 @@ public class SleighParser extends AbstractSleighParser {
 	// $ANTLR end synpred1_SleighParser
 
 	// Delegated rules
+	public SleighParser_DisplayParser.display_return display() throws RecognitionException { return gDisplayParser.display(); }
+
+	public SleighParser_SemanticParser.sembitrange_return sembitrange() throws RecognitionException { return gSemanticParser.sembitrange(); }
+
+	public SleighParser_SemanticParser.shift_op_return shift_op() throws RecognitionException { return gSemanticParser.shift_op(); }
+
+	public SleighParser_SemanticParser.expr_shift_return expr_shift() throws RecognitionException { return gSemanticParser.expr_shift(); }
+
+	public SleighParser_SemanticParser.export_return export() throws RecognitionException { return gSemanticParser.export(); }
+
+	public SleighParser_SemanticParser.expr_eq_return expr_eq() throws RecognitionException { return gSemanticParser.expr_eq(); }
+
+	public SleighParser_SemanticParser.expr_xor_op_return expr_xor_op() throws RecognitionException { return gSemanticParser.expr_xor_op(); }
+
+	public SleighParser_SemanticParser.section_def_return section_def() throws RecognitionException { return gSemanticParser.section_def(); }
+
+	public SleighParser_SemanticParser.declaration_return declaration() throws RecognitionException { return gSemanticParser.declaration(); }
+
+	public SleighParser_SemanticParser.expr_xor_return expr_xor() throws RecognitionException { return gSemanticParser.expr_xor(); }
+
+	public SleighParser_SemanticParser.label_return label() throws RecognitionException { return gSemanticParser.label(); }
+
+	public SleighParser_SemanticParser.eq_op_return eq_op() throws RecognitionException { return gSemanticParser.eq_op(); }
+
+	public SleighParser_SemanticParser.expr_booland_return expr_booland() throws RecognitionException { return gSemanticParser.expr_booland(); }
+
+	public SleighParser_SemanticParser.assignment_return assignment() throws RecognitionException { return gSemanticParser.assignment(); }
+
+	public SleighParser_SemanticParser.mult_op_return mult_op() throws RecognitionException { return gSemanticParser.mult_op(); }
+
+	public SleighParser_DisplayParser.pieces_return pieces() throws RecognitionException { return gDisplayParser.pieces(); }
+
+	public SleighParser_SemanticParser.add_op_return add_op() throws RecognitionException { return gSemanticParser.add_op(); }
+
+	public SleighParser_SemanticParser.expr_or_op_return expr_or_op() throws RecognitionException { return gSemanticParser.expr_or_op(); }
+
+	public SleighParser_DisplayParser.concatenate_return concatenate() throws RecognitionException { return gDisplayParser.concatenate(); }
+
+	public SleighParser_SemanticParser.expr_boolor_return expr_boolor() throws RecognitionException { return gSemanticParser.expr_boolor(); }
+
+	public SleighParser_SemanticParser.return_stmt_return return_stmt() throws RecognitionException { return gSemanticParser.return_stmt(); }
+
+	public SleighParser_SemanticParser.expr_func_return expr_func() throws RecognitionException { return gSemanticParser.expr_func(); }
+
+	public SleighParser_SemanticParser.code_block_return code_block() throws RecognitionException { return gSemanticParser.code_block(); }
+
+	public SleighParser_SemanticParser.expr_or_return expr_or() throws RecognitionException { return gSemanticParser.expr_or(); }
+
+	public SleighParser_SemanticParser.compare_op_return compare_op() throws RecognitionException { return gSemanticParser.compare_op(); }
+
+	public SleighParser_SemanticParser.expr_apply_return expr_apply() throws RecognitionException { return gSemanticParser.expr_apply(); }
+
+	public SleighParser_SemanticParser.expr_unary_return expr_unary() throws RecognitionException { return gSemanticParser.expr_unary(); }
+
+	public SleighParser_SemanticParser.varnode_return varnode() throws RecognitionException { return gSemanticParser.varnode(); }
+
+	public SleighParser_SemanticParser.expr_boolor_op_return expr_boolor_op() throws RecognitionException { return gSemanticParser.expr_boolor_op(); }
+
+	public SleighParser_SemanticParser.semanticbody_return semanticbody() throws RecognitionException { return gSemanticParser.semanticbody(); }
+
+	public SleighParser_SemanticParser.call_stmt_return call_stmt() throws RecognitionException { return gSemanticParser.call_stmt(); }
+
+	public SleighParser_SemanticParser.expr_operands_return expr_operands() throws RecognitionException { return gSemanticParser.expr_operands(); }
+
+	public SleighParser_SemanticParser.expr_and_return expr_and() throws RecognitionException { return gSemanticParser.expr_and(); }
+
+	public SleighParser_SemanticParser.expr_mult_return expr_mult() throws RecognitionException { return gSemanticParser.expr_mult(); }
+
+	public SleighParser_SemanticParser.build_stmt_return build_stmt() throws RecognitionException { return gSemanticParser.build_stmt(); }
+
+	public SleighParser_SemanticParser.expr_return expr() throws RecognitionException { return gSemanticParser.expr(); }
+
+	public SleighParser_SemanticParser.statement_return statement() throws RecognitionException { return gSemanticParser.statement(); }
+
+	public SleighParser_SemanticParser.expr_comp_return expr_comp() throws RecognitionException { return gSemanticParser.expr_comp(); }
+
+	public SleighParser_SemanticParser.semantic_return semantic() throws RecognitionException { return gSemanticParser.semantic(); }
+
+	public SleighParser_SemanticParser.jumpdest_return jumpdest() throws RecognitionException { return gSemanticParser.jumpdest(); }
+
+	public SleighParser_SemanticParser.expr_term_return expr_term() throws RecognitionException { return gSemanticParser.expr_term(); }
+
+	public SleighParser_SemanticParser.crossbuild_stmt_return crossbuild_stmt() throws RecognitionException { return gSemanticParser.crossbuild_stmt(); }
+
+	public SleighParser_DisplayParser.printpiece_return printpiece() throws RecognitionException { return gDisplayParser.printpiece(); }
+
 	public SleighParser_SemanticParser.sizedexport_return sizedexport() throws RecognitionException { return gSemanticParser.sizedexport(); }
 
 	public SleighParser_SemanticParser.cond_stmt_return cond_stmt() throws RecognitionException { return gSemanticParser.cond_stmt(); }
 
-	public SleighParser_SemanticParser.expr_add_return expr_add() throws RecognitionException { return gSemanticParser.expr_add(); }
-
-	public SleighParser_DisplayParser.printpiece_return printpiece() throws RecognitionException { return gDisplayParser.printpiece(); }
-
-	public SleighParser_DisplayParser.special_return special() throws RecognitionException { return gDisplayParser.special(); }
-
-	public SleighParser_SemanticParser.call_stmt_return call_stmt() throws RecognitionException { return gSemanticParser.call_stmt(); }
-
-	public SleighParser_SemanticParser.expr_func_return expr_func() throws RecognitionException { return gSemanticParser.expr_func(); }
-
-	public SleighParser_SemanticParser.eq_op_return eq_op() throws RecognitionException { return gSemanticParser.eq_op(); }
-
-	public SleighParser_SemanticParser.compare_op_return compare_op() throws RecognitionException { return gSemanticParser.compare_op(); }
-
-	public SleighParser_SemanticParser.goto_stmt_return goto_stmt() throws RecognitionException { return gSemanticParser.goto_stmt(); }
-
-	public SleighParser_SemanticParser.expr_term_return expr_term() throws RecognitionException { return gSemanticParser.expr_term(); }
-
-	public SleighParser_SemanticParser.semanticbody_return semanticbody() throws RecognitionException { return gSemanticParser.semanticbody(); }
-
-	public SleighParser_SemanticParser.semantic_return semantic() throws RecognitionException { return gSemanticParser.semantic(); }
-
-	public SleighParser_SemanticParser.constant_return constant() throws RecognitionException { return gSemanticParser.constant(); }
-
-	public SleighParser_SemanticParser.expr_or_return expr_or() throws RecognitionException { return gSemanticParser.expr_or(); }
-
-	public SleighParser_SemanticParser.lvalue_return lvalue() throws RecognitionException { return gSemanticParser.lvalue(); }
-
-	public SleighParser_SemanticParser.return_stmt_return return_stmt() throws RecognitionException { return gSemanticParser.return_stmt(); }
-
-	public SleighParser_SemanticParser.statement_return statement() throws RecognitionException { return gSemanticParser.statement(); }
-
-	public SleighParser_SemanticParser.build_stmt_return build_stmt() throws RecognitionException { return gSemanticParser.build_stmt(); }
-
 	public SleighParser_SemanticParser.sizedstar_return sizedstar() throws RecognitionException { return gSemanticParser.sizedstar(); }
-
-	public SleighParser_SemanticParser.expr_and_return expr_and() throws RecognitionException { return gSemanticParser.expr_and(); }
-
-	public SleighParser_SemanticParser.outererror_return outererror() throws RecognitionException { return gSemanticParser.outererror(); }
-
-	public SleighParser_SemanticParser.assignment_return assignment() throws RecognitionException { return gSemanticParser.assignment(); }
-
-	public SleighParser_SemanticParser.label_return label() throws RecognitionException { return gSemanticParser.label(); }
-
-	public SleighParser_SemanticParser.expr_xor_op_return expr_xor_op() throws RecognitionException { return gSemanticParser.expr_xor_op(); }
-
-	public SleighParser_SemanticParser.sembitrange_return sembitrange() throws RecognitionException { return gSemanticParser.sembitrange(); }
-
-	public SleighParser_SemanticParser.expr_boolor_op_return expr_boolor_op() throws RecognitionException { return gSemanticParser.expr_boolor_op(); }
-
-	public SleighParser_SemanticParser.expr_return expr() throws RecognitionException { return gSemanticParser.expr(); }
-
-	public SleighParser_SemanticParser.code_block_return code_block() throws RecognitionException { return gSemanticParser.code_block(); }
-
-	public SleighParser_DisplayParser.pieces_return pieces() throws RecognitionException { return gDisplayParser.pieces(); }
-
-	public SleighParser_SemanticParser.expr_unary_return expr_unary() throws RecognitionException { return gSemanticParser.expr_unary(); }
-
-	public SleighParser_DisplayParser.concatenate_return concatenate() throws RecognitionException { return gDisplayParser.concatenate(); }
-
-	public SleighParser_DisplayParser.whitespace_return whitespace() throws RecognitionException { return gDisplayParser.whitespace(); }
-
-	public SleighParser_SemanticParser.shift_op_return shift_op() throws RecognitionException { return gSemanticParser.shift_op(); }
-
-	public SleighParser_SemanticParser.mult_op_return mult_op() throws RecognitionException { return gSemanticParser.mult_op(); }
-
-	public SleighParser_SemanticParser.funcall_return funcall() throws RecognitionException { return gSemanticParser.funcall(); }
-
-	public SleighParser_SemanticParser.expr_or_op_return expr_or_op() throws RecognitionException { return gSemanticParser.expr_or_op(); }
-
-	public SleighParser_SemanticParser.export_return export() throws RecognitionException { return gSemanticParser.export(); }
-
-	public SleighParser_SemanticParser.declaration_return declaration() throws RecognitionException { return gSemanticParser.declaration(); }
-
-	public SleighParser_SemanticParser.expr_comp_return expr_comp() throws RecognitionException { return gSemanticParser.expr_comp(); }
-
-	public SleighParser_SemanticParser.expr_booland_return expr_booland() throws RecognitionException { return gSemanticParser.expr_booland(); }
-
-	public SleighParser_SemanticParser.add_op_return add_op() throws RecognitionException { return gSemanticParser.add_op(); }
-
-	public SleighParser_SemanticParser.expr_apply_return expr_apply() throws RecognitionException { return gSemanticParser.expr_apply(); }
-
-	public SleighParser_SemanticParser.expr_xor_return expr_xor() throws RecognitionException { return gSemanticParser.expr_xor(); }
-
-	public SleighParser_SemanticParser.expr_boolor_return expr_boolor() throws RecognitionException { return gSemanticParser.expr_boolor(); }
-
-	public SleighParser_DisplayParser.display_return display() throws RecognitionException { return gDisplayParser.display(); }
-
-	public SleighParser_SemanticParser.expr_mult_return expr_mult() throws RecognitionException { return gSemanticParser.expr_mult(); }
-
-	public SleighParser_SemanticParser.jumpdest_return jumpdest() throws RecognitionException { return gSemanticParser.jumpdest(); }
-
-	public SleighParser_SemanticParser.varnode_return varnode() throws RecognitionException { return gSemanticParser.varnode(); }
-
-	public SleighParser_SemanticParser.section_def_return section_def() throws RecognitionException { return gSemanticParser.section_def(); }
-
-	public SleighParser_SemanticParser.crossbuild_stmt_return crossbuild_stmt() throws RecognitionException { return gSemanticParser.crossbuild_stmt(); }
-
-	public SleighParser_SemanticParser.unary_op_return unary_op() throws RecognitionException { return gSemanticParser.unary_op(); }
 
 	public SleighParser_SemanticParser.expr_and_op_return expr_and_op() throws RecognitionException { return gSemanticParser.expr_and_op(); }
 
-	public SleighParser_SemanticParser.expr_operands_return expr_operands() throws RecognitionException { return gSemanticParser.expr_operands(); }
+	public SleighParser_DisplayParser.whitespace_return whitespace() throws RecognitionException { return gDisplayParser.whitespace(); }
 
-	public SleighParser_SemanticParser.expr_eq_return expr_eq() throws RecognitionException { return gSemanticParser.expr_eq(); }
+	public SleighParser_SemanticParser.constant_return constant() throws RecognitionException { return gSemanticParser.constant(); }
+
+	public SleighParser_SemanticParser.statements_return statements() throws RecognitionException { return gSemanticParser.statements(); }
+
+	public SleighParser_SemanticParser.goto_stmt_return goto_stmt() throws RecognitionException { return gSemanticParser.goto_stmt(); }
+
+	public SleighParser_SemanticParser.outererror_return outererror() throws RecognitionException { return gSemanticParser.outererror(); }
 
 	public SleighParser_SemanticParser.booland_op_return booland_op() throws RecognitionException { return gSemanticParser.booland_op(); }
 
-	public SleighParser_SemanticParser.expr_shift_return expr_shift() throws RecognitionException { return gSemanticParser.expr_shift(); }
+	public SleighParser_SemanticParser.lvalue_return lvalue() throws RecognitionException { return gSemanticParser.lvalue(); }
 
-	public SleighParser_SemanticParser.statements_return statements() throws RecognitionException { return gSemanticParser.statements(); }
+	public SleighParser_SemanticParser.unary_op_return unary_op() throws RecognitionException { return gSemanticParser.unary_op(); }
+
+	public SleighParser_DisplayParser.special_return special() throws RecognitionException { return gDisplayParser.special(); }
+
+	public SleighParser_SemanticParser.expr_add_return expr_add() throws RecognitionException { return gSemanticParser.expr_add(); }
+
+	public SleighParser_SemanticParser.funcall_return funcall() throws RecognitionException { return gSemanticParser.funcall(); }
 
 	public final boolean synpred1_SleighParser() {
 		state.backtracking++;

@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,126 +16,50 @@
 package resources.icons;
 
 import java.awt.*;
-import java.awt.image.ImageObserver;
 
-import javax.accessibility.AccessibleContext;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import resources.ResourceManager;
 
-public class ScaledImageIconWrapper extends ImageIcon implements FileBasedIcon {
-    private Icon baseIcon;
-    private ImageIcon scaledIcon;
-    private Image image;
+public class ScaledImageIconWrapper extends ImageIconWrapper {
     
     private int width;
     private int height;
     private int hints;
     
-    private boolean loaded;
-    
     /** 
-     * The inverse percentage of gray (higher percentage equals less gray) to apply to 
-     * the disabled image; higher is brighter.
+	 * Construct wrapped scaled ImageIcon based upon specified
+	 * baseIcon and desired size.  The rendering hints of 
+	 * {@link Image#SCALE_AREA_AVERAGING} will be applied.
+	 * @param baseIcon base icon
+	 * @param width new icon width
+	 * @param height new icon height
      */
-    int brightnessPercent;
-    
     public ScaledImageIconWrapper( Icon baseIcon, int width, int height ) {
         this( baseIcon, width, height, Image.SCALE_AREA_AVERAGING );
     }
     
+	/**
+	 * Construct wrapped scaled ImageIcon based upon specified
+	 * baseIcon and desired size
+	 * @param baseIcon base icon
+	 * @param width new icon width
+	 * @param height new icon height
+	 * @param hints {@link RenderingHints} used by {@link Graphics2D} 
+	 */
     public ScaledImageIconWrapper( Icon baseIcon, int width, int height, int hints ) {
-        this.baseIcon = baseIcon;
+		super(baseIcon);
         this.width = width;
         this.height = height;
         this.hints = hints;
     }
 
-    public String getFilename() {
-    	if ( !(baseIcon instanceof FileBasedIcon) ) {
-    		return null;
-    	}
-    	return ((FileBasedIcon) baseIcon).getFilename();
-    }
-    
     @Override
-    public Image getImage() {
-        init();
-        return image; 
-    }
-
-    @Override
-    public AccessibleContext getAccessibleContext() {
-        init();
-        return scaledIcon.getAccessibleContext();
-    }
-
-    @Override
-    public String getDescription() {
-        init();
-        return scaledIcon.getDescription();
-    }
-
-    @Override
-    public int getIconHeight() {
-        init();
-        return scaledIcon.getIconHeight();
-    }
-
-    @Override
-    public int getIconWidth() {
-        init();
-        return scaledIcon.getIconWidth();
-    }
-
-    @Override
-    public int getImageLoadStatus() {
-        init();
-        return scaledIcon.getImageLoadStatus();
-    }
-
-    @Override
-    public ImageObserver getImageObserver() {
-        init();
-        return scaledIcon.getImageObserver();
-    }
-
-    @Override
-    public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
-        init();
-        super.paintIcon(c, g, x, y);
-    }
-
-    @Override
-    public void setDescription(String description) {
-        init();
-        scaledIcon.setDescription(description);
-    }
-
-    @Override
-    public void setImage(Image image) {
-        init();
-        this.image = image;
-        super.setImage(image);
-    }
-
-    @Override
-    public String toString() {
-        init();
-        return scaledIcon.toString(); 
-    }
-
-    private synchronized void init() {
-        if (!loaded) {
-            loaded = true;
-            scaledIcon = createImageIcon();
-            image = scaledIcon.getImage();
-            super.setImage(image);
-        }
-    }
-    
-    private ImageIcon createImageIcon() {
-        return ResourceManager.createScaledIcon( baseIcon, width, height, hints );
+	protected ImageIcon createImageIcon() {
+		ImageIcon baseIcon = super.createImageIcon();
+		Image scaledImage =
+			ResourceManager.createScaledImage(baseIcon.getImage(), width, height, hints);
+		return new ImageIcon(scaledImage, getImageName());
     }
 }

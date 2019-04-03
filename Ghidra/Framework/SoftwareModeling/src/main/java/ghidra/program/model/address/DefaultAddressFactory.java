@@ -145,8 +145,9 @@ public class DefaultAddressFactory implements AddressFactory {
 
 		for (AddressSpace space : spaces) {
 			//  default space already checked
-			if (space == defaultSpace)
+			if (space == defaultSpace) {
 				continue;
+			}
 			try {
 				Address addr = space.getAddress(addrString);
 				if (addr != null) {
@@ -159,9 +160,6 @@ public class DefaultAddressFactory implements AddressFactory {
 		return null;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getAllAddresses(java.lang.String)
-	 */
 	@Override
 	public Address[] getAllAddresses(String addrString) {
 		return getAllAddresses(addrString, true);
@@ -207,17 +205,12 @@ public class DefaultAddressFactory implements AddressFactory {
 		return loadedMemoryList.toArray(addrs);
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getDefaultAddressSpace()
-	 */
 	@Override
 	public AddressSpace getDefaultAddressSpace() {
 		return defaultSpace;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getAddressSpaces()
-	 */
+
 	@Override
 	public AddressSpace[] getAddressSpaces() {
 		return getPhysicalSpaces();// we avoid returning analysis spaces here
@@ -226,9 +219,6 @@ public class DefaultAddressFactory implements AddressFactory {
 		//return s;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getAllAddressSpaces()
-	 */
 	@Override
 	public AddressSpace[] getAllAddressSpaces() {
 		AddressSpace[] allSpaces = new AddressSpace[spaces.size()];
@@ -236,41 +226,26 @@ public class DefaultAddressFactory implements AddressFactory {
 		return allSpaces;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getAddressSpace(java.lang.String)
-	 */
 	@Override
 	public AddressSpace getAddressSpace(String name) {
 		return spaceNameTable.get(name);
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getAddressSpace(int)
-	 */
 	@Override
 	public AddressSpace getAddressSpace(int spaceID) {
 		return spaceLookup.get(spaceID);
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getNumAddressSpaces()
-	 */
 	@Override
 	public int getNumAddressSpaces() {
 		return getPhysicalSpaces().length;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#isValidAddress(ghidra.program.model.address.Address)
-	 */
 	@Override
 	public boolean isValidAddress(Address addr) {
 		return spaces.contains(addr.getAddressSpace());
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -292,9 +267,6 @@ public class DefaultAddressFactory implements AddressFactory {
 		return true;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getIndex(ghidra.program.model.address.Address)
-	 */
 	@Override
 	public long getIndex(Address addr) {
 		AddressSpace space = addr.getAddressSpace();
@@ -308,17 +280,11 @@ public class DefaultAddressFactory implements AddressFactory {
 		return value;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getPhysicalSpace(ghidra.program.model.address.AddressSpace)
-	 */
 	@Override
 	public AddressSpace getPhysicalSpace(AddressSpace space) {
 		return space.getPhysicalSpace();
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getPhysicalSpaces()
-	 */
 	@Override
 	public AddressSpace[] getPhysicalSpaces() {
 		ArrayList<AddressSpace> physicalSpaces = new ArrayList<>();
@@ -333,9 +299,6 @@ public class DefaultAddressFactory implements AddressFactory {
 		return ret;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getAddress(int, long)
-	 */
 	@Override
 	public Address getAddress(int spaceID, long offset) {
 		AddressSpace space = getAddressSpace(spaceID);
@@ -345,50 +308,32 @@ public class DefaultAddressFactory implements AddressFactory {
 		return space.getAddress(offset);
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getConstantSpace()
-	 */
 	@Override
 	public AddressSpace getConstantSpace() {
 		return constantSpace;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getUniqueSpace()
-	 */
 	@Override
 	public AddressSpace getUniqueSpace() {
 		return uniqueSpace;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getStackSpace()
-	 */
 	@Override
 	public AddressSpace getStackSpace() {
 		throw new UnsupportedOperationException(
 			"Use program's address factory to obtain compiler specified stack space");
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getRegisterSpace()
-	 */
 	@Override
 	public AddressSpace getRegisterSpace() {
 		return registerSpace;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getConstantAddress(long)
-	 */
 	@Override
 	public Address getConstantAddress(long offset) {
 		return constantSpace.getAddress(offset);
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getAddressSet(ghidra.program.model.address.Address, ghidra.program.model.address.Address)
-	 */
 	@Override
 	public AddressSet getAddressSet(Address min, Address max) {
 		if (min.getAddressSpace() == max.getAddressSpace()) {
@@ -406,17 +351,11 @@ public class DefaultAddressFactory implements AddressFactory {
 		return set;
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#getAddressSet()
-	 */
 	@Override
 	public AddressSet getAddressSet() {
 		return new AddressSet(memoryAddressSet);
 	}
 
-	/**
-	 * @see ghidra.program.model.address.AddressFactory#oldGetAddressFromLong(long)
-	 */
 	@Override
 	public Address oldGetAddressFromLong(long value) {
 		int spaceId = (int) (value >> 48);
@@ -432,7 +371,9 @@ public class DefaultAddressFactory implements AddressFactory {
 
 	/**
 	 * Adds an AddressSpace to this factory
+	 * 
 	 * @param space the address space being added.
+	 * @throws DuplicateNameException if an address space with the given name already exists
 	 */
 	protected void addAddressSpace(AddressSpace space) throws DuplicateNameException {
 		if (spaceNameTable.containsKey(space.getName())) {
@@ -466,6 +407,7 @@ public class DefaultAddressFactory implements AddressFactory {
 
 	/**
 	 * Removes the AddressSpace from this factory
+	 * 
 	 * @param spaceName the name of the space to remove.
 	 */
 	protected void removeAddressSpace(String spaceName) {
@@ -486,5 +428,4 @@ public class DefaultAddressFactory implements AddressFactory {
 	public boolean hasMultipleMemorySpaces() {
 		return getPhysicalSpaces().length > 1;
 	}
-
 }

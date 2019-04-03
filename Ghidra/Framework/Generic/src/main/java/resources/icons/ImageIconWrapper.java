@@ -16,29 +16,46 @@
 package resources.icons;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.*;
 import java.net.URL;
+import java.util.Objects;
 
 import javax.accessibility.AccessibleContext;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import generic.util.image.ImageUtils;
 import ghidra.util.Msg;
 import resources.ResourceManager;
 
 /**
- * Wrap the ImageIcon so that the icon is not loaded upon construction; create the icon as needed.
+ * <code>ImageIconWrapper</code> provides the ability to instantiate 
+ * an ImageIcon with delayed loading.  In addition to delayed loading
+ * it has the added benefit of allowing the use of static initialization
+ * of ImageIcons without starting the Swing thread which can cause
+ * problems when running headless.
  */
 public class ImageIconWrapper extends ImageIcon implements FileBasedIcon {
 
-	private ImageIcon icon;
-	private Image image;
 	private boolean loaded;
+	private ImageIcon imageIcon;
 
-	private URL imageURL;
+	private Image image;
+
+	private Image baseImage;
+	private Icon baseIcon;
 	private byte[] imageBytes;
-	private final String imageName;
+	private URL imageURL;
+	private String imageName; // lazy load
 
+	/**
+	 * Construct wrapped ImageIcon based upon specified image byte array
+	 * (see {@link Toolkit#createImage(byte[])})
+	 * @param imageBytes image bytes
+	 * @param imageName image reference name
+	 */
 	public ImageIconWrapper(byte[] imageBytes, String imageName) {
 		if (imageBytes == null) {
 			throw new NullPointerException("Cannot create an ImageIconWrapper from a null URL");
@@ -50,20 +67,58 @@ public class ImageIconWrapper extends ImageIcon implements FileBasedIcon {
 		this.imageName = imageName;
 	}
 
-	public ImageIconWrapper(URL url) {
-		if (url == null) {
-			throw new NullPointerException("Cannot create an ImageIconWrapper from a null URL");
+	/**
+	 * Construct wrapped ImageIcon based upon specified image
+	 * @param image icon image
+	 * @param imageName image reference name
+	 */
+	public ImageIconWrapper(Image image, String imageName) {
+		Objects.requireNonNull(image, "Cannot create an ImageIconWrapper from a null image");
+		this.baseImage = image;
+		this.imageName = imageName;
+	}
+
+	/**
+	 * Construct wrapped ImageIcon based upon specified icon
+	 * which may require transformation into ImageIcon
+	 * @param icon the icon
+	 */
+	public ImageIconWrapper(Icon icon) {
+		this.baseIcon = icon;
 		}
+
+	/**
+	 * Construct wrapped ImageIcon based upon specified resource URL
+	 * @param url icon image resource URL
+	 */
+	public ImageIconWrapper(URL url) {
+		Objects.requireNonNull(url, "Cannot create an ImageIconWrapper from a null URL");
 		imageURL = url;
 		imageName = imageURL.toExternalForm();
 	}
 
-	@Override
-	public String getFilename() {
-		return imageName;
+	private synchronized void init() {
+		if (!loaded) {
+			loaded = true;
+			imageIcon = createImageIcon();
+			image = imageIcon.getImage();
+			super.setImage(image);
+		}
 	}
 
+	@Override
+	public String getFilename() {
+		return getImageName();
+	}
+
+	/**
+	 * Get icon reference name
+	 * @return icon name
+	 */
 	public String getImageName() {
+		if (imageName == null && baseIcon != null) {
+			imageName = ResourceManager.getIconName(baseIcon);
+		}
 		return imageName;
 	}
 
@@ -76,37 +131,37 @@ public class ImageIconWrapper extends ImageIcon implements FileBasedIcon {
 	@Override
 	public AccessibleContext getAccessibleContext() {
 		init();
-		return icon.getAccessibleContext();
+		return imageIcon.getAccessibleContext();
 	}
 
 	@Override
 	public String getDescription() {
 		init();
-		return icon.getDescription();
+		return imageIcon.getDescription();
 	}
 
 	@Override
 	public int getIconHeight() {
 		init();
-		return icon.getIconHeight();
+		return imageIcon.getIconHeight();
 	}
 
 	@Override
 	public int getIconWidth() {
 		init();
-		return icon.getIconWidth();
+		return imageIcon.getIconWidth();
 	}
 
 	@Override
 	public int getImageLoadStatus() {
 		init();
-		return icon.getImageLoadStatus();
+		return imageIcon.getImageLoadStatus();
 	}
 
 	@Override
 	public ImageObserver getImageObserver() {
 		init();
-		return icon.getImageObserver();
+		return imageIcon.getImageObserver();
 	}
 
 	@Override
@@ -118,7 +173,7 @@ public class ImageIconWrapper extends ImageIcon implements FileBasedIcon {
 	@Override
 	public void setDescription(String description) {
 		init();
-		icon.setDescription(description);
+		imageIcon.setDescription(description);
 	}
 
 	@Override
@@ -131,88 +186,76 @@ public class ImageIconWrapper extends ImageIcon implements FileBasedIcon {
 	@Override
 	public String toString() {
 		init();
-		return icon.toString();
-	}
-
-	private synchronized void init() {
-		if (!loaded) {
-			loaded = true;
-			icon = createImageIcon();
-			image = icon.getImage();
-			super.setImage(image);
-		}
-	}
-
-	private void initializeImageBytes() {
-		if (imageBytes != null) {
-			return;
-		}
-
-		// must be from a URL
-		imageBytes = loadBytesFromURL(imageURL);
+		return imageIcon.toString();
 	}
 
 	private byte[] loadBytesFromURL(URL url) {
-		InputStream is = null;
-		ByteArrayOutputStream os = null;
-		try {
-			os = new ByteArrayOutputStream();
-			is = url.openStream();
+		try (InputStream is = url.openStream()) {
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			int length = 0;
 			byte[] buf = new byte[1024];
 			while ((length = is.read(buf)) > 0) {
 				os.write(buf, 0, length);
 			}
 			return os.toByteArray();
-
 		}
 		catch (IOException e) {
 			Msg.error(this, "Exception loading image bytes: " + url.toExternalForm(), e);
 		}
-		finally {
-			try {
-				if (os != null) {
-					os.close();
+		return null;
+				}
+
+	/**
+	 * Get the base icon image to be transformed in ImageIcon
+	 * @return the base icon image to be transformed in ImageIcon
+	 */
+	protected final Image createIconBaseImage() {
+
+		if (baseImage != null) {
+			return baseImage;
+			}
+		if (baseIcon != null) {
+			BufferedImage bufferedImage = new BufferedImage(baseIcon.getIconWidth(),
+				baseIcon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+			Graphics graphics = bufferedImage.getGraphics();
+			baseIcon.paintIcon(null, graphics, 0, 0);
+			graphics.dispose();
+			return bufferedImage;
+			}
+		if (imageBytes == null || imageBytes.length == 0) {
+			imageBytes = loadBytesFromURL(imageURL);
+			if (imageBytes == null) {
+				return null;
 				}
 			}
-			catch (IOException e) {
-				// we tried
+		return Toolkit.getDefaultToolkit().createImage(imageBytes);
 			}
 
-			try {
-				if (is != null) {
-					is.close();
-				}
-			}
-			catch (IOException e) {
-				// we tried
-			}
+	protected ImageIcon createImageIcon() {
+
+		if (baseIcon instanceof ImageIcon) {
+			return (ImageIcon) baseIcon;
 		}
-		return null;
+
+		Image iconImage = createIconBaseImage();
+		if (iconImage == null) {
+			return getDefaultIcon();
 	}
 
-	private ImageIcon createImageIcon() {
-		initializeImageBytes();
+		String name = getImageName();
+		if (!ImageUtils.waitForImage(name, iconImage)) {
+			return getDefaultIcon(); // rather than returning null we will give a reasonable default
+		}
+		return new ImageIcon(iconImage, name);
+	}
 
-		if (imageBytes == null || imageBytes.length == 0) {
+	private ImageIcon getDefaultIcon() {
 			ImageIcon defaultIcon = ResourceManager.getDefaultIcon();
 			if (this == defaultIcon) {
 				// this can happen under just the right conditions when loading the default 
 				// icon's bytes fails (probably due to disk or network issues)
 				throw new IllegalStateException("Unexpected failure loading the default icon!");
 			}
-
 			return defaultIcon; // some sort of initialization has failed
 		}
-
-		Image imageFromBytes = Toolkit.getDefaultToolkit().createImage(imageBytes);
-		ImageIcon newImageIcon = ResourceManager.getImageIconFromImage(imageName, imageFromBytes);
-		if (this == newImageIcon) {
-			// just as above, this can happen under just the right conditions when loading 
-			// the default icon's bytes fails (probably due to disk or network issues or
-			// debugging in an IDE)
-			throw new IllegalStateException("Unexpected failure loading icon: '" + imageName + "'");
-		}
-		return newImageIcon;
-	}
 }

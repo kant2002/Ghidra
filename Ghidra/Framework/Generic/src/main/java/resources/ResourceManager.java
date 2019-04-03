@@ -31,7 +31,6 @@ import javax.swing.*;
 import org.apache.commons.lang3.StringUtils;
 
 import generic.Images;
-import generic.util.image.ImageUtils;
 import ghidra.util.Msg;
 import ghidra.util.SystemUtilities;
 import resources.icons.*;
@@ -343,20 +342,38 @@ public class ResourceManager {
 
 	/**
 	 * This is really a package-level method.  From outside of this package you should instead
+	 * be calling {@link ResourceManager#getScaledIcon(Icon, int, int, int)}.
+	 * 
+	 * @param icon the icon to scale 
+	 * @param width the new width
+	 * @param height the new height
+	 * @param hints any hints to apply to the scaling operation
+	 * @return the new icon
+	 * @deprecated use {@link #getScaledIcon(Icon, int, int, int)} instead
+	 */
+	@Deprecated
+	public static ImageIcon createScaledIcon(Icon icon, int width, int height, int hints) {
+		return getScaledIcon(icon, width, height, hints);
+	}
+
+	/**
+	 * This is really a package-level method.  From outside of this package you should instead
 	 * be calling {@link ResourceManager#getScaledIcon(Icon, int, int)}.
 	 * 
 	 * @param icon the icon to scale 
 	 * @param width the new width
 	 * @param height the new height
 	 * @return the new icon
+	 * @deprecated use {@link #getScaledIcon(Icon, int, int, int)} instead
 	 */
+	@Deprecated
 	public static ImageIcon createScaledIcon(Icon icon, int width, int height) {
-		return createScaledIcon(icon, width, height, Image.SCALE_AREA_AVERAGING);
+		return getScaledIcon(icon, width, height, Image.SCALE_AREA_AVERAGING);
 	}
 
 	/**
 	 * Creates a scaled image based upon the given image.
-	 * 
+	 * NOTE: Avoid invocation by a static initializer.
 	 * @param image the image to scale
 	 * @param width the new width
 	 * @param height the new height
@@ -375,30 +392,11 @@ public class ResourceManager {
 	}
 
 	/**
-	 * This is really a package-level method.  From outside of this package you should instead
-	 * be calling {@link ResourceManager#getScaledIcon(Icon, int, int, int)}.
-	 * 
-	 * @param icon the icon to scale 
-	 * @param width the new width
-	 * @param height the new height
-	 * @param hints any hints to apply to the scaling operation
-	 * @return the new icon
-	 */
-	public static ImageIcon createScaledIcon(Icon icon, int width, int height, int hints) {
-		ImageIcon imageIcon = getImageIcon(icon);
-		Image image = imageIcon.getImage();
-
-		Image scaledImage = createScaledImage(image, width, height, hints);
-
-		return getImageIconFromImage(getIconName(icon), scaledImage);
-	}
-
-	/**
 	 * Get the disabled rendering of the given icon.
 	 * @param icon The icon to disable.
 	 * @return disabled icon
 	 */
-	public static Icon getDisabledIcon(Icon icon) {
+	public static ImageIcon getDisabledIcon(Icon icon) {
 		return new DisabledImageIconWrapper(getImageIcon(icon));
 	}
 
@@ -407,7 +405,7 @@ public class ResourceManager {
 	 * @param icon The icon to disable.
 	 * @return disabled icon
 	 */
-	public static Icon getDisabledIcon(ImageIcon icon) {
+	public static ImageIcon getDisabledIcon(ImageIcon icon) {
 		return new DisabledImageIconWrapper(icon);
 	}
 
@@ -419,7 +417,7 @@ public class ResourceManager {
 	 * @param brightnessPercent The level of brightness (0-100, where 100 is the brightest).
 	 * @return a disabled version of the original icon.
 	 */
-	public static Icon getDisabledIcon(ImageIcon icon, int brightnessPercent) {
+	public static ImageIcon getDisabledIcon(Icon icon, int brightnessPercent) {
 		return new DisabledImageIconWrapper(icon, brightnessPercent);
 	}
 
@@ -434,14 +432,11 @@ public class ResourceManager {
 	 *        brightest possible value
 	 * @return the new icon
 	 * @see #getDisabledIcon(Icon)
+	 * @deprecated use {@link #getDisabledIcon(Icon)} instead
 	 */
+	@Deprecated
 	public static ImageIcon createDisabledIcon(Icon icon, final int brightnessPercent) {
-		Objects.requireNonNull(icon);
-
-		ImageIcon imageIcon = getImageIcon(icon);
-		Image oldImage = imageIcon.getImage();
-		Image newImage = ImageUtils.createDisabledImage(oldImage, brightnessPercent);
-		return getImageIconFromImage(imageIcon.getDescription(), newImage);
+		return getDisabledIcon(icon, brightnessPercent);
 	}
 
 	/**
@@ -455,12 +450,7 @@ public class ResourceManager {
 	 * @return the new icon
 	 */
 	public static ImageIcon getImageIconFromImage(String imageName, Image image) {
-
-		// load the image ourselves, with a less dangerous usage of the Java's MediaTracker
-		if (!ImageUtils.waitForImage(imageName, image)) {
-			return getDefaultIcon(); // rather than returning null we will give a reasonable default
-		}
-		return new ImageIcon(image, imageName);
+		return new ImageIconWrapper(image, imageName);
 	}
 
 	/**
@@ -475,14 +465,7 @@ public class ResourceManager {
 		if (icon instanceof ImageIcon) {
 			return (ImageIcon) icon;
 		}
-
-		BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(),
-			BufferedImage.TYPE_INT_ARGB);
-		Graphics graphics = bufferedImage.getGraphics();
-		icon.paintIcon(null, graphics, 0, 0);
-		graphics.dispose();
-
-		return getImageIconFromImage(getIconName(icon), bufferedImage);
+		return new ImageIconWrapper(icon);
 	}
 
 	/**
@@ -498,6 +481,10 @@ public class ResourceManager {
 			iconName = ((ImageIcon) icon).getDescription();
 		}
 
+		/*
+		 	TODO - not sure why we wanted just the name and not the entire URL?  Delete this 
+		 	       after a bit
+		 	
 		if (iconName == null) {
 			return null;
 		}
@@ -512,6 +499,7 @@ public class ResourceManager {
 				iconName = iconName.substring(pos + 1);
 			}
 		}
+		*/
 		return iconName;
 	}
 
@@ -532,6 +520,22 @@ public class ResourceManager {
 		icon = new ImageIconWrapper(imageBytes, imageName);
 		iconMap.put(imageName, icon);
 		return icon;
+	}
+
+	/**
+	 * Load and scale the image specified by filename; returns null if problems occur trying to load
+	 * the file.
+	 * @param filename name of file to load, e.g., "images/home.gif"
+	 * @param width - the width to scale the image to
+	 * @param height - the height to scale the image to
+	 * @return the scaled image.
+	 */
+	public static ImageIcon loadImage(String filename, int width, int height) {
+		ImageIcon loadImage = loadImage(filename);
+		if (loadImage == null) {
+			return null;
+		}
+		return getScaledIcon(loadImage, width, height);
 	}
 
 	/**

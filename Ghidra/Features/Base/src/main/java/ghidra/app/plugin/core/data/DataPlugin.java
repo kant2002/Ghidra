@@ -34,8 +34,7 @@ import ghidra.framework.cmd.BackgroundCommand;
 import ghidra.framework.cmd.Command;
 import ghidra.framework.plugintool.*;
 import ghidra.framework.plugintool.util.PluginStatus;
-import ghidra.program.model.address.Address;
-import ghidra.program.model.address.AddressOverflowException;
+import ghidra.program.model.address.*;
 import ghidra.program.model.data.*;
 import ghidra.program.model.listing.*;
 import ghidra.program.model.mem.DumbMemBufferImpl;
@@ -139,7 +138,6 @@ public class DataPlugin extends Plugin implements DataService {
 		tool.addAction(renameDataFieldAction);
 
 		pointerAction = new DataAction(POINTER_DATA_TYPE, this);
-		pointerAction.setDefaultKeyBinding(POINTER_KEY_BINDING);
 		tool.addAction(pointerAction);
 
 		settingsAction = new DockingAction("Data Settings", getName()) {
@@ -646,12 +644,22 @@ public class DataPlugin extends Plugin implements DataService {
 		}
 	}
 
+	private boolean isSelectionJustSingleDataInstance(ProgramSelection selection, Data data) {
+		if (selection != null && data != null) {
+			AddressSet dataAS = new AddressSet(data.getAddress(), data.getMaxAddress());
+			return dataAS.hasSameAddresses(selection);
+		}
+		return false;
+	}
+
 	private void dataSettingsCallback(ListingActionContext context) {
 
 		DataSettingsDialog dialog;
 
+		Data data = getDataUnit(context);
 		ProgramSelection selection = context.getSelection();
-		if (selection != null && !selection.isEmpty()) {
+		if (selection != null && !selection.isEmpty() &&
+			!isSelectionJustSingleDataInstance(selection, data)) {
 			try {
 				dialog = new DataSettingsDialog(context.getProgram(), selection);
 			}
@@ -666,7 +674,6 @@ public class DataPlugin extends Plugin implements DataService {
 		}
 		else {
 			// get the structure dt we are over
-			Data data = getDataUnit(context);
 			if (data == null) {
 				return;
 			}
@@ -678,10 +685,11 @@ public class DataPlugin extends Plugin implements DataService {
 
 	boolean isDataTypeSettingsAllowed(ListingActionContext context, boolean editDefaults) {
 		ProgramSelection selection = context.getSelection();
-		if (selection != null && !selection.isEmpty()) {
+		Data data = getDataUnit(context);
+		if (selection != null && !selection.isEmpty() &&
+			!isSelectionJustSingleDataInstance(selection, data)) {
 			return !editDefaults;
 		}
-		Data data = getDataUnit(context);
 		if (data == null) {
 			return false;
 		}
@@ -704,7 +712,8 @@ public class DataPlugin extends Plugin implements DataService {
 			if (parentDT instanceof Composite) {
 				int[] path = context.getLocation().getComponentPath();
 
-				dialog = new DataSettingsDialog(program, ((Composite) parentDT).getComponent(path[path.length - 1]));
+				dialog = new DataSettingsDialog(program,
+					((Composite) parentDT).getComponent(path[path.length - 1]));
 			}
 			else {
 				dialog = new DataSettingsDialog(program, data.getDataType());

@@ -166,7 +166,7 @@ public interface ContentHandler extends ExtensionPoint {
 	/**
 	 * Returns list of unique content-types supported.
 	 * A minimum of one content-type will be returned. If more than one
-	 * is returned, these are considered equivelent aliases.
+	 * is returned, these are considered equivalent aliases.
 	 */
 	String getContentType();
 

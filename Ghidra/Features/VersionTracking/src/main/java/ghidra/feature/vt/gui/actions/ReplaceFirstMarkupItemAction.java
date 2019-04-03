@@ -22,13 +22,13 @@ import javax.swing.ImageIcon;
 
 import docking.action.MenuData;
 import docking.action.ToolBarData;
-import docking.util.MultiIcon;
 import ghidra.feature.vt.api.main.VTMarkupItemApplyActionType;
 import ghidra.feature.vt.gui.plugin.VTController;
 import ghidra.feature.vt.gui.plugin.VTPlugin;
 import ghidra.feature.vt.gui.util.VTMatchApplyChoices.ReplaceDataChoices;
 import ghidra.framework.options.ToolOptions;
 import ghidra.util.HelpLocation;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.TranslateIcon;
 

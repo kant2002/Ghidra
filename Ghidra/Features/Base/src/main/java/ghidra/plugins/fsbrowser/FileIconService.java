@@ -25,26 +25,28 @@ import javax.swing.ImageIcon;
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 
-import docking.util.MultiIcon;
 import generic.jar.ResourceFile;
 import ghidra.formats.gfilesystem.FSUtilities;
 import ghidra.framework.Application;
 import ghidra.util.Msg;
+import ghidra.util.xml.XmlUtilities;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.ScaledImageIconWrapper;
 import resources.icons.TranslateIcon;
 import util.CollectionUtils;
 
 /**
- * Provides {@link Icon}s that represent the type and status of a file,
- * based on a filename mapping and caller specified status overlays.
+ * Provides {@link Icon}s that represent the type and status of a file, based on
+ * a filename mapping and caller specified status overlays.
  * <p>
- * The mappings between a file's extension and its icon are stored in a resource file
- * called "file_extension_icons.xml", which is read and parsed the first time this
- * service is referenced.
+ * The mappings between a file's extension and its icon are stored in a resource
+ * file called "file_extension_icons.xml", which is read and parsed the first
+ * time this service is referenced.
  * <p>
- * Status overlays are also specified in the file_extension_icons.xml file, and are
- * resized to be 1/2 the width and height of the icon they are being overlayed on.
+ * Status overlays are also specified in the file_extension_icons.xml file, and
+ * are resized to be 1/2 the width and height of the icon they are being
+ * overlayed on.
  * <p>
  * Threadsafe
  * <p>
@@ -92,8 +94,7 @@ public class FileIconService {
 	private Map<String, String> fileSubstrToIconName = new HashMap<>();
 	private Map<String, String> overlayNameToIconName = new HashMap<>();
 	private Map<String, OVERLAYQUAD> overlayNameToQuad = new HashMap<>();
-	private String defaultIconPath =
-		"images/open_icon_library-full-0.11/icons/png/16x16/mimetypes/oxygen-styles/text-plain.png";
+	private String defaultIconPath = "images/famfamfam_silk_icons_v013/page_white.png";
 	private int maxExtLevel = 1;
 	private boolean debug = false;
 
@@ -164,13 +165,15 @@ public class FileIconService {
 	}
 
 	/**
-	 * Returns an {@link Icon} that represents a file's content based on its name.
+	 * Returns an {@link Icon} that represents a file's content based on its
+	 * name.
 	 *
 	 * @param fileName name of file that an icon is being requested for.
-	 * @param overlays optional list of overlay names, names of icons that should be overlaid
-	 * on top of the base icon, that represent a status or feature independent of the file's
-	 * base icon.
-	 * @return {@link Icon} instance that best represents the named file, never null.
+	 * @param overlays optional list of overlay names, names of icons that
+	 *            should be overlaid on top of the base icon, that represent a
+	 *            status or feature independent of the file's base icon.
+	 * @return {@link Icon} instance that best represents the named file, never
+	 *         null.
 	 */
 	public synchronized Icon getImage(String fileName, String... overlays) {
 		loadIfNeeded();
@@ -198,10 +201,8 @@ public class FileIconService {
 	}
 
 	/**
-	 * Check to see if XML file has changed.
-	 * If so, then reload the file. This action
-	 * will dynamically update the icons without
-	 * having to restart.
+	 * Check to see if XML file has changed. If so, then reload the file. This
+	 * action will dynamically update the icons without having to restart.
 	 */
 	protected void loadIfNeeded() {
 		long now = System.currentTimeMillis();
@@ -224,7 +225,7 @@ public class FileIconService {
 		maxExtLevel = 1;
 
 		try (InputStream xmlInputStream = xmlFile.getInputStream()) {
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Document doc = sax.build(xmlInputStream);
 			Element root = doc.getRootElement();
 			for (Element child : CollectionUtils.asList(root.getChildren("file_extension"),

@@ -194,7 +194,7 @@ public class ModuleUtilities {
 	public static Collection<ResourceFile> getModuleBinDirectories(Map<String, GModule> modules) {
 		List<ResourceFile> binDirectories = new ArrayList<>();
 		for (GModule module : modules.values()) {
-			module.collectExistingModuleDirs(binDirectories, "bin");
+			module.collectExistingModuleDirs(binDirectories, "bin/main");
 		}
 		return binDirectories;
 	}

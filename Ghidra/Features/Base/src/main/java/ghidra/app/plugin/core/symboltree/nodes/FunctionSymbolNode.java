@@ -76,7 +76,13 @@ public class FunctionSymbolNode extends SymbolNode {
 
 	private void createTooltip() {
 		Function func = (Function) symbol.getObject();
+		if (func == null) {
+			// unusual case
+			tooltip = "No function for " + symbol.getName();
+		}
+		else {
 		tooltip = ToolTipUtils.getToolTipText(func, true);
+	}
 	}
 
 	@Override

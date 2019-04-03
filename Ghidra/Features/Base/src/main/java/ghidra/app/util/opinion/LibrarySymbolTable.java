@@ -35,6 +35,7 @@ import ghidra.program.model.symbol.*;
 import ghidra.util.Msg;
 import ghidra.util.task.TaskMonitor;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 import ghidra.xml.*;
 import util.CollectionUtils;
 
@@ -383,8 +384,10 @@ class LibrarySymbolTable {
 
 	/**
 	 * Returns the symbol for the specified ordinal.
+	 * 
 	 * @param ordinal the ordinal value of the desired symbol
-	 * @return the symbol for the specified ordinal, or null if one does not exist.
+	 * @return the symbol for the specified ordinal, or null if one does not
+	 *         exist.
 	 */
 	LibraryExportedSymbol getSymbol(int ordinal) {
 		return ordMap.get(new Integer(ordinal));
@@ -392,6 +395,7 @@ class LibrarySymbolTable {
 
 	/**
 	 * Returns the symbol for the specified name
+	 * 
 	 * @param symbol the name of the desired symbol
 	 * @return
 	 */
@@ -400,8 +404,9 @@ class LibrarySymbolTable {
 	}
 
 	/**
-	 * Returns a string describing the version of this library.
-	 * For example, "5.100.2566".
+	 * Returns a string describing the version of this library. For example,
+	 * "5.100.2566".
+	 * 
 	 * @return a string describing the version of this library
 	 */
 	String getVersion() {
@@ -422,7 +427,7 @@ class LibrarySymbolTable {
 		exportList = new ArrayList<>();
 
 		InputStream is = file.getInputStream();
-		SAXBuilder sax = new SAXBuilder(false);
+		SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 
 		try {
 			Document doc = sax.build(is);
@@ -572,7 +577,9 @@ class LibrarySymbolTable {
 	}
 
 	/**
-	 * Check an existing exports file to verify that it corresponds to the specified libraryFile.
+	 * Check an existing exports file to verify that it corresponds to the
+	 * specified libraryFile.
+	 * 
 	 * @param exportsFile existing exports file
 	 * @param libraryFile library file
 	 * @return true if exports file corresponds to library file

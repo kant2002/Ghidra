@@ -22,21 +22,23 @@ import generic.jar.ResourceFile;
 import ghidra.framework.ApplicationProperties;
 import ghidra.framework.GModule;
 import ghidra.util.SystemUtilities;
-import utility.applicaiton.ApplicationLayout;
-import utility.applicaiton.ApplicationUtilities;
+import utility.application.ApplicationLayout;
+import utility.application.ApplicationUtilities;
 import utility.module.ModuleUtilities;
 
 /**
- * The Ghidra application layout defines the customizable elements of the Ghidra application's 
- * directory structure.
+ * The Ghidra application layout defines the customizable elements of the Ghidra
+ * application's directory structure.
  */
 public class GhidraApplicationLayout extends ApplicationLayout {
 
 	/**
 	 * Constructs a new Ghidra application layout object.
 	 * 
-	 * @throws FileNotFoundException if there was a problem getting a user directory.
-	 * @throws IOException if there was a problem getting the application properties or modules.
+	 * @throws FileNotFoundException if there was a problem getting a user
+	 *             directory.
+	 * @throws IOException if there was a problem getting the application
+	 *             properties or modules.
 	 */
 	public GhidraApplicationLayout() throws FileNotFoundException, IOException {
 
@@ -64,15 +66,17 @@ public class GhidraApplicationLayout extends ApplicationLayout {
 	}
 
 	/**
-	 * Constructs a new Ghidra application layout object using a provided application installation
-	 * directory instead of this layout's default.
+	 * Constructs a new Ghidra application layout object using a provided
+	 * application installation directory instead of this layout's default.
 	 * <p>
-	 * This is used when something external to Ghidra needs Ghidra's layout (like the Eclipse
-	 * GhidraDevPlugin).
+	 * This is used when something external to Ghidra needs Ghidra's layout
+	 * (like the Eclipse GhidraDevPlugin).
 	 * 
 	 * @param applicationInstallationDir The application installation directory.
-	 * @throws FileNotFoundException if there was a problem getting a user directory.
-	 * @throws IOException if there was a problem getting the application properties.
+	 * @throws FileNotFoundException if there was a problem getting a user
+	 *             directory.
+	 * @throws IOException if there was a problem getting the application
+	 *             properties.
 	 */
 	public GhidraApplicationLayout(File applicationInstallationDir)
 			throws FileNotFoundException, IOException {
@@ -107,10 +111,12 @@ public class GhidraApplicationLayout extends ApplicationLayout {
 	}
 
 	/**
-	 * Finds the application installation directory for this Ghidra application layout.
+	 * Finds the application installation directory for this Ghidra application
+	 * layout.
 	 * 
-	 * @return The application installation directory for this Ghidra application layout.
-	 *   Could be null if there is no application installation directory.
+	 * @return The application installation directory for this Ghidra
+	 *         application layout. Could be null if there is no application
+	 *         installation directory.
 	 */
 	protected ResourceFile findGhidraApplicationInstallationDir() {
 		if (applicationRootDirs.isEmpty()) {
@@ -160,11 +166,12 @@ public class GhidraApplicationLayout extends ApplicationLayout {
 	}
 
 	/**
-	 * Returns the directory where all Ghidra extension archives are stored. This
-	 * should be at the following location:<br>
+	 * Returns the directory where all Ghidra extension archives are stored.
+	 * This should be at the following location:<br>
 	 * <ul>
 	 * <li><code>[application root]/Extensions/Ghidra</code></li>
 	 * </ul>
+	 * 
 	 * @return the archive folder, or null if can't be determined
 	 */
 	protected ResourceFile findExtensionArchiveDirectory() {
@@ -180,18 +187,19 @@ public class GhidraApplicationLayout extends ApplicationLayout {
 	}
 
 	/**
-	 * Returns the directory where all Ghidra extension archives should be installed. This
-	 * should be at the following location:<br>
+	 * Returns the directory where all Ghidra extension archives should be
+	 * installed. This should be at the following location:<br>
 	 * <ul>
 	 * <li><code>[application install dir]/Ghidra/Extensions</code></li>
-	 * <li><code>ghidra.git/Ghidra/Extensions</code> (development mode)</li>
+	 * <li><code>ghidra/Ghidra/Extensions</code> (development mode)</li>
 	 * </ul>
+	 * 
 	 * @return the install folder, or null if can't be determined
 	 */
 	protected ResourceFile findExtensionInstallationDirectory() {
 
 		// Would like to find a better way to do this, but for the moment this seems the
-		// only solution. We want to get the 'Extensions' directory in ghidra.git, but there's 
+		// only solution. We want to get the 'Extensions' directory in ghidra, but there's 
 		// no way to retrieve that directory directly. We can only get the full set of 
 		// application root dirs and search for it, hoping we don't encounter one with the
 		// name 'Extensions' in one of the other root dirs.

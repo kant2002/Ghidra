@@ -15,21 +15,22 @@
  */
 package generic.test;
 
-import ghidra.framework.TestApplicationUtils;
-import ghidra.util.SystemUtilities;
-import ghidra.util.UniversalIdGenerator;
-import ghidra.util.exception.AssertException;
-import junit.framework.AssertionFailedError;
-import org.junit.Assert;
-import org.junit.rules.TestName;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.util.*;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import org.junit.Assert;
+import org.junit.rules.TestName;
+
+import ghidra.framework.TestApplicationUtils;
+import ghidra.util.SystemUtilities;
+import ghidra.util.UniversalIdGenerator;
+import ghidra.util.exception.AssertException;
+import junit.framework.AssertionFailedError;
 
 /**
  * A root for system tests that provides known system information.

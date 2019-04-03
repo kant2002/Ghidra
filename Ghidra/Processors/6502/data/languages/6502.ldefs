@@ -9,6 +9,7 @@
             version="1.0"
             slafile="6502.sla"
             processorspec="6502.pspec"
+            manualindexfile="../manuals/6502.idx"
             id="6502:LE:16:default">
     <description>6502 Microcontroller Family</description>
     <compiler name="default" spec="6502.cspec" id="default"/>

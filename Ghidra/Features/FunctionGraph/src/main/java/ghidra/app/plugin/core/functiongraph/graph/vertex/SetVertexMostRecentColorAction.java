@@ -25,11 +25,11 @@ import docking.ActionContext;
 import docking.action.*;
 import docking.menu.MultiActionDockingAction;
 import docking.menu.MultipleActionDockingToolbarButton;
-import docking.util.MultiIcon;
 import ghidra.app.plugin.core.functiongraph.FGColorProvider;
 import ghidra.app.plugin.core.functiongraph.FunctionGraphPlugin;
 import ghidra.app.plugin.core.functiongraph.mvc.FGController;
 import ghidra.util.HelpLocation;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.*;
 

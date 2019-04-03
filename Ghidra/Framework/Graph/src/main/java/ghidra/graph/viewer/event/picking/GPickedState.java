@@ -22,7 +22,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import edu.uci.ics.jung.visualization.picking.MultiPickedState;
 import edu.uci.ics.jung.visualization.picking.PickedState;
-import ghidra.graph.viewer.event.picking.PickListener.EventTrigger;
+import ghidra.graph.viewer.event.picking.PickListener.EventSource;
 
 /**
  * This picked-state is a wrapper for {@link PickedState} that allows us to broadcast events
@@ -35,24 +35,24 @@ public class GPickedState<V> implements PickedState<V> {
 	private Set<PickListener<V>> listeners = new CopyOnWriteArraySet<>();
 
 	private final MultiPickedState<V> pickedStateDelegate;
-	private EventTrigger pendingEventTrigger = null;
+	private EventSource pendingEventSource = null;
 
 	public GPickedState(MultiPickedState<V> pickedState) {
 		this.pickedStateDelegate = pickedState;
 		pickedState.addItemListener(e -> {
-			EventTrigger trigger =
-				(pendingEventTrigger != null) ? pendingEventTrigger : EventTrigger.GUI_ACTION;
+			EventSource source =
+				(pendingEventSource != null) ? pendingEventSource : EventSource.INTERNAL;
 			@SuppressWarnings("rawtypes")
 			MultiPickedState state = (MultiPickedState) e.getSource();
 			Object[] selectedObjects = state.getSelectedObjects();
-			notifyVerticesPicked(selectedObjects, trigger);
+			notifyVerticesPicked(selectedObjects, source);
 		});
 	}
 
-	private void notifyVerticesPicked(Object[] selectedVertices, EventTrigger trigger) {
+	private void notifyVerticesPicked(Object[] selectedVertices, EventSource source) {
 		Set<V> vertices = getSet(selectedVertices);
 		for (PickListener<V> listener : listeners) {
-			listener.verticesPicked(vertices, trigger);
+			listener.verticesPicked(vertices, source);
 		}
 	}
 
@@ -98,12 +98,12 @@ public class GPickedState<V> implements PickedState<V> {
 	 *                       vertex and to clear any other picked vertices
 	 */
 	public void pickToSync(V vertex, boolean addToSelection) {
-		pendingEventTrigger = EventTrigger.EXTERNAL_API_CALL;
+		pendingEventSource = EventSource.EXTERNAL;
 		if (!addToSelection) {
 			pickedStateDelegate.clear();
 		}
 		pickedStateDelegate.pick(vertex, true);
-		pendingEventTrigger = null;
+		pendingEventSource = null;
 	}
 
 	/**
@@ -112,26 +112,26 @@ public class GPickedState<V> implements PickedState<V> {
 	 * @param vertex the vertex to pick
 	 */
 	public void pickToActivate(V vertex) {
-		pendingEventTrigger = EventTrigger.INTERNAL_API_CALL;
+		pendingEventSource = EventSource.INTERNAL;
 		pickedStateDelegate.clear();
 		pickedStateDelegate.pick(vertex, true);
-		pendingEventTrigger = null;
+		pendingEventSource = null;
 	}
 
 	// standard pick from toolkit
 	@Override
 	public boolean pick(V vertex, boolean b) {
-		pendingEventTrigger = EventTrigger.INTERNAL_API_CALL;
+		pendingEventSource = EventSource.INTERNAL;
 		boolean result = pickedStateDelegate.pick(vertex, b);
-		pendingEventTrigger = null;
+		pendingEventSource = null;
 		return result;
 	}
 
 	@Override
 	public void clear() {
-		pendingEventTrigger = EventTrigger.GUI_ACTION;
+		pendingEventSource = EventSource.INTERNAL;
 		pickedStateDelegate.clear();
-		pendingEventTrigger = null;
+		pendingEventSource = null;
 	}
 
 	@Override

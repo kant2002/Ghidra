@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +15,13 @@
  */
 package ghidra.app.plugin.core.calltree;
 
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.swing.Icon;
+import javax.swing.tree.TreePath;
+
+import docking.widgets.tree.GTreeNode;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressSetView;
 import ghidra.program.model.listing.*;
@@ -24,23 +30,13 @@ import ghidra.program.util.FunctionSignatureFieldLocation;
 import ghidra.program.util.ProgramLocation;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
-
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.swing.Icon;
-import javax.swing.tree.TreePath;
-
-import resources.ResourceManager;
-import resources.icons.RotateIcon;
+import resources.Icons;
+import resources.MultiIcon;
 import resources.icons.TranslateIcon;
-import docking.util.MultiIcon;
-import docking.widgets.tree.GTreeNode;
 
 public abstract class OutgoingCallNode extends CallNode {
 
-	private static final Icon OUTGOING_ICON = new RotateIcon(
-		ResourceManager.loadImage("images/viewmagfit.png"), 90);
+	private static final Icon OUTGOING_ICON = Icons.ARROW_DOWN_RIGHT_ICON;
 	private final Icon OUTGOING_FUNCTION_ICON;
 
 	private Icon icon = null;
@@ -106,9 +102,7 @@ public abstract class OutgoingCallNode extends CallNode {
 				addNode(nodes, node);
 			}
 			else {
-				addNode(
-					nodes,
-					new OutgoingFunctionCallNode(program, calledFunction,
+				addNode(nodes, new OutgoingFunctionCallNode(program, calledFunction,
 						reference.getFromAddress(), filterDuplicates, filterDepth));
 			}
 		}

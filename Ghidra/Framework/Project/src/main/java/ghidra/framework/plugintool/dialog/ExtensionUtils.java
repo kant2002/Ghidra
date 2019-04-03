@@ -39,7 +39,7 @@ import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskLauncher;
 import ghidra.util.task.TaskMonitor;
 import utilities.util.FileUtilities;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 import utility.module.ModuleUtilities;
 
 /**

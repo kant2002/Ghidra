@@ -19,12 +19,12 @@ import java.awt.Component;
 
 import javax.swing.*;
 
-import docking.util.MultiIcon;
 import docking.widgets.table.GTableCellRenderingData;
 import ghidra.docking.settings.Settings;
 import ghidra.feature.vt.api.main.*;
 import ghidra.util.HTMLUtilities;
 import ghidra.util.table.column.AbstractGhidraColumnRenderer;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.EmptyIcon;
 import resources.icons.TranslateIcon;
@@ -34,17 +34,18 @@ import resources.icons.TranslateIcon;
  */
 public class MatchMarkupStatusRenderer extends AbstractGhidraColumnRenderer<VTMatch> {
 
-	private static ImageIcon DISABLED_ICON = ResourceManager.loadImage("images/leddisabled_8.png");
+	private static ImageIcon DISABLED_ICON =
+		ResourceManager.getDisabledIcon(ResourceManager.loadImage("images/ledgreen.png"), 50);
 	private static final ImageIcon APPLIED_BASE_ICON =
-		ResourceManager.loadImage("images/ledgreen_8.png");
+		ResourceManager.loadImage("images/ledgreen.png", 8, 8);
 	private static final ImageIcon REJECTED_BASE_ICON =
-		ResourceManager.loadImage("images/ledpurple_8.png");
+		ResourceManager.loadImage("images/ledpurple.png", 8, 8);
 	private static final ImageIcon NOT_APPLIED_BASE_ICON =
-		ResourceManager.loadImage("images/ledorange_8.png");
+		ResourceManager.loadImage("images/ledorange.png", 8, 8);
 	private static final ImageIcon IGNORED_BASE_ICON =
-		ResourceManager.loadImage("images/ledblue_8.png");
+		ResourceManager.loadImage("images/ledblue.png", 8, 8);
 	private static final ImageIcon ERROR_BASE_ICON =
-		ResourceManager.loadImage("images/ledred_8.png");
+		ResourceManager.loadImage("images/ledred.png", 8, 8);
 
 	private static Icon NOT_APPLIED_ICON = new TranslateIcon(NOT_APPLIED_BASE_ICON, 0, 4);
 	private static Icon APPLIED_ICON = new TranslateIcon(APPLIED_BASE_ICON, 9, 4);

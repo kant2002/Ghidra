@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +15,6 @@
  */
 package ghidra.app.plugin.core.interpreter;
 
-import generic.util.WindowUtilities;
-import ghidra.app.plugin.core.console.CodeCompletion;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -27,6 +23,9 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListDataListener;
+
+import generic.util.WindowUtilities;
+import ghidra.app.plugin.core.console.CodeCompletion;
 
 /**
  * This class encapsulates a code completion popup Window for the ConsolePlugin.
@@ -141,77 +140,117 @@ public class CodeCompletionWindow extends JDialog {
 		jlist.setModel(new CodeCompletionListModel(list));
 		jlist.setSelectionModel(new CodeCompletionListSelectionModel(list));
 		jlist.clearSelection();
+
 		/* size the window */
 		pack();
-		/* move the window close to the cursor, if possible */
-		try {
-			Point caretLocation = outputTextField.getCaret().getMagicCaretPosition();
-			if (caretLocation != null) {
-				setLocation(offsetLocation(caretLocation));
 
-			}
-			else {
-				/* caretLocation can be null when the caret has been moved, but
-				 * not repainted yet
-				 */
-			}
-		}
-		catch (IllegalComponentStateException icse) {
-			/* okay, never mind then -- the Component is not on-screen yet
-			 * (initialization), so we can't know where it is */
-		}
+		updateWindowLocation();
+
 		invalidate();
+			}
+
+	private void updateWindowLocation() {
+
+		// move the window close to the cursor, if possible
+		Point caretLocation = outputTextField.getCaret().getMagicCaretPosition();
+		if (caretLocation == null) {
+			// caretLocation can be null when the caret has been moved, but not repainted yet
+			return;
+			}
+
+		updateLocation(caretLocation);
+		}
+
+	public void updateLocation(Point caretLocation) {
+
+		if (!outputTextField.isShowing()) {
+			return;
+		}
+
+		Point converted = new Point(caretLocation);
+		SwingUtilities.convertPointToScreen(converted, outputTextField);
+
+		Rectangle screenBounds = WindowUtilities.getScreenBounds(outputTextField);
+		if (!screenBounds.contains(converted)) {
+			// The 'magic caret position' returned from Caret is sometimes inexplicably off the
+			// screen.  Just ignore that case and update when it comes back on the screen.
+			return;
+		}
+
+		Point newLocation = ensureLocationOnScreen(converted);
+		setLocation(newLocation);
 	}
 
-	public Point offsetLocation(Point location) {
-		Rectangle screenBounds = WindowUtilities.getScreenBounds();
+	private Point ensureLocationOnScreen(Point location) {
+
+		Rectangle screenBounds = WindowUtilities.getScreenBounds(outputTextField);
 		int screenWidth = screenBounds.width;
 		int screenHeight = screenBounds.height;
+		int myWidth = getWidth();
+		int myHeight = getHeight();
 		int textHeight = outputTextField.getHeight();
 
-		/* double-check the width of the completion */
+		// double-check the width of the completion
 		if (getWidth() > screenWidth) {
 			setSize(screenWidth, getHeight());
 		}
 
-		/* Out of the four positioning cases, this is the normal case:
-		 * position the window lower and slightly to the right of the
-		 * caret
-		 */
-		Point textFieldLocation = outputTextField.getLocationOnScreen();
-		Point newLocation =
-			new Point(textFieldLocation.x + location.x + textHeight, textFieldLocation.y +
-				location.y + textHeight);
-		/* does the right side of the window go off the right edge of
-		 * the screen?
-		 */
-		if ((newLocation.x + getWidth()) > screenWidth) {
-			/* yes it does... now what do we do about it? */
-			if ((newLocation.y + getHeight()) > screenHeight) {
-				/* and the bottom goes off the bottom of the screen --
-				 * relocate to above the prompt
-				 * This is the least desirable case...
-				 */
-				newLocation =
-					new Point(screenWidth - getWidth(), textFieldLocation.y - getHeight() -
-						textHeight);
-			}
-			else {
-				/* the bottom is okay, however -- just move the 
-				 * window left to get it back on the screen
-				 */
-				newLocation = new Point(screenWidth - getWidth(), newLocation.y);
-			}
-		}
-		/* does the bottom of the window go off the bottom of the
-		 * screen?
-		 */
-		else if ((newLocation.y + getHeight()) > screenHeight) {
-			/* yes -- bump it up to get it back on the screen */
-			newLocation = new Point(newLocation.x, screenHeight - getHeight());
+		// Preferred location: lower and slightly to the right of the caret
+		int offset = textHeight;
+		Point newPoint = new Point(location.x + offset, location.y + offset);
+
+		if (isOnScreen(screenBounds, newPoint)) {
+			return newPoint; // nothing to do
 		}
 
-		return newLocation;
+		//
+		// our bounds using the given location do not fit on the screen
+		//
+
+		// does the right side of the window go off the right edge of the screen?
+		Point testPoint = null;
+		if (newPoint.x + myWidth > screenWidth) {
+
+			// check for going off the bottom of the screen as well
+			if (newPoint.y + myHeight > screenHeight) {
+				// off the right and bottom of the screen; move above prompt
+				testPoint = new Point(screenWidth - myWidth, newPoint.y - myHeight - offset);
+			}
+			else {
+				// the bottom is fine, move to the left
+				testPoint = new Point(screenWidth - myWidth, newPoint.y);
+			}
+		}
+		// does the bottom of the window go off the bottom of the screen?
+		else if (newPoint.y + myHeight > screenHeight) {
+			testPoint = new Point(newPoint.x, screenHeight - myHeight - offset);
+		}
+
+		newPoint = validateLocation(screenBounds, testPoint, newPoint);
+		return newPoint;
+	}
+
+	private boolean isOnScreen(Rectangle screenBounds, Point testPoint) {
+		// The test point is good if we remain on screen after using the test point
+		Rectangle testBounds = new Rectangle(testPoint.x, testPoint.y, getWidth(), getHeight());
+		return screenBounds.contains(testBounds);
+	}
+
+	private Point validateLocation(Rectangle screenBounds, Point testPoint, Point defaultPoint) {
+
+		if (testPoint == null) {
+			return defaultPoint;
+		}
+
+		//
+		// The test point is good if we remain on screen after using the test point
+		//
+		Rectangle testBounds = new Rectangle(testPoint.x, testPoint.y, getWidth(), getHeight());
+		if (screenBounds.contains(testBounds)) {
+			// completely on the screen; good
+			return testPoint;
+		}
+		return defaultPoint;
 	}
 
 	/**

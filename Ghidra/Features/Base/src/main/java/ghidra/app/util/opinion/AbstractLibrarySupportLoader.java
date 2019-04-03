@@ -256,7 +256,7 @@ public abstract class AbstractLibrarySupportLoader extends AbstractProgramLoader
 				for (File libFile : candidateLibFiles) {
 					monitor.checkCanceled();
 					if (importLibrary(simpleLibName, programFolder, libFile, loadSpec, options, log,
-						consumer, unprocessedLibs, processedLibs, programList, monitor)) {
+						consumer, unprocessedLibs, programList, monitor)) {
 						libImported = true;
 						log.appendMsg("Found and imported external library: " + libFile);
 						break;
@@ -605,21 +605,66 @@ public abstract class AbstractLibrarySupportLoader extends AbstractProgramLoader
 		return results;
 	}
 
-	private boolean importLibrary(String libName, DomainFolder libFolder, File libFile,
+	/**
+	 * Imports a library file into a ghidra project.
+	 * 
+	 * @param libName the name of the library to import
+	 * @param libFolder the library folder
+	 * @param libFile the library file to load
+	 * @param loadSpec the {@link LoadSpec}
+	 * @param options the load options
+	 * @param log the message log
+	 * @param consumer consumer object for the {@link Program} generated
+	 * @param unprocessedLibs list of libraries that need to be loaded
+	 * @param programList list of programs to add the imported library to
+	 * @param monitor the task monitor
+	 * @return true if the load was successful
+	 * @throws CancelledException if the user cancelled the load operation
+	 * @throws IOException if there was an error during the load
+	 */
+	protected boolean importLibrary(String libName, DomainFolder libFolder, File libFile,
 			LoadSpec loadSpec, List<Option> options, MessageLog log, Object consumer,
-			Set<String> unprocessedLibs, Set<String> processedLibs, List<Program> programList,
+			Set<String> unprocessedLibs, List<Program> programList,
 			TaskMonitor monitor) throws CancelledException, IOException {
 
-		if (!libFile.exists() || !libFile.isFile()) {
+		if (!libFile.isFile()) {
 			return false;
 		}
 
-		int size = loadSpec.getLanguageCompilerSpec().getLanguageDescription().getSize();
+		try (RandomAccessByteProvider provider = new RandomAccessByteProvider(libFile)) {
+			return importLibrary(libName, libFolder, libFile, provider, loadSpec, options, log,
+				consumer, unprocessedLibs, programList, monitor);
+		}
+	}
+
+	/**
+	 * Imports a library file into a ghidra project. Use this method if you already have
+	 * a {@link ByteProvider} available.
+	 * 
+	 * @param libName the name of the library to import
+	 * @param libFolder the library folder
+	 * @param libFile the library file to load
+	 * @param provider the byte provider
+	 * @param loadSpec the {@link LoadSpec}
+	 * @param options the load options
+	 * @param log the message log
+	 * @param consumer consumer object for the {@link Program} generated
+	 * @param unprocessedLibs list of libraries that need to be loaded
+	 * @param programList list of programs to add the imported library to
+	 * @param monitor the task monitor
+	 * @return true if the load was successful
+	 * @throws CancelledException if the user cancelled the load operation
+	 * @throws IOException if there was an error during the load
+	 */
+	protected boolean importLibrary(String libName, DomainFolder libFolder, File libFile,
+			ByteProvider provider, LoadSpec loadSpec, List<Option> options, MessageLog log,
+			Object consumer, Set<String> unprocessedLibs, List<Program> programList,
+			TaskMonitor monitor)
+			throws CancelledException, IOException {
 
 		Program lib = null;
-		RandomAccessByteProvider provider = null;
-		try {
-			provider = new RandomAccessByteProvider(libFile);
+		int size = loadSpec.getLanguageCompilerSpec().getLanguageDescription().getSize();
+
 			LoadSpec libLoadSpec = getLoadSpec(loadSpec, provider);
 			if (libLoadSpec == null) {
 				log.appendMsg("Skipping library which is the wrong architecture: " + libFile);
@@ -638,29 +683,13 @@ public abstract class AbstractLibrarySupportLoader extends AbstractProgramLoader
 
 			lib = doLoad(provider, libName, libFolder, libLoadSpec, options, log, consumer, monitor,
 				unprocessedLibs);
-		}
-		finally {
-			if (provider != null) {
-				provider.close();
-			}
-		}
+
 		if (lib == null) {
 			log.appendMsg("Library " + libFile + " failed to load for some reason");
 			return false;
 		}
 
-		if (!LibraryLookupTable.libraryLookupTableFileExists(libName, size) ||
-			!LibraryLookupTable.hasFileAndPathAndTimeStampMatch(libFile, size)) {
-			try {
-				// Need to write correct library exports file (LibrarySymbolTable)
-				// for use with related imports
-				LibraryLookupTable.createFile(lib, true, monitor);
-			}
-			catch (IOException e) {
-				log.appendMsg("Unable to create exports file for " + libFile);
-				Msg.error(this, "Unable to create exports file for " + libFile, e);
-			}
-		}
+		createExportsFile(libName, libFile, log, monitor, size, lib);
 
 		if (isLoadLibraries(options)) {
 			programList.add(lib);
@@ -668,10 +697,39 @@ public abstract class AbstractLibrarySupportLoader extends AbstractProgramLoader
 		else {
 			lib.release(consumer);
 		}
+
 		return true;
+
 	}
 
-	private LoadSpec getLoadSpec(LoadSpec loadSpec, RandomAccessByteProvider provider)
+	/**
+	 * Creates the library exports file, if necessary
+	 * 
+	 * @param libName the name of the library
+	 * @param libFile the library file
+	 * @param log the message log
+	 * @param monitor the task monitor
+	 * @param size the language size
+	 * @param program the loaded library program
+	 */
+	protected void createExportsFile(String libName, File libFile, MessageLog log,
+			TaskMonitor monitor, int size, Program program) {
+
+		if (!LibraryLookupTable.libraryLookupTableFileExists(libName, size) ||
+			!LibraryLookupTable.hasFileAndPathAndTimeStampMatch(libFile, size)) {
+			try {
+				// Need to write correct library exports file (LibrarySymbolTable)
+				// for use with related imports
+				LibraryLookupTable.createFile(program, true, monitor);
+			}
+			catch (IOException e) {
+				log.appendMsg("Unable to create exports file for " + libFile);
+				Msg.error(this, "Unable to create exports file for " + libFile, e);
+			}
+		}
+	}
+
+	protected LoadSpec getLoadSpec(LoadSpec loadSpec, ByteProvider provider)
 			throws IOException {
 		LanguageCompilerSpecPair pair = loadSpec.getLanguageCompilerSpec();
 		Collection<LoadSpec> loadSpecs = findSupportedLoadSpecs(provider);

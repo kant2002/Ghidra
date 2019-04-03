@@ -36,7 +36,7 @@ import ghidra.util.Msg;
 import ghidra.util.filechooser.ExtensionFileFilter;
 import ghidra.util.layout.PairLayout;
 import ghidra.util.task.TaskMonitorAdapter;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 /**
  * <code>DbViewer</code> is a diagnostic application for viewing a

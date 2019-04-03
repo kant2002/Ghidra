@@ -451,7 +451,7 @@ public class ReferencesPlugin extends Plugin {
 			}
 		}
 		if (!p.getMemory().contains(testAddr)) {
-			warningMsg += "The equivelent " + wrapStr + "address " + testAddr.toString(true) +
+			warningMsg += "The equivalent " + wrapStr + "address " + testAddr.toString(true) +
 				" is not contained within the Program's defined memory blocks.\n \n";
 		}
 		if (warningMsg.length() != 0) {

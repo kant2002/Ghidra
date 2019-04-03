@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +15,6 @@
  */
 package ghidra.framework.options;
 
-import ghidra.util.Msg;
-import ghidra.util.xml.GenericXMLOutputter;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.io.*;
@@ -29,6 +25,10 @@ import javax.swing.KeyStroke;
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
+
+import ghidra.util.Msg;
+import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 
 public enum OptionType {
 	INT_TYPE(Integer.class, new IntStringAdapter()),
@@ -187,7 +187,7 @@ public enum OptionType {
 	}
 
 	private static SaveState getSaveStateFromXmlString(String xmlString) {
-		SAXBuilder saxBuilder = new SAXBuilder();
+		SAXBuilder saxBuilder = XmlUtilities.createSecureSAXBuilder(false, false);
 		try {
 			Document doc = saxBuilder.build(new StringReader(xmlString));
 			Element rootElement = doc.getRootElement();
@@ -276,8 +276,8 @@ public enum OptionType {
 	}
 
 	static class FontStringAdapter extends StringAdapter {
-		private static final String[] STYLES = new String[] { "PLAIN", "BOLD", "ITALIC",
-			"BOLDITALIC" };
+		private static final String[] STYLES =
+			new String[] { "PLAIN", "BOLD", "ITALIC", "BOLDITALIC" };
 
 		@Override
 		Object stringToObject(String string) {

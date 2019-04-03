@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utilities.util.FileUtilities;
-import utility.applicaiton.ApplicationSettings;
+import utility.application.ApplicationSettings;
 
 public class JarResource implements Resource {
 	private final JarEntryRootNode root;

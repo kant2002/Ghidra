@@ -27,9 +27,9 @@ define pcodeop getsec_unknown;
 	<leaf_2>
 	if ( EAX != 0x3 ) goto <leaf_3>;
 @ifdef IA64
-		getsec_exitac( RBX, EDX );
+	    getsec_exitac( RBX, EDX );
 @else
-        getsec_exitac( EBX, EDX );
+	    getsec_exitac( EBX, EDX );
 @endif
 		goto <done>;
 

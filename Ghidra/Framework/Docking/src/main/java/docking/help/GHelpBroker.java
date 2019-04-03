@@ -256,7 +256,7 @@ public class GHelpBroker extends DefaultHelpBroker {
 				JToolBar toolbar = (JToolBar) component;
 				toolbar.addSeparator();
 
-				ImageIcon zoomOutIcon = ResourceManager.createScaledIcon(ZOOM_OUT_ICON, 24, 24);
+				ImageIcon zoomOutIcon = ResourceManager.getScaledIcon(ZOOM_OUT_ICON, 24, 24);
 				JButton zoomOutBtn = new JButton(zoomOutIcon);
 				zoomOutBtn.setToolTipText("Zoom out");
 				zoomOutBtn.addActionListener(e -> {
@@ -268,7 +268,7 @@ public class GHelpBroker extends DefaultHelpBroker {
 				});
 				toolbar.add(zoomOutBtn);
 
-				ImageIcon zoomInIcon = ResourceManager.createScaledIcon(ZOOM_IN_ICON, 24, 24);
+				ImageIcon zoomInIcon = ResourceManager.getScaledIcon(ZOOM_IN_ICON, 24, 24);
 				JButton zoomInBtn = new JButton(zoomInIcon);
 				zoomInBtn.setToolTipText("Zoom in");
 				zoomInBtn.addActionListener(e -> {

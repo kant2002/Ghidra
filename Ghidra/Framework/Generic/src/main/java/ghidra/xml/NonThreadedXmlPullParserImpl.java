@@ -24,6 +24,7 @@ import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
 import ghidra.util.Msg;
+import ghidra.util.xml.XmlUtilities;
 
 public class NonThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 	private LinkedList<XmlElement> queue = new LinkedList<XmlElement>();
@@ -85,8 +86,8 @@ public class NonThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 
 	@Deprecated
 	NonThreadedXmlPullParserImpl(InputStream input, String inputName, ErrorHandler errHandler,
-			boolean validate, boolean reallyCreateNoncompliantDeprecated) throws SAXException,
-			IOException {
+			boolean validate, boolean reallyCreateNoncompliantDeprecated)
+			throws SAXException, IOException {
 		this.name = inputName;
 		fillQueue(null, inputName, input, errHandler, false, validate,
 			reallyCreateNoncompliantDeprecated);
@@ -98,7 +99,7 @@ public class NonThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 		DefaultContentHandlerWrapper contentHandler =
 			new DefaultContentHandlerWrapper(errHandler, reallyCreateNoncompliantDeprecated);
 		try {
-			SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+			SAXParserFactory saxParserFactory = XmlUtilities.createSecureSAXParserFactory(false);
 			saxParserFactory.setFeature("http://xml.org/sax/features/namespaces", false);
 			saxParserFactory.setFeature("http://xml.org/sax/features/validation", validate);
 			SAXParser saxParser = saxParserFactory.newSAXParser();

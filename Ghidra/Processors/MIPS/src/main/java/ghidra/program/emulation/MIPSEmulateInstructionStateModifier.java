@@ -47,71 +47,42 @@ public class MIPSEmulateInstructionStateModifier extends EmulateInstructionState
 		ISA_MODE0 = new RegisterValue(isaModeReg, BigInteger.ZERO);
 
 	// These classes are defined here:
-	// ghidra.git/Ghidra/Framework/SoftwareModeling/src/main/java/ghidra/pcode/emulate/callother
+		// ghidra/Ghidra/Framework/SoftwareModeling/src/main/java/ghidra/pcode/emulate/callother
 
         registerPcodeOpBehavior("countLeadingZeros", new CountLeadingZerosOpBehavior());
 
         registerPcodeOpBehavior("countLeadingOnes", new CountLeadingOnesOpBehavior());
 
 		/**
-		 * We could registerPcodeOpBehavior for one or more of the following pcodeop's:
+		 * We could registerPcodeOpBehavior for one or more of the following
+		 * pcodeop's:
 		 *  
-			 break;
-			 trap;
-			 wait;
-			 syscall;
-			 cacheOp;
-			 signalDebugBreakpointException;
-			 disableInterrupts;
-			 enableInterrupts;
-			 hazzard;
-			 lockload;
-			 lockwrite;
-			 synch;
-			 tlbop;
-			 bitSwap;
-			 disableProcessor;
-			 enableProcessor;
-			 signalReservedInstruction;
-			 prefetch;
-			 getFpCondition;
-			 getCopCondition;
-			 setCopControlWord;
-			 getCopControlWord;
-			 copFunction;
-			 getCopReg;
-			 getCopRegH;
-			 setCopReg;
-			 setCopRegH;
-			 extractField;
-			 insertField; 
-			 getHWRegister;
-			 setShadow;
-			 getShadow;
-			 special2;
-			 SYNC;
-			 TLB_invalidate;
-			 TLB_invalidate_flush;
-			 TLB_probe_for_matching_entry;
-			 TLB_read_indexed_entryHi;
-			 TLB_read_indexed_entryLo0;
-			 TLB_read_indexed_entryLo1;
-			 TLB_read_indexed_entryPageMask;
-			 TLB_write_indexed_entry;
-			 TLB_write_random_entry;
-			 mipsFloatPS;
+		 * break; trap; wait; syscall; cacheOp; signalDebugBreakpointException;
+		 * disableInterrupts; enableInterrupts; hazzard; lockload; lockwrite;
+		 * synch; tlbop; bitSwap; disableProcessor; enableProcessor;
+		 * signalReservedInstruction; prefetch; getFpCondition; getCopCondition;
+		 * setCopControlWord; getCopControlWord; copFunction; getCopReg;
+		 * getCopRegH; setCopReg; setCopRegH; extractField; insertField;
+		 * getHWRegister; setShadow; getShadow; special2; SYNC; TLB_invalidate;
+		 * TLB_invalidate_flush; TLB_probe_for_matching_entry;
+		 * TLB_read_indexed_entryHi; TLB_read_indexed_entryLo0;
+		 * TLB_read_indexed_entryLo1; TLB_read_indexed_entryPageMask;
+		 * TLB_write_indexed_entry; TLB_write_random_entry; mipsFloatPS;
 		 *
 		 */
 	}
 
 	/**
-	 * Initialize ISM register based upon context-register state before first instruction is executed.
+	 * Initialize ISM register based upon context-register state before first
+	 * instruction is executed.
 	 */
 	@Override
-	public void initialExecuteCallback(Emulate emulate, Address current_address, RegisterValue contextRegisterValue) throws LowlevelError {
+	public void initialExecuteCallback(Emulate emulate, Address current_address,
+			RegisterValue contextRegisterValue) throws LowlevelError {
 		BigInteger isaModeValue = BigInteger.ZERO;
 		if (contextRegisterValue != null) {
-			isaModeValue = contextRegisterValue.getRegisterValue(isaModeReg).getUnsignedValueIgnoreMask();
+			isaModeValue =
+				contextRegisterValue.getRegisterValue(isaModeReg).getUnsignedValueIgnoreMask();
 		}
 		if (!BigInteger.ZERO.equals(isaModeValue)) {
 			isaModeValue = BigInteger.ONE;
@@ -120,11 +91,11 @@ public class MIPSEmulateInstructionStateModifier extends EmulateInstructionState
 	}
 
 	/**
-	 * Use ISM register value to establish ISA_MODE when branching/calling.
-	 * If ISM = 0, check for odd destination address which may occur when 
-	 * jumping/returning indirectly to Thumb mode.  It is assumed that 
-	 * language will properly handle context changes during the flow of 
-	 * execution, we need only fix the current program counter.
+	 * Use ISM register value to establish ISA_MODE when branching/calling. If
+	 * ISM = 0, check for odd destination address which may occur when
+	 * jumping/returning indirectly to Thumb mode. It is assumed that language
+	 * will properly handle context changes during the flow of execution, we
+	 * need only fix the current program counter.
 	 */
 
 	@Override

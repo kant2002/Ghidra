@@ -246,7 +246,10 @@ public abstract class DockingAction implements DockingActionIf {
 		}
 		button.setToolTipText(tt);
 		button.setEnabled(isEnabled());
-		button.setMultiClickThreshhold(500); // this prevents 2 callbacks from double-clicks
+
+		// Reverting GT-2452 because some buttons need to be able to respond to fast clicking.
+		//button.setMultiClickThreshhold(500); // this prevents 2 callbacks from double-clicks
+
 		return button;
 	}
 

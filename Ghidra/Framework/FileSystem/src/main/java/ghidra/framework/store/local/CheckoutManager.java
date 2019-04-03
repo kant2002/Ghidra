@@ -25,11 +25,12 @@ import org.jdom.output.XMLOutputter;
 import ghidra.framework.store.*;
 import ghidra.util.datastruct.LongObjectHashtable;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 
 /**
- * <code>CheckoutManager</code> manages checkout data for a versioned LocalFolderItem.
- * Checkout data is maintained within the file 'checkout.dat' located within the
- * items data directory. 
+ * <code>CheckoutManager</code> manages checkout data for a versioned
+ * LocalFolderItem. Checkout data is maintained within the file 'checkout.dat'
+ * located within the items data directory.
  */
 class CheckoutManager {
 
@@ -43,9 +44,10 @@ class CheckoutManager {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param item folder item
-	 * @param create if true an empty checkout data file is written,
-	 * else the initial data is read from the file.
+	 * @param create if true an empty checkout data file is written, else the
+	 *            initial data is read from the file.
 	 * @throws IOException
 	 */
 	CheckoutManager(LocalFolderItem item, boolean create) throws IOException {
@@ -65,6 +67,7 @@ class CheckoutManager {
 
 	/**
 	 * Requests a new checkout for the associated item.
+	 * 
 	 * @param checkoutType type of checkout
 	 * @param user name of user requesting checkout
 	 * @param version item version to be checked-out
@@ -104,6 +107,7 @@ class CheckoutManager {
 
 	/**
 	 * Update the version associated with the specified checkout
+	 * 
 	 * @param checkoutId checkout ID to be updated
 	 * @param version item version to be associated with checkout
 	 */
@@ -128,6 +132,7 @@ class CheckoutManager {
 
 	/**
 	 * Terminate the specified checkout
+	 * 
 	 * @param checkoutId checkout ID
 	 * @throws IOException
 	 */
@@ -152,7 +157,9 @@ class CheckoutManager {
 	}
 
 	/**
-	 * Returns true if the specified version of the associated item is checked-out.
+	 * Returns true if the specified version of the associated item is
+	 * checked-out.
+	 * 
 	 * @param version the specific version to check for checkouts.
 	 */
 	synchronized boolean isCheckedOut(int version) throws IOException {
@@ -178,6 +185,7 @@ class CheckoutManager {
 	/**
 	 * Returns the checkout data corresponding to the specified checkout ID.
 	 * Null is returned if checkout ID is not found.
+	 * 
 	 * @param checkoutId checkout ID
 	 */
 	synchronized ItemCheckoutStatus getCheckout(long checkoutId) throws IOException {
@@ -186,8 +194,8 @@ class CheckoutManager {
 	}
 
 	/**
-	 * Returns the checkout data for all existing checkouts of the 
-	 * associated item.
+	 * Returns the checkout data for all existing checkouts of the associated
+	 * item.
 	 */
 	synchronized ItemCheckoutStatus[] getAllCheckouts() throws IOException {
 		validate();
@@ -202,9 +210,9 @@ class CheckoutManager {
 
 	/**
 	 * If validationRequired is true and the checkout data file has been 
-	 * updated, the checkout data will be re-initialized from the file.
-	 * This is undesirable and is only required when multiple instances 
-	 * of a LocalFolderItem are used for a specific item path (e.g., unit testing).
+	 * updated, the checkout data will be re-initialized from the file. This is
+	 * undesirable and is only required when multiple instances of a
+	 * LocalFolderItem are used for a specific item path (e.g., unit testing).
 	 */
 	private void validate() throws IOException {
 		if (LocalFileSystem.isRefreshRequired()) {
@@ -229,6 +237,7 @@ class CheckoutManager {
 
 	/**
 	 * Read data from checkout file.
+	 * 
 	 * @throws IOException
 	 */
 	@SuppressWarnings("unchecked")
@@ -244,7 +253,7 @@ class CheckoutManager {
 		FileInputStream istream = new FileInputStream(checkoutsFile);
 		BufferedInputStream bis = new BufferedInputStream(istream);
 		try {
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Document doc = sax.build(bis);
 			Element root = doc.getRootElement();
 
@@ -273,6 +282,7 @@ class CheckoutManager {
 
 	/**
 	 * Parse checkout element from file.
+	 * 
 	 * @param coElement checkout data element
 	 * @return checkout data for specified element
 	 * @throws JDOMException
@@ -298,6 +308,7 @@ class CheckoutManager {
 
 	/**
 	 * Write checkout data file.
+	 * 
 	 * @throws IOException
 	 */
 	private void writeCheckoutsFile() throws IOException {
@@ -355,6 +366,7 @@ class CheckoutManager {
 
 	/**
 	 * Build checkout data element
+	 * 
 	 * @param coStatus checkout data
 	 * @return checkout data element
 	 */

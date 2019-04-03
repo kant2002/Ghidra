@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,25 +15,19 @@
  */
 package ghidra.feature.vt.gui.actions;
 
+import java.util.*;
+
+import docking.ActionContext;
+import docking.action.DockingAction;
+import docking.action.MenuData;
+import docking.widgets.OptionDialog;
 import ghidra.feature.vt.api.main.*;
 import ghidra.feature.vt.gui.plugin.VTController;
 import ghidra.feature.vt.gui.plugin.VTPlugin;
 import ghidra.feature.vt.gui.provider.matchtable.VTMatchContext;
 import ghidra.feature.vt.gui.task.ApplyBlockedMatchTask;
 import ghidra.util.HelpLocation;
-
-import java.util.*;
-
-import javax.swing.Icon;
-
-import resources.ResourceManager;
-import resources.icons.ScaledImageIconWrapper;
-import resources.icons.TranslateIcon;
-import docking.ActionContext;
-import docking.action.DockingAction;
-import docking.action.MenuData;
-import docking.util.MultiIcon;
-import docking.widgets.OptionDialog;
+import resources.Icons;
 
 /**
  * The ApplyBlockedMatchAction allows the user to apply a match that is currently blocked.
@@ -52,13 +45,8 @@ public class ApplyBlockedMatchAction extends DockingAction {
 		super(NAME, VTPlugin.OWNER);
 		this.controller = controller;
 
-		Icon lockIcon = ResourceManager.loadImage("images/kgpg.png");
-		Icon checkIcon = ResourceManager.loadImage("images/checkmark_green.gif");
-		ScaledImageIconWrapper scaledIcon = new ScaledImageIconWrapper(checkIcon, 12, 12);
-		TranslateIcon translatedIcon = new TranslateIcon(scaledIcon, 4, 0);
-		Icon icon = new MultiIcon(lockIcon, translatedIcon);
-//		setToolBarData(new ToolBarData(icon, MENU_GROUP));
-		setPopupMenuData(new MenuData(new String[] { "Apply Blocked Match" }, icon, MENU_GROUP));
+		setPopupMenuData(new MenuData(new String[] { "Apply Blocked Match" },
+			Icons.APPLY_BLOCKED_MATCH_ICON, MENU_GROUP));
 		setEnabled(false);
 		setHelpLocation(new HelpLocation("VersionTrackingPlugin", "Apply_Blocked_Match"));
 
@@ -79,8 +67,7 @@ public class ApplyBlockedMatchAction extends DockingAction {
 		}
 		List<VTAssociation> conflicts = getConflictingMatches(match);
 		String conflictMessage = getConflictingMatchesDisplayString(match, conflicts);
-		int response =
-			OptionDialog.showOptionDialog(null, "Clear Conflicting Matches and Apply?",
+		int response = OptionDialog.showOptionDialog(null, "Clear Conflicting Matches and Apply?",
 				conflictMessage, "Clear and Apply", OptionDialog.QUESTION_MESSAGE);
 		if (response == OptionDialog.OPTION_ONE) {
 			ApplyBlockedMatchTask task = new ApplyBlockedMatchTask(controller, match, conflicts);
@@ -101,7 +88,8 @@ public class ApplyBlockedMatchAction extends DockingAction {
 		return list;
 	}
 
-	private String getConflictingMatchesDisplayString(VTMatch match, List<VTAssociation> conflicts) {
+	private String getConflictingMatchesDisplayString(VTMatch match,
+			List<VTAssociation> conflicts) {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("<html>");
 		int count = 0;

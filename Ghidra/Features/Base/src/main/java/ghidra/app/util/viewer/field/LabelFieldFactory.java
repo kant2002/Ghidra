@@ -22,7 +22,6 @@ import java.util.*;
 import javax.swing.Icon;
 import javax.swing.event.ChangeListener;
 
-import docking.util.MultiIcon;
 import docking.widgets.fieldpanel.field.*;
 import docking.widgets.fieldpanel.support.FieldLocation;
 import ghidra.app.util.*;
@@ -36,6 +35,7 @@ import ghidra.program.model.symbol.*;
 import ghidra.program.util.*;
 import ghidra.util.HelpLocation;
 import ghidra.util.exception.AssertException;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.EmptyIcon;
 import resources.icons.TranslateIcon;

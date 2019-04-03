@@ -194,7 +194,7 @@ class RootNode extends WindowNode {
 	void setVisible(boolean state) {
 		Window mainWindow = getMainWindow();
 		mainWindow.setVisible(state);
-		WindowUtilities.ensureWindowOnScreen(mainWindow);
+		WindowUtilities.ensureOnScreen(mainWindow);
 
 		Iterator<DetachedWindowNode> it = detachedWindows.iterator();
 		while (it.hasNext()) {

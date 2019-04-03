@@ -21,13 +21,13 @@ import javax.swing.Icon;
 
 import docking.action.MenuData;
 import docking.action.ToolBarData;
-import docking.util.MultiIcon;
 import ghidra.framework.main.datatable.ProjectDataTreeContextAction;
 import ghidra.framework.main.datatree.FindCheckoutsDialog;
 import ghidra.framework.main.datatree.ProjectDataTreeActionContext;
 import ghidra.framework.model.DomainFolder;
 import ghidra.framework.plugintool.Plugin;
 import ghidra.util.HelpLocation;
+import resources.MultiIcon;
 import resources.ResourceManager;
 
 public class FindCheckoutsAction extends ProjectDataTreeContextAction {

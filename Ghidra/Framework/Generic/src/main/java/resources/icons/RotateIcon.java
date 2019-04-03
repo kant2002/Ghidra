@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +23,7 @@ public class RotateIcon implements Icon {
 
 	private final Icon icon;
 	private final int degrees;
+	private String description;
 
 	public RotateIcon(Icon icon, int degrees) {
 		this.icon = icon;
@@ -53,4 +53,11 @@ public class RotateIcon implements Icon {
 		g2.rotate(-Math.toRadians(degrees), rotX, rotY);
 	}
 
+	@Override
+	public String toString() {
+		if (description == null) {
+			description = icon.toString();
+		}
+		return description;
+	}
 }

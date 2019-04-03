@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,17 +83,6 @@ class DataAction extends ListingContextAction implements OptionsChangeListener {
 
 	protected DockingAction getDummyKeyBindingAction() {
 		return dummyKeybindingsAction;
-	}
-
-	/**
-	 * Sets the default keybinding for this action.  This method exists due to synchronize
-	 *  this classes usage of the DummyKeyBindingsOptionsAction
-	 * @param keyStroke The keystroke to use for the new keybinding
-	 */
-	void setDefaultKeyBinding(KeyStroke keyStroke) {
-		KeyBindingData keyBindingData = new KeyBindingData(keyStroke);
-		dummyKeybindingsAction.setKeyBindingData(keyBindingData);
-		setKeyBindingData(keyBindingData);
 	}
 
 	DataType getDataType() {

@@ -31,7 +31,7 @@ import ghidra.server.remote.GhidraServerApplicationLayout;
 import ghidra.util.Msg;
 import ghidra.util.NamingUtilities;
 import ghidra.util.exception.DuplicateNameException;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 /**
  * <code>UserAdmin</code> is an Application for generating administrative 

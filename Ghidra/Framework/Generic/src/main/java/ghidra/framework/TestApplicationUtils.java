@@ -32,16 +32,17 @@ public class TestApplicationUtils {
 		// 
 		// At the time writing "user.dir" is the "Ghidra" directory.
 		// Update: it seems things have changed (jUnit 4, maybe?)--this value is now 
-		//         ghidra.git/Ghidra/Features/Base
+		//         ghidra/Ghidra/Features/Base
 		String userDir = System.getProperty("user.dir");
 		File repo = ModuleUtilities.findRepo(new File(userDir));
 		return repo;
 	}
 
 	/**
-	 * Returns a directory that contains all repos for a given git clone.  This directory name
-	 * is unique to the active clone collection, which makes it useful for creating
-	 * unique temporary directories to allow multiple simultaneous test runs. 
+	 * Returns a directory that contains all repos for a given git clone. This
+	 * directory name is unique to the active clone collection, which makes it
+	 * useful for creating unique temporary directories to allow multiple
+	 * simultaneous test runs.
 	 * 
 	 * @return the parent dir of the current repo
 	 */
@@ -52,8 +53,9 @@ public class TestApplicationUtils {
 	}
 
 	/**
-	 * Creates a folder that is unique for the current repo.  This allows clients to have 
-	 * multiple clones on their machine, running tests from each repo simultaneously.
+	 * Creates a folder that is unique for the current repo. This allows clients
+	 * to have multiple clones on their machine, running tests from each repo
+	 * simultaneously.
 	 * 
 	 * @return a folder that is unique for the current repo.
 	 */

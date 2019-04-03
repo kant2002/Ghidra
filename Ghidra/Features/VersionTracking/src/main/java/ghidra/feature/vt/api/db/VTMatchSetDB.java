@@ -40,6 +40,7 @@ import ghidra.util.Lock;
 import ghidra.util.Msg;
 import ghidra.util.exception.VersionException;
 import ghidra.util.task.TaskMonitor;
+import ghidra.util.xml.XmlUtilities;
 
 public class VTMatchSetDB extends DatabaseObject implements VTMatchSet {
 
@@ -139,7 +140,7 @@ public class VTMatchSetDB extends DatabaseObject implements VTMatchSet {
 		}
 
 		Reader reader = new StringReader(optionsString);
-		SAXBuilder builder = new SAXBuilder(false);
+		SAXBuilder builder = XmlUtilities.createSecureSAXBuilder(false, false);
 
 		try {
 			Element rootElement = builder.build(reader).getRootElement();

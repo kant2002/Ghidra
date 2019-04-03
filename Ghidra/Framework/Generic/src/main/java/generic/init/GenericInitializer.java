@@ -17,7 +17,7 @@ package generic.init;
 
 import ghidra.framework.ModuleInitializer;
 import ghidra.framework.PluggableServiceRegistry;
-import utility.applicaiton.ApplicationSettings;
+import utility.application.ApplicationSettings;
 
 public class GenericInitializer implements ModuleInitializer {
 

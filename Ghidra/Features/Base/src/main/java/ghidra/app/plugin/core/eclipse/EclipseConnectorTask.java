@@ -33,6 +33,7 @@ import ghidra.util.task.TaskMonitor;
 class EclipseConnectorTask extends Task {
 
 	private EclipseIntegrationService eclipseService;
+	private String address;
 	private int port;
 	private EclipseConnection connection;
 
@@ -45,6 +46,7 @@ class EclipseConnectorTask extends Task {
 	public EclipseConnectorTask(EclipseIntegrationService eclipseService, int port) {
 		super("Eclipse Launcher Task", true, true, true);
 		this.eclipseService = eclipseService;
+		this.address = "127.0.0.1";
 		this.port = port;
 		this.connection = new EclipseConnection();
 	}
@@ -55,7 +57,7 @@ class EclipseConnectorTask extends Task {
 		// Try to establish a socket connection to an already-running Eclipse.
 		// If we can connect, we are done.
 		try {
-			connection = new EclipseConnection(null, new Socket("localhost", port));
+			connection = new EclipseConnection(null, new Socket(address, port));
 			return;
 		}
 		catch (IOException e) {
@@ -125,7 +127,7 @@ class EclipseConnectorTask extends Task {
 			}
 
 			try {
-				connection = new EclipseConnection(process, new Socket("localhost", port));
+				connection = new EclipseConnection(process, new Socket(address, port));
 				return;
 			}
 			catch (UnknownHostException e) {

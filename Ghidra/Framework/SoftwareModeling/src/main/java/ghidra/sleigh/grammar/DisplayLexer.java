@@ -1,5 +1,5 @@
 package ghidra.sleigh.grammar;
-// $ANTLR 3.5.2 ghidra/sleigh/grammar/DisplayLexer.g 2019-02-28 12:48:47
+// $ANTLR 3.5.2 ghidra/sleigh/grammar/DisplayLexer.g 2019-03-25 18:04:50
 
 import org.antlr.runtime.*;
 import java.util.Stack;

@@ -20,8 +20,8 @@ import java.io.IOException;
 
 import ghidra.framework.ApplicationProperties;
 import ghidra.util.SystemUtilities;
-import utility.applicaiton.ApplicationLayout;
-import utility.applicaiton.ApplicationUtilities;
+import utility.application.ApplicationLayout;
+import utility.application.ApplicationUtilities;
 
 /**
  * The Ghidra server application layout defines the customizable elements of the Ghidra 

@@ -118,12 +118,13 @@ public class AddressInput extends JPanel {
 	/**
 	 * Returns the address in the field or null if the address can't
 	 * be parsed.
+	 * 
 	 * @throws NullPointerException if AddressFactory has not been set.
 	 */
 	public Address getAddress() {
 		String addrStr = textField.getText();
-		if (comboAdded) {
-			AddressSpace space = (AddressSpace) combo.getSelectedItem();
+
+		AddressSpace space = getAddressSpace();
 			try {
 				return space.getAddress(addrStr);
 			}
@@ -131,11 +132,12 @@ public class AddressInput extends JPanel {
 				return null;
 			}
 		}
-		return addrFactory.getAddress(addrStr);
-	}
 
 	/**
-	 * Returns the address space selected in the combobox or the default space if no combo box.
+	 * Returns the address space selected in the combobox or in the input text itself
+	 * if specified (eg: "register:1"). If the address space is not specified; returns the
+	 * default space.
+	 * 
 	 * @throws NullPointerException if AddressFactory has not been set.
 	 */
 	public AddressSpace getAddressSpace() {

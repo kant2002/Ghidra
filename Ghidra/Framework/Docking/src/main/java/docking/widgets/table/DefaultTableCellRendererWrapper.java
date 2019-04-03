@@ -26,6 +26,10 @@ public class DefaultTableCellRendererWrapper extends GTableCellRenderer {
 
 	public DefaultTableCellRendererWrapper(TableCellRenderer renderer) {
 		this.renderer = renderer;
+
+		// we have to do this again here, as the super constructor called us back before we
+		// set the 'renderer' variable
+		setHTMLRenderingEnabled(false);
 	}
 
 	/**
@@ -46,12 +50,11 @@ public class DefaultTableCellRendererWrapper extends GTableCellRenderer {
 	@Override
 	public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 
-		Component rendererComponent =
-			renderer.getTableCellRendererComponent(data.getTable(), data.getValue(),
-				data.isSelected(), data.hasFocus(), data.getRowViewIndex(), data.getColumnViewIndex());
+		Component rendererComponent = renderer.getTableCellRendererComponent(data.getTable(),
+			data.getValue(), data.isSelected(), data.hasFocus(), data.getRowViewIndex(),
+			data.getColumnViewIndex());
 
-		JComponent thisRenderer =
-			(JComponent) super.getTableCellRendererComponent(data);
+		JComponent thisRenderer = (JComponent) super.getTableCellRendererComponent(data);
 
 		rendererComponent.setBackground(thisRenderer.getBackground());
 

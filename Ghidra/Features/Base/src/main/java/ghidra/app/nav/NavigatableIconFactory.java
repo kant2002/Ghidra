@@ -21,7 +21,7 @@ import java.awt.Point;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.OvalColorIcon;
 import resources.icons.TranslateIcon;

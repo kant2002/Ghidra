@@ -17,7 +17,7 @@ package ghidra.feature.vt.gui.provider.markuptable;
 
 import javax.swing.Icon;
 
-import docking.util.MultiIcon;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.TranslateIcon;
 

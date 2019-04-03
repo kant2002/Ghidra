@@ -15,18 +15,18 @@
  */
 package docking;
 
-import generic.util.WindowUtilities;
-import ghidra.framework.Application;
-import ghidra.util.HTMLUtilities;
-
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import javax.swing.*;
 
 import docking.widgets.ScrollableTextArea;
+import generic.util.WindowUtilities;
+import ghidra.framework.Application;
+import ghidra.util.HTMLUtilities;
 
 public class ErrLogDialog extends DialogComponentProvider {
 	private static final int TEXT_ROWS = 30;
@@ -56,7 +56,8 @@ public class ErrLogDialog extends DialogComponentProvider {
 		return new ErrLogDialog(title, message, details, true);
 	}
 
-	public static ErrLogDialog createLogMessageDialog(String title, String message, String details) {
+	public static ErrLogDialog createLogMessageDialog(String title, String message,
+			String details) {
 		return new ErrLogDialog(title, message, details, false);
 	}
 
@@ -139,22 +140,14 @@ public class ErrLogDialog extends DialogComponentProvider {
 		mainPanel.add(introPanel, BorderLayout.NORTH);
 
 		sendButton = new JButton(SEND);
-		sendButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				sendDetails();
-			}
-		});
+		sendButton.addActionListener(e -> sendDetails());
 
 		detailsPanel = new ErrorDetailsPanel();
 		String text = isShowingDetails ? CLOSE : DETAIL;
 		detailsButton = new JButton(text);
-		detailsButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		detailsButton.addActionListener(e -> {
 				String label = detailsButton.getText();
 				showDetails(label.equals(DETAIL));
-			}
 		});
 
 		if (isException) {
@@ -241,7 +234,9 @@ public class ErrLogDialog extends DialogComponentProvider {
 
 	@Override
 	protected void dialogShown() {
-		WindowUtilities.ensureWindowOnScreen(getDialog());
+
+		// TODO test that the parent DockingDialog code handles this....
+		WindowUtilities.ensureOnScreen(getDialog());
 	}
 
 	/**

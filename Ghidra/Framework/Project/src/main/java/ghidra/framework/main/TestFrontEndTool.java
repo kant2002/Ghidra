@@ -27,11 +27,6 @@ public class TestFrontEndTool extends FrontEndTool {
 	}
 
 	@Override
-	protected void doExit() {
-		// don't call super--it calls System.exit()
-	}
-
-	@Override
 	public void close() {
 		setVisible(false);
 	}

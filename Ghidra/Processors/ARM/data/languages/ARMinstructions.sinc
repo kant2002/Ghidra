@@ -553,7 +553,6 @@ attach variables [ thv_Rd thv_Rn thv_Rt thv_Rt2 ] [ r0 r1 r2 r3 r4 r5 r6 r7 r8 r
 attach names [ cpn ] [ p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15  ];
 attach names [ ibOption ] [ opt0 opt1 opt2 opt3 opt4 opt5 opt6 opt7 opt8 opt9 opt10 opt11 opt12 opt13 opt14 SY ];
 attach names [ dbOption ] [ opt0 opt1 OSHST OSH opt4 opt5 NSHST NSH opt8 opt9 ISHST ISH opt12 opt13 ST SY ];
-attach names [ srsMode ] [ _ _ _ _ _ _ _ _ usr fiq irq svc _ _ mon abt _ _ _ und _ _ _ sys _ _ _ _ _ _ _ _ ];
  
 macro addflags(op1,op2) {
  tmpCY = carry(op1,op2);
@@ -1393,6 +1392,21 @@ bitWidth: "#"^w	is lsb & msb	[ w = msb - lsb + 1; ]  { export *[const]:4 w; }
 
 @endif # VERSION_6T2 || VERSION_7
 
+#
+# Modes for SRS instructions
+#
+@if defined(VERSION_6)
+SRSMode: "usr" is srsMode=8 & c0004  { export *[const]:1 c0004; }
+SRSMode: "fiq" is srsMode=9 & c0004  { export *[const]:1 c0004; }
+SRSMode: "irq" is srsMode=10 & c0004 { export *[const]:1 c0004; }
+SRSMode: "svc" is srsMode=11 & c0004 { export *[const]:1 c0004; }
+SRSMode: "mon" is srsMode=14 & c0004 { export *[const]:1 c0004; }
+SRSMode: "abt" is srsMode=15 & c0004 { export *[const]:1 c0004; }
+SRSMode: "und" is srsMode=19 & c0004 { export *[const]:1 c0004; }
+SRSMode: "sys" is srsMode=23 & c0004 { export *[const]:1 c0004; }
+SRSMode: "#"^srsMode is srsMode      { export *[const]:1 srsMode; }
+@endif # VERSION_6
+
 # Add a hat instruction to set the ARMcond context variable which
 # tells whether this is a legal conditional instruction (for v7 and
 # later).
@@ -1662,7 +1676,7 @@ SetMode: "#"^31  is c0004=0x1f  { setSystemMode(); }
   return [pc];
 }
 
-:srsia srsMode 		is $(AMODE) &  cond=15 & c2527=4 & P24=0 & U23=1 & S22=1 & W21=0 & L20=0 & c1215=0 & c0811=5 & c0507=0 & srsMode
+:srsia SRSMode 		is $(AMODE) &  cond=15 & c2527=4 & P24=0 & U23=1 & S22=1 & W21=0 & L20=0 & c1215=0 & c0811=5 & c0507=0 & SRSMode
 {
   # register list is always: r14, spsr
   ptr:4 = sp;
@@ -1672,7 +1686,7 @@ SetMode: "#"^31  is c0004=0x1f  { setSystemMode(); }
   ptr = ptr + 4;
 }
 
-:srsib srsMode 		is $(AMODE) &  cond=15 & c2527=4 & P24=1 & U23=1 & W21=0 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & srsMode
+:srsib SRSMode 		is $(AMODE) &  cond=15 & c2527=4 & P24=1 & U23=1 & W21=0 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & SRSMode
 {
   # register list is always: r14, spsr
   ptr:4 = sp + 4;
@@ -1681,7 +1695,7 @@ SetMode: "#"^31  is c0004=0x1f  { setSystemMode(); }
   *ptr = spsr;
 }
 
-:srsda srsMode 		is $(AMODE) &  cond=15 & c2527=4 & P24=0 & U23=0 & W21=0 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & srsMode
+:srsda SRSMode 		is $(AMODE) &  cond=15 & c2527=4 & P24=0 & U23=0 & W21=0 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & SRSMode
 {
   # register list is always: r14, spsr
   ptr:4 = sp;
@@ -1691,7 +1705,7 @@ SetMode: "#"^31  is c0004=0x1f  { setSystemMode(); }
   ptr = ptr - 4;
 }
 
-:srsdb srsMode 		is $(AMODE) &  cond=15 & c2527=4 & P24=1 & U23=0 & W21=0 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & srsMode
+:srsdb SRSMode 		is $(AMODE) &  cond=15 & c2527=4 & P24=1 & U23=0 & W21=0 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & SRSMode
 {
   # register list is always: r14, spsr
   ptr:4 = sp - 4;
@@ -1700,7 +1714,7 @@ SetMode: "#"^31  is c0004=0x1f  { setSystemMode(); }
   *ptr = spsr;
 }
 
-:srsia srsMode! 		is $(AMODE) &  cond=15 & c2527=4 & P24=0 & U23=1 & S22=1 & W21=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & srsMode
+:srsia SRSMode! 		is $(AMODE) &  cond=15 & c2527=4 & P24=0 & U23=1 & S22=1 & W21=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & SRSMode
 {
   # register list is always: r14, spsr
   ptr:4 = sp;
@@ -1711,7 +1725,7 @@ SetMode: "#"^31  is c0004=0x1f  { setSystemMode(); }
   sp = ptr;
 }
 
-:srsib srsMode! 		is $(AMODE) &  cond=15 & c2527=4 & P24=1 & U23=1 & W21=1 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & srsMode
+:srsib SRSMode! 		is $(AMODE) &  cond=15 & c2527=4 & P24=1 & U23=1 & W21=1 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & SRSMode
 {
   # register list is always: r14, spsr
   ptr:4 = sp + 4;
@@ -1721,7 +1735,7 @@ SetMode: "#"^31  is c0004=0x1f  { setSystemMode(); }
   sp = ptr;
 }
 
-:srsda srsMode! 		is $(AMODE) &  cond=15 & c2527=4 & P24=0 & U23=0 & W21=1 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & srsMode
+:srsda SRSMode! 		is $(AMODE) &  cond=15 & c2527=4 & P24=0 & U23=0 & W21=1 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & SRSMode
 {
   # register list is always: r14, spsr
   ptr:4 = sp;
@@ -1732,7 +1746,7 @@ SetMode: "#"^31  is c0004=0x1f  { setSystemMode(); }
   sp = ptr;
 }
 
-:srsdb srsMode! 		is $(AMODE) &  cond=15 & c2527=4 & P24=1 & U23=0 & W21=1 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & srsMode
+:srsdb SRSMode! 		is $(AMODE) &  cond=15 & c2527=4 & P24=1 & U23=0 & W21=1 & S22=1 & L20=0 & c1215=0 & c0811=5 & c0507=0 & SRSMode
 {
   # register list is always: r14, spsr
   ptr:4 = sp;

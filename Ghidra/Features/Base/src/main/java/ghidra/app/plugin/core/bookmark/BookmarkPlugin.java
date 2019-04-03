@@ -24,7 +24,6 @@ import javax.swing.SwingUtilities;
 import docking.ActionContext;
 import docking.DockingUtils;
 import docking.action.*;
-import docking.util.MultiIconBuilder;
 import docking.widgets.table.GTable;
 import ghidra.app.CorePluginPackage;
 import ghidra.app.events.ProgramSelectionPluginEvent;
@@ -42,8 +41,7 @@ import ghidra.program.util.*;
 import ghidra.util.Msg;
 import ghidra.util.table.SelectionNavigationAction;
 import ghidra.util.task.SwingUpdateManager;
-import resources.Icons;
-import resources.ResourceManager;
+import resources.*;
 
 /**
  * Plugin to for adding/deleting/editing bookmarks.

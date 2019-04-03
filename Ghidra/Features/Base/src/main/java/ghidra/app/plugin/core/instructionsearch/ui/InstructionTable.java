@@ -103,7 +103,7 @@ public class InstructionTable extends AbstractInstructionTable {
 	 */
 	@Override
 	public List<DockingActionIf> getDockingActions(ActionContext context) {
-		return new ArrayList<DockingActionIf>();
+		return new ArrayList<>();
 	}
 
 	public InsertBytesWidget getInsertBytesWidget() {
@@ -300,14 +300,14 @@ public class InstructionTable extends AbstractInstructionTable {
 
 	private void createMaskClearAllBtn(JToolBar buttonToolbar) {
 		Icon icon = ResourceManager.loadImage(CLEAR_ICON_OVERLAY);
-		Icon scaledIcon = ResourceManager.createScaledIcon(icon, ICON_SIZE, ICON_SIZE);
+		Icon scaledIcon = ResourceManager.getScaledIcon(icon, ICON_SIZE, ICON_SIZE);
 		Action action = new ClearMasksAction("undefined", scaledIcon, "Unmask all");
 		createToolbarButton(buttonToolbar, icon, action, "unmask all button");
 	}
 
 	private void createReloadBtn(JToolBar buttonToolbar) {
 		Icon icon = ResourceManager.loadImage(RELOAD_ICON_OVERLAY);
-		Icon scaledIcon = ResourceManager.createScaledIcon(icon, ICON_SIZE, ICON_SIZE);
+		Icon scaledIcon = ResourceManager.getScaledIcon(icon, ICON_SIZE, ICON_SIZE);
 		Action action =
 			new ReloadAction("undefined", scaledIcon, "Load selected instructions from listing");
 		createToolbarButton(buttonToolbar, icon, action, "reload");
@@ -315,14 +315,14 @@ public class InstructionTable extends AbstractInstructionTable {
 
 	private void createManualEditBtn(JToolBar buttonToolbar) {
 		Icon icon = ResourceManager.loadImage(MANUAL_ENTRY_ICON_OVERLAY);
-		Icon scaledIcon = ResourceManager.createScaledIcon(icon, ICON_SIZE, ICON_SIZE);
+		Icon scaledIcon = ResourceManager.getScaledIcon(icon, ICON_SIZE, ICON_SIZE);
 		Action action = new ManualEntryAction("undefined", scaledIcon, "Enter bytes manually");
 		createToolbarButton(buttonToolbar, icon, action, "manual entry");
 	}
 
 	private void createMaskDataBtn(JToolBar buttonToolbar) {
 		Icon icon = ResourceManager.loadImage(UNDEFINED_ICON_OVERLAY);
-		Icon scaledIcon = ResourceManager.createScaledIcon(icon, ICON_SIZE, ICON_SIZE);
+		Icon scaledIcon = ResourceManager.getScaledIcon(icon, ICON_SIZE, ICON_SIZE);
 		Action action =
 			new MaskUndefinedAction("undefined", scaledIcon, "Mask all non-instructions (data)");
 		createToolbarButton(buttonToolbar, icon, action, "mask undefined items button");
@@ -330,21 +330,21 @@ public class InstructionTable extends AbstractInstructionTable {
 
 	private void createMaskAddressesBtn(JToolBar buttonToolbar) {
 		Icon icon = ResourceManager.loadImage(ADDRESS_ICON_OVERLAY);
-		Icon scaledIcon = ResourceManager.createScaledIcon(icon, ICON_SIZE, ICON_SIZE);
+		Icon scaledIcon = ResourceManager.getScaledIcon(icon, ICON_SIZE, ICON_SIZE);
 		Action action = new MaskAddressesAction("addresses", scaledIcon, "Mask all addresses");
 		createToolbarButton(buttonToolbar, icon, action, "mask addresses button");
 	}
 
 	private void createMaskScalarsBtn(JToolBar buttonToolbar) {
 		Icon icon = ResourceManager.loadImage(SCALAR_ICON_OVERLAY);
-		Icon scaledIcon = ResourceManager.createScaledIcon(icon, ICON_SIZE, ICON_SIZE);
+		Icon scaledIcon = ResourceManager.getScaledIcon(icon, ICON_SIZE, ICON_SIZE);
 		Action action = new MaskScalarsAction("scalars", scaledIcon, "Mask all scalars");
 		createToolbarButton(buttonToolbar, icon, action, "mask scalars button");
 	}
 
 	private void createMaskOperandsBtn(JToolBar buttonToolbar) {
 		Icon icon = ResourceManager.loadImage(OPERAND_ICON_OVERLAY);
-		Icon scaledIcon = ResourceManager.createScaledIcon(icon, ICON_SIZE, ICON_SIZE);
+		Icon scaledIcon = ResourceManager.getScaledIcon(icon, ICON_SIZE, ICON_SIZE);
 		Action action = new MaskOperandsAction("operands", scaledIcon, "Mask all operands");
 		createToolbarButton(buttonToolbar, icon, action, "mask operands button");
 	}

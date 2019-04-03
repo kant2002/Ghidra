@@ -15,11 +15,12 @@
  */
 package ghidra.file.formats.sevenzip;
 
+import java.io.*;
+import java.util.*;
+
 import ghidra.app.util.bin.ByteProvider;
 import ghidra.app.util.recognizer.*;
-import ghidra.formats.gfilesystem.GFile;
-import ghidra.formats.gfilesystem.GFileImpl;
-import ghidra.formats.gfilesystem.GFileSystemBase;
+import ghidra.formats.gfilesystem.*;
 import ghidra.formats.gfilesystem.annotations.FileSystemInfo;
 import ghidra.formats.gfilesystem.factory.GFileSystemBaseFactory;
 import ghidra.util.Msg;
@@ -30,12 +31,6 @@ import net.sf.sevenzipjbinding.*;
 import net.sf.sevenzipjbinding.impl.RandomAccessFileInStream;
 import net.sf.sevenzipjbinding.simple.ISimpleInArchive;
 import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @FileSystemInfo(type = "7zip", description = "7Zip", factory = GFileSystemBaseFactory.class)
 public class SevenZipFileSystem extends GFileSystemBase {
@@ -67,7 +62,7 @@ public class SevenZipFileSystem extends GFileSystemBase {
 	}
 
 	private Map<GFile, ISimpleInArchiveItem> map = new HashMap<>();
-	private ISevenZipInArchive archive;
+	private IInArchive archive;
 	private ISimpleInArchive archiveInterface;
 	private RandomAccessFile randomAccessFile;
 

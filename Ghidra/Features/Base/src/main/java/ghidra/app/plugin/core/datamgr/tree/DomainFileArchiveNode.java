@@ -18,11 +18,11 @@ package ghidra.app.plugin.core.datamgr.tree;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import docking.util.MultiIcon;
 import ghidra.app.plugin.core.datamgr.archive.DomainFileArchive;
 import ghidra.framework.model.DomainFile;
 import ghidra.framework.model.DomainObject;
 import ghidra.program.model.listing.Program;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.TranslateIcon;
 
@@ -32,7 +32,8 @@ public class DomainFileArchiveNode extends ArchiveNode {
 	private static ImageIcon CHECKED_OUT_EXCLUSIVE_ICON =
 		ResourceManager.loadImage("images/checkex.png");
 	private static ImageIcon HIJACKED_ICON = ResourceManager.loadImage("images/small_hijack.gif");
-	private static ImageIcon READ_ONLY_ICON = ResourceManager.loadImage("images/lockoverlay.png");
+	private static ImageIcon READ_ONLY_ICON =
+		ResourceManager.loadImage("images/user-busy.png", 10, 10);
 	private static ImageIcon NOT_LATEST_CHECKED_OUT_ICON =
 		ResourceManager.loadImage("images/checkNotLatest.gif");
 
@@ -121,7 +122,7 @@ public class DomainFileArchiveNode extends ArchiveNode {
 		multiIcon.addIcon(baseIcon);
 
 		if (isReadOnly) {
-			multiIcon.addIcon(new TranslateIcon(READ_ONLY_ICON, 6, -3));
+			multiIcon.addIcon(new TranslateIcon(READ_ONLY_ICON, 6, 6));
 		}
 		else if (isHijacked) {
 			multiIcon.addIcon(new TranslateIcon(HIJACKED_ICON, 8, -4));

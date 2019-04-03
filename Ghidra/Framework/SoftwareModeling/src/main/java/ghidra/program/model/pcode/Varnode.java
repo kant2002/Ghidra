@@ -19,11 +19,7 @@ import java.util.Iterator;
 
 import org.xml.sax.Attributes;
 
-import ghidra.program.model.address.Address;
-import ghidra.program.model.address.AddressFactory;
-import ghidra.program.model.address.AddressRange;
-import ghidra.program.model.address.AddressSetView;
-import ghidra.program.model.address.AddressSpace;
+import ghidra.program.model.address.*;
 import ghidra.program.model.lang.Language;
 import ghidra.program.model.lang.Register;
 import ghidra.util.exception.InvalidInputException;
@@ -39,8 +35,8 @@ import ghidra.xml.XmlPullParser;
  * A raw varnode is said to be free, it is not attached to any variable.
  */
 public class Varnode {
-	private static final long masks[] = { 0L, 0xffL, 0xffffL, 0xffffffL, 0xffffffffL,
-		0xffffffffffL, 0xffffffffffffL, 0xffffffffffffffL, 0xffffffffffffffffL };
+	private static final long masks[] = { 0L, 0xffL, 0xffffL, 0xffffffL, 0xffffffffL, 0xffffffffffL,
+		0xffffffffffffL, 0xffffffffffffffL, 0xffffffffffffffffL };
 
 	private Address address;
 	private int size;
@@ -95,8 +91,9 @@ public class Varnode {
 	 * @return the address
 	 */
 	public Address getPCAddress() {
-		if (isInput())
+		if (isInput()) {
 			return Address.NO_ADDRESS;
+		}
 		return getDef().getSeqnum().getTarget();
 	}
 
@@ -126,7 +123,7 @@ public class Varnode {
 
 	/**
 	 * Determine if this varnode contains the specified address
-	 * @param address
+	 * @param address the address for which to check
 	 * @return true if this varnode contains the specified address
 	 */
 	public boolean contains(Address address) {
@@ -151,7 +148,6 @@ public class Varnode {
 	/**
 	 * Determine if this varnode intersects another varnode.  
 	 * @param varnode other varnode
-	 * @param addrFactory address factory which contains all known address spaces (including stack)
 	 * @return true if this varnode intersects the specified varnode
 	 */
 	public boolean intersects(Varnode varnode) {
@@ -296,11 +292,13 @@ public class Varnode {
 	 */
 	public PcodeOp getLoneDescend() {
 		Iterator<PcodeOp> iter = getDescendants();
-		if (!iter.hasNext())
+		if (!iter.hasNext()) {
 			return null;		// If there are no descendants return null
+		}
 		PcodeOp op = iter.next();
-		if (iter.hasNext())
+		if (iter.hasNext()) {
 			return null;		// If there is more than one descendant return null
+		}
 		return op;
 	}
 
@@ -361,6 +359,7 @@ public class Varnode {
 	 * Convert a varnode array into an XML document.
 	 * 
 	 * @param varnodes sequence of storage varnodes
+	 * @param logicalsize the logical size value of the varnode
 	 * @return XML string
 	 */
 	public static String buildXMLAddress(Varnode[] varnodes,int logicalsize) {
@@ -417,7 +416,7 @@ public class Varnode {
 	/**
 	 * Build a varnode from a SAX parse tree node
 	 * 
-	 * @param el SAX tree node element
+	 * @param parser the parser
 	 * @param factory pcode factory used to create valid pcode
 	 * 
 	 * @return new varnode element based on info in the XML.
@@ -428,35 +427,43 @@ public class Varnode {
 			throws PcodeXMLException {
 		XmlElement el = parser.start();
 		try {
-			if (el.getName().equals("void"))
+			if (el.getName().equals("void")) {
 				return null;
+			}
 			Varnode vn;
 			String attrstring = el.getAttribute("ref");
 			int ref = -1;
 			if (attrstring != null) {
 				ref = SpecXmlUtils.decodeInt(attrstring);	// If we have a reference
 				vn = factory.getRef(ref);											// The varnode may already exist
-				if (vn != null)
+				if (vn != null) {
 					return vn;
 			}
+			}
 			Address addr = readXMLAddress(el, factory.getAddressFactory());
-			if (addr == null)
+			if (addr == null) {
 				return null;
+			}
 			int sz;
 			attrstring = el.getAttribute("size");
-			if (attrstring != null)
+			if (attrstring != null) {
 				sz = SpecXmlUtils.decodeInt(attrstring);
-			else
+			}
+			else {
 				sz = 4;
-			if (ref != -1)
+			}
+			if (ref != -1) {
 				vn = factory.newVarnode(sz, addr, ref);
-			else
+			}
+			else {
 				vn = factory.newVarnode(sz, addr);
+			}
 			AddressSpace spc = addr.getAddressSpace();
 			if ((spc != null) && (spc.getType() == AddressSpace.TYPE_VARIABLE))	{	// Check for a composite Address
 				try {
 					factory.readXMLVarnodePieces(el, addr);
-				} catch (InvalidInputException e) {
+				}
+				catch (InvalidInputException e) {
 					throw new PcodeXMLException("Invalid varnode pieces: "+e.getMessage());
 				}
 			}
@@ -466,17 +473,21 @@ public class Varnode {
 				factory.setMergeGroup(vn, val);
 			}
 			attrstring = el.getAttribute("persists");
-			if ((attrstring != null) && (SpecXmlUtils.decodeBoolean(attrstring)))
+			if ((attrstring != null) && (SpecXmlUtils.decodeBoolean(attrstring))) {
 				factory.setPersistant(vn, true);
+			}
 			attrstring = el.getAttribute("addrtied");
-			if ((attrstring != null) && (SpecXmlUtils.decodeBoolean(attrstring)))
+			if ((attrstring != null) && (SpecXmlUtils.decodeBoolean(attrstring))) {
 				factory.setAddrTied(vn, true);
+			}
 			attrstring = el.getAttribute("unaff");
-			if ((attrstring != null) && (SpecXmlUtils.decodeBoolean(attrstring)))
+			if ((attrstring != null) && (SpecXmlUtils.decodeBoolean(attrstring))) {
 				factory.setUnaffected(vn, true);
+			}
 			attrstring = el.getAttribute("input");
-			if ((attrstring != null) && (SpecXmlUtils.decodeBoolean(attrstring)))
+			if ((attrstring != null) && (SpecXmlUtils.decodeBoolean(attrstring))) {
 				vn = factory.setInput(vn, true);
+			}
 			return vn;
 		}
 		finally {
@@ -531,29 +542,37 @@ public class Varnode {
 		return "A_" + address + ":" + size;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object o) {
-		if (o == this)
+		//
+		// Note: it is not clear if the equals/hashCode currently work correctly when used in 
+		//       OverlayAddressSpaces.  There is a ticket to examine this issue.
+		//
+
+		if (o == this) {
 			return true;
-		if (!(o instanceof Varnode))
+		}
+		if (!(o instanceof Varnode)) {
 			return false;
+		}
 
 		Varnode vn = (Varnode) o;
-		if (!vn.isFree())
+		if (!vn.isFree()) {
 			return false;
+		}
 
-		return (this.offset == vn.getOffset() && this.size == vn.getSize() && this.spaceID == vn.getSpace());
+		return (this.offset == vn.getOffset() && this.size == vn.getSize() &&
+			this.spaceID == vn.getSpace());
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
-		return (address.hashCode() << 8) ^ size;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (offset ^ (offset >>> 32));
+		result = prime * result + size;
+		result = prime * result + spaceID;
+		return result;
 	}
 
 	/**
@@ -561,10 +580,7 @@ public class Varnode {
 	 * 
 	 * @param el SAX parse tree element
 	 * @param addrFactory address factory used to create valid addresses
-	 * 
-	 * @return Address or List<Varnode> created from XML info
-	 * 
-	 * @throws PcodeXMLException
+	 * @return Address created from XML info
 	 */
 	public static Address readXMLAddress(XmlElement el, AddressFactory addrFactory) {
 		String localName = el.getName();
@@ -580,16 +596,19 @@ public class Varnode {
 			return spc.getAddress(ref);
 		}
 		String space = el.getAttribute("space");
-		if (space == null)
+		if (space == null) {
 			return Address.NO_ADDRESS;
+		}
 		long offset = SpecXmlUtils.decodeLong(el.getAttribute("offset"));
 		AddressSpace spc = addrFactory.getAddressSpace(space);
-		if (spc == null)
+		if (spc == null) {
 			return null;
+		}
 		return spc.getAddress(offset);
 	}
 	
-	public static Address readXMLAddress(String localName,Attributes attr, AddressFactory addrFactory) {
+	public static Address readXMLAddress(String localName, Attributes attr,
+			AddressFactory addrFactory) {
 		if (localName.equals("spaceid")) {
 			AddressSpace spc = addrFactory.getAddressSpace(attr.getValue("name"));
 			int spaceid = spc.getBaseSpaceID();
@@ -602,12 +621,14 @@ public class Varnode {
 			return spc.getAddress(ref);
 		}
 		String space = attr.getValue("space");
-		if (space == null)
+		if (space == null) {
 			return Address.NO_ADDRESS;
+		}
 		long offset = SpecXmlUtils.decodeLong(attr.getValue("offset"));
 		AddressSpace spc = addrFactory.getAddressSpace(space);
-		if (spc == null)
+		if (spc == null) {
 			return Address.NO_ADDRESS;
+		}
 		return spc.getAddress(offset);
 	}
 
@@ -620,7 +641,8 @@ public class Varnode {
 	 * @return the created Address or Address.NO_ADDRESS in some special cases
 	 * @throws PcodeXMLException
 	 */
-	public static Address readXMLAddress(String addrstring,AddressFactory addrfactory,AddressSpace refSpace) throws PcodeXMLException {
+	public static Address readXMLAddress(String addrstring, AddressFactory addrfactory,
+			AddressSpace refSpace) throws PcodeXMLException {
 
 		int tagstart = addrstring.indexOf('<');
 		if (tagstart >= 0) {
@@ -632,7 +654,8 @@ public class Varnode {
 					attrstart += 6;
 					int nameend = addrstring.indexOf('\"',attrstart);
 					if (nameend >= 0) {
-						AddressSpace spc = addrfactory.getAddressSpace(addrstring.substring(attrstart,nameend));
+						AddressSpace spc =
+							addrfactory.getAddressSpace(addrstring.substring(attrstart, nameend));
 						int spaceid = spc.getBaseSpaceID();
 						spc = addrfactory.getConstantSpace();
 						return spc.getAddress(spaceid);
@@ -656,8 +679,9 @@ public class Varnode {
 							String offstr = addrstring.substring(offstart, offend);
 							AddressSpace spc = addrfactory.getAddressSpace(spcname);
 							// Unknown spaces may result from "spacebase" registers defined in cspec
-							if (spc == null)
+							if (spc == null) {
 								return Address.NO_ADDRESS;
+							}
 							long offset = SpecXmlUtils.decodeLong(offstr);
 							Address addr = spc.getAddress(offset);
 							if (refSpace!=null && refSpace.isOverlaySpace()) {

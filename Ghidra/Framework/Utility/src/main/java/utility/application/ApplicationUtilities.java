@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package utility.applicaiton;
+package utility.application;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import generic.jar.ResourceFile;
-import ghidra.GhidraApplicationLayout;
 import ghidra.framework.ApplicationProperties;
 import ghidra.framework.OperatingSystem;
 import ghidra.util.Msg;
@@ -38,20 +37,25 @@ public class ApplicationUtilities {
 	 */
 	public static Collection<ResourceFile> findDefaultApplicationRootDirs() {
 		Collection<ResourceFile> applicationRootDirs = new ArrayList<>();
-		ResourceFile applicationRootDir = findApplicationRootDirFromClasspath();
+		ResourceFile applicationRootDir = findPrimaryApplicationRootDir();
 		if (applicationRootDir != null) {
 			applicationRootDirs.add(applicationRootDir);
-			applicationRootDirs.addAll(findSiblingApplicationRootDirs(applicationRootDir));
+			if (SystemUtilities.isInTestingMode() || SystemUtilities.isInDevelopmentMode()) {
+				applicationRootDirs.addAll(
+					findApplicationRootDirsFromRepoConfig(applicationRootDir));
+			}
 		}
 		return applicationRootDirs;
 	}
 
 	/**
-	 * Finds an application root directory by looking at classpath entries.
+	 * Finds the primary application root directory from the classpath.  The primary application
+	 * root directory must contain an application.properties file.  No other application root
+	 * directories may contain an application.properties file.
 	 * 
-	 * @return An application root directory, or null if one could not be found.
+	 * @return The primary application root directory, or null if it could not be found.
 	 */
-	private static ResourceFile findApplicationRootDirFromClasspath() {
+	private static ResourceFile findPrimaryApplicationRootDir() {
 		String[] classpath = System.getProperty("java.class.path").split(File.pathSeparator);
 		for (String pathEntry : classpath) {
 			try {
@@ -64,7 +68,7 @@ public class ApplicationUtilities {
 				}
 			}
 			catch (IOException e) {
-				Msg.error(GhidraApplicationLayout.class, "Invalid class path entry: " + pathEntry,
+				Msg.error(ApplicationUtilities.class, "Invalid class path entry: " + pathEntry,
 					e);
 			}
 		}
@@ -72,32 +76,39 @@ public class ApplicationUtilities {
 	}
 
 	/**
-	 * Finds all sibling application root directories of the given application root directory.
-	 * This type of root directory is only relevant in testing or development mode.
+	 * Finds all application root directories defined in the repository config file.
 	 * 
-	 * @return A collection of sibling application root directories.  
+	 * @param primaryApplicationRootDir The primary application root directory that may contain the
+	 *   repository config file one directory up.
+	 * @return A collection of defined application repository root directories.
 	 */
-	private static Collection<ResourceFile> findSiblingApplicationRootDirs(ResourceFile applicationRootDir) {
-		Collection<ResourceFile> siblingApplicationRootDirs = new ArrayList<>();
-		if (SystemUtilities.isInTestingMode() || SystemUtilities.isInDevelopmentMode()) {
-			for (ResourceFile parent : applicationRootDir.getParentFile().getParentFile().listFiles()) {
-				if (parent.equals(applicationRootDir.getParentFile())) {
+	private static Collection<ResourceFile> findApplicationRootDirsFromRepoConfig(
+			ResourceFile primaryApplicationRootDir) {
+		Collection<ResourceFile> repoApplicationRootDirs = new ArrayList<>();
+		ResourceFile repoConfigFile =
+			new ResourceFile(primaryApplicationRootDir.getParentFile(), "ghidra.repos.config");
+		if (repoConfigFile.isFile()) {
+			try (BufferedReader reader =
+				new BufferedReader(new FileReader(repoConfigFile.getFile(false)))) {
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					line = line.trim();
+					if (line.isEmpty() || line.startsWith("#")) {
 					continue;
 				}
-				ResourceFile[] potentialAppRoots = parent.listFiles();
-				if (potentialAppRoots == null) {
-					continue;
+					ResourceFile potentialApplicationRootDir =
+						new ResourceFile(repoConfigFile.getParentFile().getParentFile(),
+							line + File.separator + "Ghidra");
+					if (potentialApplicationRootDir.isDirectory()) {
+						repoApplicationRootDirs.add(potentialApplicationRootDir);
 				}
-				for (ResourceFile potentialRoot : potentialAppRoots) {
-					if (new ResourceFile(potentialRoot,
-						ApplicationProperties.PROPERTY_FILE).exists()) {
-						siblingApplicationRootDirs.add(potentialRoot);
-						break;
 					}
 				}
+			catch (IOException e) {
+				Msg.error(ApplicationUtilities.class, "Failed to read: " + repoConfigFile);
 			}
 		}
-		return siblingApplicationRootDirs;
+		return repoApplicationRootDirs;
 	}
 
 	/**

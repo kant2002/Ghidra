@@ -15,8 +15,7 @@
  */
 package ghidra.framework.plugintool;
 
-import static ghidra.framework.model.ToolTemplate.TOOL_INSTANCE_NAME_XML_NAME;
-import static ghidra.framework.model.ToolTemplate.TOOL_NAME_XML_NAME;
+import static ghidra.framework.model.ToolTemplate.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -99,7 +98,7 @@ public abstract class PluginTool extends AbstractDockingTool
 	protected ManagePluginsDialog manageDialog;
 	protected ExtensionTableProvider extensionTableProvider;
 
-	protected ToolIconURL iconURL = new ToolIconURL("indexon_big.png");
+	protected ToolIconURL iconURL = new ToolIconURL("view_detailed.png");
 
 	private DockingAction exportToolAction;
 	private ToolServices toolServices;

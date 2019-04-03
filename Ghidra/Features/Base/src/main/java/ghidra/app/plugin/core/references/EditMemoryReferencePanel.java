@@ -52,6 +52,7 @@ class EditMemoryReferencePanel extends EditReferencePanel {
 	private WeakHashMap<Program, List<Address>> addrHistoryMap =
 		new WeakHashMap<Program, List<Address>>();
 
+	
 	private ReferencesPlugin plugin;
 
 	// Fields required for ADD
@@ -419,11 +420,18 @@ class EditMemoryReferencePanel extends EditReferencePanel {
 		Address toAddr = toAddressField.getAddress();
 		if (toAddr == null) {
 			AddressSpace space = toAddressField.getAddressSpace();
-			showInputErr("Invalid address specified, " + space.getName() +
+			showInputErr("Invalid memory address offset specified; " + space.getName() +
 				" offset must be in range: " + space.getMinAddress().toString(false) + " to " +
 				space.getMaxAddress().toString(false));
 			return false;
 		}
+		
+		// Don't try to process an address that is not valid. 
+		if (!toAddr.isMemoryAddress()) {
+			showInputErr("Invalid memory address specified");
+			return false;
+		}
+		
 		addHistoryAddress(fromCodeUnit.getProgram(), toAddr);
 
 		toAddr = plugin.checkMemoryAddress(this, fromCodeUnit.getProgram(), toAddr, offset);
@@ -638,14 +646,17 @@ class EditMemoryReferencePanel extends EditReferencePanel {
 
 	private void updateTableSelectionForEvent(MouseEvent anEvent) {
 		Point location = anEvent.getPoint();
-		if (displayTable == null)
+		if (displayTable == null) {
 			return;
+		}
 		int index = displayTable.rowAtPoint(location);
 		if (index == -1) {
-			if (location.y < 0)
+			if (location.y < 0) {
 				index = 0;
-			else
+			}
+			else {
 				index = model.getRowCount() - 1;
+		}
 		}
 		if (displayTable.getSelectedRow() != index) {
 			displayTable.getSelectionModel().setSelectionInterval(index, index);

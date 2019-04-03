@@ -53,7 +53,7 @@ import junit.framework.AssertionFailedError;
 import sun.awt.AppContext;
 import utilities.util.FileUtilities;
 import utilities.util.reflection.ReflectionUtilities;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 public abstract class AbstractGenericTest extends AbstractGTest {
 
@@ -206,6 +206,7 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 
 	/**
 	 * Determine if test failure occur (for use within tear down methods)
+	 * 
 	 * @return true if test failure detected
 	 */
 	protected boolean hasTestFailed() {
@@ -213,8 +214,9 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * A callback for subclasses when a test has failed.  This will be called before 
-	 * <code>tearDown()</code>
+	 * A callback for subclasses when a test has failed. This will be called
+	 * before <code>tearDown()</code>
+	 * 
 	 * @param e the exception that happened when the test failed
 	 */
 	protected void testFailed(Throwable e) {
@@ -222,10 +224,12 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Returns the window parent of c.  If c is a window, then c is returned.
+	 * Returns the window parent of c. If c is a window, then c is returned.
 	 *
-	 * <P>Warning: this differs from {@link SwingUtilities#windowForComponent(Component)} in
-	 * that the latter method will not return the given component if it is a window.
+	 * <P>
+	 * Warning: this differs from
+	 * {@link SwingUtilities#windowForComponent(Component)} in that the latter
+	 * method will not return the given component if it is a window.
 	 *
 	 * @param c the component
 	 * @return the window
@@ -281,8 +285,9 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Load a text resource file into an ArrayList.
-	 * Each line of the file is stored as an item in the list.
+	 * Load a text resource file into an ArrayList. Each line of the file is
+	 * stored as an item in the list.
+	 * 
 	 * @param cls class where resource exists
 	 * @param name resource filename
 	 * @return list of lines contained in file
@@ -322,14 +327,15 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Returns the file within the data directory of the TestResources module that matches
-	 *         the given relative path
+	 * Returns the file within the data directory of the TestResources module
+	 * that matches the given relative path
 	 * <p>
 	 * A {@link FileNotFoundException} is throw if the file does not exist.
 	 *
-	 * @param path path relative to the data directory of the TestResources module.
-	 * @return the file within the data directory of the TestResources module that matches
-	 *         the given relative path
+	 * @param path path relative to the data directory of the TestResources
+	 *            module.
+	 * @return the file within the data directory of the TestResources module
+	 *         that matches the given relative path
 	 * @throws FileNotFoundException if the given file does not exist
 	 */
 	public static File getTestDataFile(String path) throws FileNotFoundException {
@@ -338,8 +344,8 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Returns a file that points to the location on disk of the given relative path name.
-	 * The path is relative to the test resources directory.
+	 * Returns a file that points to the location on disk of the given relative
+	 * path name. The path is relative to the test resources directory.
 	 *
 	 * @param relativePath
 	 * @return a file that points to the location on disk of the relative path.
@@ -354,14 +360,15 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Returns the file within the data directory of the TestResources module that matches
-	 * the given relative path.
+	 * Returns the file within the data directory of the TestResources module
+	 * that matches the given relative path.
 	 * <p>
 	 * Null is returned if the file could not be found.
 	 *
-	 * @param path path relative to the data directory of the TestResources module.
-	 * @return the file within the data directory of the TestResources module that matches
-	 *         the given relative path
+	 * @param path path relative to the data directory of the TestResources
+	 *            module.
+	 * @return the file within the data directory of the TestResources module
+	 *         that matches the given relative path
 	 */
 	public static File findTestDataFile(String path) {
 		try {
@@ -377,6 +384,7 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 
 	/**
 	 * Returns the data directory containing test programs and data
+	 * 
 	 * @return the data directory containing test programs and data
 	 */
 	public static File getTestDataDirectory() {
@@ -407,10 +415,11 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Waits for all system tasks to complete.  These tasks are tracked by the SystemUtilities
-	 * during testing only.
+	 * Waits for all system tasks to complete. These tasks are tracked by the
+	 * SystemUtilities during testing only.
 	 *
-	 * @throws AssertionFailedError if the timeout period expires while waiting for tasks
+	 * @throws AssertionFailedError if the timeout period expires while waiting
+	 *             for tasks
 	 */
 	public static void waitForTasks() {
 		doWaitForTasks(PRIVATE_LONG_WAIT_TIMEOUT);
@@ -472,9 +481,10 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Get the first field object contained within object ownerInstance which has the type classType.
-	 * This method is only really useful if it is known that only a single field of
-	 * classType exists within the ownerInstance.
+	 * Get the first field object contained within object ownerInstance which
+	 * has the type classType. This method is only really useful if it is known
+	 * that only a single field of classType exists within the ownerInstance.
+	 * 
 	 * @param <T>
 	 * @param classType
 	 * @param ownerInstance
@@ -485,21 +495,20 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Sets the instance field by the given name on the given object
-	 * instance.
+	 * Sets the instance field by the given name on the given object instance.
 	 * <p>
-	 * Note: if the field is static, then the <tt>ownerInstance</tt> field
-	 * can be the class of the object that contains the variable.
+	 * Note: if the field is static, then the <tt>ownerInstance</tt> field can
+	 * be the class of the object that contains the variable.
 	 *
-	 * @param  fieldName The name of the field to retrieve.
-	 * @param  ownerInstance The object instance from which to get the
-	 *         variable instance.
-	 * @param  value The value to use when setting the given field
-	 * @throws RuntimeException if there is a problem accessing the field
-	 *         using reflection.  A RuntimeException is used so that calling
-	 *         tests can avoid using a try/catch block, but will still fail
-	 *         when an error is encountered.
-	 * @see    Field#set(Object, Object)
+	 * @param fieldName The name of the field to retrieve.
+	 * @param ownerInstance The object instance from which to get the variable
+	 *            instance.
+	 * @param value The value to use when setting the given field
+	 * @throws RuntimeException if there is a problem accessing the field using
+	 *             reflection. A RuntimeException is used so that calling tests
+	 *             can avoid using a try/catch block, but will still fail when
+	 *             an error is encountered.
+	 * @see Field#set(Object, Object)
 	 */
 	public static void setInstanceField(String fieldName, Object ownerInstance, Object value)
 			throws RuntimeException {
@@ -507,22 +516,22 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Gets the instance field by the given name on the given object
-	 * instance.  The value is a primitive wrapper if it is a primitive type.
+	 * Gets the instance field by the given name on the given object instance.
+	 * The value is a primitive wrapper if it is a primitive type.
 	 * <p>
-	 * Note: if the field is static, then the <tt>ownerInstance</tt> field
-	 * can be the class of the object that contains the variable.
+	 * Note: if the field is static, then the <tt>ownerInstance</tt> field can
+	 * be the class of the object that contains the variable.
 	 *
-	 * @param  fieldName The name of the field to retrieve.
-	 * @param  ownerInstance The object instance from which to get the
-	 *         variable instance.
+	 * @param fieldName The name of the field to retrieve.
+	 * @param ownerInstance The object instance from which to get the variable
+	 *            instance.
 	 * @return The field instance.
-	 * @throws RuntimeException if there is a problem accessing the field
-	 *         using reflection.  A RuntimeException is used so that calling
-	 *         tests can avoid using a try/catch block, but will still fail
-	 *         when an error is encountered.
-	 * @see    Field#get(java.lang.Object)
-	 * @since  Tracker Id 267
+	 * @throws RuntimeException if there is a problem accessing the field using
+	 *             reflection. A RuntimeException is used so that calling tests
+	 *             can avoid using a try/catch block, but will still fail when
+	 *             an error is encountered.
+	 * @see Field#get(java.lang.Object)
+	 * @since Tracker Id 267
 	 */
 	public static Object getInstanceField(String fieldName, Object ownerInstance)
 			throws RuntimeException {
@@ -530,22 +539,22 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Uses reflection to execute the constructor for the given class with the given parameters.
-	 * The new instance of the given class will be returned.
+	 * Uses reflection to execute the constructor for the given class with the
+	 * given parameters. The new instance of the given class will be returned.
 	 * <p>
 	 *
 	 * @param containingClass The class that contains the desired constructor.
-	 * @param parameterTypes The parameter <b>types</b> that the constructor takes.
-	 *        This value can be null or zero length if there are no parameters
-	 *        to pass
-	 * @param args The parameter values that should be passed to the constructor.
-	 *        This value can be null or zero length if there are no parameters
-	 *        to pass
+	 * @param parameterTypes The parameter <b>types</b> that the constructor
+	 *            takes. This value can be null or zero length if there are no
+	 *            parameters to pass
+	 * @param args The parameter values that should be passed to the
+	 *            constructor. This value can be null or zero length if there
+	 *            are no parameters to pass
 	 * @return The new class instance
 	 * @throws RuntimeException if there is a problem accessing the constructor
-	 *         using reflection.  A RuntimeException is used so that calling
-	 *         tests can avoid using a try/catch block, but will still fail
-	 *         when an error is encountered.
+	 *             using reflection. A RuntimeException is used so that calling
+	 *             tests can avoid using a try/catch block, but will still fail
+	 *             when an error is encountered.
 	 */
 	public static Object invokeConstructor(Class<?> containingClass, Class<?>[] parameterTypes,
 			Object[] args) throws RuntimeException {
@@ -554,27 +563,27 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Uses reflection to execute the method denoted by the given method
-	 * name.  If any value is returned from the method execution, then it
-	 * will be returned from this method.  Otherwise, <tt>null</tt> is returned.
+	 * Uses reflection to execute the method denoted by the given method name.
+	 * If any value is returned from the method execution, then it will be
+	 * returned from this method. Otherwise, <tt>null</tt> is returned.
 	 * <p>
-	 * Note: if the method is static, then the <tt>ownerInstance</tt> field
-	 * can be the class of the object that contains the method.
+	 * Note: if the method is static, then the <tt>ownerInstance</tt> field can
+	 * be the class of the object that contains the method.
 	 *
 	 * @param methodName The name of the method to execute.
 	 * @param ownerInstance The object instance of which the method will be
-	 *        executed.
+	 *            executed.
 	 * @param parameterTypes The parameter <b>types</b> that the method takes.
 	 * @param args The parameter values that should be passed to the method.
-	 *        This value can be null or zero length if there are no parameters
-	 *        to pass
+	 *            This value can be null or zero length if there are no
+	 *            parameters to pass
 	 * @return The return value as returned from executing the method.
-	 * @see    Method#invoke(java.lang.Object, java.lang.Object[])
-	 * @throws RuntimeException if there is a problem accessing the field
-	 *         using reflection.  A RuntimeException is used so that calling
-	 *         tests can avoid using a try/catch block, but will still fail
-	 *         when an error is encountered.
-	 * @since  Tracker Id 267
+	 * @see Method#invoke(java.lang.Object, java.lang.Object[])
+	 * @throws RuntimeException if there is a problem accessing the field using
+	 *             reflection. A RuntimeException is used so that calling tests
+	 *             can avoid using a try/catch block, but will still fail when
+	 *             an error is encountered.
+	 * @since Tracker Id 267
 	 */
 	public static Object invokeInstanceMethod(String methodName, Object ownerInstance,
 			Class<?>[] parameterTypes, Object[] args) throws RuntimeException {
@@ -584,20 +593,20 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 
 	/**
 	 * This method is just a "pass through" method for
-	 * {@link #invokeInstanceMethod(String, Object, Class[], Object[])} so
-	 * that callers do not need to pass null to that method when the
-	 * underlying instance method does not have any parameters.
+	 * {@link #invokeInstanceMethod(String, Object, Class[], Object[])} so that
+	 * callers do not need to pass null to that method when the underlying
+	 * instance method does not have any parameters.
 	 *
 	 * @param methodName The name of the method to execute.
 	 * @param ownerInstance The object instance of which the method will be
-	 *        executed.
+	 *            executed.
 	 * @return The return value as returned from executing the method.
-	 * @see    Method#invoke(java.lang.Object, java.lang.Object[])
-	 * @throws RuntimeException if there is a problem accessing the field
-	 *         using reflection.  A RuntimeException is used so that calling
-	 *         tests can avoid using a try/catch block, but will still fail
-	 *         when an error is encountered.
-	 * @see    #invokeInstanceMethod(String, Object, Class[], Object[])
+	 * @see Method#invoke(java.lang.Object, java.lang.Object[])
+	 * @throws RuntimeException if there is a problem accessing the field using
+	 *             reflection. A RuntimeException is used so that calling tests
+	 *             can avoid using a try/catch block, but will still fail when
+	 *             an error is encountered.
+	 * @see #invokeInstanceMethod(String, Object, Class[], Object[])
 	 */
 	public static Object invokeInstanceMethod(String methodName, Object ownerInstance)
 			throws RuntimeException {
@@ -613,34 +622,37 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Finds the button with the indicated TEXT that is a sub-component
-	 * of the indicated container, and then programmatically presses
-	 * the button.
-	 * <BR>The following is a sample JUnit test use:
+	 * Finds the button with the indicated TEXT that is a sub-component of the
+	 * indicated container, and then programmatically presses the button. <BR>
+	 * The following is a sample JUnit test use:
+	 * 
 	 * <PRE>
-	 * 	env.showTool();
-	 * 	OptionDialog dialog = (OptionDialog)env.waitForDialog(OptionDialog.class, 1000);
-	 * 	assertNotNull(dialog);
-	 * 	pressButtonByText(dialog, "OK");
+	 * env.showTool();
+	 * OptionDialog dialog = (OptionDialog) env.waitForDialog(OptionDialog.class, 1000);
+	 * assertNotNull(dialog);
+	 * pressButtonByText(dialog, "OK");
 	 * </PRE>
 	 *
 	 * @param container the container to search. (Typically a dialog.)
 	 * @param buttonText the text on the desired JButton.
-	 * @throws AssertionError if the button isn't found, isn't showing or isn't enabled
+	 * @throws AssertionError if the button isn't found, isn't showing or isn't
+	 *             enabled
 	 */
 	public static void pressButtonByText(Container container, String buttonText) {
 		pressButtonByText(container, buttonText, true);
 	}
 
 	/**
-	 * Finds the button with the indicated TEXT that is a sub-component
-	 * of the indicated container, and then programmatically presses
-	 * the button.
+	 * Finds the button with the indicated TEXT that is a sub-component of the
+	 * indicated container, and then programmatically presses the button.
+	 * 
 	 * @param container the container to search. (Typically a dialog.)
 	 * @param buttonText the text on the desired JButton.
-	 * @param waitForCompletion if true wait for action to complete before returning,
-	 * otherwise schedule action to be performed and return immediately.
-	 * @throws AssertionError if the button isn't found, isn't showing or isn't enabled
+	 * @param waitForCompletion if true wait for action to complete before
+	 *            returning, otherwise schedule action to be performed and
+	 *            return immediately.
+	 * @throws AssertionError if the button isn't found, isn't showing or isn't
+	 *             enabled
 	 */
 	public static void pressButtonByText(Container container, String buttonText,
 			boolean waitForCompletion) {
@@ -659,24 +671,27 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Finds the button with the indicated NAME that is a subcomponent
-	 * of the indicated container, and then programmatically presses
-	 * the button.
+	 * Finds the button with the indicated NAME that is a subcomponent of the
+	 * indicated container, and then programmatically presses the button.
+	 * 
 	 * @param container the container to search. (Typically a dialog)
-	 * @param buttonName the name on the desired AbstractButton (see Component.setName())
+	 * @param buttonName the name on the desired AbstractButton (see
+	 *            Component.setName())
 	 */
 	public static void pressButtonByName(Container container, String buttonName) {
 		pressButtonByName(container, buttonName, true);
 	}
 
 	/**
-	 * Finds the button with the indicated NAME that is a subcomponent
-	 * of the indicated container, and then programmatically presses
-	 * the button.
+	 * Finds the button with the indicated NAME that is a subcomponent of the
+	 * indicated container, and then programmatically presses the button.
+	 * 
 	 * @param container the container to search. (Typically a dialog.)
-	 * @param buttonName the name on the desired AbstractButton (see Component.setName()).
-	 * @param waitForCompletion if true wait for action to complete before returning,
-	 * otherwise schedule action to be performed and return immediately
+	 * @param buttonName the name on the desired AbstractButton (see
+	 *            Component.setName()).
+	 * @param waitForCompletion if true wait for action to complete before
+	 *            returning, otherwise schedule action to be performed and
+	 *            return immediately
 	 */
 	public static void pressButtonByName(Container container, String buttonName,
 			boolean waitForCompletion) {
@@ -696,6 +711,7 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 
 	/**
 	 * Programmatically presses the indicated button.
+	 * 
 	 * @param button the button
 	 */
 	public static void pressButton(AbstractButton button) {
@@ -707,9 +723,11 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 
 	/**
 	 * Programmatically presses the indicated button.
+	 * 
 	 * @param button the button
-	 * @param waitForCompletion if true wait for action to complete before returning,
-	 * otherwise schedule action to be performed and return immediately.
+	 * @param waitForCompletion if true wait for action to complete before
+	 *            returning, otherwise schedule action to be performed and
+	 *            return immediately.
 	 */
 	public static void pressButton(AbstractButton button, boolean waitForCompletion) {
 		Runnable r = () -> button.doClick(0); // 0 means no sleeping
@@ -720,7 +738,7 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	 * Searches the subcomponents of the indicated container and returns the
 	 * component with the specified name.
 	 *
-	 * @param container     the container to search
+	 * @param container the container to search
 	 * @param componentName the name of the desired component
 	 *
 	 * @return the component, or null if not found
@@ -812,8 +830,9 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Searches the subcomponents of the the given container and returns
-	 * the JButton that has the specified text.
+	 * Searches the subcomponents of the the given container and returns the
+	 * JButton that has the specified text.
+	 * 
 	 * @param container the container to search
 	 * @param text the button text
 	 * @return the JButton, or null the button was not found
@@ -838,13 +857,14 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Searches the sub-components of the given container and returns
-	 * the AbstractButton that has the specified text.
+	 * Searches the sub-components of the given container and returns the
+	 * AbstractButton that has the specified text.
 	 * <p>
-	 * This differs from {@link #findButtonByText(Container, String)} in that this method
-	 * will find buttons that do not extend from {@link JButton}.  That method is convenient when
-	 * you do not wish to cast the result from AbstractButton to JButton.   Other than that, this
-	 * method can handle all cases the other method cannot.
+	 * This differs from {@link #findButtonByText(Container, String)} in that
+	 * this method will find buttons that do not extend from {@link JButton}.
+	 * That method is convenient when you do not wish to cast the result from
+	 * AbstractButton to JButton. Other than that, this method can handle all
+	 * cases the other method cannot.
 	 *
 	 * @param container container to search
 	 * @param text button text
@@ -869,8 +889,8 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Searches the sub-components of the given container and returns
-	 * the AbstractButton that has the specified name.
+	 * Searches the sub-components of the given container and returns the
+	 * AbstractButton that has the specified name.
 	 *
 	 * @param container container to search
 	 * @param name the button name (you must set this manually).
@@ -912,13 +932,15 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 
 	/**
 	 * Simulates click the mouse button.
+	 * 
 	 * @param comp the component to click on.
 	 * @param button the mouse button (1, 2, or 3)
 	 * @param x the x coordinate of the click location
 	 * @param y the y coordinate of the click location
 	 * @param clickCount the number of clicks (2 = double click)
 	 * @param modifiers additional modifiers (e.g. MouseEvent.SHIFT_MASK)
-	 * @param popupTrigger a boolean, true if this event is a trigger for a popup menu
+	 * @param popupTrigger a boolean, true if this event is a trigger for a
+	 *            popup menu
 	 */
 	public static void clickMouse(Component comp, int button, int x, int y, int clickCount,
 			int modifiers, boolean popupTrigger) {
@@ -938,6 +960,7 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 
 	/**
 	 * Simulates click the mouse button.
+	 * 
 	 * @param comp the component to click on.
 	 * @param button the mouse button (1, 2, or 3)
 	 * @param x the x coordinate of the click location
@@ -953,6 +976,7 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 
 	/**
 	 * Simulates a mouse drag action
+	 * 
 	 * @param comp the component to drag on.
 	 * @param button the mouse button (1, 2, or 3)
 	 * @param startX the x coordinate of the start drag location
@@ -976,6 +1000,7 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 
 	/**
 	 * Fire a mouse moved event for the given component.
+	 * 
 	 * @param comp source of the event.
 	 * @param x x position relative to the component
 	 * @param y y position relative to the component
@@ -1049,9 +1074,10 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Returns the value from the given {@link Supplier}, invoking the call in the Swing thread.
-	 * This is useful when you may have values that are being changed on the Swing thread and
-	 * you need the test thread to see the changes.
+	 * Returns the value from the given {@link Supplier}, invoking the call in
+	 * the Swing thread. This is useful when you may have values that are being
+	 * changed on the Swing thread and you need the test thread to see the
+	 * changes.
 	 *
 	 * @param s the supplier
 	 * @return the value returned by the supplier
@@ -1206,12 +1232,13 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Launches the runnable on a new thread so as to not block the calling thread.  This is very
-	 * useful for performing actions on the Swing thread that show modal dialogs, which would
-	 * otherwise block the calling thread, such as a testing thread.
+	 * Launches the runnable on a new thread so as to not block the calling
+	 * thread. This is very useful for performing actions on the Swing thread
+	 * that show modal dialogs, which would otherwise block the calling thread,
+	 * such as a testing thread.
 	 *
-	 * @param runnable The runnable that will be executed in a new Thread that will place the
-	 *        runnable on the Swing thread.
+	 * @param runnable The runnable that will be executed in a new Thread that
+	 *            will place the runnable on the Swing thread.
 	 */
 	public static void executeOnSwingWithoutBlocking(Runnable runnable) {
 
@@ -1274,12 +1301,13 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Finds the path of a tree node in the indicated tree with the specified text.
-	 * The matching tree node is determined by comparing the specified text
-	 * with the string returned by the tree node's toString() method.
-	 * <br> Note: This method affects the expansion state of the tree. It
-	 * will expand nodes starting at the root until a match is found or all
-	 * of the tree is checked.
+	 * Finds the path of a tree node in the indicated tree with the specified
+	 * text. The matching tree node is determined by comparing the specified
+	 * text with the string returned by the tree node's toString() method. <br>
+	 * Note: This method affects the expansion state of the tree. It will expand
+	 * nodes starting at the root until a match is found or all of the tree is
+	 * checked.
+	 * 
 	 * @param tree the tree
 	 * @param text the tree node's text
 	 * @return the tree path
@@ -1293,8 +1321,10 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 
 	/**
 	 * Performs a depth first search for the named tree node.
+	 * 
 	 * @param tree the tree to search
-	 * @param startTreePath path indicating node to begin searching from in the tree
+	 * @param startTreePath path indicating node to begin searching from in the
+	 *            tree
 	 * @param text the name of the node to find
 	 * @return the path to the named node or null if it can't be found.
 	 */
@@ -1321,8 +1351,9 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Returns a string which is a printout of a stack trace for each thread running in the
-	 * current JVM
+	 * Returns a string which is a printout of a stack trace for each thread
+	 * running in the current JVM
+	 * 
 	 * @return the stack trace string
 	 */
 	public static String createStackTraceForAllThreads() {
@@ -1330,8 +1361,9 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Prints the contents of the given collection by way of the {@link Object#toString()}
-	 * method.
+	 * Prints the contents of the given collection by way of the
+	 * {@link Object#toString()} method.
+	 * 
 	 * @param collection The contents of which to print
 	 * @return A string representation of the given collection
 	 */
@@ -1362,11 +1394,11 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	 * uses. This will also change the default fonts for the JUnit test to be
 	 * the same as those in Ghidra.
 	 *
-	 * @exception  InterruptedException if we're interrupted while waiting for
-	 *             the event dispatching thread to finish excecuting
-	 *             <code>doRun.run()</code>
-	 * @exception  InvocationTargetException  if an exception is thrown
-	 *             while running <code>doRun</code>
+	 * @exception InterruptedException if we're interrupted while waiting for
+	 *                the event dispatching thread to finish excecuting
+	 *                <code>doRun.run()</code>
+	 * @exception InvocationTargetException if an exception is thrown while
+	 *                running <code>doRun</code>
 	 */
 	public static void fixupGUI() throws InterruptedException, InvocationTargetException {
 		// Make the test look & feel as it would normally.
@@ -1394,8 +1426,9 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Waits for the Swing thread to process any pending events.  This method also waits for
-	 * any {@link SwingUpdateManager}s that have pending events to be flushed.
+	 * Waits for the Swing thread to process any pending events. This method
+	 * also waits for any {@link SwingUpdateManager}s that have pending events
+	 * to be flushed.
 	 *
 	 * @return true if the any {@link SwingUpdateManager}s were busy.
 	 */
@@ -1521,10 +1554,11 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * This is only for internal use.  If you need to wait for the Swing thread from your test,
-	 * then use {@link #waitForSwing()}.
+	 * This is only for internal use. If you need to wait for the Swing thread
+	 * from your test, then use {@link #waitForSwing()}.
 	 *
-	 * @deprecated This is not a test writer's method, but instead an infrastructure method.
+	 * @deprecated This is not a test writer's method, but instead an
+	 *             infrastructure method.
 	 */
 	@Deprecated
 	public static void privateWaitForPostedSwingRunnables_SwingSafe() {
@@ -1565,17 +1599,19 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 //==================================================================================================
 
 	/**
-	 * Returns the directory into which tests can write debug files, such as files containing
-	 * print statements or image files.
+	 * Returns the directory into which tests can write debug files, such as
+	 * files containing print statements or image files.
 	 *
-	 * <P>This is not a temporary directory that will be deleted between tests, which is useful
-	 * in that the debug files will persist after a test run.
+	 * <P>
+	 * This is not a temporary directory that will be deleted between tests,
+	 * which is useful in that the debug files will persist after a test run.
 	 *
-	 * <P>Examples of this directory:
+	 * <P>
+	 * Examples of this directory:
 	 * <UL>
-	 * 	<LI>server: 			{share dir}/junits.new/JunitTest_version/reports</LI>
-	 * 	<LI>local gradle: 	{user home}/git/{repo}/ghidra.git/build/JUnit/reports</LI>
-	 * 	<LI>eclipse:      	{module}/bin/</LI>
+	 * <LI>server: {share dir}/junits.new/JunitTest_version/reports</LI>
+	 * <LI>local gradle: {user home}/git/{repo}/ghidra/build/JUnit/reports</LI>
+	 * <LI>eclipse: {module}/bin/</LI>
 	 * </UL>
 	 *
 	 * @return the directory
@@ -1610,14 +1646,16 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Creates a <b>sub-directory</b> with the given name as a child of the Java temp directory.
-	 * The given name will be the prefix of the new directory name, with any additional text
-	 * as created by 
+	 * Creates a <b>sub-directory</b> with the given name as a child of the Java
+	 * temp directory. The given name will be the prefix of the new directory
+	 * name, with any additional text as created by
 	 * {@link Files#createTempDirectory(Path, String, java.nio.file.attribute.FileAttribute...)}.
-	 * Any left-over test directories will be cleaned-up before creating the new directory.
+	 * Any left-over test directories will be cleaned-up before creating the new
+	 * directory.
 	 * 
-	 * <p>Note: you should not call this method multiple times, as each call will cleanup 
-	 * the previously created directories.
+	 * <p>
+	 * Note: you should not call this method multiple times, as each call will
+	 * cleanup the previously created directories.
 	 *
 	 * @param name the name of the directory to create
 	 * @return the newly created directory
@@ -1645,12 +1683,14 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Creates a file path with a filename that is under the system temp directory.  The path
-	 * returned will not point to an existing file.  The suffix of the file will be <tt>.tmp</tt>.
+	 * Creates a file path with a filename that is under the system temp
+	 * directory. The path returned will not point to an existing file. The
+	 * suffix of the file will be <tt>.tmp</tt>.
 	 * 
 	 * @param name the filename
 	 * @return a new file path
-	 * @throws IOException if there is any problem ensuring that the created path is non-existent
+	 * @throws IOException if there is any problem ensuring that the created
+	 *             path is non-existent
 	 * @see #createTempFilePath(String, String)
 	 */
 	public String createTempFilePath(String name) throws IOException {
@@ -1659,14 +1699,16 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Creates a file path with a filename that is under the system temp directory.  The path
-	 * returned will not point to an existing file.  This method is the same as
-	 * {@link #createTempFilePath(String)}, except that you must provide the extension.
+	 * Creates a file path with a filename that is under the system temp
+	 * directory. The path returned will not point to an existing file. This
+	 * method is the same as {@link #createTempFilePath(String)}, except that
+	 * you must provide the extension.
 	 * 
 	 * @param name the filename
 	 * @param extension the file extension
 	 * @return a new file path
-	 * @throws IOException if there is any problem ensuring that the created path is non-existent
+	 * @throws IOException if there is any problem ensuring that the created
+	 *             path is non-existent
 	 * @see #createTempFile(String, String)
 	 */
 	public String createTempFilePath(String name, String extension) throws IOException {
@@ -1676,10 +1718,10 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Creates a temp file for the current test, using the test name as a prefix for the filename.
-	 * This method calls {@link #createTempFile(String)}, which will cleanup any pre-existing
-	 * temp files whose name pattern matches this test name.   This helps to avoid old 
-	 * temp files from accumulating.
+	 * Creates a temp file for the current test, using the test name as a prefix
+	 * for the filename. This method calls {@link #createTempFile(String)},
+	 * which will cleanup any pre-existing temp files whose name pattern matches
+	 * this test name. This helps to avoid old temp files from accumulating.
 	 * 
 	 * @return the new temp file
 	 * @throws IOException if there is a problem creating the new file
@@ -1689,10 +1731,10 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Creates a temp file for the current test, using the test name as a prefix for the filename.
-	 * This method calls {@link #createTempFile(String)}, which will cleanup any pre-existing
-	 * temp files whose name pattern matches this test name.   This helps to avoid old 
-	 * temp files from accumulating.
+	 * Creates a temp file for the current test, using the test name as a prefix
+	 * for the filename. This method calls {@link #createTempFile(String)},
+	 * which will cleanup any pre-existing temp files whose name pattern matches
+	 * this test name. This helps to avoid old temp files from accumulating.
 	 * 
 	 * @param suffix the suffix to provide for the temp file
 	 * @return the new temp file
@@ -1703,12 +1745,15 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Creates a file in the Java temp directory using the given name as a prefix and the given
-	 * suffix.  The final filename will also include the current test name, as well as any
-	 * data added by {@link File#createTempFile(String, String)}.  The file suffix will be <tt>.tmp</tt>
+	 * Creates a file in the Java temp directory using the given name as a
+	 * prefix and the given suffix. The final filename will also include the
+	 * current test name, as well as any data added by
+	 * {@link File#createTempFile(String, String)}. The file suffix will be
+	 * <tt>.tmp</tt>
 	 * <p>
-	 * The file will be marked to delete on JVM exit.  This will not work if the JVM is taken
-	 * down the hard way, as when pressing the stop button in Eclipse.
+	 * The file will be marked to delete on JVM exit. This will not work if the
+	 * JVM is taken down the hard way, as when pressing the stop button in
+	 * Eclipse.
 	 *
 	 * @param name the prefix to put on the file, before the test name
 	 * @return the newly created file
@@ -1721,21 +1766,25 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Creates a file in the Java temp directory using the given name as a prefix and the given
-	 * suffix.  The final filename will also include the current test name, as well as any
-	 * data added by {@link File#createTempFile(String, String)}.
+	 * Creates a file in the Java temp directory using the given name as a
+	 * prefix and the given suffix. The final filename will also include the
+	 * current test name, as well as any data added by
+	 * {@link File#createTempFile(String, String)}.
 	 * <p>
-	 * The file will be marked to delete on JVM exit.  This will not work if the JVM is taken
-	 * down the hard way, as when pressing the stop button in Eclipse.
+	 * The file will be marked to delete on JVM exit. This will not work if the
+	 * JVM is taken down the hard way, as when pressing the stop button in
+	 * Eclipse.
 	 * <p>
-	 * 							Note:  This method <b>will</b> create the file on disk!
-	 * If you need the file to not exist, then you must delete the file yourself.  Alternatively,
-	 * you could instead call {@link #createTempFilePath(String, String)}, which will ensure
-	 * that the created temp file is deleted.
+	 * Note: This method <b>will</b> create the file on disk! If you need the
+	 * file to not exist, then you must delete the file yourself. Alternatively,
+	 * you could instead call {@link #createTempFilePath(String, String)}, which
+	 * will ensure that the created temp file is deleted.
 	 *
-	 * <p>Finally, this method will delete any files that match the given name and suffix
-	 * values before creating the given temp file.  <b>This is important, as it will delete any
-	 * files already created by the test that match this info.</b>
+	 * <p>
+	 * Finally, this method will delete any files that match the given name and
+	 * suffix values before creating the given temp file. <b>This is important,
+	 * as it will delete any files already created by the test that match this
+	 * info.</b>
 	 *
 	 * @param name the prefix to put on the file, before the test name
 	 * @param suffix the file suffix
@@ -1762,7 +1811,8 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Delete any files under the Java temp directory that have the given text in their name.
+	 * Delete any files under the Java temp directory that have the given text
+	 * in their name.
 	 *
 	 * @param nameText the partial name text to match against the files
 	 * @see #deleteMatchingTempFiles(String)
@@ -1775,8 +1825,8 @@ public abstract class AbstractGenericTest extends AbstractGTest {
 	}
 
 	/**
-	 * Delete any files under the this test case's specific temp directory that match
-	 * the give regex {@link Pattern}
+	 * Delete any files under the this test case's specific temp directory that
+	 * match the give regex {@link Pattern}
 	 *
 	 * @param namePattern the pattern to match against the files
 	 * @see #deleteSimilarTempFiles(String)

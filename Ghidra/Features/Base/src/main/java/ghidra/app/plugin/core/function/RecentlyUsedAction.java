@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +15,19 @@
  */
 package ghidra.app.plugin.core.function;
 
+import java.awt.event.KeyEvent;
+
+import javax.swing.KeyStroke;
+
+import docking.ActionContext;
+import docking.action.KeyBindingData;
+import docking.action.MenuData;
 import ghidra.app.context.ListingActionContext;
 import ghidra.app.services.DataTypeManagerService;
 import ghidra.program.model.data.ByteDataType;
 import ghidra.program.model.data.DataType;
 import ghidra.program.util.*;
 import ghidra.util.HelpLocation;
-
-import java.awt.event.KeyEvent;
-
-import javax.swing.KeyStroke;
-
-import docking.ActionContext;
-import docking.action.*;
 
 public class RecentlyUsedAction extends DataAction {
 	private final static KeyStroke DEFAULT_KEY_STROKE = KeyStroke.getKeyStroke(KeyEvent.VK_Y, 0);
@@ -38,9 +37,6 @@ public class RecentlyUsedAction extends DataAction {
 		super("Recently Used", "Recent", new ByteDataType(), plugin);
 
 		setHelpLocation(new HelpLocation(plugin.getName(), "Recently_Used"));
-
-		DockingAction dummyAction = getDummyKeyBindingAction();
-		dummyAction.setKeyBindingData(new KeyBindingData(DEFAULT_KEY_STROKE));
 	}
 
 	@Override
@@ -67,7 +63,9 @@ public class RecentlyUsedAction extends DataAction {
 		}
 
 		this.dataType = recentDataType;
-		return super.isEnabledForContext(context);
+		
+		boolean enabled = super.isEnabledForContext(context);
+		return enabled;
 	}
 
 	@Override

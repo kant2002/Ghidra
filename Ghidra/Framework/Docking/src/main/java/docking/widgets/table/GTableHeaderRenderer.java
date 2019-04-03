@@ -24,9 +24,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
-import docking.util.MultiIcon;
-import resources.Icons;
-import resources.ResourceManager;
+import resources.*;
 import resources.icons.EmptyIcon;
 import resources.icons.TranslateIcon;
 
@@ -273,7 +271,7 @@ public class GTableHeaderRenderer extends JPanel implements TableCellRenderer {
 		icon = getColumnIconForSortState(columnSortStates, sortState, false);
 		if (sortPending) {
 			// indicate that the current sort is stale
-			icon = ResourceManager.createDisabledIcon(icon, 65);
+			icon = ResourceManager.getDisabledIcon(icon, 65);
 		}
 
 		return icon;

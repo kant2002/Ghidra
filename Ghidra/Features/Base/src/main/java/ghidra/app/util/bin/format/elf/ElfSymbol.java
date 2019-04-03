@@ -243,6 +243,7 @@ public class ElfSymbol implements ByteArrayConverter {
 		result = prime * result + st_shndx;
 		result = prime * result + (int) (st_size ^ (st_size >>> 32));
 		result = prime * result + (int) (st_value ^ (st_value >>> 32));
+		result = prime * result + symbolTableIndex;
 		return result;
 	}
 
@@ -266,6 +267,8 @@ public class ElfSymbol implements ByteArrayConverter {
 		if (st_size != other.st_size)
 			return false;
 		if (st_value != other.st_value)
+			return false;
+		if (symbolTableIndex != other.symbolTableIndex)
 			return false;
 		return true;
 	}

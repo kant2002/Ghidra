@@ -15,20 +15,15 @@
  */
 package ghidra.util;
 
+import java.io.*;
+import java.lang.reflect.Modifier;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+
 import ghidra.util.exception.AssertException;
 import junit.framework.TestSuite;
 import utilities.util.FileUtilities;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Modifier;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.StringTokenizer;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 
 /**
  * A set of static utilities to facilitate JUnit testing.

@@ -223,9 +223,13 @@ public class GhidraTable extends GTable {
 
 	/**
 	 * Does nothing if no {@link GoToService} has been installed from 
-	 * {@link #setGoToService(GoToService)}.  Also, this method will do nothing if this table's 
-	 * <tt>TableModel</tt> is not an instance of {@link ProgramTableModel}.  Otherwise, this 
-	 * method will attempt to go to the program location denoted by the given row and column.
+	 * {@link #installNavigation(GoToService, Navigatable)}.  Also, this method will do 
+	 * nothing if this table's <tt>TableModel</tt> is not an instance of {@link ProgramTableModel}.  
+	 * Otherwise, this method will attempt to go to the program location denoted by the 
+	 * given row and column.
+	 * 
+	 * @param row the row 
+	 * @param column the column
 	 */
 	public void navigate(int row, int column) {
 		if (navigatable == null) {
@@ -253,8 +257,8 @@ public class GhidraTable extends GTable {
 
 	/**
 	 * Does nothing if no {@link GoToService} has been installed from 
-	 * {@link #installNavigation(Navigatable)}.  Otherwise, this method will attempt to go to the 
-	 * program location denoted by the given row and column.
+	 * {@link #installNavigation(GoToService, Navigatable)}.  Otherwise, this method will attempt 
+	 * to go to the program location denoted by the given row and column.
 	 * <p>
 	 * This method differs from {@link #navigate(int, int)} in that this method will not 
 	 * navigate if {@link #navigateOnSelection} is <tt>false</tt>.
@@ -278,6 +282,35 @@ public class GhidraTable extends GTable {
 	 */
 	public void setNavigateOnSelectionEnabled(boolean enabled) {
 		navigateOnSelection = enabled;
+	}
+
+	@Override
+	public void setValueAt(Object aValue, int row, int column) {
+
+		//
+		// Protect against a timing issue whereby program-based table models have had their
+		// program closed while an edit is open.  Sometimes, when the table repaints, the table
+		// will trigger an editingStopped(), which attempts to commit the active edit.  This can
+		// trigger an exception when the model attempts to access the program.  Here we are 
+		// attempting to prevent the edit from being committed.
+		// 
+		if (programIsClosed()) {
+			return;
+		}
+
+		super.setValueAt(aValue, row, column);
+	}
+
+	private boolean programIsClosed() {
+
+		if (!(dataModel instanceof ProgramTableModel)) {
+			// not a program-based model; no program
+			return false;
+		}
+
+		ProgramTableModel ptm = (ProgramTableModel) dataModel;
+		Program program = ptm.getProgram();
+		return program == null;
 	}
 
 	/**

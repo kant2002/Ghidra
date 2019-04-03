@@ -293,8 +293,7 @@ public class InterpreterPanel extends JPanel implements OptionsChangeListener {
 						break;
 					default:
 
-						// Check for the completion window trigger on input that
-						// contains text.
+						// Check for the completion window trigger on input that contains text
 						if (completionWindowTrigger.isTrigger(e) &&
 							!inputTextPane.getText().trim().isEmpty()) {
 							completionWindowTriggered(completionWindow);
@@ -478,8 +477,7 @@ public class InterpreterPanel extends JPanel implements OptionsChangeListener {
 			currentLocation = caretPosition;
 		}
 
-		Point initialLocation = codeCompletionWindow.offsetLocation(currentLocation);
-		codeCompletionWindow.setLocation(initialLocation);
+		codeCompletionWindow.updateLocation(currentLocation);
 	}
 
 	private void updateCompletionList() {

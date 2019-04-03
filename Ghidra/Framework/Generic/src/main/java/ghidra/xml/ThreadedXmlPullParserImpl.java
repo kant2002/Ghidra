@@ -27,6 +27,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import generic.concurrent.GThreadPool;
 import generic.jar.ResourceFile;
 import ghidra.util.Msg;
+import ghidra.util.xml.XmlUtilities;
 
 /**
  * Constructs a new XML parser. This is class is designed for reading XML files.
@@ -58,16 +59,11 @@ class ThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 	/**
 	 * Constructs a new parser using the specified XML file.
 	 * 
-	 * @param file
-	 *            the input XML file
-	 * @param errHandler
-	 *            the XML error handler
-	 * @param validate
-	 *            true if the parse should validate against the DTD
-	 * @throws SAXException
-	 *             if an XML parse error occurs
-	 * @throws IOException
-	 *             if an i/o error occurs
+	 * @param file the input XML file
+	 * @param errHandler the XML error handler
+	 * @param validate true if the parse should validate against the DTD
+	 * @throws SAXException if an XML parse error occurs
+	 * @throws IOException if an i/o error occurs
 	 */
 	ThreadedXmlPullParserImpl(File file, ErrorHandler errHandler, boolean validate, int capacity)
 			throws SAXException, IOException {
@@ -77,16 +73,11 @@ class ThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 	/**
 	 * Constructs a new parser using the specified XML file.
 	 * 
-	 * @param file
-	 *            the input XML file
-	 * @param errHandler
-	 *            the XML error handler
-	 * @param validate
-	 *            true if the parse should validate against the DTD
-	 * @throws SAXException
-	 *             if an XML parse error occurs
-	 * @throws IOException
-	 *             if an i/o error occurs
+	 * @param file the input XML file
+	 * @param errHandler the XML error handler
+	 * @param validate true if the parse should validate against the DTD
+	 * @throws SAXException if an XML parse error occurs
+	 * @throws IOException if an i/o error occurs
 	 */
 	ThreadedXmlPullParserImpl(ResourceFile file, ErrorHandler errHandler, boolean validate,
 			int capacity) throws SAXException, IOException {
@@ -108,18 +99,12 @@ class ThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 	 * {@link #XmlParser(File, ErrorHandler, boolean)}.
 	 * <p>
 	 * 
-	 * @param input
-	 *            the XML input stream
-	 * @param inputName
-	 *            the name of the input stream
-	 * @param errHandler
-	 *            the XML error handler
-	 * @param validate
-	 *            true if the parse should validate against the DTD
-	 * @throws SAXException
-	 *             if an XML parse error occurs
-	 * @throws IOException
-	 *             if an i/o error occurs
+	 * @param input the XML input stream
+	 * @param inputName the name of the input stream
+	 * @param errHandler the XML error handler
+	 * @param validate true if the parse should validate against the DTD
+	 * @throws SAXException if an XML parse error occurs
+	 * @throws IOException if an i/o error occurs
 	 */
 	ThreadedXmlPullParserImpl(InputStream input, String inputName, ErrorHandler errHandler,
 			boolean validate, int capacity) throws SAXException {
@@ -142,8 +127,9 @@ class ThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 	}
 
 	/**
-	 * Returns the value of the attribute of the processing instruction.
-	 * For example, <code>&lt;?program_dtd version="1"?&gt;</code>
+	 * Returns the value of the attribute of the processing instruction. For
+	 * example, <code>&lt;?program_dtd version="1"?&gt;</code>
+	 * 
 	 * @param piName the name of the processing instruction
 	 * @param attribute the name of the attribute
 	 * @return the value of the attribute of the processing instruction
@@ -237,7 +223,7 @@ class ThreadedXmlPullParserImpl extends AbstractXmlPullParser {
 			this.contentHandler = new DefaultContentHandlerWrapper(errHandler);
 
 			try {
-				SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+				SAXParserFactory saxParserFactory = XmlUtilities.createSecureSAXParserFactory(true);
 				saxParserFactory.setFeature("http://xml.org/sax/features/namespaces", false);
 				saxParserFactory.setFeature("http://xml.org/sax/features/validation", validate);
 				saxParser = saxParserFactory.newSAXParser();

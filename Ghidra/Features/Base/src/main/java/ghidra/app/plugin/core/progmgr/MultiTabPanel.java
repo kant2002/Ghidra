@@ -43,7 +43,7 @@ public class MultiTabPanel extends JPanel {
 	private final static Icon CLOSE_ICON = ResourceManager.loadImage("images/x.gif");
 	private final static Icon HIGHLIGHT_CLOSE_ICON = ResourceManager.loadImage("images/pinkX.gif");
 	private final static Icon LIST_ICON = ResourceManager.loadImage("images/VCRFastForward.gif");
-	private final static Icon TRANSIENT_ICON = ResourceManager.loadImage("images/link8x16.png");
+	private final static Icon TRANSIENT_ICON = ResourceManager.loadImage("images/link.png", 8, 16);
 
 	private final static Color TEXT_SELECTION_COLOR = Color.WHITE;
 	private final static Color TEXT_NON_SELECTION_COLOR = UIManager.getColor("Tree.textForeground");
@@ -718,10 +718,16 @@ public class MultiTabPanel extends JPanel {
 	}
 
 	private void setListLocationBelowLabel(JLabel label) {
+
+		Rectangle bounds = listWindow.getBounds();
+
 		// no label implies we are launched from a keyboard event
 		if (label == null) {
+
 			Point centerPoint = WindowUtilities.centerOnComponent(getParent(), listWindow);
-			listWindow.setLocation(centerPoint);
+			bounds.setLocation(centerPoint);
+			WindowUtilities.ensureOnScreen(getParent(), bounds);
+			listWindow.setBounds(bounds);
 			return;
 		}
 
@@ -729,10 +735,11 @@ public class MultiTabPanel extends JPanel {
 		Point p = label.getLocationOnScreen();
 		int x = p.x;
 		int y = p.y + label.getHeight() + 3;
-		listWindow.setLocation(x, y);
+		bounds.setLocation(x, y);
 
 		// fixes problem where popup gets clipped when going across screens
-		p = WindowUtilities.adjustBoundsToFitScreen(listWindow.getBounds());
+		WindowUtilities.ensureOnScreen(label, bounds);
+		listWindow.setBounds(bounds);
 	}
 
 	private void createListWindow() {

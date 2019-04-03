@@ -28,6 +28,7 @@ import ghidra.app.util.bin.format.macho.commands.SegmentCommand;
 import ghidra.util.NumericUtilities;
 import ghidra.util.SystemUtilities;
 import ghidra.util.task.TaskMonitor;
+import ghidra.util.xml.XmlUtilities;
 
 public class PrelinkParser {
 
@@ -51,12 +52,13 @@ public class PrelinkParser {
 		this.provider = provider;
 	}
 
-	public List<PrelinkMap> parse( TaskMonitor monitor ) throws IOException, JDOMException, NoPreLinkSectionException {
+	public List<PrelinkMap> parse(TaskMonitor monitor)
+			throws IOException, JDOMException, NoPreLinkSectionException {
 		InputStream inputStream = findPrelinkInputStream();
 
 		monitor.setMessage("Parsing prelink plist...");
 
-		SAXBuilder sax = new SAXBuilder( false );
+		SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 		Document doc = sax.build( inputStream );
 		Element root = doc.getRootElement();
 
@@ -125,7 +127,8 @@ public class PrelinkParser {
 		return map;
 	}
 
-	private String processValue(Element keyElement, Element valueElement, PrelinkMap map, TaskMonitor monitor) {
+	private String processValue(Element keyElement, Element valueElement, PrelinkMap map,
+			TaskMonitor monitor) {
 		String key = keyElement.getValue();		
 		if ( valueElement.getName().equals( TAG_STRING ) ) {
 			return processString(map, key, valueElement);
@@ -257,7 +260,8 @@ public class PrelinkParser {
 			}
 		}
 		if (prelinkInputStream == null) {
-			throw new NoPreLinkSectionException("Unable to locate __info section in __PRELINK segment inside mach-o header for COMPLZSS file system.");
+			throw new NoPreLinkSectionException(
+				"Unable to locate __info section in __PRELINK segment inside mach-o header for COMPLZSS file system.");
 		}
 		return prelinkInputStream;
 	}

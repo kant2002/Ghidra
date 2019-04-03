@@ -32,7 +32,7 @@ import ghidra.program.model.listing.Program;
 import ghidra.util.Msg;
 import ghidra.util.SystemUtilities;
 import ghidra.util.task.TaskMonitorAdapter;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 /**
  * A simple class for running scripts outside of Ghidra.

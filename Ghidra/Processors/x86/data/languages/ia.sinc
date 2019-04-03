@@ -73,6 +73,8 @@ define register offset=0x700 size=8    [ BNDCFGS BNDCFGU BNDSTATUS ];
 define register offset=0x740 size=16   [ BND0 BND1 BND2 BND3 _ _ _ _ ];
 define register offset=0x740 size=8    [ BND0_LB BND0_UB BND1_LB BND1_UB BND2_LB BND2_UB BND3_LB BND3_UB _ _ _ _ _ _ _ _ ];
 
+# Control Flow Extensions
+define register offset=0x7c0 size=8    [ SSP IA32_PL2_SSP IA32_PL1_SSP IA32_PL0_SSP ];
 
 # Floating point registers - as they are in 32-bit protected mode
 define register offset=0x1000 size=10  [ ST0 ST1 ST2 ST3 ST4 ST5 ST6 ST7 ];
@@ -2789,8 +2791,7 @@ define pcodeop clzero;
 @ifdef IA64
 :CMP RAX,imm32      is vexMode=0 & opsize=2 & byte=0x3d; RAX & imm32            { subflags(  RAX,imm32); local tmp =   RAX -  imm32; resultflags(tmp); }
 @endif
-:CMP spec_rm8,imm8       is vexMode=0 & (addrsize=0 | addrsize=1) & (byte=0x80 | byte=0x82); spec_rm8 & reg_opcode=7 ...; imm8        { subflags(  spec_rm8,imm8 ); local tmp =   spec_rm8 -   imm8; resultflags(tmp); }
-:CMP spec_rm16,imm16     is vexMode=0 & opsize=0 & byte=0x81; spec_rm16 & reg_opcode=7 ...; imm16 { subflags( spec_rm16,imm16); local tmp =  spec_rm16 -  imm16; resultflags(tmp); }
+:CMP spec_rm8,imm8       is vexMode=0 & (byte=0x80 | byte=0x82); spec_rm8 & reg_opcode=7 ...; imm8        { subflags(  spec_rm8,imm8 ); local tmp =   spec_rm8 -   imm8; resultflags(tmp); }
 :CMP spec_rm32,imm32     is vexMode=0 & opsize=1 & byte=0x81; spec_rm32 & reg_opcode=7 ...; imm32 { subflags( spec_rm32,imm32); local tmp =  spec_rm32 -  imm32; resultflags(tmp); }
 @ifdef IA64
 :CMP spec_rm64,imm32     is vexMode=0 & opsize=2 & byte=0x81; spec_rm64 & reg_opcode=7 ...; imm32 { subflags( spec_rm64,imm32); local tmp =  spec_rm64 -  imm32; resultflags(tmp); }
@@ -3877,9 +3878,9 @@ define pcodeop swap_bytes;
 :POPFQ          is vexMode=0 & addrsize=2 & opsize=2 & byte=0x9d            { pop88(rflags); unpackflags(rflags); unpackeflags(rflags); }
 @endif
 
-:PREFETCH     m8  is vexMode=0 & byte=0x0f; byte=0x0d; m8 & reg_opcode=0 ... { }
+:PREFETCH   m8  is vexMode=0 & byte=0x0f; byte=0x0d; m8 & reg_opcode=0 ... { }
 :PREFETCH     m8  is vexMode=0 & byte=0x0f; byte=0x0d; m8 & reg_opcode   ... { }  # rest aliased to /0
-:PREFETCHW    m8  is vexMode=0 & byte=0x0f; byte=0x0d; m8 & reg_opcode=1 ... { }
+:PREFETCHW  m8  is vexMode=0 & byte=0x0f; byte=0x0d; m8 & reg_opcode=1 ... { }
 :PREFETCHWT1  m8  is vexMode=0 & byte=0x0f; byte=0x0d; m8 & reg_opcode=2 ... { }
 
 :PREFETCHT0 m8  is vexMode=0 & byte=0x0f; byte=0x18; ( mod != 0b11 & reg_opcode=1 ) ... & m8 { }
@@ -4027,10 +4028,10 @@ define pcodeop rdtsc;
 
 :RET imm16      is vexMode=0 & addrsize=0 & opsize=0 & byte=0xc2; imm16     { pop22(IP); EIP=zext(IP); SP=SP+imm16; return [EIP]; }      
 :RET imm16      is vexMode=0 & addrsize=1 & opsize=0 & byte=0xc2; imm16     { pop42(IP); EIP=zext(IP); ESP=ESP+imm16; return [EIP]; }        
-:RET imm16      is vexMode=0 & addrsize=0 & opsize=1 & byte=0xc2; imm16     { pop24(EIP); tmp:4=0; SP=SP+imm16; return [EIP]; }
-:RET imm16      is vexMode=0 & addrsize=1 & opsize=1 & byte=0xc2; imm16     { pop44(EIP); tmp:4=0; ESP=ESP+imm16; return [EIP]; }
+:RET imm16      is vexMode=0 & addrsize=0 & opsize=1 & byte=0xc2; imm16     { pop24(EIP); SP=SP+imm16; return [EIP]; }
+:RET imm16      is vexMode=0 & addrsize=1 & opsize=1 & byte=0xc2; imm16     { pop44(EIP); ESP=ESP+imm16; return [EIP]; }
 @ifdef IA64
-:RET imm16      is vexMode=0 & addrsize=2 &            byte=0xc2; imm16     { pop88(RIP); tmp:8=0; RSP=RSP+imm16; return [RIP]; }
+:RET imm16      is vexMode=0 & addrsize=2 &            byte=0xc2; imm16     { pop88(RIP); RSP=RSP+imm16; return [RIP]; }
 @endif
 
 :RET imm16      is vexMode=0 & addrsize=0 & opsize=0 & byte=0xca; imm16     { pop22(IP); EIP=zext(IP); pop22(CS); SP=SP+imm16; return [EIP]; }       

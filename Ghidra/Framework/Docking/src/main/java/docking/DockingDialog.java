@@ -312,7 +312,7 @@ public class DockingDialog extends JDialog implements HelpDescriptor {
 	@Override
 	public void setVisible(boolean b) {
 		if (b) {
-			WindowUtilities.ensureWindowOnScreen(this);
+			WindowUtilities.ensureOnScreen(this);
 		}
 		super.setVisible(b);
 	}

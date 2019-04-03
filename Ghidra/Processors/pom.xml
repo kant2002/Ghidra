@@ -22,6 +22,7 @@
     <module>ARM</module>
     <module>Atmel</module>
     <module>CR16</module>
+    <module>Dalvik</module>
     <module>DATA</module>
     <module>JVM</module>
     <module>MIPS</module>

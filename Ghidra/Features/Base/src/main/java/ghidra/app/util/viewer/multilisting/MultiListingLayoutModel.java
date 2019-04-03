@@ -156,62 +156,64 @@ public class MultiListingLayoutModel implements ListingModelListener, FormatMode
 
 		@Override
 		public Address getAddressAfter(Address address) {
-			Address nextAddress = null; // Next address for this model.
-			Program program = getProgram();
-			Program primaryProgram = models[0].getProgram();
-			Address primaryModelAddress = (program == primaryProgram) ? address
-					: SimpleDiffUtility.getCompatibleAddress(program, address, primaryProgram);
-			// If address is an external from the other model, then we may not be able to get 
-			// an equivalent address in the primary model (i.e. primaryModelAddress may be null).
-			if (primaryModelAddress == null) {
-				return null;
-			}
-			// Important: These models can be from different programs, so must convert addresses.
-			for (ListingModel tempModel : models) {
-				Address tempModelAddressAfter = tempModel.getAddressAfter(primaryModelAddress);
-				if (tempModelAddressAfter == null) {
-					continue;
-				}
-				// Convert the tempModelAddress back to address for this model so it can be compared.
-				Program tempModelProgram = tempModel.getProgram();
-				Address addressAfter = (program == tempModelProgram) ? tempModelAddressAfter
-						: SimpleDiffUtility.getCompatibleAddress(tempModelProgram,
-							tempModelAddressAfter, program);
-				if (nextAddress == null || addressAfter.compareTo(nextAddress) < 0) {
-					nextAddress = addressAfter;
-				}
-			}
-			return nextAddress;
+			return getNextAddress(address, true);
 		}
 
 		@Override
 		public Address getAddressBefore(Address address) {
-			Address previousAddress = null; // Previous address for this model.
+			return getNextAddress(address, false);
+		}
+
+		/**
+		 * Returns the next address in the specified direction
+		 * 
+		 * @param address the start address
+		 * @param after true to find the address after the given address; false to find the 
+		 * 		  address before the given address
+		 * @return the next address in the given direction; null if there is no next address or if
+		 *         <code>address</code> is null
+		 */
+		private Address getNextAddress(Address address, boolean after) {
+			Address nextAddress = null; // Next address for this model
 			Program program = getProgram();
 			Program primaryProgram = models[0].getProgram();
 			Address primaryModelAddress = (program == primaryProgram) ? address
 					: SimpleDiffUtility.getCompatibleAddress(program, address, primaryProgram);
+
 			// If address is an external from the other model, then we may not be able to get 
-			// an equivalent address in the primary model (i.e. primaryModelAddress may be null).
+			// an equivalent address in the primary model (i.e. primaryModelAddress may be null)
 			if (primaryModelAddress == null) {
 				return null;
 			}
-			// Important: These models can be from different programs, so must convert addresses.
+
+			// Important: These models can be from different programs, so must convert addresses
 			for (ListingModel tempModel : models) {
-				Address tempModelAddressBefore = tempModel.getAddressBefore(primaryModelAddress);
-				if (tempModelAddressBefore == null) {
+				Address tempModelAddressAfter =
+					after ? tempModel.getAddressAfter(primaryModelAddress)
+							: tempModel.getAddressBefore(primaryModelAddress);
+
+				// Convert the tempModelAddress back to address for this model so it can be compared
+				Program tempModelProgram = tempModel.getProgram();
+				Address addressAfter = (program == tempModelProgram) ? tempModelAddressAfter
+						: SimpleDiffUtility.getCompatibleAddress(tempModelProgram,
+							tempModelAddressAfter, program);
+
+				if (addressAfter == null) {
+					continue;
+			}
+
+				if (nextAddress == null) {
+					nextAddress = addressAfter;
 					continue;
 				}
-				// Convert the tempModelAddress back to address for this model so it can be compared.
-				Program tempModelProgram = tempModel.getProgram();
-				Address addressBefore = (program == tempModelProgram) ? tempModelAddressBefore
-						: SimpleDiffUtility.getCompatibleAddress(tempModelProgram,
-							tempModelAddressBefore, program);
-				if (previousAddress == null || addressBefore.compareTo(previousAddress) > 0) {
-					previousAddress = addressBefore;
+
+				int result = addressAfter.compareTo(nextAddress);
+				boolean isNextAddress = after ? result < 0 : result > 0;
+				if (isNextAddress) {
+					nextAddress = addressAfter;
 				}
 			}
-			return previousAddress;
+			return nextAddress;
 		}
 
 		@Override

@@ -37,8 +37,9 @@ import ghidra.util.classfinder.ClassSearcher;
 import ghidra.util.exception.AssertException;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.xml.GenericXMLOutputter;
+import ghidra.util.xml.XmlUtilities;
 import resources.ResourceManager;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 
 public abstract class StandAloneApplication implements GenericStandAloneApplication {
 
@@ -50,12 +51,14 @@ public abstract class StandAloneApplication implements GenericStandAloneApplicat
 	protected PluginTool tool;
 
 	/**
-	 * Creates a new application using the given properties filename.  The filename is 
-	 * expected reside in the current working directory. 
+	 * Creates a new application using the given properties filename. The
+	 * filename is expected reside in the current working directory.
 	 * 
-	 * <p><b>The given properties file is expected to have the 
+	 * <p>
+	 * <b>The given properties file is expected to have the
 	 * {@link ApplicationProperties#APPLICATION_NAME_PROPERTY} and
-	 * {@link ApplicationProperties#APPLICATION_VERSION_PROPERTY} properties set.
+	 * {@link ApplicationProperties#APPLICATION_VERSION_PROPERTY} properties
+	 * set.
 	 * 
 	 * @param propertiesFilename the name of the properties file.
 	 */
@@ -193,13 +196,14 @@ public abstract class StandAloneApplication implements GenericStandAloneApplicat
 			if (instream == null) {
 				return null;
 			}
-			SAXBuilder sax = new SAXBuilder(false);
+
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Element root = sax.build(instream).getRootElement();
 			return root;
 		}
 		catch (Exception e) {
-			Msg.showError(getClass(), tool.getToolFrame(), "Error Reading Tool",
-				"Could not read tool: " + e);
+			Msg.showError(getClass(), null, "Error Reading Tool",
+				"Could not read tool: " + DEFAULT_TOOL_NAME, e);
 		}
 		return null;
 	}
@@ -209,16 +213,17 @@ public abstract class StandAloneApplication implements GenericStandAloneApplicat
 		if (!savedToolFile.exists()) {
 			return null;
 		}
+
 		FileInputStream fileInputStream = null;
 		try {
 			fileInputStream = new FileInputStream(savedToolFile.getAbsolutePath());
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Element root = sax.build(fileInputStream).getRootElement();
 			return root;
 		}
 		catch (Exception e) {
-			Msg.showError(getClass(), tool.getToolFrame(), "Error Reading Saved Tool",
-				"Could not read tool: " + e);
+			Msg.showError(getClass(), null, "Error Reading Tool",
+				"Could not read tool: " + savedToolFile, e);
 		}
 		finally {
 			if (fileInputStream != null) {

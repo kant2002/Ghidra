@@ -25,7 +25,7 @@ import ghidra.util.datastruct.LRUMap;
 import ghidra.util.exception.AssertException;
 import ghidra.util.task.TaskMonitor;
 import utilities.util.reflection.ReflectionUtilities;
-import utility.applicaiton.ApplicationLayout;
+import utility.application.ApplicationLayout;
 import utility.module.ModuleUtilities;
 
 /**
@@ -461,10 +461,18 @@ public class Application {
 			return null;
 		}
 
-		File file = getModuleFile(module, "os/" + Platform.CURRENT_PLATFORM.getDirectoryName(),
+		File file = getModuleFile(module, "build/os/" + Platform.CURRENT_PLATFORM.getDirectoryName(),
 			exactFilename);
 
+		if (file == null) {
+			file = getModuleFile(module, "os/" + Platform.CURRENT_PLATFORM.getDirectoryName(),
+				exactFilename);
+		}
+		
 		// Allow win32 to be used for win64 as fallback
+		if (file == null && Platform.CURRENT_PLATFORM == Platform.WIN_64) {
+			file = getModuleFile(module, "build/os/" + Platform.WIN_32.getDirectoryName(), exactFilename);
+		}
 		if (file == null && Platform.CURRENT_PLATFORM == Platform.WIN_64) {
 			file = getModuleFile(module, "os/" + Platform.WIN_32.getDirectoryName(), exactFilename);
 		}
@@ -484,9 +492,16 @@ public class Application {
 
 	private File getOSFileInAnyModule(String path) throws FileNotFoundException {
 
-		File file = findModuleFile("os/" + Platform.CURRENT_PLATFORM.getDirectoryName(), path);
+		File file = findModuleFile("build/os/" + Platform.CURRENT_PLATFORM.getDirectoryName(), path);
+		
+		if (file == null) {
+			file = findModuleFile("os/" + Platform.CURRENT_PLATFORM.getDirectoryName(), path);
+		}
 
 		// Allow win32 to be used for win64 as fallback
+		if (file == null && Platform.CURRENT_PLATFORM == Platform.WIN_64) {
+			file = findModuleFile("build/os/" + Platform.WIN_32.getDirectoryName(), path);
+		}
 		if (file == null && Platform.CURRENT_PLATFORM == Platform.WIN_64) {
 			file = findModuleFile("os/" + Platform.WIN_32.getDirectoryName(), path);
 		}
