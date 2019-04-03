@@ -25,7 +25,7 @@ public enum CompletionWindowTrigger {
 
 	//@formatter:off
 	TAB(KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0, false)), 
-	CONTROL_SPACE(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, InputEvent.CTRL_MASK, false));
+	CONTROL_SPACE(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, InputEvent.CTRL_DOWN_MASK, false));
 	//@formatter:on
 
 	private KeyStroke keyStroke;
