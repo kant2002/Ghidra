@@ -15,21 +15,21 @@
  */
 package docking;
 
-import generic.util.WindowUtilities;
-import ghidra.framework.OperatingSystem;
-import ghidra.framework.Platform;
-import ghidra.util.bean.GGlassPane;
-
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.*;
-import java.util.Map.Entry;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.swing.*;
 
 import org.jdom.Element;
+
+import generic.util.WindowUtilities;
+import ghidra.framework.OperatingSystem;
+import ghidra.framework.Platform;
+import ghidra.util.bean.GGlassPane;
 
 /**
  * Node class for managing a component hierarchy in its own sub-window. (currently uses a JDialog)
@@ -52,13 +52,14 @@ class DetachedWindowNode extends WindowNode {
 	 * @param child the node that manages the component hierarchy.
 	 * @param factory the factory from which we create drop targets
 	 */
-	DetachedWindowNode(DockingWindowManager mgr, Node parent, Node child, DropTargetFactory factory) {
+	DetachedWindowNode(DockingWindowManager mgr, Node parent, Node child,
+			DropTargetFactory factory) {
 		super(mgr);
 		this.parent = parent;
 		this.child = child;
 		this.dropTargetFactory = factory;
 		child.parent = this;
-		bounds = new Rectangle(-1, -1, 0, 0);
+		bounds = new Rectangle(0, 0, 0, 0);
 	}
 
 	/**
@@ -67,6 +68,7 @@ class DetachedWindowNode extends WindowNode {
 	 * @param mgr the DockingWindowsManager for this node.
 	 * @param parent the parent node (should always be the root node)
 	 * @param factory the factory from which we create drop targets
+	 * @param list child placeholders to be added to this window after being restored
 	 */
 	DetachedWindowNode(Element elem, DockingWindowManager mgr, Node parent,
 			DropTargetFactory factory, List<ComponentPlaceholder> list) {
@@ -127,7 +129,7 @@ class DetachedWindowNode extends WindowNode {
 
 	/**
 	 * Set the Icon this window.
-	 * @param icon image icon
+	 * @param iconImage image icon
 	 */
 	void setIcon(Image iconImage) {
 		Frame frame = getFrameForWindow(window);
@@ -171,8 +173,8 @@ class DetachedWindowNode extends WindowNode {
 	}
 
 	/**
-	 * Returns root pane if window has been created, otherwise
-	 * null is returned.
+	 * Returns the root pane if window has been created, otherwise null
+	 * @return the root pane if window has been created, otherwise null
 	 */
 	public JRootPane getRootPane() {
 		if (window instanceof JDialog) {
@@ -220,8 +222,7 @@ class DetachedWindowNode extends WindowNode {
 	}
 
 	private String getTitleOfChildren() {
-		List<ComponentPlaceholder> placeholders =
-			new ArrayList<ComponentPlaceholder>();
+		List<ComponentPlaceholder> placeholders = new ArrayList<ComponentPlaceholder>();
 
 		child.populateActiveComponents(placeholders);
 
@@ -255,8 +256,7 @@ class DetachedWindowNode extends WindowNode {
 			new HashMap<String, List<ComponentPlaceholder>>();
 		for (ComponentPlaceholder placeholder : placeholders) {
 			String providerName = placeholder.getProvider().getName();
-			List<ComponentPlaceholder> list =
-				providerNameToPlacholdersMap.get(providerName);
+			List<ComponentPlaceholder> list = providerNameToPlacholdersMap.get(providerName);
 			if (list == null) {
 				list = new ArrayList<ComponentPlaceholder>();
 				providerNameToPlacholdersMap.put(providerName, list);
@@ -367,8 +367,9 @@ class DetachedWindowNode extends WindowNode {
 			bounds.height = d.height;
 			bounds.width = d.width;
 		}
+
+		WindowUtilities.ensureOnScreen(winMgr.getRootFrame(), bounds);
 		window.setBounds(bounds);
-		WindowUtilities.ensureWindowOnScreen(window);
 		window.setVisible(true);
 	}
 

@@ -237,8 +237,7 @@ public class PopupWindow {
 		int y = point.y + keepVisibleArea.height + Y_PADDING;
 		popupBounds.setLocation(x, y);
 
-		Point adjustedPoint = WindowUtilities.adjustBoundsToFitScreen(popupBounds);
-		popupBounds.setLocation(adjustedPoint);
+		WindowUtilities.ensureOnScreen(sourceComponent, popupBounds);
 
 		Rectangle hoverArea = new Rectangle(point, keepVisibleArea);
 		adjustBoundsForCursorLocation(popupBounds, hoverArea);
@@ -247,7 +246,7 @@ public class PopupWindow {
 
 		installDebugPainter(e);
 
-		popup.setLocation(popupBounds.x, popupBounds.y);
+		popup.setBounds(popupBounds);
 		popup.setVisible(true);
 
 		removeOldPopupReferences();

@@ -718,10 +718,16 @@ public class MultiTabPanel extends JPanel {
 	}
 
 	private void setListLocationBelowLabel(JLabel label) {
+
+		Rectangle bounds = listWindow.getBounds();
+
 		// no label implies we are launched from a keyboard event
 		if (label == null) {
+
 			Point centerPoint = WindowUtilities.centerOnComponent(getParent(), listWindow);
-			listWindow.setLocation(centerPoint);
+			bounds.setLocation(centerPoint);
+			WindowUtilities.ensureOnScreen(getParent(), bounds);
+			listWindow.setBounds(bounds);
 			return;
 		}
 
@@ -729,10 +735,11 @@ public class MultiTabPanel extends JPanel {
 		Point p = label.getLocationOnScreen();
 		int x = p.x;
 		int y = p.y + label.getHeight() + 3;
-		listWindow.setLocation(x, y);
+		bounds.setLocation(x, y);
 
 		// fixes problem where popup gets clipped when going across screens
-		p = WindowUtilities.adjustBoundsToFitScreen(listWindow.getBounds());
+		WindowUtilities.ensureOnScreen(label, bounds);
+		listWindow.setBounds(bounds);
 	}
 
 	private void createListWindow() {

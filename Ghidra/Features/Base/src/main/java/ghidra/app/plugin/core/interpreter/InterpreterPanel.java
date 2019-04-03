@@ -477,8 +477,7 @@ public class InterpreterPanel extends JPanel implements OptionsChangeListener {
 			currentLocation = caretPosition;
 		}
 
-		Point initialLocation = codeCompletionWindow.offsetLocation(currentLocation);
-		codeCompletionWindow.setLocation(initialLocation);
+		codeCompletionWindow.updateLocation(currentLocation);
 	}
 
 	private void updateCompletionList() {

@@ -234,7 +234,9 @@ public class ErrLogDialog extends DialogComponentProvider {
 
 	@Override
 	protected void dialogShown() {
-		WindowUtilities.ensureWindowOnScreen(getDialog());
+
+		// TODO test that the parent DockingDialog code handles this....
+		WindowUtilities.ensureOnScreen(getDialog());
 	}
 
 	/**
