@@ -131,22 +131,22 @@ public class GhidraServer extends UnicastRemoteObject implements GhidraServerHan
 				requireExplicitPasswordReset = false;
 				authModule = new PasswordFileAuthenticationModule(nameCallbackAllowed);
 				break;
-			case ALT_OS_PASSWORD_LOGIN:
-				supportLocalPasswords = true;
-			case OS_PASSWORD_LOGIN:
-				OperatingSystem os = OperatingSystem.CURRENT_OPERATING_SYSTEM;
-				if (os == OperatingSystem.WINDOWS) {
-					authModule = new NTPasswordAuthenticationModule(loginDomain,
-						nameCallbackAllowed, authMode == ALT_OS_PASSWORD_LOGIN);
-				}
+//			case ALT_OS_PASSWORD_LOGIN:
+//				supportLocalPasswords = true;
+//			case OS_PASSWORD_LOGIN:
+//				OperatingSystem os = OperatingSystem.CURRENT_OPERATING_SYSTEM;
+//				if (os == OperatingSystem.WINDOWS) {
+//					authModule = new NTPasswordAuthenticationModule(loginDomain,
+//						nameCallbackAllowed, authMode == ALT_OS_PASSWORD_LOGIN);
+//				}
 //				else if (os == UNIX) {
 //					authModule = new UnixPasswordAuthenticationModule(nameCallbackAllowed);
 //				}
-				else {
-					throw new IllegalArgumentException(
-						"OS Password Authentication only supported for Microsoft Windows");
-				}
-				break;
+//				else {
+//					throw new IllegalArgumentException(
+//						"OS Password Authentication only supported for Microsoft Windows");
+//				}
+//				break;
 			case PKI_LOGIN:
 				if (altSSHLoginAllowed) {
 					log.warn("SSH authentication option ignored when PKI authentication used");
@@ -297,11 +297,11 @@ public class GhidraServer extends UnicastRemoteObject implements GhidraServerHan
 				if (authModule instanceof PasswordFileAuthenticationModule) {
 					supportPasswordChange = true;
 				}
-				else if (authModule instanceof NTPasswordAuthenticationModule) {
-					supportPasswordChange =
-						((NTPasswordAuthenticationModule) authModule).usingLocalAuthentication(
-							authCallbacks);
-				}
+//				else if (authModule instanceof NTPasswordAuthenticationModule) {
+//					supportPasswordChange =
+//						((NTPasswordAuthenticationModule) authModule).usingLocalAuthentication(
+//							authCallbacks);
+//				}
 			}
 			else if (!mgr.getUserManager().isValidUser(username)) {
 				FailedLoginException e = new FailedLoginException("Unknown user: " + username);
@@ -406,9 +406,11 @@ public class GhidraServer extends UnicastRemoteObject implements GhidraServerHan
 						}
 					}
 				}
+				log.info("No interfaces found: using loopback interface");
+				return InetAddress.getLoopbackAddress();
 			}
 			catch (SocketException e) {
-				// 
+				// ignore
 			}
 			catch (InterruptedException e) {
 				break;
@@ -639,8 +641,9 @@ public class GhidraServer extends UnicastRemoteObject implements GhidraServerHan
 			log.info("   Root: " + rootPath);
 			log.info("   Auth: " + AUTH_MODES[authMode + 1]);
 			if (authMode == PASSWORD_FILE_LOGIN && defaultPasswordExpiration >= 0) {
-				log.info("   Default password expiration: " + (defaultPasswordExpiration == 0
-						? "disabled" : (defaultPasswordExpiration + " days")));
+				log.info("   Default password expiration: " +
+					(defaultPasswordExpiration == 0 ? "disabled"
+							: (defaultPasswordExpiration + " days")));
 			}
 			if (authMode != PKI_LOGIN) {
 				log.info("   Prompt for user ID: " + (nameCallbackAllowed ? "yes" : "no"));
