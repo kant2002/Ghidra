@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +15,17 @@
  */
 package docking.help;
 
-import ghidra.framework.preferences.Preferences;
-
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
+import ghidra.framework.preferences.Preferences;
+import resources.MultiIcon;
 import resources.ResourceManager;
 import resources.icons.CenterTranslateIcon;
 import resources.icons.TranslateIcon;
-import resources.MultiIcon;
 
 public class ToggleNavigationAid extends AbstractAction {
 
@@ -47,7 +45,7 @@ public class ToggleNavigationAid extends AbstractAction {
 
 		TranslateIcon translatedIcon =
 			new CenterTranslateIcon(CANCEL_ICON, ENABLED_ICON.getIconWidth());
-		ImageIcon disabledBaseIcon = ResourceManager.createDisabledIcon(ENABLED_ICON, 50);
+		ImageIcon disabledBaseIcon = ResourceManager.getDisabledIcon(ENABLED_ICON, 50);
 		DISABLED_ICON = new MultiIcon(disabledBaseIcon, translatedIcon);
 
 		// initialize

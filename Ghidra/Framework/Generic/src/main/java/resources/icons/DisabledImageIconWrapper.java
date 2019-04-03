@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,120 +15,47 @@
  */
 package resources.icons;
 
-import java.awt.*;
-import java.awt.image.ImageObserver;
+import java.awt.Image;
 
-import javax.accessibility.AccessibleContext;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import resources.ResourceManager;
+import generic.util.image.ImageUtils;
 
-public class DisabledImageIconWrapper extends ImageIcon implements FileBasedIcon {
-
-    private ImageIcon baseIcon;
-    private ImageIcon disabledIcon;
-    private Image image;
-    private boolean loaded;
+public class DisabledImageIconWrapper extends ImageIconWrapper {
     
     /** 
      * The inverse percentage of gray (higher percentage equals less gray) to apply to 
-     * the disabled image; higher is brighter.
+	 * the disabled image; higher is brighter
      */
     int brightnessPercent;
 
-    public DisabledImageIconWrapper( ImageIcon baseIcon ) {
+	/**
+	 * Construct wrapped disabled ImageIcon based upon specified baseIcon. 
+	 * A 50% brightness will be applied.
+	 * @param baseIcon enabled icon to be rendered as disabled
+	 */
+	public DisabledImageIconWrapper(Icon baseIcon) {
         this( baseIcon, 50 ); // default to half gray
     }
     
-    public DisabledImageIconWrapper( ImageIcon baseIcon, int brightnessPercent ) {
-        this.baseIcon = baseIcon;
+	/**
+	 * Construct wrapped disabled ImageIcon based upon specified baseIcon
+	 * using the specified brightness level
+	 * @param baseIcon
+	 * @param brightnessPercent a brightness level specified using a 
+	 * value in the range of 0 thru 100.
+	 */
+	public DisabledImageIconWrapper(Icon baseIcon, int brightnessPercent) {
+		super(baseIcon);
         this.brightnessPercent = brightnessPercent;
     }
     
-    public String getFilename() {
-    	if ( !(baseIcon instanceof FileBasedIcon) ) {
-    		return null;
-    	}
-    	return ((FileBasedIcon) baseIcon).getFilename();
-    }
-    
     @Override
-    public Image getImage() {
-        init();
-        return image; 
-    }
-
-    @Override
-    public AccessibleContext getAccessibleContext() {
-        init();
-        return disabledIcon.getAccessibleContext();
-    }
-
-    @Override
-    public String getDescription() {
-        init();
-        return disabledIcon.getDescription();
-    }
-
-    @Override
-    public int getIconHeight() {
-        init();
-        return disabledIcon.getIconHeight();
-    }
-
-    @Override
-    public int getIconWidth() {
-        init();
-        return disabledIcon.getIconWidth();
-    }
-
-    @Override
-    public int getImageLoadStatus() {
-        init();
-        return disabledIcon.getImageLoadStatus();
-    }
-
-    @Override
-    public ImageObserver getImageObserver() {
-        init();
-        return disabledIcon.getImageObserver();
-    }
-
-    @Override
-    public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
-        init();
-        super.paintIcon(c, g, x, y);
-    }
-
-    @Override
-    public void setDescription(String description) {
-        init();
-        disabledIcon.setDescription(description);
-    }
-
-    @Override
-    public void setImage(Image image) {
-        init();
-        this.image = image;
-        super.setImage(image);
-    }
-
-    @Override
-    public String toString() {
-        init();
-        return disabledIcon.toString(); 
-    }
-
-    private synchronized void init() {
-        if (!loaded) {
-            loaded = true;
-            disabledIcon = createImageIcon();
-            image = disabledIcon.getImage();
-            super.setImage(image);
-        }
-    }
-    
-    private ImageIcon createImageIcon() {
-        return ResourceManager.createDisabledIcon( baseIcon, brightnessPercent );
+	protected ImageIcon createImageIcon() {
+		ImageIcon baseIcon = super.createImageIcon();
+		Image disabledImage =
+			ImageUtils.createDisabledImage(baseIcon.getImage(), brightnessPercent);
+		return new ImageIcon(disabledImage, getImageName());
     }
 }

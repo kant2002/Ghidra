@@ -28,9 +28,9 @@ import resources.ResourceManager;
 
 public class SearchControlPanel extends JPanel {
 
-	private static final Icon NEXT_ICON = ResourceManager.createScaledIcon(
+	private static final Icon NEXT_ICON = ResourceManager.getScaledIcon(
 		ResourceManager.loadImage("images/go-down.tango.16.png"), 16, 16);
-	private static final Icon PREV_ICON = ResourceManager.createScaledIcon(
+	private static final Icon PREV_ICON = ResourceManager.getScaledIcon(
 		ResourceManager.loadImage("images/go-up.tango.16.png"), 16, 16);
 	private CompositeEditorPanel editorPanel;
 	private JTextField textField;

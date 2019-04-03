@@ -17,10 +17,9 @@ package resources;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.swing.Icon;
-
-import resources.ResourceManager;
 
 /**
  * Icon class for for displaying overlapping icons.  Icons are drawn in the order they
@@ -29,16 +28,20 @@ import resources.ResourceManager;
 public class MultiIcon implements Icon {
 
 	private java.util.List<Icon> iconList;
+
+	private boolean disabled;
+
+	private boolean loaded;
 	private int height;
 	private int width;
-	private boolean disabled;
+	private String description;
 
 	/**
 	 * Constructs a new MultiIcon with an initial base icon that will always be drawn first.
 	 * @param baseIcon the base icon that will always be drawn first.
 	 */
 	public MultiIcon(Icon baseIcon) {
-		this(baseIcon, false, baseIcon.getIconWidth(), baseIcon.getIconHeight());
+		this(baseIcon, false);
 	}
 
 	/**
@@ -46,7 +49,10 @@ public class MultiIcon implements Icon {
 	 * @param baseIcon the base icon that will always be drawn first.
 	 */
 	public MultiIcon(Icon baseIcon, boolean disabled) {
-		this(baseIcon, disabled, baseIcon.getIconWidth(), baseIcon.getIconHeight());
+		Objects.requireNonNull(baseIcon, "baseIcon may not be null");
+		this.disabled = disabled;
+		iconList = new ArrayList<>(4);
+		addIcon(baseIcon);
 	}
 
 	/**
@@ -57,12 +63,12 @@ public class MultiIcon implements Icon {
 	public MultiIcon(Icon baseIcon, Icon... icons) {
 		this(baseIcon, false);
 		for (Icon icon : icons) {
-			addIcon(icon);
+			iconList.add(icon);
 		}
 	}
 
 	/**
-	 * Construct a new MultiIcon  
+	 * Construct a new MultiIcon with a predetermined size
 	 * @param baseIcon Primary icon that is always drawn first
 	 * @param disabled flag to draw this icon in a disabled state
 	 * @param width horizontal dimension of this icon
@@ -73,6 +79,7 @@ public class MultiIcon implements Icon {
 		iconList.add(baseIcon);
 		this.width = width;
 		this.height = height;
+		this.loaded = true;
 		this.disabled = disabled;
 	}
 
@@ -86,8 +93,25 @@ public class MultiIcon implements Icon {
 			return;
 		}
 		iconList.add(icon);
+	}
+
+	private void init() {
+		if (!loaded) {
+			loaded = true;
+			height = 0;
+			width = 0;
+			for (Icon icon : iconList) {
 		height = Math.max(height, icon.getIconHeight());
 		width = Math.max(width, icon.getIconWidth());
+	}
+		}
+	}
+
+	public String getDescription() {
+		if (description == null) {
+			description = iconList.get(0).toString();
+		}
+		return description;
 	}
 
 	/**
@@ -95,6 +119,7 @@ public class MultiIcon implements Icon {
 	 */
 	@Override
 	public int getIconHeight() {
+		init();
 		return height;
 	}
 
@@ -103,6 +128,7 @@ public class MultiIcon implements Icon {
 	 */
 	@Override
 	public int getIconWidth() {
+		init();
 		return width;
 	}
 
@@ -111,7 +137,7 @@ public class MultiIcon implements Icon {
 	 */
 	@Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
-
+		init();
 		for (int i = 0; i < iconList.size(); i++) {
 			Icon icon = iconList.get(i);
 			icon.paintIcon(c, g, x, y);
@@ -134,18 +160,19 @@ public class MultiIcon implements Icon {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "[" + getIconNames() + "]";
+		// return getClass().getSimpleName() + "[" + getIconNames() + "]";
+		return getDescription();
 	}
 
-	private String getIconNames() {
-		StringBuffer buffy = new StringBuffer();
-		for (Icon icon : iconList) {
-			if (buffy.length() > 0) {
-				buffy.append(", ");
-			}
-			buffy.append(ResourceManager.getIconName(icon));
-		}
-
-		return buffy.toString();
-	}
+//	private String getIconNames() {
+//		StringBuffer buffy = new StringBuffer();
+//		for (Icon icon : iconList) {
+//			if (buffy.length() > 0) {
+//				buffy.append(", ");
+//			}
+//			buffy.append(ResourceManager.getIconName(icon));
+//		}
+//
+//		return buffy.toString();
+//	}
 }

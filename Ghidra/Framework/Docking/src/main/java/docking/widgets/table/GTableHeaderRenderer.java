@@ -271,7 +271,7 @@ public class GTableHeaderRenderer extends JPanel implements TableCellRenderer {
 		icon = getColumnIconForSortState(columnSortStates, sortState, false);
 		if (sortPending) {
 			// indicate that the current sort is stale
-			icon = ResourceManager.createDisabledIcon(icon, 65);
+			icon = ResourceManager.getDisabledIcon(icon, 65);
 		}
 
 		return icon;
