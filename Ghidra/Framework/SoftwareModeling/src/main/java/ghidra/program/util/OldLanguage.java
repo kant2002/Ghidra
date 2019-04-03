@@ -47,9 +47,10 @@ class OldLanguage implements Language {
 	private final ResourceFile oldLangFile;
 
 	/**
-	 * Construct an old language.
-	 * The resulting instance does not initialize the address factory or register
-	 * definitions until after the validate method is invoked.
+	 * Construct an old language. The resulting instance does not initialize the
+	 * address factory or register definitions until after the validate method
+	 * is invoked.
+	 * 
 	 * @param oldLangFile
 	 * @throws IOException
 	 * @see {@link #validate()}
@@ -60,8 +61,8 @@ class OldLanguage implements Language {
 	}
 
 	/**
-	 * Construct an old language from XML.
-	 * Intended for test use only.
+	 * Construct an old language from XML. Intended for test use only.
+	 * 
 	 * @param oldLanguageElement
 	 * @throws JDOMException
 	 * @throws SAXException
@@ -77,9 +78,10 @@ class OldLanguage implements Language {
 	}
 
 	/**
-	 * If instantiated from a file, this method must be invoked prior to the factory handing out this instance.
-	 * This will complete the parsing of the old language file and the initialization
-	 * of this instance.
+	 * If instantiated from a file, this method must be invoked prior to the
+	 * factory handing out this instance. This will complete the parsing of the
+	 * old language file and the initialization of this instance.
+	 * 
 	 * @throws JDOMException
 	 * @throws SAXException
 	 * @throws IOException
@@ -158,7 +160,8 @@ class OldLanguage implements Language {
 	}
 
 	@Override
-	public InstructionPrototype parse(MemBuffer buf, ProcessorContext context, boolean inDelaySlot) {
+	public InstructionPrototype parse(MemBuffer buf, ProcessorContext context,
+			boolean inDelaySlot) {
 		return new InvalidPrototype(this);
 	}
 
@@ -183,7 +186,7 @@ class OldLanguage implements Language {
 		InputStream is = null;
 		try {
 			is = new BufferedInputStream(oldLangFile.getInputStream());
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Document document = sax.build(is);
 			Element root = document.getRootElement();
 
@@ -210,8 +213,8 @@ class OldLanguage implements Language {
 		}
 	}
 
-	void parseOldLanguage(Element root, boolean descriptionOnly) throws SAXNotRecognizedException,
-			SAXException {
+	void parseOldLanguage(Element root, boolean descriptionOnly)
+			throws SAXNotRecognizedException, SAXException {
 		if (!"language".equals(root.getName())) {
 			throw new SAXNotRecognizedException("Expected language document");
 		}
@@ -292,15 +295,15 @@ class OldLanguage implements Language {
 	private static int parseIntAttribute(Element element, String name) throws SAXException {
 		String valStr = element.getAttributeValue(name);
 		if (valStr == null) {
-			throw new SAXException("Missing required " + element.getName() + " '" + name +
-				"' attribute");
+			throw new SAXException(
+				"Missing required " + element.getName() + " '" + name + "' attribute");
 		}
 		try {
 			return XmlUtilities.parseInt(valStr);
 		}
 		catch (NumberFormatException e) {
-			throw new SAXException("invalid integer attribute value: " + name + "=\"" + valStr +
-				"\"");
+			throw new SAXException(
+				"invalid integer attribute value: " + name + "=\"" + valStr + "\"");
 		}
 	}
 
@@ -311,13 +314,13 @@ class OldLanguage implements Language {
 			if (defaultVal != null) {
 				return defaultVal.booleanValue();
 			}
-			throw new SAXException("Missing required " + element.getName() + " '" + name +
-				"' attribute");
+			throw new SAXException(
+				"Missing required " + element.getName() + " '" + name + "' attribute");
 		}
 		boolean val = valStr.equalsIgnoreCase("yes") | valStr.equalsIgnoreCase("true");
 		if (!val && !valStr.equalsIgnoreCase("no") & !valStr.equalsIgnoreCase("false")) {
-			throw new SAXException("invalid boolean attribute value " + name + "=\"" + valStr +
-				"\"");
+			throw new SAXException(
+				"invalid boolean attribute value " + name + "=\"" + valStr + "\"");
 		}
 		return val;
 	}
@@ -327,18 +330,19 @@ class OldLanguage implements Language {
 		String addrStr = element.getAttributeValue("address");
 		String offsetStr = element.getAttributeValue("offset");
 		if (addrStr == null && offsetStr == null) {
-			throw new SAXException("Missing required " + element.getName() +
-				" 'address' or 'offset' attribute");
+			throw new SAXException(
+				"Missing required " + element.getName() + " 'address' or 'offset' attribute");
 		}
 		Address addr = null;
 		if (addrStr != null) {
 			if (offsetStr != null) {
-				throw new SAXException(element.getName() +
-					" must not specify both 'address' and 'offset' attribute");
+				throw new SAXException(
+					element.getName() + " must not specify both 'address' and 'offset' attribute");
 			}
 			addr = XmlProgramUtilities.parseAddress(addrFactory, addrStr);
 			if (addr == null) {
-				throw new SAXException("invalid address attribute value: address=" + addrStr + "\"");
+				throw new SAXException(
+					"invalid address attribute value: address=" + addrStr + "\"");
 			}
 		}
 		else {
@@ -400,7 +404,8 @@ class OldLanguage implements Language {
 			Element childElement = (Element) iter.next();
 			String elementName = childElement.getName();
 			if (!"field".equals(childElement.getName())) {
-				throw new SAXException("Unsupported context_register element '" + elementName + "'");
+				throw new SAXException(
+					"Unsupported context_register element '" + elementName + "'");
 			}
 			String name = childElement.getAttributeValue("name");
 			if (name == null) {
@@ -427,8 +432,8 @@ class OldLanguage implements Language {
 //			if (lsb < 0 || msb < 0 || msb < lsb || lsb > 31 || msb > 31) {
 //				throw new SAXException("invalid field range: " + range);
 //			}
-			regBuilder.addRegister(name, name, addr, (contextBitLength + 7) / 8, lsb,
-				msb - lsb + 1, true, Register.TYPE_CONTEXT);
+			regBuilder.addRegister(name, name, addr, (contextBitLength + 7) / 8, lsb, msb - lsb + 1,
+				true, Register.TYPE_CONTEXT);
 		}
 
 	}
@@ -557,8 +562,8 @@ class OldLanguage implements Language {
 		// An empty compiler spec list indicates that the "id" element was specified
 		List<CompilerSpecDescription> complierSpecList = new ArrayList<CompilerSpecDescription>();
 		if (compilerSpecID != null) {
-			complierSpecList.add(new BasicCompilerSpecDescription(compilerSpecID,
-				compilerSpecID.getIdAsString()));
+			complierSpecList.add(
+				new BasicCompilerSpecDescription(compilerSpecID, compilerSpecID.getIdAsString()));
 		}
 
 		return new BasicLanguageDescription(id, processor, endian, endian, size, variant, "",
@@ -566,8 +571,9 @@ class OldLanguage implements Language {
 	}
 
 	/**
-	 * If this old language corresponds to a legacy language which was tied to a specific compiler specification,
-	 * a suitable ID will be returned.
+	 * If this old language corresponds to a legacy language which was tied to a
+	 * specific compiler specification, a suitable ID will be returned.
+	 * 
 	 * @return associated compiler specification ID or null if unknown
 	 */
 	public CompilerSpecID getOldCompilerSpecID() {
@@ -586,7 +592,8 @@ class OldLanguage implements Language {
 
 	@Override
 	public Register getProgramCounter() {
-		throw new UnsupportedOperationException("Language for upgrade use only (getProgramCounter)");
+		throw new UnsupportedOperationException(
+			"Language for upgrade use only (getProgramCounter)");
 	}
 
 	@Override
@@ -636,7 +643,8 @@ class OldLanguage implements Language {
 
 	@Override
 	public List<AddressLabelInfo> getDefaultSymbols() {
-		throw new UnsupportedOperationException("Language for upgrade use only (getDefaultSymbols)");
+		throw new UnsupportedOperationException(
+			"Language for upgrade use only (getDefaultSymbols)");
 	}
 
 	@Override
@@ -651,7 +659,8 @@ class OldLanguage implements Language {
 
 	@Override
 	public String getSegmentedSpace() {
-		throw new UnsupportedOperationException("Language for upgrade use only (getSegmentedSpace)");
+		throw new UnsupportedOperationException(
+			"Language for upgrade use only (getSegmentedSpace)");
 	}
 
 	@Override

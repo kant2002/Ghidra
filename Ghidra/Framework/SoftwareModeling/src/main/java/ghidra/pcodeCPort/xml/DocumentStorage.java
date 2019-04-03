@@ -22,7 +22,7 @@ import org.jdom.input.SAXBuilder;
 
 import generic.stl.*;
 import ghidra.pcodeCPort.translate.XmlError;
-
+import ghidra.util.xml.XmlUtilities;
 
 // Class for managing xml documents during initialization
 public class DocumentStorage {
@@ -31,7 +31,7 @@ public class DocumentStorage {
 	MapSTL<String, Element> tagmap = new ComparableMapSTL<String, Element>();
 
 	public Document parseDocument( InputStream s ) throws JDOMException, IOException {
-		SAXBuilder builder = new SAXBuilder( false );
+		SAXBuilder builder = XmlUtilities.createSecureSAXBuilder(false, false);
 		Document document = builder.build( s );
 		doclist.push_back( document );
 		return document;
@@ -43,14 +43,17 @@ public class DocumentStorage {
 		try {
 			is = new FileInputStream( filename );
 			return parseDocument( is );
-		} catch ( Exception e ) {
+		}
+		catch (Exception e) {
 			throw new XmlError( "Unable to open xml document " + filename );
-		} finally {
+		}
+		finally {
 			try {
 				if ( is != null ) {
 					is.close();
 				}
-			} catch ( IOException e ) {
+			}
+			catch (IOException e) {
 			}
 		}
 	}

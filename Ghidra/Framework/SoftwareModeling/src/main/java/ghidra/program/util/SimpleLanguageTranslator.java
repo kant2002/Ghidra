@@ -38,8 +38,8 @@ import ghidra.util.task.TaskMonitor;
 import ghidra.util.xml.XmlUtilities;
 
 /**
- * <code>SimpleLanguageTranslator</code> provides a simple translator which derives its
- * mappings from an XML translation specification file.
+ * <code>SimpleLanguageTranslator</code> provides a simple translator which
+ * derives its mappings from an XML translation specification file.
  */
 class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 
@@ -214,8 +214,7 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 	}
 
 	private static LanguagePostUpgradeInstructionHandler getPostUpgradeInstructionHandler(
-			Program program, Class<?> handlerClass)
-					throws Exception {
+			Program program, Class<?> handlerClass) throws Exception {
 		if (!LanguagePostUpgradeInstructionHandler.class.isAssignableFrom(handlerClass)) {
 			throw new Exception(handlerClass.getName() + " must extend " +
 				LanguagePostUpgradeInstructionHandler.class.getName());
@@ -233,10 +232,12 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 	}
 
 	/**
-	 * Perform minimal parsing of translatorSpecFile and return new instance of a
-	 * SimpleLanguageTranslator.
+	 * Perform minimal parsing of translatorSpecFile and return new instance of
+	 * a SimpleLanguageTranslator.
+	 * 
 	 * @param translatorSpecFile
-	 * @return new SimpleLanguageTranslator instance which has not been validated.
+	 * @return new SimpleLanguageTranslator instance which has not been
+	 *         validated.
 	 * @throws IOException 
 	 * @throws JDOMException 
 	 * @throws SAXException 
@@ -247,7 +248,7 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 
 		InputStream is = new BufferedInputStream(translatorSpecFile.getInputStream());
 		try {
-			SAXBuilder sax = new SAXBuilder(false);
+			SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
 			Document document = sax.build(is);
 			Element root = document.getRootElement();
 			return getSimpleLanguageTranslator(translatorSpecFile.getAbsolutePath(), root);
@@ -265,6 +266,7 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 
 	/**
 	 * Generate a simple language translator from XML source 
+	 * 
 	 * @param translatorSpecSource
 	 * @param languageTranslationElement
 	 * @return simple language translator
@@ -350,9 +352,8 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 				" -> " + toLanguageVersion);
 		}
 
-		SimpleLanguageTranslator translator =
-			new SimpleLanguageTranslator(translatorSpecSource, fromLanguageID, fromLanguageVersion,
-				toLanguageID, toLanguageVersion);
+		SimpleLanguageTranslator translator = new SimpleLanguageTranslator(translatorSpecSource,
+			fromLanguageID, fromLanguageVersion, toLanguageID, toLanguageVersion);
 		translator.spaceNameMap.putAll(spaceMap);
 		translator.registerNameMap.putAll(registerMap);
 		translator.contextSettings.putAll(contextSettings);
@@ -373,15 +374,15 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 	private static int parseIntAttribute(Element element, String name) throws SAXException {
 		String valStr = element.getAttributeValue(name);
 		if (valStr == null) {
-			throw new SAXException("Missing required " + element.getName() + " '" + name +
-				"' attribute");
+			throw new SAXException(
+				"Missing required " + element.getName() + " '" + name + "' attribute");
 		}
 		try {
 			return XmlUtilities.parseInt(valStr);
 		}
 		catch (NumberFormatException e) {
-			throw new SAXException("invalid integer attribute value: " + name + "=\"" + valStr +
-				"\"");
+			throw new SAXException(
+				"invalid integer attribute value: " + name + "=\"" + valStr + "\"");
 		}
 	}
 
@@ -402,8 +403,7 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 			if (e instanceof SAXException) {
 				throw (SAXException) e;
 			}
-			throw new SAXException("Failed to instantiate: " + className,
-				e);
+			throw new SAXException("Failed to instantiate: " + className, e);
 		}
 	}
 
@@ -413,19 +413,19 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 		String fromName = element.getAttributeValue("from");
 		String toName = element.getAttributeValue("to");
 		if (fromName == null || toName == null) {
-			throw new SAXException(element.getName() +
-				" must include both 'from' and 'to' attributes");
+			throw new SAXException(
+				element.getName() + " must include both 'from' and 'to' attributes");
 		}
 		if (toDuplicateCheckSet != null) {
 			if (toDuplicateCheckSet.contains(toName)) {
-				throw new SAXException(element.getName() +
-					" may not map to the same name more than once: " + toName);
+				throw new SAXException(
+					element.getName() + " may not map to the same name more than once: " + toName);
 			}
 			toDuplicateCheckSet.add(toName);
 		}
 		if (nameMap.containsKey(fromName)) {
-			throw new SAXException(element.getName() +
-				" may not map the same name more than once: " + fromName);
+			throw new SAXException(
+				element.getName() + " may not map the same name more than once: " + fromName);
 		}
 		nameMap.put(fromName, toName);
 	}
@@ -438,8 +438,8 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 			throw new SAXException(element.getName() + " must include 'name' attribute");
 		}
 		if (nameMap.containsKey(name)) {
-			throw new SAXException(element.getName() +
-				" may not map the same name more than once: " + name);
+			throw new SAXException(
+				element.getName() + " may not map the same name more than once: " + name);
 		}
 		nameMap.put(name, null);
 	}
@@ -465,8 +465,8 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 			}
 		}
 		catch (NumberFormatException e) {
-			throw new SAXException("invalid set_context attribute value: " + name + "=\"" + valStr +
-				"\"");
+			throw new SAXException(
+				"invalid set_context attribute value: " + name + "=\"" + valStr + "\"");
 		}
 		contextSettings.put(name, val);
 	}
