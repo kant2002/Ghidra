@@ -37,33 +37,33 @@ import ghidra.util.exception.*;
 import ghidra.util.task.TaskMonitor;
 
 /**
- * Automatically creates a structure definition based on the references seen to the structure
- * To use this, place the cursor on a function parameter for example func(int *this),
- * (for a C++ this call function)
- * This script will automatically create a structure definition for the pointed at structure
- * and fill it out based on the references found by the decompiler.
+ * Automatically creates a structure definition based on the references found by the decompiler.
  *
  * If the parameter is already a structure pointer, any new references found will be added
  * to the structure, even if the structure must grow.
  *
- * Eventually this WILL be put into a global type analyzer, but for now it is most useful.
- *
- * This assumes good flow, that switch statements are good.
- *
- * This CAN be used in the decompiler by assigning a Binding a Keyboard key to it, then
- * placing the cursor on the variable in the decompiler that is a structure pointer (even if it
- * isn't one now, and then pressing the Quick key.
- *
  */
 public class FillOutStructureCmd extends BackgroundCommand {
+
+	/**
+	 * Varnode with data-flow traceable to original pointer
+	 */
+	private static class PointerRef {
+		Varnode varnode;		// The traced Varnode
+		long offset;			// Offset relative to original pointer
+
+		public PointerRef(Varnode ref, long off) {
+			varnode = ref;
+			offset = off;
+		}
+	}
+
 	private static final String DEFAULT_BASENAME = "astruct";
 	private static final String DEFAULT_CATEGORY = "/auto_structs";
 
-	private ArrayList<Varnode> varnodeTodo = new ArrayList<>();
-	private ArrayList<Long> offsetTodo = new ArrayList<>();
-	private HashSet<Varnode> doneList = new HashSet<>();
-	private boolean isIntegerBase = false;
 	private long maxOffset = 0;
+	private int currentCallDepth = 0;		// Current call depth (from root function)
+	private int maxCallDepth = 1;
 
 	private HashMap<Long, DataType> offsetToDataTypeMap = new HashMap<>();
 	private HashMap<Address, Integer> addressToCallInputMap = new HashMap<>();
@@ -89,8 +89,8 @@ public class FillOutStructureCmd extends BackgroundCommand {
 	}
 
 	@Override
-	public boolean applyTo(DomainObject obj, TaskMonitor monitor) {
-		this.monitor = monitor;
+	public boolean applyTo(DomainObject obj, TaskMonitor taskMonitor) {
+		this.monitor = taskMonitor;
 
 		rootFunction =
 			currentProgram.getFunctionManager().getFunctionContaining(currentLocation.getAddress());
@@ -104,7 +104,8 @@ public class FillOutStructureCmd extends BackgroundCommand {
 
 			if (!(currentLocation instanceof DecompilerLocation)) {
 				// if we don't have one, make one, and map variable to a varnode
-				var = computeVariableLocation(currentProgram, currentLocation, rootFunction);
+				Address storageAddr = computeStorageAddress(currentLocation, rootFunction);
+				var = computeHighVariable(storageAddr, rootFunction);
 			}
 			else {
 
@@ -115,7 +116,6 @@ public class FillOutStructureCmd extends BackgroundCommand {
 					return false;
 				}
 
-				fixupParams(dloc.getDecompile(), rootFunction);
 				var = token.getHighVariable();
 				Varnode exactSpot = token.getVarnode();
 
@@ -139,9 +139,17 @@ public class FillOutStructureCmd extends BackgroundCommand {
 
 			fillOutStructureDef(var);
 
-			DataType struct = createStructure(var, rootFunction, isThisParam);
+			Structure structDT = createStructure(var, rootFunction, isThisParam);
+			populateStructure(structDT);
 
-			pushIntoCalls(struct);
+			pushIntoCalls(structDT);
+
+			DataType pointerDT = new PointerDataType(structDT);
+
+			// Delay adding to the manager until full structure is accumulated
+			pointerDT = currentProgram.getDataTypeManager().addDataType(pointerDT,
+				DataTypeConflictHandler.DEFAULT_HANDLER);
+			commitVariable(var, pointerDT, isThisParam);
 		}
 		catch (Exception e) {
 			Msg.showError(this, tool.getToolFrame(), "Auto Create Structure Failed",
@@ -154,10 +162,44 @@ public class FillOutStructureCmd extends BackgroundCommand {
 		return true;
 	}
 
-	private void pushIntoCalls(DataType struct) {
+	/**
+	 * Retrieve the (likely) storage address for a function parameter given its index
+	 * @param function is the function
+	 * @param paramIndex is the index of the parameter
+	 * @param pointerDt is the pointer to structure datatype
+	 * @return the storage address or null
+	 */
+	private Address computeParamAddress(Function function, int paramIndex, DataType pointerDt) {
+		Parameter[] parameters = function.getParameters();
+		if (paramIndex < parameters.length) {
+			return parameters[paramIndex].getMinAddress();
+		}
+		PrototypeModel model = function.getCallingConvention();
+		if (model == null) {
+			model = currentProgram.getCompilerSpec().getDefaultCallingConvention();
+			if (model == null) {
+				return null;
+			}
+		}
+		VariableStorage argLocation =
+			model.getArgLocation(paramIndex, null, pointerDt, currentProgram);
+		return argLocation.getMinAddress();
+	}
+
+	/**
+	 * Recursively visit calls that take the structure pointer as a parameter.
+	 * Add any new references to the offsetToDataTypeMap.
+	 * @param structDT is the structure to populate
+	 */
+	private void pushIntoCalls(Structure structDT) {
 		AddressSet doneSet = new AddressSet();
+		DataType pointerDT = new PointerDataType(structDT);
 
 		while (addressToCallInputMap.size() > 0) {
+			currentCallDepth += 1;
+			if (currentCallDepth > maxCallDepth) {
+				return;
+			}
 			HashMap<Address, Integer> savedList = addressToCallInputMap;
 			addressToCallInputMap = new HashMap<>();
 			Set<Address> keys = savedList.keySet();
@@ -171,141 +213,50 @@ public class FillOutStructureCmd extends BackgroundCommand {
 				doneSet.addRange(addr, addr);
 				Function func = currentProgram.getFunctionManager().getFunctionAt(addr);
 				int paramIndex = savedList.get(addr);
-
-				// println("call parm:  " + func.getName() + " - " + paramIndex);
-				boolean didSetParam = setParam(func, struct, paramIndex);
-				if (didSetParam) {
-					Parameter parameter = func.getParameter(paramIndex);
-					boolean subIsThisParam =
-						parameter.getAutoParameterType() == AutoParameterType.THIS;
-					VariableLocation loc = new VariableLocation(func.getProgram(), parameter, 0, 0);
-					HighVariable paramHighVar = computeVariableLocation(currentProgram, loc, func);
+				Address storageAddr = computeParamAddress(func, paramIndex, pointerDT);
+				HighVariable paramHighVar = computeHighVariable(storageAddr, func);
+				if (paramHighVar != null) {
 					fillOutStructureDef(paramHighVar);
-
-					struct = createStructure(paramHighVar, func, subIsThisParam);
+					populateStructure(structDT);
 				}
 			}
-		}
-	}
-
-	private boolean setParam(Function func, DataType dt, int paramIndex) {
-		if (func == null || func.hasVarArgs()) {
-			return false;
-		}
-
-		DecompInterface decomplib = setUpDecompiler(currentProgram);
-
-		try {
-			if (!decomplib.openProgram(currentProgram)) {
-				return false;
-			}
-
-			DecompileResults results = decompileFunction(func, decomplib);
-			HighFunction hf = results.getHighFunction();
-			if (hf == null) {
-				return false;
-			}
-
-			fixupParams(results, func);
-
-			// make sure prototype of called function didn't change!
-			PrototypeModel convention = func.getCallingConvention();
-			// if (initialConvention == null && convention != null) {
-			// return true;
-			// }
-			if (convention == null) {
-				convention = currentProgram.getCompilerSpec().getDefaultCallingConvention();
-			}
-			// if (initialConvention != null &&
-			// !convention.getName().equals(initialConvention.getName())) {
-			// return true;
-			// }
-
-			Parameter param = func.getParameter(paramIndex);
-			if (param != null && param.getDataType() instanceof Pointer) {
-				Pointer pdt = (Pointer) param.getDataType();
-				DataType ldt = pdt.getDataType();
-				if (!(ldt instanceof Undefined) && !(ldt instanceof IntegerDataType)) {
-					return false;
-				}
-			}
-			else if (param != null) {
-				DataType ldt = param.getDataType();
-				if (!(ldt instanceof Undefined) && !(ldt instanceof IntegerDataType)) {
-					return false;
 				}
 			}
 
-			if (param == null) {
-				if (convention == null) {
-					return false;
-				}
-				Parameter[] parameters = func.getParameters();
-				VariableStorage storage =
-					convention.getArgLocation(parameters.length, parameters, dt, currentProgram);
+	/**
+	 * Retype the HighVariable to a given data-type to the database
+	 * @param var is the decompiler variable to retype
+	 * @param newDt is the data-type
+	 * @param isThisParam is true if the variable is a 'this' pointer
+	 */
+	private void commitVariable(HighVariable var, DataType newDt, boolean isThisParam) {
+		if (!isThisParam) {
 				try {
-					param = new ParameterImpl(null, dt, storage, currentProgram);
-					param = func.addParameter(param, SourceType.USER_DEFINED);
+				HighFunctionDBUtil.updateDBVariable(var, null, newDt, SourceType.USER_DEFINED);
 				}
 				catch (DuplicateNameException e) {
-					Msg.error(this, "Failed to create structure parameter at " +
-						func.getEntryPoint() + ": " + e.getMessage());
-					return false;
-				}
-			}
-			else {
-				// TODO: may need to allocate new storage
-				param.setDataType(dt, SourceType.USER_DEFINED);
-			}
-			currentProgram.getBookmarkManager().setBookmark(func.getEntryPoint(), BookmarkType.NOTE,
-				this.getClass().getName(), "Created char* parameter");
-
-			return true;
-
+				throw new AssertException("Unexpected exception", e);
 		}
 		catch (InvalidInputException e) {
-			Msg.error(this, "Failed to assign structure parameter at " + func.getEntryPoint() +
-				": " + e.getMessage());
-			return false;
-		}
-		finally {
-			decomplib.dispose();
-		}
-	}
-
-	private void fixupParams(DecompileResults decompResults, Function f)
-			throws InvalidInputException {
-		// must make number of parameters agree with function, because will be
-		// storing off a structure ptr
-		HighFunction hf = decompResults.getHighFunction();
-		if (hf == null) {
-			return;
-		}
-
-		// must make number of parameters agree with function, because will be storing off a structure ptr
-		LocalSymbolMap vmap = decompResults.getHighFunction().getLocalSymbolMap();
-		int numParams = vmap.getNumParams();
-		if (f.getParameterCount() != numParams) {
-			try {
-				HighFunctionDBUtil.commitParamsToDatabase(decompResults.getHighFunction(), true,
-					SourceType.USER_DEFINED);
-			}
-			catch (DuplicateNameException e) {
-				throw new AssertException("Unexpected exception", e);
+				Msg.error(this,
+					"Failed to re-type variable " + var.getName() + ": " + e.getMessage());
 			}
 		}
 	}
 
-	private HighVariable computeVariableLocation(Program program, ProgramLocation location,
-			Function function) {
+	/**
+	 * Compute the storage address associated with a particular Location
+	 * @param location is the location being queried
+	 * @param function is the function owning the location
+	 * @return the corresponding storage address or null
+	 */
+	private Address computeStorageAddress(ProgramLocation location, Function function) {
 
-		HighVariable highVar = null;
 		Address storageAddress = null;
 
 		// make sure what we are over can be mapped to decompiler
 		// param, local, etc...
 
-		Address addr = location.getAddress();
 		if (location instanceof VariableLocation) {
 			VariableLocation varLoc = (VariableLocation) location;
 			storageAddress = varLoc.getVariable().getVariableStorage().getMinAddress();
@@ -314,24 +265,25 @@ public class FillOutStructureCmd extends BackgroundCommand {
 			FunctionParameterFieldLocation funcPFL = (FunctionParameterFieldLocation) location;
 			storageAddress = funcPFL.getParameter().getVariableStorage().getMinAddress();
 		}
-		else {
-			return findFunctionReturn(location.getProgram(), location.getAddress(), function);
+		return storageAddress;
 		}
 
+	/**
+	 * Decompile a function and return the resulting HighVariable associated with a storage address
+	 * @param storageAddress the storage address of the variable
+	 * @param function is the function
+	 * @return the corresponding HighVariable
+	 */
+	private HighVariable computeHighVariable(Address storageAddress, Function function) {
 		if (storageAddress == null) {
 			return null;
 		}
+		DecompInterface decomplib = setUpDecompiler();
+		HighVariable highVar = null;
 
-		// setup the decompiler
-		DecompInterface decomplib = setUpDecompiler(program);
-
-		// call it to get results
+		// call decompiler to get syntax tree
 		try {
-			if (!decomplib.openProgram(program)) {
-				return null;
-			}
-
-			if (addr == null) {
+			if (!decomplib.openProgram(currentProgram)) {
 				return null;
 			}
 
@@ -368,90 +320,19 @@ public class FillOutStructureCmd extends BackgroundCommand {
 			}
 
 			highVar = sym.getHighVariable();
-			if (highVar != null) {
-				try {
-					fixupParams(results, function);
-				}
-				catch (InvalidInputException e) {
-					Msg.error(this, e.getMessage());
-					return null;
-				}
-			}
-
 		}
 		finally {
 			decomplib.dispose();
 		}
-
-		// figure out how to map what the user is over into decompiler variable
 
 		return highVar;
 	}
 
 	/**
-	 * Assume we are on a function that is being called, try to find the output
-	 * varnode here from the decompiler.
-	 *
-	 * @param program
-	 * @param address
-	 * @param function
-	 * @return
+	 * Set up a decompiler interface for recovering data-flow
+	 * @return the decompiler interface
 	 */
-	private HighVariable findFunctionReturn(Program program, Address address, Function function) {
-		if (program == null) {
-			program = currentProgram;
-		}
-
-		// setup the decompiler
-		DecompInterface decomplib = setUpDecompiler(program);
-
-		HighVariable varAddr = null;
-
-		// call it to get results
-		try {
-			if (!decomplib.openProgram(program)) {
-				// println("Decompile Error: " + decomplib.getLastMessage());
-				return null;
-			}
-
-			if (address == null) {
-				return null;
-			}
-
-			DecompileResults results = decompileFunction(function, decomplib);
-			HighFunction hfunc = results.getHighFunction();
-			if (hfunc == null) {
-				return null;
-			}
-
-			Iterator<PcodeOpAST> ops = hfunc.getPcodeOps(address);
-			while (ops.hasNext()) {
-				PcodeOpAST op = ops.next();
-				if (op.getOpcode() == PcodeOp.CALL) {
-					Varnode vnode = op.getOutput();
-					varAddr = vnode.getHigh();
-					if (varAddr instanceof HighOther) {
-						Iterator<PcodeOp> descendants = vnode.getDescendants();
-						while (descendants.hasNext()) {
-							PcodeOp desc = descendants.next();
-							if (desc.getOpcode() == PcodeOp.CAST) {
-								vnode = desc.getOutput();
-								varAddr = vnode.getHigh();
-								break;
-							}
-						}
-					}
-					break;
-				}
-			}
-		}
-		finally {
-			decomplib.dispose();
-		}
-		return varAddr;
-	}
-
-	private DecompInterface setUpDecompiler(Program program) {
+	private DecompInterface setUpDecompiler() {
 		DecompInterface decomplib = new DecompInterface();
 
 		DecompileOptions options;
@@ -459,7 +340,7 @@ public class FillOutStructureCmd extends BackgroundCommand {
 		OptionsService service = tool.getService(OptionsService.class);
 		if (service != null) {
 			ToolOptions opt = service.getOptions("Decompiler");
-			options.grabFromToolAndProgram(null, opt, program);
+			options.grabFromToolAndProgram(null, opt, currentProgram);
 		}
 		decomplib.setOptions(options);
 
@@ -479,10 +360,17 @@ public class FillOutStructureCmd extends BackgroundCommand {
 		return decompRes;
 	}
 
-	private DataType createStructure(HighVariable var, Function f, boolean isThisParam) {
+	/**
+	 * Recover the structure associated with the given pointer variable, or if there is no structure,
+	 * create it.  Resize the structure to be at least as large as the maxOffset seen so far.
+	 * @param var is the given pointer variable
+	 * @param f is the function
+	 * @param isThisParam is true if the variable is a 'this' pointer
+	 * @return the Structure object
+	 */
+	private Structure createStructure(HighVariable var, Function f, boolean isThisParam) {
 
 		Structure structDT = null;
-		int ptrDepth = 0;
 
 		DataType varDT = var.getDataType();
 		if (varDT instanceof Structure) {
@@ -490,9 +378,7 @@ public class FillOutStructureCmd extends BackgroundCommand {
 		}
 		else if (varDT instanceof Pointer) {
 			DataType dt = ((Pointer) varDT).getDataType();
-			ptrDepth = 1;
 			while (dt instanceof Pointer) {
-				ptrDepth++;
 				dt = ((Pointer) dt).getDataType();
 			}
 			if (dt instanceof Structure) {
@@ -515,7 +401,15 @@ public class FillOutStructureCmd extends BackgroundCommand {
 				structDT.growStructure((int) maxOffset - len);
 			}
 		}
+		return structDT;
+	}
 
+	/**
+	 * Populate the given structure with any new discovered components in the
+	 * offsetToDataTypeMap.
+	 * @param structDT is the given structure
+	 */
+	private void populateStructure(Structure structDT) {
 		Iterator<Long> iterator = offsetToDataTypeMap.keySet().iterator();
 		while (iterator.hasNext()) {
 			Long key = iterator.next();
@@ -545,34 +439,17 @@ public class FillOutStructureCmd extends BackgroundCommand {
 				Msg.debug(this, "Unexpected error changing structure offset", e);
 			}
 		}
-
-		// TODO: need to create a pointer, or just lay down the structure,
-		// depending on where structure is located
-		DataType newDt = structDT;
-		if (varDT instanceof Pointer || isIntegerBase) {
-			DataType pdt = new PointerDataType(structDT);
-			for (int i = 1; i < ptrDepth; i++) {
-				pdt = new PointerDataType(pdt);
-			}
-			pdt = currentProgram.getDataTypeManager().addDataType(pdt,
-				DataTypeConflictHandler.DEFAULT_HANDLER);
-			newDt = pdt;
-		}
-		if (!isThisParam) {
-			try {
-				HighFunctionDBUtil.updateDBVariable(var, null, newDt, SourceType.USER_DEFINED);
-			}
-			catch (DuplicateNameException e) {
-				throw new AssertException("Unexpected exception", e);
-			}
-			catch (InvalidInputException e) {
-				Msg.error(this,
-					"Failed to re-type variable " + var.getName() + ": " + e.getMessage());
-			}
-		}
-		return newDt;
 	}
 
+	/**
+	 * Create a new structure of a given size. If the associated variable is a 'this' pointer,
+	 * make sure there is a the structure is associated with the class namespace.
+	 * @param var is the associated variable
+	 * @param size is the desired structure size
+	 * @param f is the function owning the variable
+	 * @param isThisParam is true if the variable is a 'this' variable
+	 * @return the new Structure
+	 */
 	private Structure createNewStruct(HighVariable var, int size, Function f, boolean isThisParam) {
 		if (isThisParam) {
 			Namespace rootNamespace = currentProgram.getGlobalNamespace();
@@ -643,28 +520,28 @@ public class FillOutStructureCmd extends BackgroundCommand {
 		return true;
 	}
 
+	/**
+	 * Look for Varnode references that are equal to the given variable plus a
+	 * constant offset and store them in the offsetToDataTypeMap. The search is performed
+	 * by following data-flow paths starting at the given variable. If the variable flows
+	 * into a CALL instruction, put it in the addressToCallInputMap if offset is 0.
+	 * @param var is the given variable
+	 */
 	private void fillOutStructureDef(HighVariable var) {
 		Varnode startVN = var.getRepresentative();
+		ArrayList<PointerRef> todoList = new ArrayList<PointerRef>();
+		HashSet<Varnode> doneList = new HashSet<>();
 
-		if (!(var.getDataType() instanceof Pointer)) {
-			isIntegerBase = true;
-		}
-
-		// put Vnode on Todo list
-		varnodeTodo.add(startVN);
-
-		// put Vnode ofset on offset Todo list
-		offsetTodo.add(Long.valueOf(0));
+		todoList.add(new PointerRef(startVN, 0));	// Base Varnode on the todo list
 
 		// while Todo list not empty
-		while (!varnodeTodo.isEmpty()) {
-			Varnode doVn = varnodeTodo.remove(0);
-			long offset = offsetTodo.remove(0);
-			if (doVn == null) {
+		while (!todoList.isEmpty()) {
+			PointerRef currentRef = todoList.remove(0);
+			if (currentRef.varnode == null) {
 				continue;
 			}
 
-			Varnode[] instances = doVn.getHigh().getInstances();
+			Varnode[] instances = currentRef.varnode.getHigh().getInstances();
 			// println("");
 			for (Varnode iVn : instances) {
 				Iterator<PcodeOp> descendants = iVn.getDescendants();
@@ -675,8 +552,7 @@ public class FillOutStructureCmd extends BackgroundCommand {
 					// println("off=" + offset + "     " + pcodeOp.getSeqnum().getTarget().toString() + " : "
 					//		+ pcodeOp.toString());
 
-					DataType outDt, inDt, subDt;
-
+					DataType outDt;
 					long newOff;
 					switch (pcodeOp.getOpcode()) {
 						case PcodeOp.INT_SUB:
@@ -684,20 +560,11 @@ public class FillOutStructureCmd extends BackgroundCommand {
 							if (!inputs[1].isConstant()) {
 								break;
 							}
-							outDt = output.getHigh().getDataType();
-							// println("        type = " + outDt.getName());
 							long value = getSigned(inputs[1]);
-							newOff = offset +
+							newOff = currentRef.offset +
 								((pcodeOp.getOpcode() == PcodeOp.INT_ADD) ? value : (-value));
-							subDt = outDt;
-							if (outDt instanceof Pointer) {
-								subDt = ((Pointer) outDt).getDataType();
-							}
 							if (sanityCheck(newOff)) { // should this offset create a location in the structure?
-								// if (subDt != null) {
-								// structDefs.put(Long.valueOf(offset), subDt);
-								// }
-								putOnList(output, newOff);
+								putOnList(output, newOff, todoList, doneList);
 								maxOffset = computeMax(maxOffset, newOff, 0);
 							}
 							break;
@@ -705,18 +572,10 @@ public class FillOutStructureCmd extends BackgroundCommand {
 							if (!inputs[1].isConstant() || !inputs[2].isConstant()) {
 								break;
 							}
-							outDt = output.getHigh().getDataType();
-							// println("        type = " + outDt.getName());
-							newOff = offset + getSigned(inputs[1]) * inputs[2].getOffset();
-							subDt = outDt;
-							if (outDt instanceof Pointer) {
-								subDt = ((Pointer) outDt).getDataType();
-							}
+							newOff =
+								currentRef.offset + getSigned(inputs[1]) * inputs[2].getOffset();
 							if (sanityCheck(newOff)) { // should this offset create a location in the structure?
-								// if (subDt != null) {
-								// structDefs.put(Long.valueOf(offset), subDt);
-								// }
-								putOnList(output, newOff);
+								putOnList(output, newOff, todoList, doneList);
 								maxOffset = computeMax(maxOffset, newOff, 0);
 							}
 							break;
@@ -724,19 +583,9 @@ public class FillOutStructureCmd extends BackgroundCommand {
 							if (!inputs[1].isConstant()) {
 								break;
 							}
-							inDt = inputs[0].getHigh().getDataType();
-							subDt = output.getHigh().getDataType();
-							// println("        type = " + subDt.getName());
-							long subOff = offset + getSigned(inputs[1]);
-							outDt = subDt;
-							if (subDt instanceof Pointer) {
-								outDt = ((Pointer) subDt).getDataType();
-							}
+							long subOff = currentRef.offset + getSigned(inputs[1]);
 							if (sanityCheck(subOff)) { // should this offset create a location in the structure?
-								// if (outDt != null) {
-								// structDefs.put(Long.valueOf(offset), outDt);
-								// }
-								putOnList(output, subOff);
+								putOnList(output, subOff, todoList, doneList);
 								maxOffset = computeMax(maxOffset, subOff, 0);
 							}
 							break;
@@ -744,53 +593,46 @@ public class FillOutStructureCmd extends BackgroundCommand {
 							// treat segment op as if it were a cast to complete the value
 							//   The segment adds in some unknown base value.
 							// get output and add to the Varnode Todo list
-							putOnList(output, offset);
+							putOnList(output, currentRef.offset, todoList, doneList);
 							break;
 
 						case PcodeOp.LOAD:
-							// create a location in the struct
-							// println("   load -> " + offset);
 							outDt = output.getHigh().getDataType();
-							inDt = inputs[1].getHigh().getDataType();
 							if (outDt != null) {
-								offsetToDataTypeMap.put(Long.valueOf(offset), outDt);
+								offsetToDataTypeMap.put(Long.valueOf(currentRef.offset), outDt);
 							}
-							maxOffset = computeMax(maxOffset, offset, output.getSize());
+							maxOffset = computeMax(maxOffset, currentRef.offset, output.getSize());
 							break;
 						case PcodeOp.STORE:
 							// create a location in the struct
-							// println("   store -> " + offset);
-							inDt = inputs[1].getHigh().getDataType();
-							outDt = inDt;
-							if (inDt instanceof Pointer) {
-								outDt = ((Pointer) inDt).getDataType();
+							//use the type of the varnode being put in to the structure
+							if (pcodeOp.getSlot(iVn) != 1) {
+								break; // store must be into the target structure
 							}
+							outDt = inputs[2].getHigh().getDataType();
 							int outLen = 1; // Storing at least one byte
 							if (outDt != null) {
-								offsetToDataTypeMap.put(Long.valueOf(offset), outDt);
+								offsetToDataTypeMap.put(Long.valueOf(currentRef.offset), outDt);
 								outLen = outDt.getLength();
 							}
 
-							maxOffset = computeMax(maxOffset, offset, outLen);
-							// println("        type = " + inDt.getName());
+							maxOffset = computeMax(maxOffset, currentRef.offset, outLen);
 							break;
-
 						case PcodeOp.CAST:
-							// get output and add to the Varnode Todo list
-							putOnList(output, offset);
+							putOnList(output, currentRef.offset, todoList, doneList);
 							break;
 						case PcodeOp.MULTIEQUAL:
-							putOnList(output, offset);
+							putOnList(output, currentRef.offset, todoList, doneList);
 							break;
 						case PcodeOp.COPY:
-							putOnList(output, offset);
+							putOnList(output, currentRef.offset, todoList, doneList);
 							break;
 						case PcodeOp.CALL:
+							if (currentRef.offset == 0) {		// If pointer is passed directly (no offset)
 							// find it as an input
-							Varnode[] callInputs = pcodeOp.getInputs();
-							for (int j = 0; j < callInputs.length; j++) {
-								if (callInputs[j].equals(iVn)) {
-									putOnCallParamList(callInputs[0].getAddress(), j - 1);
+								int slot = pcodeOp.getSlot(iVn);
+								if (slot > 0 && slot < pcodeOp.getNumInputs()) {
+									putOnCallParamList(pcodeOp.getInput(0).getAddress(), slot - 1);
 								}
 							}
 							break;
@@ -801,6 +643,12 @@ public class FillOutStructureCmd extends BackgroundCommand {
 		}
 	}
 
+	/**
+	 * Note that flow has hit a CALL instruction at a particular input parameter so that
+	 * pushIntoCalls() can recurse into the call.
+	 * @param address is the destination of the CALL
+	 * @param j is the parameter index where flow hit
+	 */
 	private void putOnCallParamList(Address address, int j) {
 		addressToCallInputMap.put(address, j);
 	}
@@ -821,13 +669,20 @@ public class FillOutStructureCmd extends BackgroundCommand {
 		return value;
 	}
 
-	private void putOnList(Varnode output, long offset) {
+	/**
+	 * Add a Varnode reference to the current work list to facilitate flow tracing.
+	 * To prevent cycles, a separate of visited Varnodes is maintained
+	 * @param output is the Varnode at the current point of flow
+	 * @param offset is the relative offset of the Varnode to the root variable
+	 * @param todoList is the current work list
+	 * @param doneList is the visited list
+	 */
+	private void putOnList(Varnode output, long offset, ArrayList<PointerRef> todoList,
+			HashSet<Varnode> doneList) {
 		if (doneList.contains(output)) {
 			return;
 		}
-		varnodeTodo.add(output);
-		offsetTodo.add(offset);
+		todoList.add(new PointerRef(output, offset));
 		doneList.add(output);
-		// println(" off=" + offset);
 	}
 }
