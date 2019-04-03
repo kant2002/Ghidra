@@ -14,6 +14,8 @@
 # **   migrate-all - migrate all named repositories to index data storage
 # ***********************************************************  
 
+UMASK=027
+
 # Preserve quoted arguments
 ARGS=()
 WHITESPACE="[[:space:]]"
@@ -43,9 +45,9 @@ else
 	# Development Environment
 	CONFIG="${SCRIPT_DIR}/../../Common/server/server.conf"
 	GHIDRA_DIR="${SCRIPT_DIR}/../../.."
-	GHIDRA_BIN_REPO="${GHIDRA_DIR}/../../ghidra.bin.git"
-	CPATH="${GHIDRA_DIR}/Features/GhidraServer/bin:${GHIDRA_DIR}/Framework/FileSystem/bin:${GHIDRA_DIR}/Framework/DB/bin:${GHIDRA_DIR}/Framework/Generic/bin:${GHIDRA_DIR}/Framework/Utility/bin:${GHIDRA_BIN_REPO}/ExternalLibraries/libsForRuntime/log4j-core-2.8.1.jar:${GHIDRA_BIN_REPO}/ExternalLibraries/libsForRuntime/log4j-api-2.8.1.jar"
-	LS_CPATH="${GHIDRA_DIR}/../GhidraBuild/LaunchSupport/bin"
+	GHIDRA_BIN_REPO="${GHIDRA_DIR}/../../ghidra.bin"
+	CPATH="${GHIDRA_DIR}/Features/GhidraServer/bin/main:${GHIDRA_DIR}/Framework/FileSystem/bin/main:${GHIDRA_DIR}/Framework/DB/bin/main:${GHIDRA_DIR}/Framework/Generic/bin/main:${GHIDRA_DIR}/Framework/Utility/bin/main:${GHIDRA_BIN_REPO}/ExternalLibraries/libsForRuntime/log4j-core-2.8.1.jar:${GHIDRA_BIN_REPO}/ExternalLibraries/libsForRuntime/log4j-api-2.8.1.jar"
+	LS_CPATH="${GHIDRA_DIR}/../GhidraBuild/LaunchSupport/bin/main"
 fi
 
 # Make sure some kind of java is on the path.  It's required to run the LaunchSupport program.
@@ -64,7 +66,8 @@ JAVA_CMD="${JAVA_HOME}/bin/java"
 
 VMARGS="-DUserAdmin.invocation=$(basename "${SCRIPT_FILE}") -DUserAdmin.config=\"${CONFIG}\""
 
-umask 027
+OLD_UMASK=$(umask)
+umask $UMASK
 
 # Identify server process owner if set within server.conf
 OWNER="$(grep '^wrapper.app.account=' "${CONFIG}" | sed -e 's/^.*=\(.*\)\s*.*$/\1/')"
@@ -76,4 +79,4 @@ else
  	eval "sudo -u "${OWNER}" \"${JAVA_CMD}\" ${VMARGS} -cp \"${CPATH}\" ghidra.server.UserAdmin ${ARGS[@]}"
 fi
 
-
+umask $OLD_UMASK

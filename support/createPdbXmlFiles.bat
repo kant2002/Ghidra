@@ -22,7 +22,7 @@ REM Production Environment
 if exist "%ghidraPath%Ghidra" goto continue
 
 REM Development Environment
-set ghidraPath="%ghidraPath%..\..\..\..\ghidra.bin.git\"
+set ghidraPath="%ghidraPath%..\..\..\..\ghidra.bin\"
 
 :continue
 

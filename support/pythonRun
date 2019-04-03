@@ -11,8 +11,9 @@
 # Launch mode can be changed to one of the following: fg, debug, debug-suspend
 LAUNCH_MODE=fg
 
-# Set debug port 
-DEBUG_PORT=13002
+# Set the debug address to listen on.
+# NOTE: This variable is ignored if not launching in a debugging mode.
+DEBUG_ADDRESS=127.0.0.1:13002
 
 # Limit the # of garbage collection and JIT compiler threads in case many python
 # instances are run in parallel.  By default, Java will assign one thread per core
@@ -31,5 +32,5 @@ SCRIPT_FILE="$(readlink -f "$0" 2>/dev/null || readlink "$0" 2>/dev/null || echo
 SCRIPT_DIR="${SCRIPT_FILE%/*}"
 
 # Launch Ghidra Python
-# DEBUG_PORT set via environment for launch.sh
-DEBUG_PORT=${DEBUG_PORT} "${SCRIPT_DIR}"/launch.sh "${LAUNCH_MODE}" "Ghidra-Python" "${MAXMEM}" "${VMARG_LIST}" ghidra.python.PythonRun "$@"
+# DEBUG_ADDRESS set via environment for launch.sh
+DEBUG_ADDRESS=${DEBUG_ADDRESS} "${SCRIPT_DIR}"/launch.sh "${LAUNCH_MODE}" "Ghidra-Python" "${MAXMEM}" "${VMARG_LIST}" ghidra.python.PythonRun "$@"

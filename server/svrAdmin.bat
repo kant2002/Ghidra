@@ -47,9 +47,9 @@ if exist "%GHIDRA_DIR%" goto continue
 :: Development Environment - assumes suitable java in command path
 set CONFIG=%SCRIPT_DIR%..\..\Common\server\server.conf
 set GHIDRA_DIR=%SCRIPT_DIR%..\..\..
-set GHIDRA_BIN_HOME=%GHIDRA_DIR%\..\..\ghidra.bin.git
-set CPATH=%GHIDRA_DIR%\Features\GhidraServer\bin;%GHIDRA_DIR%\Framework\FileSystem\bin;%GHIDRA_DIR%\Framework\DB\bin;%GHIDRA_DIR%\Framework\Generic\bin;%GHIDRA_DIR%\Framework\Utility\bin;%GHIDRA_BIN_HOME%\ExternalLibraries\libsForRuntime\log4j-core-2.8.1.jar;%GHIDRA_BIN_HOME%\ExternalLibraries\libsForRuntime\log4j-api-2.8.1.jar
-set LS_CPATH=%GHIDRA_DIR%\..\GhidraBuild\LaunchSupport\bin
+set GHIDRA_BIN_HOME=%GHIDRA_DIR%\..\..\ghidra.bin
+set CPATH=%GHIDRA_DIR%\Features\GhidraServer\bin\main;%GHIDRA_DIR%\Framework\FileSystem\bin\main;%GHIDRA_DIR%\Framework\DB\bin\main;%GHIDRA_DIR%\Framework\Generic\bin\main;%GHIDRA_DIR%\Framework\Utility\bin\main;%GHIDRA_BIN_HOME%\ExternalLibraries\libsForRuntime\log4j-core-2.8.1.jar;%GHIDRA_BIN_HOME%\ExternalLibraries\libsForRuntime\log4j-api-2.8.1.jar
+set LS_CPATH=%GHIDRA_DIR%\..\GhidraBuild\LaunchSupport\bin\main
 
 :continue
 

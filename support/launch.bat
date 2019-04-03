@@ -7,8 +7,8 @@ echo    ^<mode^>: fg    run as foreground process in current shell
 echo              bg    run as background process in new shell
 echo              debug run as foreground process in current shell in debug mode ^(suspend=n^)
 echo              debug-suspend   run as foreground process in current shell in debug mode ^(suspend=y^)
-echo              NOTE: for all debug modes environment variable DEBUG_PORT may be set to 
-echo                    override default debug port of 18001
+echo              NOTE: for all debug modes environment variable DEBUG_ADDRESS may be set to 
+echo                    override default debug address of 127.0.0.1:18001
 echo    ^<name^>: application name used for naming console window
 echo    ^<max-memory^>: maximum memory heap size in MB ^(e.g., 768M or 2G^).  Use "" if default should be used.
 echo                  This will generally be upto 1/4 of the physical memory available to the OS.  On 
@@ -74,8 +74,8 @@ if exist "%INSTALL_DIR%Ghidra" goto continue2
 :: Development Environment
 ::
 set INSTALL_DIR=%INSTALL_DIR%..\..\..\
-set CPATH=%INSTALL_DIR%Ghidra\Framework\Utility\bin
-set LS_CPATH=%INSTALL_DIR%GhidraBuild\LaunchSupport\bin
+set CPATH=%INSTALL_DIR%Ghidra\Framework\Utility\bin\main
+set LS_CPATH=%INSTALL_DIR%GhidraBuild\LaunchSupport\bin\main
 set DEBUG_LOG4J=%INSTALL_DIR%Ghidra\RuntimeScripts\Common\support\debug.log4j.xml
 
 :continue2
@@ -132,15 +132,15 @@ if "%MODE%"=="debug-suspend" (
 )
 	
 if "%DEBUG%"=="y" (
-	if "%DEBUG_PORT%"=="" (
-		set DEBUG_PORT=18001
+	if "%DEBUG_ADDRESS%"=="" (
+		set DEBUG_ADDRESS=127.0.0.1:18001
 	)
-	set /a JMX_PORT=!DEBUG_PORT!+1
-	set VMARG_LIST=!VMARG_LIST! -Xdebug -Xnoagent -Djava.compiler=NONE -Dlog4j.configuration="!DEBUG_LOG4J!"
-	set VMARG_LIST=!VMARG_LIST! -Xrunjdwp:transport=dt_socket,server=y,suspend=!SUSPEND!,address=*:!DEBUG_PORT!
-	set VMARG_LIST=!VMARG_LIST! -Dcom.sun.management.jmxremote.port=!JMX_PORT!
-	set VMARG_LIST=!VMARG_LIST! -Dcom.sun.management.jmxremote.authenticate=false
-	set VMARG_LIST=!VMARG_LIST! -Dcom.sun.management.jmxremote.ssl=false
+		
+	set VMARG_LIST=!VMARG_LIST! -Xdebug
+	set VMARG_LIST=!VMARG_LIST! -Xnoagent
+	set VMARG_LIST=!VMARG_LIST! -Djava.compiler=NONE
+	set VMARG_LIST=!VMARG_LIST! -Dlog4j.configuration="!DEBUG_LOG4J!"
+	set VMARG_LIST=!VMARG_LIST! -Xrunjdwp:transport=dt_socket,server=y,suspend=!SUSPEND!,address=!DEBUG_ADDRESS!
 	goto continue3
 )
 
@@ -172,7 +172,7 @@ if "%BACKGROUND%"=="y" (
 	timeout /NOBREAK 1 > NUL
 	tasklist | find "javaw" > NUL
 	if not "!ERRORLEVEL!"=="0" (
-		echo Exited with error.  Run in debug mode for more details.
+		echo Exited with error.  Run in foreground ^(fg^) mode for more details.
 	)
 ) else (
 	"%JAVA_CMD%" %CMD_ARGS%

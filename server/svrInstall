@@ -12,7 +12,7 @@ SFILE=$SCRIPT_DIR/ghidraSvr
 if [ ! -x $SFILE ]; then
 	CHECK_FILE_PERM=`file $SFILE | grep 'Permission'`
 	if [ "$CHECK_FILE_PERM" != "" ]; then
-        	echo "Ghidra Server file permissions prevent installation (see svrREADME.txt)";
+        	echo "Ghidra Server file permissions prevent installation (see svrREADME.html)";
 	elif [ -e $SFILE ]; then
         	echo "Ghidra Server startup script $SFILE must be executable!";
 	else

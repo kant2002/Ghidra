@@ -11,13 +11,12 @@ setlocal
 
 ::set MAXMEM=768M
 
-:: debug launch mode can be changed to one of the following:
+:: Debug launch mode can be changed to one of the following:
 ::    debug, debug-suspend
 set LAUNCH_MODE=debug
 
-:: set debug port
-set DEBUG_PORT=18001
-
-:: DEBUG_PORT set via environment for launch.bat
+:: Set the debug address to listen on.
+:: NOTE: This variable is ignored if not launching in a debugging mode.
+set DEBUG_ADDRESS=127.0.0.1:18001
 
 call "%~dp0launch.bat" %LAUNCH_MODE% Ghidra "%MAXMEM%" "" ghidra.GhidraRun %*

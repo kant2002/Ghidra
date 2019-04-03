@@ -9,12 +9,13 @@ setlocal EnableDelayedExpansion
 :: memory.
 set MAXMEM=2G
 
-:: launch mode can be changed to one of the following:
+:: Launch mode can be changed to one of the following:
 ::    fg, debug, debug-suspend
 set LAUNCH_MODE=fg
 
-:: set debug port for debug mode if used
-set DEBUG_PORT=13002
+:: Set the debug address to listen on.
+:: NOTE: This variable is ignored if not launching in a debugging mode.
+set DEBUG_ADDRESS=127.0.0.1:13002
 
 :: Limit the # of garbage collection and JIT compiler threads in case many headless
 :: instances are run in parallel.  By default, Java will assign one thread per core
