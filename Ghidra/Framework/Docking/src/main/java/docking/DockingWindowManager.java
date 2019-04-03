@@ -187,14 +187,6 @@ public class DockingWindowManager implements PropertyChangeListener, Placeholder
 		return docListener.getPopupActions(context);
 	}
 
-	/**
-	 * Returns the ComponentWindowingPlaceholder that currently has focus.
-	 * @return the ComponentWindowingPlaceholder that currently has focus.
-	 */
-	public ComponentPlaceholder getFocusedProviderPlaceholder() {
-		return focusedPlaceholder;
-	}
-
 	private static synchronized void addInstance(DockingWindowManager winMgr) {
 		instanceList.add(winMgr);
 	}

@@ -55,7 +55,7 @@ public class ShowFocusInfoAction extends DockingAction {
 	 */
 	private static void printFocusInformation() {
 		DockingWindowManager winMgr = DockingWindowManager.getActiveInstance();
-		ComponentPlaceholder info = winMgr.getFocusedProviderPlaceholder();
+		ComponentPlaceholder info = winMgr.getFocusedComponent();
 		DockableComponent dockableComp = null;
 		if (info != null) {
 			dockableComp = info.getComponent();

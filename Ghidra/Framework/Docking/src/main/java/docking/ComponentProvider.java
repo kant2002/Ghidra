@@ -164,6 +164,17 @@ public abstract class ComponentProvider implements HelpDescriptor, ActionContext
 	}
 
 	/**
+	 * Returns true if this provider has focus
+	 * 
+	 * @return true if this provider has focus
+	 */
+	public boolean isFocusedProvider() {
+		DockingWindowManager dwm = DockingWindowManager.getInstance(getComponent());
+		ComponentPlaceholder placeholder = dwm.getFocusedComponent();
+		return placeholder.getProvider() == this;
+	}
+
+	/**
 	 * Adds this provider to the tool in a new window that is not initially visible.  The provider
 	 * will then show up in the "Windows" menu of the tool
 	 */

@@ -406,7 +406,16 @@ public class FGProvider extends VisualGraphComponentProvider<FGVertex, FGEdge, F
 	 */
 	public void graphLocationChanged(ProgramLocation newLocation) {
 		storeLocation(newLocation);
+
+		if (isFocusedProvider()) {
+
+			// Note: this is the easy way to avoid odd event bouncing--only send events out if 
+			//       we are focused, as this implies the user is driving the events.  A better
+			//       metaphor for handling external and internal program locations is needed to
+			//       simplify the logic of when to broadcast location changes.
 		notifyLocationChanged(newLocation);
+		}
+
 		notifyContextChanged();
 	}
 
