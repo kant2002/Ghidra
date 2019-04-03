@@ -820,6 +820,9 @@ public class EditReferencesProvider extends ComponentProviderAdapter
 	}
 
 	private void deleteCallback() {
+		// cancel any pending edits before deleting, as not to trigger explosions
+		refsTable.editingCanceled(new ChangeEvent(refsTable));
+
 		int[] selRows = refsTable.getSelectedRows();
 		if (selRows.length != 0) {
 			Reference[] refs = new Reference[selRows.length];
@@ -837,61 +840,11 @@ public class EditReferencesProvider extends ComponentProviderAdapter
 		}
 		updateMgr.updateLater();
 
-//		Address locAddr = location.getAddress();
-//		
-//		for (int i=0; i<ev.numRecords(); i++) {
-//			DomainObjectChangeRecord rec = ev.getChangeRecord(i);
-//			int eventType = rec.getEventType();
-//			if (eventType == DomainObject.DO_OBJECT_RESTORED) {
-//				updateMgr.updateLater();
-//				return;
-//			}
-//            else if (eventType == ChangeManager.DOCR_EXTERNAL_PATH_CHANGED) {
-//                //if the resolved path changes, then we need to update
-//                //the external ref panel..gentr 
-//            	updateMgr.updateLater();
-//                return;
-//            }
-//			if (rec instanceof ProgramChangeRecord) {
-//
-//				ProgramChangeRecord pcr = (ProgramChangeRecord) rec;
-//
-//				Address start = pcr.getStart();
-//				Address   end = pcr.getEnd();
-//				if (start != null && end != null) {
-//					if (locAddr.compareTo(start) >=0 &&	locAddr.compareTo(end) <=0) {
-//						updateMgr.updateLater();
-//						return;
-//					}
-//				}
-//				
-//				if (eventType == ChangeManager.DOCR_DATA_TYPE_CHANGED) {
-//					updateMgr.updateLater();
-//					return;
-//				}
-//				else if (eventType == ChangeManager.DOCR_FUNCTION_ADDED ||
-//						eventType == ChangeManager.DOCR_FUNCTION_CHANGED) {
-//					Function func = (Function) pcr.getObject();
-//					if (func.getBody().contains(locAddr)) {
-//						updateMgr.updateLater();
-//						return;
-//					}
-//				}
-//				else if (eventType == ChangeManager.DOCR_FUNCTION_REMOVED) {
-//					AddressSetView oldFuncBody = (AddressSetView) pcr.getOldValue();
-//					if (oldFuncBody.contains(locAddr)) {
-//						updateMgr.updateLater();
-//						return;
-//					}
-//				}
-//			}	
-//		}
-
 	}
 
-////////////////////////////////////////////////////////////////////////
-// inner classes 
-////////////////////////////////////////////////////////////////////////
+//==================================================================================================
+// Inner Classes
+//==================================================================================================	
 
 	/** Fun little storage object */
 	private class ReferenceInfo {
