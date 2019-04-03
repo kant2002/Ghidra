@@ -16,6 +16,7 @@
 package docking.widgets;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.datatransfer.Clipboard;
 import java.awt.event.*;
 
@@ -334,10 +335,18 @@ public class ScrollableTextArea extends JScrollPane {
 			// prevent horizontal scrolling.  This helps with content like error messages, which
 			// often are sized too small to see all the text.
 			//
-			Dimension preferredSize = getPreferredSize();
-			preferredSize.width += getScrollBarWidth();
-			WindowUtilities.ensureSizeFitsScreen(preferredSize);
-			return preferredSize;
+			Dimension size = getPreferredSize();
+			size.width += getScrollBarWidth();
+
+			Rectangle screenBounds = WindowUtilities.getScreenBounds(this);
+			if (screenBounds == null) {
+				// not yet 'realized' on screen; don't know which screen we will be on
+				return size;
+			}
+
+			size.width = Math.min(size.width, screenBounds.width);
+			size.height = Math.min(size.height, screenBounds.height);
+			return size;
 		}
 
 		private int getScrollBarWidth() {

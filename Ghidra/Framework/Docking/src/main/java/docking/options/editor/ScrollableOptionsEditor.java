@@ -29,7 +29,7 @@ import ghidra.util.layout.MiddleLayout;
 /**
  * Panel that shows each property in an Options category or a Group in an Options category
  */
-public class ScrollableOptionsEditor extends JScrollPane implements OptionsEditor, Scrollable {
+public class ScrollableOptionsEditor extends JScrollPane implements OptionsEditor {
 
 	private OptionsEditorPanel optionsPanel;
 
@@ -49,7 +49,8 @@ public class ScrollableOptionsEditor extends JScrollPane implements OptionsEdito
 		setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
 
-		JPanel outerPanel = new JPanel(new MiddleLayout());
+		// the outer panel is 'Scrollable' and uses a layout that centers the options panel
+		JPanel outerPanel = new ScollableOptionsPanel();
 		outerPanel.add(optionsPanel);
 		setViewportView(outerPanel);
 	}
@@ -92,32 +93,58 @@ public class ScrollableOptionsEditor extends JScrollPane implements OptionsEdito
 // Scrollable Interface Methods
 //==================================================================================================
 
-	/**
-	 * @see javax.swing.Scrollable#getPreferredScrollableViewportSize()
-	 */
+	private class ScollableOptionsPanel extends JPanel implements Scrollable {
+
+		ScollableOptionsPanel() {
+			super(new MiddleLayout());
+		}
+
 	@Override
 	public Dimension getPreferredScrollableViewportSize() {
 		return getPreferredSize();
 	}
 
 	@Override
-	public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
+		public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation,
+				int direction) {
 		return visibleRect.height;
 	}
 
 	@Override
 	public boolean getScrollableTracksViewportHeight() {
-		return true;
+
+			//
+			// This method tells the viewport whether this panel should be expanded to fit the
+			// size of the viewport.  We wish to do this when the viewport is larger than us.
+			// When it is smaller than us, we want to use our size, which will then trigger 
+			// scrollbars.
+			//			
+			Dimension mySize = getPreferredSize();
+			Dimension viewSize = ScrollableOptionsEditor.this.getViewport().getSize();
+			boolean viewIsLarger = viewSize.height > mySize.height;
+			return viewIsLarger;
 	}
 
 	@Override
 	public boolean getScrollableTracksViewportWidth() {
-		return false;
+
+			//
+			// This method tells the viewport whether this panel should be expanded to fit the
+			// size of the viewport.  We wish to do this when the viewport is larger than us.
+			// When it is smaller than us, we want to use our size, which will then trigger 
+			// scrollbars.
+			//			
+			Dimension mySize = getPreferredSize();
+			Dimension viewSize = ScrollableOptionsEditor.this.getViewport().getSize();
+			boolean viewIsLarger = viewSize.width > mySize.width;
+			return viewIsLarger;
 	}
 
 	@Override
-	public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
+		public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation,
+				int direction) {
 		return 10;
+	}
 	}
 
 }
