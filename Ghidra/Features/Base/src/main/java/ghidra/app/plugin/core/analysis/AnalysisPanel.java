@@ -481,6 +481,7 @@ class AnalysisPanel extends JPanel implements PropertyChangeListener {
 		}
 		for (EditorState info : editorList) {
 			if (info.isValueChanged()) {
+				propertyChangeListener.propertyChange(new PropertyChangeEvent(this, "apply.enabled", false, true));
 				return true;
 			}
 		}
