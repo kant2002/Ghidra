@@ -9,8 +9,8 @@ function showUsage() {
 	echo "           bg   run as background process in new shell"
 	echo "           debug   run as foreground process in current shell in debug mode (suspend=n)"
 	echo "           debug-suspend   run as foreground process in current shell in debug mode (suspend=y)"
-	echo "           NOTE: for all debug modes environment variable DEBUG_PORT may be set to "
-	echo "                 override default debug port of 18001"
+	echo "           NOTE: for all debug modes environment variable DEBUG_ADDRESS may be set to "
+	echo "                 override default debug address of 127.0.0.1:18001"
 	echo "   <name>: application name used for naming console window"
 	echo "   <max-memory>: maximum memory heap size in MB (e.g., 768M or 2G).  Use empty \"\" if default"
     echo "               should be used.  This will generally be upto 1/4 of the physical memory available"
@@ -83,8 +83,8 @@ else
 
 	# Development Environment
 	INSTALL_DIR="${SUPPORT_DIR}/../../../.."
-	CPATH="${INSTALL_DIR}/Ghidra/Framework/Utility/bin"
-	LS_CPATH="${INSTALL_DIR}/GhidraBuild/LaunchSupport/bin"
+	CPATH="${INSTALL_DIR}/Ghidra/Framework/Utility/bin/main"
+	LS_CPATH="${INSTALL_DIR}/GhidraBuild/LaunchSupport/bin/main"
 	DEBUG_LOG4J="${INSTALL_DIR}/Ghidra/RuntimeScripts/Common/support/debug.log4j.xml"
 fi
 
@@ -124,6 +124,11 @@ if [ "$(uname -s)" = "Darwin" ]; then
 	VMARG_LIST+=" -Declipse.filelock.disable=true"
 fi
 
+# Add extra Linux VM arguments
+if [ "$(uname -s)" = "Linux" ]; then
+	VMARG_LIST+=" -Dawt.useSystemAAFontSettings=on"
+fi
+
 # Set Max Heap Size if specified
 if [ "${MAXMEM}" != "" ]; then
 	VMARG_LIST+=" -Xmx${MAXMEM}"
@@ -135,8 +140,8 @@ if [ "${MODE}" = "debug" ] || [ "${MODE}" = "debug-suspend" ]; then
 	
 	SUSPEND=n
 	
-	if [ "{$DEBUG_PORT}" = "" ]; then 
-		DEBUG_PORT=18001
+	if [ "${DEBUG_ADDRESS}" = "" ]; then
+		DEBUG_ADDRESS=127.0.0.1:18001
 	fi
 
 	if [ "${MODE}" = "debug-suspend" ]; then
@@ -147,10 +152,7 @@ if [ "${MODE}" = "debug" ] || [ "${MODE}" = "debug-suspend" ]; then
 	VMARG_LIST+=" -Xnoagent" 
 	VMARG_LIST+=" -Djava.compiler=NONE" 
 	VMARG_LIST+=" -Dlog4j.configuration=\"${DEBUG_LOG4J}\""  
-	VMARG_LIST+=" -Xrunjdwp:transport=dt_socket,server=y,suspend=${SUSPEND},address=*:${DEBUG_PORT}"
-	VMARG_LIST+=" -Dcom.sun.management.jmxremote.port=$(($DEBUG_PORT+1))"
-	VMARG_LIST+=" -Dcom.sun.management.jmxremote.authenticate=false"
-	VMARG_LIST+=" -Dcom.sun.management.jmxremote.ssl=false"
+	VMARG_LIST+=" -Xrunjdwp:transport=dt_socket,server=y,suspend=${SUSPEND},address=${DEBUG_ADDRESS}"
 
 elif [ "${MODE}" = "fg" ]; then
 	:
@@ -172,7 +174,7 @@ if [ "${BACKGROUND}" = true ]; then
 	PID=$!
 	sleep 1
 	if ! kill -0 ${PID} &>/dev/null; then
-		echo "Exited with error.  Run in debug mode for more details."
+		echo "Exited with error.  Run in foreground (fg) mode for more details."
 		exit 1
 	fi
 	exit 0

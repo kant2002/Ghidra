@@ -1,5 +1,52 @@
 @echo off
+
+rem ---------------------------------------------------------------------------------------
+rem Ghidra Server Script (see svrREADME.html for usage details)
+rem   Usage: ghidraSvr [ console | status | install | uninstall | start | stop | restart ]
+rem ---------------------------------------------------------------------------------------
+
+rem  The Java 11 (or later) runtime installation must either be on the system path or identified
+rem  by setting the JAVA_HOME environment variable.  If not using a formally installed Java 
+rem  runtime which has been configured into the system PATH ahead of other Java installations
+rem  it may be necessary to explicitly specify the path to the installation by setting JAVA_HOME
+rem  below:
+
+rem JAVA_HOME=
+
 setlocal enabledelayedexpansion
+
+set OPTION=%1
+
+goto lab0
+
+:usage
+	echo.
+	echo Usage: %0 { console ^| start ^| stop ^| restart ^| status }
+	echo.
+	set DOUBLE_CLICKED=n
+	for /f "tokens=2" %%# in ("%cmdcmdline%") do if /i "%%#" equ "/c" set DOUBLE_CLICKED=y
+	if "!DOUBLE_CLICKED!"=="y" (
+		pause
+	)
+	exit /B 1
+
+:lab0
+
+if "%OPTION%"=="" (
+	goto usage
+)
+
+set IS_ADMIN=NO
+whoami /groups | findstr "S-1-16-12288 " >NUL && set IS_ADMIN=YES
+
+if "%IS_ADMIN%"=="NO" (
+	rem The following command options require admin
+	if "%OPTION%"=="start" goto adminFail
+	if "%OPTION%"=="stop" goto adminFail
+	if "%OPTION%"=="install" goto adminFail
+	if "%OPTION%"=="uninstall" goto adminFail
+	if "%OPTION%"=="restart" goto adminFail
+)
 
 rem Find the script directory
 rem %~dsp0 is location of current script under NT
@@ -10,7 +57,7 @@ set APP_LONG_NAME=Ghidra Server
 
 set MODULE_DIR=Ghidra\Features\GhidraServer
 
-set WRAPPER_NAME=yajsw-stable-12.12
+set WRAPPER_NAME_PREFIX=yajsw
 
 if exist "%_REALPATH%..\Ghidra\" goto normal
 
@@ -19,45 +66,66 @@ rem NOTE: If adjusting JAVA command assignment - do not attempt to add parameter
 rem Development Environment
 set GHIDRA_HOME=%_REALPATH%..\..\..\..
 set WRAPPER_CONF=%_REALPATH%..\..\Common\server\server.conf
-set WRAPPER_HOME=%GHIDRA_HOME%\%MODULE_DIR%\build\data\%WRAPPER_NAME%
+set DATA_DIR=%GHIDRA_HOME%\%MODULE_DIR%\build\data
 set CLASSPATH_FRAG=%GHIDRA_HOME%\%MODULE_DIR%\build\dev-meta\classpath.frag
-set LS_CPATH=%GHIDRA_HOME%\GhidraBuild\LaunchSupport\bin
+set LS_CPATH=%GHIDRA_HOME%\GhidraBuild\LaunchSupport\bin\main
 
-goto :lab1
+goto lab1
 
 :normal
 set GHIDRA_HOME=%_REALPATH%..
 set WRAPPER_CONF=%_REALPATH%server.conf
-set WRAPPER_HOME=%GHIDRA_HOME%\%MODULE_DIR%\data\%WRAPPER_NAME%
+set DATA_DIR=%GHIDRA_HOME%\%MODULE_DIR%\data
 set CLASSPATH_FRAG=%GHIDRA_HOME%\%MODULE_DIR%\data\classpath.frag
 set LS_CPATH=%GHIDRA_HOME%\support\LaunchSupport.jar
 
 :lab1
 
+rem set WRAPPER_HOME to unpacked yajsw location (crazy FOR syntax to set variable from command output)
+for /F "usebackq delims=" %%p in (`dir "%DATA_DIR%" /ad /b ^| findstr "^%WRAPPER_NAME_PREFIX%"`) do set WRAPPER_DIRNAME=%%p
+set WRAPPER_HOME=%DATA_DIR%\%WRAPPER_DIRNAME%
+
 if not exist "%WRAPPER_HOME%\" (
-	set ERROR_MSG=%WRAPPER_HOME% not found
-	echo !ERROR_MSG!
-	echo !ERROR_MSG! >> %GHIDRA_HOME%\wrapper.log
+	echo.
+	echo %WRAPPER_NAME_PREFIX% not found
+	echo.
 	exit /B 1
 )
+
+echo Using service wrapper: %WRAPPER_DIRNAME%
+
+@rem Find java.exe
+if defined JAVA_HOME goto findJavaFromJavaHome
+
+set JAVA=java.exe
+%JAVA% -version >NUL 2>&1
+if "%ERRORLEVEL%" == "0" goto lab2
+set ERROR=ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+goto reportError
+
+:findJavaFromJavaHome
+set JAVA_HOME=%JAVA_HOME:"=%
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
+
+if exist "%JAVA_EXE%" goto init
+set ERROR=ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
+goto reportError
+
+:lab2
 
 :: Make sure some kind of java is on the path.  It's required to run the LaunchSupport program.
 java -version >nul 2>nul
 if not %ERRORLEVEL% == 0 (
-	set ERROR_MSG=Java runtime not found.  Please refer to the Ghidra Installation Guide's Troubleshooting section.
-	echo !ERROR_MSG!
-	echo !ERROR_MSG! >> %GHIDRA_HOME%\wrapper.log
-	exit /B 1
+	set ERROR=Java runtime not found.  Please refer to the Ghidra Installation Guide's Troubleshooting section.
+	goto reportError
 )
 
 :: Get the java that will be used to launch GhidraServer
 set JAVA_HOME=
 for /f "delims=*" %%i in ('java -cp "%LS_CPATH%" LaunchSupport "%GHIDRA_HOME%" -java_home') do set JAVA_HOME=%%i
 if "%JAVA_HOME%" == "" (
-	set ERROR_MSG=Failed to find a supported Java runtime.  Please refer to the Ghidra Installation Guide's Troubleshooting section.
-	echo !ERROR_MSG!
-	echo !ERROR_MSG! >> %GHIDRA_HOME%\wrapper.log
-	exit /B 1
+	set ERROR=Failed to find a supported Java runtime.  Please refer to the Ghidra Installation Guide's Troubleshooting section.
+	goto reportError
 )
 set JAVA=%JAVA_HOME%\bin\java.exe
 
@@ -69,17 +137,6 @@ if errorlevel 0 (
 
 set OS_DIR=%GHIDRA_HOME%\%MODULE_DIR%\os\%OS_NAME%
 
-set IS_ADMIN=NO
-whoami /groups | findstr "S-1-16-12288 " >NUL
-if errorlevel 0 (
-	set IS_ADMIN=YES
-)
-
-set OPTION=%1
-if "%OPTION%"=="" (
-	set OPTION=console
-)
-
 :: set DEBUG=-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=*:18888
 
 if "%OPTION%"=="console" (
@@ -90,36 +147,39 @@ if "%OPTION%"=="console" (
 	"%JAVA%" -jar "%WRAPPER_HOME%/wrapper.jar" -q "%WRAPPER_CONF%"
 
 ) else if "%OPTION%"=="start" (
-	if "%IS_ADMIN%"=="NO" goto :adminFail
 	"%JAVA%" %DEBUG% -jar "%WRAPPER_HOME%/wrapper.jar" -t "%WRAPPER_CONF%"
 
 ) else if "%OPTION%"=="stop" (
-	if "%IS_ADMIN%"=="NO" goto :adminFail
 	"%JAVA%" -jar "%WRAPPER_HOME%/wrapper.jar" -p "%WRAPPER_CONF%"
 
 ) else if "%OPTION%"=="restart" (
-	if "%IS_ADMIN%"=="NO" goto :adminFail
 	"%JAVA%" -jar "%WRAPPER_HOME%/wrapper.jar" -p "%WRAPPER_CONF%"
 	"%JAVA%" -jar "%WRAPPER_HOME%/wrapper.jar" -t "%WRAPPER_CONF%"
 
 ) else if "%OPTION%"=="install" (
-	if "%IS_ADMIN%"=="NO" goto :adminFail
 	"%JAVA%" -jar "%WRAPPER_HOME%/wrapper.jar" -i "%WRAPPER_CONF%"
 	"%JAVA%" -jar "%WRAPPER_HOME%/wrapper.jar" -t "%WRAPPER_CONF%"
 	
 ) else if "%OPTION%"=="uninstall" (
-	if "%IS_ADMIN%"=="NO" goto :adminFail
 	"%JAVA%" -jar "%WRAPPER_HOME%/wrapper.jar" -r "%WRAPPER_CONF%"
 
 ) else (
-	echo Usage: %0 { console ^| start ^| stop ^| restart ^| status }
-	echo.
+	goto usage
 )
 
-goto :eof
+goto eof
 
 :adminFail
+	echo.
 echo Command option "%OPTION%" must be run as an Administrator (using Administrator CMD shell - see svrREADME.txt)
 echo.
+	exit /B 1
+	
+:reportError
+	echo.
+	echo %ERROR%
+	echo.
+	echo %ERROR% >> %GHIDRA_HOME%\wrapper.log
+	exit /B 1
 
 :eof

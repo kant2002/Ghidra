@@ -28,6 +28,7 @@ typewriter {
 <h2>Table of Contents</h2>
 <UL>
   <LI><a href="#introduction">Introduction</a></LI>
+  <LI><a href="#javaRuntime">Java Runtime Environment</a></LI>
   <LI><a href="#serverConfig">Server Configuration</a></LI>
   <LI><a href="#serverMemory">Server Memory Considerations</a></LI>
   <LI><a href="#dnsNote">Note regarding use of DNS (name lookup service)</a></LI>
@@ -62,7 +63,6 @@ typewriter {
 	or svrUninstall.bat Error</a></LI>
 	<LI><a href="#selinuxDisabled">Linux - SELinux must be disabled</a></LI>
 	<LI><a href="#randomHang">Linux - Potential hang from /dev/random depletion</a></LI>
-	<LI><a href="#osxServiceWrapperErrors">Mac OS X - Service Wrapper Errors</a></LI>
   </UL>
 </UL>
 
@@ -107,8 +107,20 @@ You may also refer to the <typewriter>InstallationGuide.html</typewriter> file w
 
 (<a href="#top">Back to Top</a>)
 <div style="border-top: 4px double; margin-top: 1em; padding-top: 1em;"> </div>
-<h2><a name="serverConfig">Server Configuration</a></h2>
+<h2><a name="javaRuntime">Java Runtime Environment</a></h2>
+<P>
+The installation of a suitable Java Runtime Environment must be completed before installing or
+running the Ghidra Server.  Please refer to the Ghidra Installation Guide to identify 
+a suitable version.  Since the Ghidra Server is unable to interactively identify a Java installation
+at runtime it must rely upon the setting of JAVA_HOME, execution search PATH or the use of standard 
+Java installation locations.  It is important to consider the service execution environment which may 
+differ from the administrator who may be installing the service.  For this reason use of an installed 
+Java release may be preferable over one that is simply unpacked to an arbitrary location.
+</P>
 
+(<a href="#top">Back to Top</a>)
+<div style="border-top: 4px double; margin-top: 1em; padding-top: 1em;"> </div>
+<h2><a name="serverConfig">Server Configuration</a></h2>
 <P>
 Before installing and running the Ghidra Server, the <typewriter>server/server.conf</typewriter> 
 file must be modified to suit your particular needs.  Within this file, locate the lines labeled:
@@ -216,15 +228,6 @@ The Ghidra Server has been designed to support many  possible user authenticatio
 	first added or when the user is reset (see <a href="#serverAdministration">Server 
 	Administration</a>).  This default password must be changed by the user to avoid its expiration.</LI>
 	<br>
-	<LI><u>Native OS password (<typewriter>-a1</typewriter>)</u> - password authentication for each 
-	user added to the server is provided by the native host operating system.  The user will be 
-	prompted for this &quot;login&quot; password when connecting to the server.</LI>
-	<br>
-	<b>NOTE</b>: This mode is currently supported for Microsoft Windows only and supports either local 
-	authentication to the Ghidra Server host operating system or Windows Domain authentication.  
-	Authenticating against the Windows Domain requires the Domain name to be specified using the 
-	<typewriter>-d&lt;ntDomain&gt;</typewriter> option.
-	<br><br>
 	<LI><u>PKI authentication (<typewriter>-a2</typewriter>)</u> - user authentication is performed 
 	using PKI user certificates.  When using this mode, the distinguished name (DN) for each user 
 	must be	associated with each server User ID (see <a href="#serverAdministration">Server 
@@ -242,19 +245,10 @@ The Ghidra Server has been designed to support many  possible user authenticatio
     user to the server, ask the user to attempt a login using their PKCS certificate.  This should 
     result in their DN being recorded to this log file.  The server administrator may now copy the 
     appropriate DN from this log file when assigning the DN for a user.
-    <br><br>
-    <LI><u>Native OS password with optional local Ghidra password (<typewriter>-a3</typewriter>)</u> - 
-    See #2 and #3 above.  Allows a Ghidra Server to authenticate specific guest users against a 
-    local password file while the remainder are authenticated by the native OS or Domain.  After 
-    adding a user, an explicit password reset must be performed to enable local password use for 
-    that user.  To transition from local Ghidra password to native OS or Domain authentication, it 
-    is best to remove the user then re-add the user.</LI>
 	<br>
 	<LI><u>Use of an SSH pre-shared key (<typewriter>-ssh</typewriter>)</u> is supported as an 
-	alternate form of authentication when using Local Ghidra password (<typewriter>-a0</typewriter>), 
-	Native OS password (<typewriter>-a1</typewriter>) primary forms of authentication or Native OS 
-	password with optional local Ghidra password (<typewriter>-a3</typewriter>).  This SSH 
-	authentication is currently supported by the Headless Analyzer only.  See 
+	alternate form of authentication when using Local Ghidra password (<typewriter>-a0</typewriter>).
+	This SSH authentication is currently supported by the Headless Analyzer only.  See 
 	<a href="#sshAuthentication">SSH User Authentication</a> for configuration details.</LI>
 </OL>       
 </P>
@@ -265,8 +259,7 @@ The Ghidra Server has been designed to support many  possible user authenticatio
 
 <P>
 When the <typewriter>-ssh</typewriter> option has been included in conjunction with password based 
-authentications modes (<typewriter>-a0</typewriter>, <typewriter>-a1</typewriter>, 
-<typewriter>-a3</typewriter>) a user's SSH public key may be added to the server to facilitate 
+authentications mode (<typewriter>-a0</typewriter> a user's SSH public key may be added to the server to facilitate 
 access by a Headless Analyzer.  An SSH public key file must be added to the server repository for 
 each user who requires headless SSH authentication.  The SSH public key file (e.g., 
 <typewriter>id_rsa.pub</typewriter>) must be copied to the <typewriter>repositories/~ssh</typewriter> 
@@ -290,16 +283,11 @@ public key files may be made without restarting the Ghidra Server.
 	accessible as read-only to an anonymous user.</LI>
 	<br>
 	<LI><typewriter>-ssh</typewriter><br>Enable SSH as an alternate form of authentication when 
-	using <typewriter>-a0</typewriter>, <typewriter>-a1</typewriter> or <typewriter>-a3</typewriter> 
-	authentication modes.</LI>
-	<br>
-	<LI><typewriter>-d&lt;ntDomain&gt;</typewriter><br>Specifies the Windows NT Domain name 
-	(supported by the <typewriter>-a1</typewriter> and <typewriter>-a3</typewriter> authentication 
-	modes) on a Microsoft Windows platform.</LI>
+	using <typewriter>-a0</typewriter> authentication mode.</LI>
 	<br>
 	<LI><typewriter>-u</typewriter><br>Allows the server login user ID to be specified at time of 
-	login for <typewriter>-a0</typewriter>,	<typewriter>-a1</typewriter> and <typewriter>-a3</typewriter> 
-	authentication modes.  Without this option, the users client-side login ID will be assumed.</LI>
+	login for <typewriter>-a0</typewriter> authentication mode.  Without this option, the users 
+	client-side login ID will be assumed.</LI>
 	<br>
 	<LI><typewriter>-ip&lt;#.#.#.#&gt;</typewriter><br>Forces the server to be bound to a specific 
 	IP address on the server. This option is required when a server has multiple IP interfaces.</LI>
@@ -923,36 +911,6 @@ to have settings which should allow /dev/urandom to be used, these security sett
 not appear to work as intended.  The best workaround we have found for systems which exhibit
 this problem is to install <i>haveged</i> (HArdware Volatile Entropy Gathering and
 Expansion Daemon) which will satisfy the entropy demand needed by /dev/random.
-</P>
-
-<br>
-<a name="osxServiceWrapperErrors"><h3><u>Mac OS X - Service Wrapper Errors</u></h3></a>
-<P>
-The service wrapper utilized by Ghidra Server may experience the following issues:
-<ul>
-	<li>A Null Pointer Exception stack trace may appear in the log output during
-	startup.  This is caused by an obsolete check for the Java runtime jar (rt.jar)
-	which is no longer necessary in Java 11+.  The error is isolated and has no impact on
-	the server process.
-	<pre>
-	java.lang.NullPointerException
-	   at java.base/java.io.File.<init>(File.java:276)
-	   at org.rzo.yajsw.boot.WrapperLoader.getWrapperClasspath(WrapperLoader.java:235)
-	   at org.rzo.yajsw.app.WrapperManagerProxy.getWrapperClassLoader(WrapperManagerProxy.java:101)
-	   ....
-	</pre>
-	</li>
-	<li>The startup of the Ghidra Server may fail with a timeout: 
-	"<i>WrapperManger did not log on within timeout</i>".  This may be caused 
-	by a failure to modify the <i>server.conf</i> file which is performed during startup under Mac OS X
-	to ensure that the following configuration option is enabled:
-	<pre>
-		wrapper.fork_hack=true
-	</pre>
-	If repeated attempts fail and this line remains commented-out, this file may need to be manually 
-	modified by a user with sufficient priviledge. 
-	</li>
-</ul>
 </P>
 
 (<a href="#top">Back to Top</a>)

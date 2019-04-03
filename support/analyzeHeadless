@@ -11,8 +11,9 @@ MAXMEM=2G
 # Launch mode can be changed to one of the following: fg, debug, debug-suspend
 LAUNCH_MODE=fg
 
-# Set debug port 
-DEBUG_PORT=13002
+# Set the debug address to listen on.
+# NOTE: This variable is ignored if not launching in a debugging mode.
+DEBUG_ADDRESS=127.0.0.1:13002
 
 # Limit the # of garbage collection and JIT compiler threads in case many headless
 # instances are run in parallel.  By default, Java will assign one thread per core
@@ -28,5 +29,5 @@ SCRIPT_FILE="$(readlink -f "$0" 2>/dev/null || readlink "$0" 2>/dev/null || echo
 SCRIPT_DIR="${SCRIPT_FILE%/*}"
 
 # Launch HeadlessAnalyzer.
-# DEBUG_PORT set via environment for launch.sh
-DEBUG_PORT=${DEBUG_PORT} "${SCRIPT_DIR}"/launch.sh "${LAUNCH_MODE}" Ghidra-Headless "${MAXMEM}" "${VMARG_LIST}" ghidra.app.util.headless.AnalyzeHeadless "$@"
+# DEBUG_ADDRESS set via environment for launch.sh
+DEBUG_ADDRESS=${DEBUG_ADDRESS} "${SCRIPT_DIR}"/launch.sh "${LAUNCH_MODE}" Ghidra-Headless "${MAXMEM}" "${VMARG_LIST}" ghidra.app.util.headless.AnalyzeHeadless "$@"
