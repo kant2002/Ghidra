@@ -299,10 +299,11 @@ public class FGController implements ProgramLocationListener, ProgramSelectionLi
 // Interface methods
 //==================================================================================================
 
+	// this is a callback from the vertex's listing panel
 	@Override
-	public void programLocationChanged(ProgramLocation locacation, EventTrigger trigger) {
+	public void programLocationChanged(ProgramLocation location, EventTrigger trigger) {
 		if (trigger == EventTrigger.GUI_ACTION) {
-			handleLocationChangedFromVertex(locacation);
+			handleLocationChangedFromVertex(location);
 		}
 	}
 
@@ -317,7 +318,6 @@ public class FGController implements ProgramLocationListener, ProgramSelectionLi
 			lastUserNavigatedVertex = newFocusedVertex;
 		}
 
-		// push the user changes up to the provider
 		viewSettings.setLocation(loc);
 		provider.graphLocationChanged(loc);
 
@@ -569,7 +569,7 @@ public class FGController implements ProgramLocationListener, ProgramSelectionLi
 		}
 	}
 
-	/**
+	/*
 	 * This method differs from the <tt>refresh</tt>...() methods in that it will trigger a
 	 * graph rebuild, clearing any cached graph data in the process.  If <tt>maintainPerspective</tt>
 	 * is true, then view settings will be maintained (i.e., the zoom level and location).
@@ -780,6 +780,7 @@ public class FGController implements ProgramLocationListener, ProgramSelectionLi
 	 * BLEH!: I don't like clearing the cache this way...another options is to mark all cached
 	 *       values as stale, somehow.  If we did this, then when the view reuses the cached
 	 *       data, it could signal to the user that the graph is out-of-date.
+	 * @param program the program
 	 */
 	public void invalidateAllCacheForProgram(Program program) {
 		clearCacheForProgram(program);
@@ -982,10 +983,6 @@ public class FGController implements ProgramLocationListener, ProgramSelectionLi
 
 	public FGColorProvider getColorProvider() {
 		return plugin.getColorProvider();
-	}
-
-	public void forceProgramLoctionChange(ProgramLocation location) {
-		handleLocationChangedFromVertex(location);
 	}
 
 	/**
