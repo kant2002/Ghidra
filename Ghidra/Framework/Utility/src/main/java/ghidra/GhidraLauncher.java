@@ -134,19 +134,11 @@ public class GhidraLauncher {
 	private static void addExternalJarPaths(List<String> pathList,
 			Collection<ResourceFile> appRootDirs) throws IOException {
 
-		final String BINDIR = "ghidra.bin.git";
 		final String LIBDEPS = "build/libraryDependencies.txt";
 
-		// Get bin git directory and "libraryDependencies.txt" file
-		ResourceFile binDir = null;
+		// Get "libraryDependencies.txt" file
 		ResourceFile libraryDependenciesFile = null;
 		for (ResourceFile root : appRootDirs) {
-			if (binDir == null) {
-				ResourceFile dir = new ResourceFile(root.getParentFile().getParentFile(), BINDIR);
-				if (dir.isDirectory()) {
-					binDir = dir;
-				}
-			}
 			if (libraryDependenciesFile == null) {
 				ResourceFile f = new ResourceFile(root.getParentFile(), LIBDEPS);
 				if (f.isFile()) {
@@ -156,9 +148,6 @@ public class GhidraLauncher {
 		}
 
 		// Make sure we found everything
-		if (binDir == null) {
-			throw new FileNotFoundException(BINDIR + " directory was not found!");
-		}
 		if (libraryDependenciesFile == null) {
 			throw new FileNotFoundException(LIBDEPS + " file was not found!  Please do a prepDev.");
 		}
@@ -171,14 +160,7 @@ public class GhidraLauncher {
 			while ((line = reader.readLine()) != null) {
 				String path = line.trim();
 				if (!path.startsWith("Module:") && path.endsWith(".jar")) {
-					int index = path.indexOf(BINDIR);
-					if (index == -1) {
-						System.err.println("Failed to find required \"" + BINDIR +
-							"\" directory in jar path: " + path);
-						continue;
-					}
-					ResourceFile jarFile = new ResourceFile(binDir,
-						path.substring(index + BINDIR.length()).replace('\\', '/'));
+					ResourceFile jarFile = new ResourceFile(path);
 					if (!jarFile.isFile()) {
 						System.err.println("Failed to find required jar file: " + jarFile);
 						continue;

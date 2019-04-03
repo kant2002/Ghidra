@@ -32,7 +32,7 @@ public class TestApplicationUtils {
 		// 
 		// At the time writing "user.dir" is the "Ghidra" directory.
 		// Update: it seems things have changed (jUnit 4, maybe?)--this value is now 
-		//         ghidra.git/Ghidra/Features/Base
+		//         ghidra/Ghidra/Features/Base
 		String userDir = System.getProperty("user.dir");
 		File repo = ModuleUtilities.findRepo(new File(userDir));
 		return repo;

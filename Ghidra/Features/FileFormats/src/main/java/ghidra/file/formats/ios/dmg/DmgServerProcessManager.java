@@ -32,15 +32,17 @@ import utilities.util.FileUtilities;
  * <p>
  * All IO to the server process takes place in a single background worker thread
  * (see {@link #processManagerLoop()}) that receives {@link Cmd commands} from
- * other threads via a {@link #cmdQueue queue}, writes the cmd to the stdin of the
- * server process, and then reads the responses from its stdout, and then packages
- * up the response and notifies the waiting caller thread that the results are ready.
+ * other threads via a {@link #cmdQueue queue}, writes the cmd to the stdin of
+ * the server process, and then reads the responses from its stdout, and then
+ * packages up the response and notifies the waiting caller thread that the
+ * results are ready.
  * <p>
- * This ensures that there are no synchronous issues with communicating with the server
- * process and that the logic to restart the server if it fails is all in one place.
+ * This ensures that there are no synchronous issues with communicating with the
+ * server process and that the logic to restart the server if it fails is all in
+ * one place.
  * <p>
- * A {@link Watchdog} implementation is used to force timeouts on IO operations by killing
- * the server process.
+ * A {@link Watchdog} implementation is used to force timeouts on IO operations
+ * by killing the server process.
  */
 class DmgServerProcessManager implements Closeable {
 
@@ -179,14 +181,16 @@ class DmgServerProcessManager implements Closeable {
 	/**
 	 * Sends a command to the DMG server process.
 	 * <p>
-	 * ExpectedResults can be positive (ie. N result lines will be read from the server process),
+	 * ExpectedResults can be positive (ie. N result lines will be read from the
+	 * server process),
 	 * <li>0 (no result lines will be read),
 	 * <li>{@link Cmd#UNKNOWN_RESPONSE_COUNT UNKNOWN_RESPONSE_COUNT} const value
-	 * that indicates that the first response from the command will be the number of following
-	 * lines,
-	 * <li>or negative, meaning that an variable number of responses of size abs(N) will be
-	 * read from the server, where the first response from the command is the variable number.
-	 * In all, abs(N) * (first_response_int) will be the total number of result lines returned.
+	 * that indicates that the first response from the command will be the
+	 * number of following lines,
+	 * <li>or negative, meaning that an variable number of responses of size
+	 * abs(N) will be read from the server, where the first response from the
+	 * command is the variable number. In all, abs(N) * (first_response_int)
+	 * will be the total number of result lines returned.
 	 *
 	 * @param cmdStr
 	 * @param expectedResults
@@ -264,7 +268,7 @@ class DmgServerProcessManager implements Closeable {
 		}
 
 		if (SystemUtilities.isInDevelopmentMode()) {
-			ResourceFile binDirectory = new ResourceFile(dmgModule, "bin");
+			ResourceFile binDirectory = new ResourceFile(dmgModule, "bin/dmg");
 			builder.append(binDirectory.getAbsolutePath());
 			builder.append(File.pathSeparator);
 		}
