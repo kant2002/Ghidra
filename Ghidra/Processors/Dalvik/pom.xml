@@ -14,4 +14,17 @@
     <build>
         <finalName>Dalvik</finalName>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>ghidra</groupId>
+            <artifactId>Base</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ghidra</groupId>
+            <artifactId>FileFormats</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
