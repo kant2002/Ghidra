@@ -123,8 +123,8 @@ public class AddressInput extends JPanel {
 	 */
 	public Address getAddress() {
 		String addrStr = textField.getText();
-		if (comboAdded) {
-			AddressSpace space = (AddressSpace) combo.getSelectedItem();
+
+		AddressSpace space = getAddressSpace();
 			try {
 				return space.getAddress(addrStr);
 			}
@@ -132,8 +132,6 @@ public class AddressInput extends JPanel {
 				return null;
 			}
 		}
-		return addrFactory.getAddress(addrStr);
-	}
 
 	/**
 	 * Returns the address space selected in the combobox or in the input text itself
