@@ -47,8 +47,8 @@ import ghidra.util.xml.XmlUtilities;
 /**
  * 
  *
- * Routines that the decompiler invokes to gather info
- * during decompilation of a function. 
+ * Routines that the decompiler invokes to gather info during decompilation of a
+ * function.
  */
 public class DecompileCallback {
 
@@ -100,8 +100,8 @@ public class DecompileCallback {
 	}
 
 	/**
-	 * Establish function and debug context for next
-	 * decompilation
+	 * Establish function and debug context for next decompilation
+	 * 
 	 * @param func is the function to be decompiled
 	 * @param dbg is the debugging context (or null)
 	 */
@@ -133,6 +133,7 @@ public class DecompileCallback {
 
 	/**
 	 * Used by the decompiler to return a message
+	 * 
 	 * @param msg
 	 */
 	public void setNativeMessage(String msg) {
@@ -202,8 +203,9 @@ public class DecompileCallback {
 	}
 
 	/**
-	 * Collect any/all comments for the function starting
-	 * at the indicated address
+	 * Collect any/all comments for the function starting at the indicated
+	 * address
+	 * 
 	 * @param addrstring = string rep of function address
 	 * @return XML document describing comments
 	 */
@@ -293,15 +295,18 @@ public class DecompileCallback {
 
 	/**
 	 * @param ops pcode ops
-	 * @param fallthruoffset number of bytes after instruction start that pcode flow falls into
+	 * @param fallthruoffset number of bytes after instruction start that pcode
+	 *            flow falls into
 	 * 
 	 * @return XML document string representing all the pcode
 	 */
 	/**
-	 * Build an XML representation of all the pcode op's a given Instruction is defined to perform.
+	 * Build an XML representation of all the pcode op's a given Instruction is
+	 * defined to perform.
 	 * 
 	 * @param ops pcode ops
-	 * @param fallthruoffset number of bytes after instruction start that pcode flow falls into
+	 * @param fallthruoffset number of bytes after instruction start that pcode
+	 *            flow falls into
 	 * @param paramshift special instructions for injection use
 	 * @param addrFactory
 	 * @return XML document as string
@@ -543,6 +548,7 @@ public class DecompileCallback {
 
 	/**
 	 * Generate XML for comments of a certain type
+	 * 
 	 * @param addrset = addresses over which to search for comments
 	 * @param buf = StringBuilder where XML should be written
 	 * @param commenttype = type of comment
@@ -595,8 +601,9 @@ public class DecompileCallback {
 	}
 
 	/**
-	 * Called by the native decompiler to query the GHIDRA database
-	 * about any symbols at the given address.
+	 * Called by the native decompiler to query the GHIDRA database about any
+	 * symbols at the given address.
+	 * 
 	 * @param addrstring  XML encoded address to query
 	 * @return XML encoded result.  Either function, reference, datatype, or hole
 	 */
@@ -871,6 +878,7 @@ public class DecompileCallback {
 
 	/**
 	 * Generate non-data symbol, probably a code label
+	 * 
 	 * @param sym
 	 * @return
 	 */
@@ -900,12 +908,14 @@ public class DecompileCallback {
 	}
 
 	/**
-	 * Check address is read only.  This only checks whether the block containing the address is read-only.
-	 * It does not, and should not, check if there is a data object that has been set to constant
+	 * Check address is read only. This only checks whether the block containing
+	 * the address is read-only. It does not, and should not, check if there is
+	 * a data object that has been set to constant
 	 * 
 	 * @param addr - address to check
 	 * 
-	 * @return true if the block is read_only, and there are no write references.
+	 * @return true if the block is read_only, and there are no write
+	 *         references.
 	 */
 	private boolean isReadOnlyNoData(Address addr) {
 		boolean readonly = false;
@@ -947,13 +957,15 @@ public class DecompileCallback {
 	/**
 	 * This function deals with the vagaries of the getMappedSymbolsXML
 	 * interface when the queried address is in the body of a function.
-	 * Basically, if the address is the entry point of the function,
-	 * all the function data is sent.  Otherwise a hole is sent back
-	 * of the biggest contiguous block in the body of the function
-	 * containing the queried address
+	 * Basically, if the address is the entry point of the function, all the
+	 * function data is sent. Otherwise a hole is sent back of the biggest
+	 * contiguous block in the body of the function containing the queried
+	 * address
+	 * 
 	 * @param func   Function whose body contains the address
 	 * @param addr   The queried address
-	 * @param includeDefaultNames true if default parameter names should be included
+	 * @param includeDefaultNames true if default parameter names should be
+	 *            included
 	 * @return
 	 */
 	private String buildFunctionXML(Function func, Address addr, boolean includeDefaultNames) {
@@ -1041,12 +1053,12 @@ public class DecompileCallback {
 	}
 
 	/**
-	 * Calculate the beginning and ending address of the
-	 * biggest region around addr that does not contain
-	 * any symbol.
+	 * Calculate the beginning and ending address of the biggest region around
+	 * addr that does not contain any symbol.
 	 * 
-	 * This was not working correctly and it is too difficult to find the biggest region for
-	 * which there is no codeunit, and where the volatile and readonly properties don't vary
+	 * This was not working correctly and it is too difficult to find the
+	 * biggest region for which there is no codeunit, and where the volatile and
+	 * readonly properties don't vary
 	 * 
 	 * So now we assume that biggest hole we can find is just 1 byte 
 	 * 
@@ -1158,6 +1170,7 @@ public class DecompileCallback {
 
 	/**
 	 * Return the global object being referred to by addr
+	 * 
 	 * @param addr = Address being queried
 	 * @return
 	 */
@@ -1190,6 +1203,7 @@ public class DecompileCallback {
 
 	/**
 	 * Check whether the address is volatile.  Do not check the data object.
+	 * 
 	 * @param addr is address to check for volatility
 	 * @return true if the address is volatile
 	 */

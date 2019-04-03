@@ -44,8 +44,8 @@ public final class CryptoKeyFactory {
 	}
 
 	/**
-	 * Loads the crypto key XML file if it is not currently loaded OR if
-	 * it has changed since it was last loaded.
+	 * Loads the crypto key XML file if it is not currently loaded OR if it has
+	 * changed since it was last loaded.
 	 */
 	private static void loadIfNeeded() {
 		ResourceFile cryptoDirectory = getCryptoDirectory();
@@ -146,8 +146,8 @@ public final class CryptoKeyFactory {
 			return cryptoKey;
 		}
 		if ( cryptoKey.isEmpty() ) {
-			throw new CryptoException( "No key specified in [" + firmwareName + ".xml] file for [" +
-				firmwarePath + "]" );
+			throw new CryptoException(
+				"No key specified in [" + firmwareName + ".xml] file for [" + firmwarePath + "]");
 		}
 		return cryptoKey;
 	}

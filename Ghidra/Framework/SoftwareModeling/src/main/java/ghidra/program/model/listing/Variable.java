@@ -1,6 +1,5 @@
 /* ###
  * IP: GHIDRA
- * REVIEWED: YES
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +15,8 @@
  */
 package ghidra.program.model.listing;
 
+import java.util.List;
+
 import ghidra.program.model.address.Address;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.lang.Register;
@@ -24,8 +25,6 @@ import ghidra.program.model.symbol.SourceType;
 import ghidra.program.model.symbol.Symbol;
 import ghidra.util.exception.DuplicateNameException;
 import ghidra.util.exception.InvalidInputException;
-
-import java.util.List;
 
 /**
  * 
@@ -268,7 +267,7 @@ public interface Variable extends Comparable<Variable> {
 	public Symbol getSymbol();
 
 	/**
-	 * @return true if the specified variable is equivelent to this variable
+	 * @return true if the specified variable is equivalent to this variable
 	 */
 	public boolean isEquivalent(Variable variable);
 
