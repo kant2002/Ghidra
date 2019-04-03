@@ -572,7 +572,8 @@ public class FGProvider extends VisualGraphComponentProvider<FGVertex, FGEdge, F
 		// Note: since we are not looping and we are using 'else if's, order is important!
 		// 
 
-		if (ev.containsEvent(DomainObject.DO_OBJECT_RESTORED)) {
+		if (ev.containsEvent(DomainObject.DO_OBJECT_RESTORED) ||
+			ev.containsEvent(ChangeManager.DOCR_FUNCTION_BODY_CHANGED)) {
 			if (graphDataMissing()) {
 				controller.clear();
 				return; // something really destructive has happened--give up!
