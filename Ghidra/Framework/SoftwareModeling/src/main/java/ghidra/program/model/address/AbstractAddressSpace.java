@@ -354,14 +354,15 @@ abstract class AbstractAddressSpace implements AddressSpace {
 		}
 
 		testAddressSpace(addr);
-		if (displacement > spaceSize && spaceSize != 0) {
-			throw new AddressOverflowException(
-				"Address Overflow in subtract: " + addr + " - 0x" + Long.toHexString(displacement));
-		}
 		long addrOff = addr.getOffset();
 		long maxOff = maxAddress.getOffset();
 		long minOff = minAddress.getOffset();
 		long result = addrOff - displacement;
+		if (displacement > spaceSize && spaceSize != 0) {
+			throw new AddressOverflowException(
+					"Address Overflow in subtract: " + addr + " - 0x" + Long.toHexString(displacement));
+		}
+
 		if (maxOff < 0) { // 64 bit unsigned
 			if (addrOff >= 0 && result < 0) {
 				throw new AddressOverflowException("Address Overflow in subtract: " + addr +
